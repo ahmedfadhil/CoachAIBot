@@ -36,6 +36,12 @@ gem 'jbuilder', '~> 2.5'
 # Telegram API
 gem 'telegram-bot-ruby'
 
+# chatscript wrapper
+gem 'chatscript'
+
+# very usefull for hash dot notation
+gem 'hash_dot'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

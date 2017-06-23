@@ -25,4 +25,9 @@ class WebhooksController < ApplicationController
     @user.update_attributes!(first_name: from[:first_name], last_name: from[:last_name])
     @user
   end
+
+  def update_user_state
+    puts "RECEIVED POST #{params}"
+    render json: nil, status: :ok
+  end
 end
