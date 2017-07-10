@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619153910) do
+ActiveRecord::Schema.define(version: 20170710130612) do
 
 # Could not dump table "users" because of following StandardError
 #   Unknown type 'jsonb' for column 'bot_command_data'
