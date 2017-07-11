@@ -1,3 +1,4 @@
 class CoachUser < ApplicationRecord
-  has_many :plans
+  has_many :plan
+
 end

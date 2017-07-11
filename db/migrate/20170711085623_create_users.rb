@@ -6,10 +6,12 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :last_name
 
       #t.jsonb :bot_command_data, default: {}
-      # This is the state of the user
-      t.column :bot_command_data, :jsonb #edited
+      t.column :bot_command_data, :jsonb
 
-      t.timestamps null: false
+      t.string :email
+      t.string :cellphone
+
+      t.timestamps
     end
   end
 end

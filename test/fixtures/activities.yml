@@ -3,13 +3,11 @@
 one:
   name: MyString
   desc: MyString
-  from_day: 2017-07-11
-  to_day: 2017-07-11
-  coach_user: one
+  type: 
+  n_times: 1
 
 two:
   name: MyString
   desc: MyString
-  from_day: 2017-07-11
-  to_day: 2017-07-11
-  coach_user: two
+  type: 
+  n_times: 1
