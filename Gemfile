@@ -47,6 +47,10 @@ gem 'chatscript'
 # very usefull for hash dot notation
 gem 'hash_dot'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-material-design-lite'
+end
+
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
@@ -58,15 +62,17 @@ group :development, :test do
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :production do
   # Heroku requests postgres for deploy
   gem 'pg','0.17.1'
+  # Used by heroku to serve static assets and css stylesheets
+  gem 'rails_12factor', '0.0.2'
 end

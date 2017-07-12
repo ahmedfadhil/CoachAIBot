@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actioncable (5.1.1)
       actionpack (= 5.1.1)
@@ -129,11 +130,17 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.1.1)
       sprockets-rails (>= 2.0.0)
+    rails-assets-material-design-lite (1.3.0)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.1.1)
       actionpack (= 5.1.1)
       activesupport (= 5.1.1)
@@ -218,6 +225,8 @@ DEPENDENCIES
   pg (= 0.17.1)
   puma (~> 3.7)
   rails (~> 5.1.1)
+  rails-assets-material-design-lite!
+  rails_12factor (= 0.0.2)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring

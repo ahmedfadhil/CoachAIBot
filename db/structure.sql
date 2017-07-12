@@ -1,7 +1,6 @@
 CREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY);
 CREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "telegram_id" varchar, "first_name" varchar, "last_name" varchar, "bot_command_data" jsonb, "email" varchar, "cellphone" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
-CREATE TABLE "coach_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "first_name" varchar, "last_name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE TABLE "plans" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "desc" varchar, "from_day" date, "to_day" date, "coach_user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_a53783e656"
 FOREIGN KEY ("coach_user_id")
   REFERENCES "coach_users" ("id")
@@ -38,6 +37,9 @@ CREATE INDEX "index_activities_a_schedules_on_activity_id" ON "activities_a_sche
 CREATE INDEX "index_activities_a_schedules_on_a_schedule_id" ON "activities_a_schedules" ("a_schedule_id");
 CREATE TABLE "q_schedules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "time" time, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "open" String, "completness" boolean, "range" integer, "user_defined" boolean);
 CREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "text" text, "open" boolean, "completness" boolean, "range" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
+CREATE TABLE "coach_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar DEFAULT NULL, "last_name" varchar DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar);
+CREATE UNIQUE INDEX "index_coach_users_on_email" ON "coach_users" ("email");
+CREATE UNIQUE INDEX "index_coach_users_on_reset_password_token" ON "coach_users" ("reset_password_token");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -53,6 +55,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170711123037'),
 ('20170711123056'),
 ('20170711123351'),
-('20170711123403');
+('20170711123403'),
+('20170711152420'),
+('20170711152815');
 
 
