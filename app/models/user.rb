@@ -3,16 +3,14 @@ class User < ApplicationRecord
   has_many :q_schedule
 
   validates_uniqueness_of :telegram_id
-
-=begin
   validates_uniqueness_of :email
+  validates_uniqueness_of :cellphone
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :cellphone, presence: true, length: { maximum: 25 }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
-=end
 
   def set_user_state(state)
     self.bot_command_data = state.to_json

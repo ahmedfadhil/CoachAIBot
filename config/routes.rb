@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'profile/profile'
+
   get 'static_pages/help'
 
   get 'static_pages/about'
