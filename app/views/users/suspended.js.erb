@@ -1,0 +1,4 @@
+
+$('document').ready(function() {
+    $('#patients-content').empty().html("<%= escape_javascript(render 'users/index') %>")
+});

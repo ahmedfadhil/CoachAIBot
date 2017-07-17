@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  layout 'home'
+
   def help
   end
 

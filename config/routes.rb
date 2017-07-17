@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
 
-  get 'profile/profile'
+  get 'users/active'
+
+  get 'users/archived'
+
+  get 'users/suspended'
+
+  post 'users/edit'
+
+  get 'users/new'
+
+  get 'users/index'
+
+  get 'profile/index'
 
   get 'static_pages/help'
 

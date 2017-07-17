@@ -1,7 +1,9 @@
 <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
   <div class="mdl-layout__header-row">
           <span class="android-title mdl-layout-title">
-            <%= image_tag 'coachAI.jpg', class: 'android-logo-image' %>
+            <%= link_to home_index_path do %>
+              <%= image_tag 'coachAI.jpg', class: 'android-logo-image' %>
+            <% end %>
           </span>
     <!-- Add spacer, to align navigation to the right in desktop -->
     <div class="android-header-spacer mdl-layout-spacer"></div>
@@ -16,9 +18,15 @@
     <!-- Navigation -->
     <div class="android-navigation-container">
       <nav class="android-navigation mdl-navigation">
-        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">About</a>
-        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Help</a>
-        <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Log In</a>
+        <%= link_to static_pages_about_path, class: 'mdl-navigation__link mdl-typography--text-uppercase' do %>
+            About
+        <% end %>
+        <%= link_to static_pages_help_path, class: 'mdl-navigation__link mdl-typography--text-uppercase' do %>
+            Help
+        <% end %>
+        <%= link_to coach_user_session_path, class: 'mdl-navigation__link mdl-typography--text-uppercase' do %>
+            Login
+        <% end %>
       </nav>
     </div>
   </div>

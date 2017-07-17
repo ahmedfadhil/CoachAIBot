@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= yield(:title) %> | CoachAI</title>
+<head>
+  <%= render 'home/head' %>
+</head>
+<body>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons', type: 'text/css' %>
+  <%= yield %>
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= csrf_meta_tags %>
-    <%= render 'layouts/shim' %>
-
-  </head>
-  <body>
-    <%= yield %>
-  </body>
+</body>
 </html>

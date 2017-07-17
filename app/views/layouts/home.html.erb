@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'layouts/head' %>
+
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <%= render 'home/header' %>
+      <%= render 'home/drawer' %>
+
+      <div class="android-content mdl-layout__content">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+
+        <%= yield %>
+
+        <br><br><br><br><br><br>
+        <%= render 'profile/footer' %>
+      </div>
+
+    </div>
+  </body>
+</html>

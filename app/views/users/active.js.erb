@@ -1,0 +1,7 @@
+
+$('document').ready(function() {
+    $('#patients-content').empty().html("<%= escape_javascript(render 'users/index') %>")
+    $('#all-users').siblings().css("background-color", 'white')
+    $('#all-users').style.background = '#990000'
+    console.log('DONE')
+});

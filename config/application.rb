@@ -14,6 +14,13 @@ module Coach
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # -- index .rb files in that directory are automatically loaded.
+
+    # Setting Devise layout
+    config.to_prepare do
+      Devise::SessionsController.layout 'home'
+      Devise::UnlocksController.layout 'home'
+      Devise::PasswordsController.layout 'home'
+    end
   end
 end

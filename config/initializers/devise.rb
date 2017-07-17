@@ -2,7 +2,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
-  # random tokens. Changing this key will render invalid all existing
+  # random tokens. Changing this key will render invalid index existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
@@ -79,7 +79,7 @@ Devise.setup do |config|
 
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.
-  # Notice that if you are skipping storage for all authentication paths, you
+  # Notice that if you are skipping storage for index authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
   config.skip_session_storage = [:http_auth]
@@ -145,7 +145,7 @@ Devise.setup do |config|
   # The time the user will be remembered without asking for credentials again.
   # config.remember_for = 2.weeks
 
-  # Invalidates all the remember me tokens when the user signs out.
+  # Invalidates index the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
@@ -230,7 +230,7 @@ Devise.setup do |config|
   # config.default_scope = :user
 
   # Set this configuration to false if you want /users/sign_out to sign out
-  # only the current scope. By default, Devise signs out all scopes.
+  # only the current scope. By default, Devise signs out index scopes.
   # config.sign_out_all_scopes = true
 
   # ==> Navigation configuration
@@ -274,4 +274,6 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+
 end

@@ -484,7 +484,7 @@ a img{
 
   /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
      consecutive "+" operators in some cases. Therefore, we need to use both
-     here to cover all the bases. */
+     here to cover index the bases. */
   .android.android-search-box.is-focused ~ .android-mobile-title,
   .android-search-box.is-focused + .android-navigation-container + .android-mobile-title {
     opacity: 0;
@@ -539,4 +539,41 @@ a img{
   .android-footer .mdl-mega-footer--bottom-section {
     display: none;
   }
+}
+
+/*
+  Log In Style
+ */
+.container-log-in {
+  position: relative;
+  top: 40px;
+  perspective: 1000px;
+  width: 330px;
+  height: 375px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#cube {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+#cube figure {
+  backface-visibility: hidden;
+  margin: 0;
+  width: 330px;
+  height: 375px;
+  display: block;
+  position: absolute;
+}
+
+.mdl-textfield__label {
+  color: rgba(0, 0, 1, 0.5);
+}
+
+#cube-submit:hover {
+  cursor: pointer;
 }

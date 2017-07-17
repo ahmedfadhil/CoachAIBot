@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :plan
   has_many :q_schedule
 
-  validates_uniqueness_of :telegram_id
+  validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email
   validates_uniqueness_of :cellphone
   validates :first_name, presence: true, length: { maximum: 50 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'layouts/head' %>
+
+  <body>
+    <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <%= render 'profile/header' %>
+      <%= render 'profile/drawer' %>
+
+      <main class="mdl-layout__content mdl-color--grey-100">
+
+        <div id="patients-content">
+          <%= yield %>
+        </div>
+
+        <%= render 'profile/footer' %>
+      </main>
+
+    </div>
+  </body>
+</html>
