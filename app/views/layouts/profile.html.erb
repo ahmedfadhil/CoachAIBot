@@ -10,6 +10,9 @@
       <main class="mdl-layout__content mdl-color--grey-100">
 
         <div id="patients-content">
+          <% if flash[:notice] %>
+              <div class="notice"><%= flash[:notice] %></div>
+          <% end %>
           <%= yield %>
         </div>
 

@@ -49,8 +49,11 @@ gem 'hash_dot'
 
 
 source 'https://rails-assets.org' do
+  gem 'rails-assets-eq.js'
   gem 'rails-assets-jquery'
   gem 'rails-assets-material-design-lite'
+  gem 'rails-assets-mdl-selectfield'
+  gem 'rails-assets-polyfills'
 end
 
 group :development, :test do

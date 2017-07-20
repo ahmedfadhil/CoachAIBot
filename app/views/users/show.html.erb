@@ -1,0 +1,79 @@
+<% provide(:sub_title, 'Patients') %>
+
+<div>
+  <%= render 'users/edit_header' %>
+  <div id="patient">
+
+    <div class="mdl-grid">
+      <div class="mdl-cell--8-col">
+
+        <% @plans.each do |p| %>
+
+            <div class="plan-card-wide mdl-card mdl-shadow--2dp">
+
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text"> <%= p.name %> </h2>
+              </div>
+
+              <div class="mdl-card__supporting-text">
+                <%= p.desc %>
+              </div>
+
+              <% p.activity.each do |a| %>
+
+                <div class="mdl-card__actions mdl-card--border">
+
+                  <div class="activities-container">
+
+                    <details class="activity-expander mdl-expansion">
+                      <summary class="mdl-expansion__summary">
+                        <span id="activity-name-styler" class="mdl-expansion__header"><%= a.name %></span>
+                      </summary>
+
+                      <div class="mdl-expansion__content">
+                        <%= a.desc %>
+                        <br>
+
+                        <h5>Orari</h5>
+
+
+
+                        <h5>Domande di verifica</h5>
+                        <li>Domanda 1</li>
+                        <li>Domanda 2</li>
+                        <br>
+                      </div>
+
+                      <div class="mdl-expansion__actions">
+                        <button class="mdl-expansion__action mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Aggiungi Orario</button>
+                        <button class="mdl-expansion__action mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Aggiungi Domanda</button>
+                        <button class="mdl-expansion__action mdl-button mdl-js-button mdl-button--raised">Cancel</button>
+                      </div>
+
+                    </details>
+
+
+                  </div>
+
+                </div>
+
+              <% end %>
+
+              <div class="mdl-card__menu">
+                <%= link_to new_activity_path(:user_id => @user.id, :plan_id => p.id), class: 'mdl-button mdl-js-button mdl-js-ripple-effect' do %>
+                    <i class="material-icons">add</i>
+                <% end %>
+              </div>
+            </div>
+
+      <% end %>
+
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

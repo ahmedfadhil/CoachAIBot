@@ -1,0 +1,38 @@
+<header class="profile_content_header mdl-layout__header">
+
+  <div class="mdl-layout__header-row">
+    <nav class="mdl-navigation" >
+
+      <%= link_to users_index_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="all-users" class="mdl-button mdl-js-button mdl-button--raised">
+            <i class="material-icons">supervisor_account</i> &nbsp Tutti
+          </button>
+      <% end %>
+
+      <%= link_to users_active_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="active-users" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">insert_emoticon</i> &nbsp Attivi
+          </button>
+      <% end %>
+
+      <%= link_to users_suspended_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="suspended-users" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">block</i> &nbsp Sospesi
+          </button>
+      <% end %>
+
+      <%= link_to users_archived_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="archived-users" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">check_circle</i> &nbsp Archiviati
+          </button>
+      <% end %>
+
+      <%= link_to users_new_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="new-users" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">fiber_new</i> &nbsp Nuovo Utente
+          </button>
+      <% end %>
+
+    </nav>
+  </div>
+</header>

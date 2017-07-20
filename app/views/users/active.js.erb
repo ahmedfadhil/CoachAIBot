@@ -1,7 +1,11 @@
 
 $('document').ready(function() {
     $('#patients-content').empty().html("<%= escape_javascript(render 'users/index') %>")
-    $('#all-users').siblings().css("background-color", 'white')
-    $('#all-users').style.background = '#990000'
-    console.log('DONE')
+    // $('#all-users').siblings().css("background-color", 'white')
+    $('#active-users').css('background', 'white')
+    $('#all-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#suspended-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#archived-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#new-users').css('rgba(158, 158, 158, 0.2)')
+
 });

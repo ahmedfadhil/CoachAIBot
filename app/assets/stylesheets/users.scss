@@ -99,3 +99,33 @@ nwe-patient-card > .mdl-card__title {
 .active-patient-card {
   box-shadow:0px 0px 7px 2px rgb(129, 154, 255);
 }
+
+.plan-card-wide.mdl-card {
+  margin: auto;
+  width: 100%;
+  padding: 20px;
+}
+
+.plan-card-wide > .mdl-card--border{
+  border-top: 6px solid rgba(0, 0, 0, 0.1);
+  border-top-color: cadetblue;
+  border-width: 1px;
+  outline: #fafafa solid 5px;
+}
+
+.plan-card-wide > .mdl-card__title {
+  color: #fff;
+  height: inherit;
+  background: #1bb786 center / cover;
+}
+.plan-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.mdl-card__actions.activities-container.mdl-expansion__summary{
+  font-size: 25px;
+}
+
+#activity-name-styler{
+  font-size: 25px;
+}

@@ -1,0 +1,25 @@
+@showNewCategoryInput = (element) ->
+  div = document.getElementById('new-category-input')
+  div.style.display = 'block'
+  document.getElementById("activity-category-health").disabled = true;
+  document.getElementById("activity-category-physical").disabled = true;
+  document.getElementById("activity-category-mental").disabled = true;
+  document.getElementById("activity-category-medicine").disabled = true;
+
+@hideNewCategoryInput = (element) ->
+  div = document.getElementById('new-category-input')
+  div.style.display = 'none'
+  document.getElementById("activity-category-health").disabled = false;
+  document.getElementById("activity-category-physical").disabled = false;
+  document.getElementById("activity-category-mental").disabled = false;
+  document.getElementById("activity-category-medicine").disabled = false;
+
+$ ->
+  $("input[data-other-category=true]").change (e) ->
+    e.preventDefault()
+    showNewCategoryInput(this)
+
+$ ->
+  $("input[data-other-category=false]").change (e) ->
+    e.preventDefault()
+    hideNewCategoryInput(this)

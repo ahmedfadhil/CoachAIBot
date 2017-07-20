@@ -1,4 +1,12 @@
 
 $('document').ready(function() {
     $('#patients-content').empty().html("<%= escape_javascript(render 'users/index') %>")
+    $('#patients-content').slideDown(300)
+
+    $('#active-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#all-users').css('background', 'white')
+    $('#suspended-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#archived-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#new-users').css('rgba(158, 158, 158, 0.2)')
+
 });

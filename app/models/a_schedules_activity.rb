@@ -1,0 +1,2 @@
+class ASchedulesActivity < ApplicationRecord
+end
