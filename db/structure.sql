@@ -22,24 +22,24 @@ FOREIGN KEY ("plan_id")
 );
 CREATE INDEX "index_activities_plans_on_activity_id" ON "activities_plans" ("activity_id");
 CREATE INDEX "index_activities_plans_on_plan_id" ON "activities_plans" ("plan_id");
-CREATE TABLE "a_schedules_activities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "activity_id" integer, "a_schedule_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_1090beeebf"
-FOREIGN KEY ("activity_id")
-  REFERENCES "activities" ("id")
-, CONSTRAINT "fk_rails_cbe39dd971"
-FOREIGN KEY ("a_schedule_id")
-  REFERENCES "a_schedules" ("id")
-);
-CREATE INDEX "index_a_schedules_activities_on_activity_id" ON "a_schedules_activities" ("activity_id");
-CREATE INDEX "index_a_schedules_activities_on_a_schedule_id" ON "a_schedules_activities" ("a_schedule_id");
-CREATE TABLE "users_plans" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "plan_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_2bc51667ba"
+CREATE TABLE "plans_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "plan_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_8b79d14602"
 FOREIGN KEY ("user_id")
   REFERENCES "users" ("id")
-, CONSTRAINT "fk_rails_d0d2fc9517"
+, CONSTRAINT "fk_rails_faea24e56b"
 FOREIGN KEY ("plan_id")
   REFERENCES "plans" ("id")
 );
-CREATE INDEX "index_users_plans_on_user_id" ON "users_plans" ("user_id");
-CREATE INDEX "index_users_plans_on_plan_id" ON "users_plans" ("plan_id");
+CREATE INDEX "index_plans_users_on_user_id" ON "plans_users" ("user_id");
+CREATE INDEX "index_plans_users_on_plan_id" ON "plans_users" ("plan_id");
+CREATE TABLE "a_schedules_activities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "a_schedule_id" integer, "activity_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_cbe39dd971"
+FOREIGN KEY ("a_schedule_id")
+  REFERENCES "a_schedules" ("id")
+, CONSTRAINT "fk_rails_1090beeebf"
+FOREIGN KEY ("activity_id")
+  REFERENCES "activities" ("id")
+);
+CREATE INDEX "index_a_schedules_activities_on_a_schedule_id" ON "a_schedules_activities" ("a_schedule_id");
+CREATE INDEX "index_a_schedules_activities_on_activity_id" ON "a_schedules_activities" ("activity_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -57,9 +57,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170711152815'),
 ('20170718115019'),
 ('20170720095130'),
-('20170720112640'),
 ('20170720130822'),
-('20170720131258'),
-('20170720133732');
+('20170720174031'),
+('20170720211946'),
+('20170720212243');
 
 

@@ -29,7 +29,7 @@
               <td> <%= a.category %> </td>
               <td> <%= a.a_type %> </td>
               <td><%= link_to 'Vedi Attivita', activity_path(a.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
-              <td> <%= link_to 'Assegna Attivita', activities_assignment_path(a_id: a.id, plan_id: @plan_id, user_id: @user.id) , class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+              <td> <%= link_to 'Assegna Attivita', assign_activity_path(:id => a.id, :user_id => @user.id, :plan_id => @plan_id) , class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
               </td>
             </tr>
           <% end %>

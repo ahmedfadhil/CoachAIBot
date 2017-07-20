@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  activity_id: 
-  a_schedule_id: 
+  a_schedule: 
+  activity: one
 
 two:
-  activity_id: 
-  a_schedule_id: 
+  a_schedule: 
+  activity: two

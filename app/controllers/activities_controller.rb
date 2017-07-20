@@ -24,12 +24,11 @@ class ActivitiesController < ApplicationController
   end
 
   def assign
-    @activity = Activity.find(params[:a_id])
+    @activity = Activity.find(params[:id])
     @plan = Plan.find(params[:plan_id])
     @user = User.find(params[:user_id])
-    @users_plan = PlansActivity.new activity: @activity, plan: @plan
-    if @users_plan.save
-      redirect_to user_path, :user_id => @user.id
+    if @plan.activity<<@activity
+      redirect_to user_path, id: @user.id
     end
   end
 

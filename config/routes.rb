@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  resources :activities
-  get ':plan_id', to: 'activities#assign', as: :activities_assignment
+  resources :plans
+
+  resources :activities do
+    member do
+      get 'assign'
+    end
+
+  end
+
 
   get 'users/active'
   get 'users/archived'
