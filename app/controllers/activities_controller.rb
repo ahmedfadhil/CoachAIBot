@@ -7,28 +7,21 @@ class ActivitiesController < ApplicationController
 
   #tutte le attivita -> solo nel menu attivita del drawer
   def index
+    @activities = Activity.all
   end
 
   def new
-    @activities = Activity.all
     @activity = Activity.new
-    @user = User.find(params[:user_id])
-    @plan_id = params[:plan_id]
   end
 
+  # receives activity attributes and tries to create a new activity
   def create
-    @activity = Activity.new(activity_params)
-    if !@activity.save
-      render 'error/error.html.erb'
-    end
-  end
 
-  def assign
-    @activity = Activity.find(params[:id])
-    @plan = Plan.find(params[:plan_id])
-    @user = User.find(params[:user_id])
-    if @plan.activity<<@activity
-      redirect_to user_path, id: @user.id
+    @activity = Activity.new activity_params
+    if !@activity.save
+      error
+    else
+      redirect_to activities_path
     end
   end
 
@@ -36,15 +29,32 @@ class ActivitiesController < ApplicationController
   end
 
   def update
+    @activity = Activity.find(params[:id])
+    if !@activity.update(activity_params)
+      error
+    else
+      redirect_to activities_path
+    end
   end
 
   def destroy
+    @activity = Activity.find(params[:id])
+    if !@activity.destroy
+      error
+    else
+      flash[:destroyed] = 'La tua attivita\' e\' stata eliminata con successo!'
+      redirect_to activities_path
+    end
   end
 
   private
 
     def activity_params
       params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times)
+    end
+
+    def error
+      render 'error/error'
     end
 
 

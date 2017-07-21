@@ -1,18 +1,13 @@
 @showNewCategoryInput = (element) ->
   div = document.getElementById('new-category-input')
+  txtArea = document.getElementById('activity-category')
   div.style.display = 'block'
-  document.getElementById("activity-category-health").disabled = true;
-  document.getElementById("activity-category-physical").disabled = true;
-  document.getElementById("activity-category-mental").disabled = true;
-  document.getElementById("activity-category-medicine").disabled = true;
 
 @hideNewCategoryInput = (element) ->
   div = document.getElementById('new-category-input')
   div.style.display = 'none'
-  document.getElementById("activity-category-health").disabled = false;
-  document.getElementById("activity-category-physical").disabled = false;
-  document.getElementById("activity-category-mental").disabled = false;
-  document.getElementById("activity-category-medicine").disabled = false;
+  txtArea = document.getElementById('activity_category')
+  txtArea.value = element.value
 
 $ ->
   $("input[data-other-category=true]").change (e) ->

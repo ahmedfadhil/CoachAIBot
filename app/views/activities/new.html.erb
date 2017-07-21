@@ -1,46 +1,9 @@
-
-<%= render 'users/edit_header' %>
-
-<div class="new-activity-container">
-
+<%= render 'activities/header' %>
 
 <div class="mycard">
   <div class="activity-insert-card-wide mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Scegli un'attivita gia presente nel sistema</h2>
-    </div>
-
-
-    <div class="mdl-card__supporting-text">
-      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead>
-        <tr>
-          <th class="mdl-data-table__cell--non-numeric">Nome Attivita</th>
-          <th>Categoria</th>
-          <th>Tipologia</th>
-          <th></th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-          <% @activities.each do |a| %>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric"> <%= a.name %> </td>
-              <td> <%= a.category %> </td>
-              <td> <%= a.a_type %> </td>
-              <td><%= link_to 'Vedi Attivita', activity_path(a.id), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
-              <td> <%= link_to 'Assegna Attivita', assign_activity_path(:id => a.id, :user_id => @user.id, :plan_id => @plan_id) , class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="activity-insert-card-wide mdl-card mdl-shadow--2dp">
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Oppure inserisci una nuova attivita'</h2>
+      <h2 class="mdl-card__title-text">Inserisci i dati delle nuova attivita</h2>
     </div>
 
 
@@ -48,6 +11,7 @@
       Tutti i campi sono obbligatori!
       <div class="insert-error-msg"><%= yield(:insert_error_msg) %></div>
       <%= form_for @activity, url: activities_path, method: 'post' do |f| %>
+          <%= f.hidden_field :id%>
 
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
             <%= f.label :name, 'Nome', class: 'mdl-textfield__label' %>
@@ -71,7 +35,7 @@
             <%= f.text_field :n_times, class: 'mdl-textfield__input', type: 'number' %>
           </div>
 
-          <div class="activity-category">
+          <div class="category">
             <%= f.label :category, 'Categoria attivita: '%>
             <%= f.radio_button :category, 'health', :checked => true, 'data-other-category' => 'false' %>
             <%= label :category, 'Salute' %>
@@ -98,15 +62,11 @@
             <%= f.text_area :desc, class: 'mdl-textfield__input' %>
           </div>
 
+
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type="submit">
-            <i class="material-icons">add</i> &nbsp Inserisci nuova attivita
+            <i class="material-icons">add</i> &nbsp Aggiungi nuova attivita
           </button>
       <% end %>
     </div>
   </div>
-
-
 </div>
-</div>
-
-

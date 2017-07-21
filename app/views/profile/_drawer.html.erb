@@ -26,7 +26,10 @@
         <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Patients
     <% end %>
 
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Activities & Plans</a>
+    <%= link_to activities_path, class: 'mdl-navigation__link' do %>
+        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Activities
+    <% end %>
+
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Notifications</a>
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Communications</a>
 

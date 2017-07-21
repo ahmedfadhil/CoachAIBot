@@ -60,7 +60,7 @@
               <% end %>
 
               <div class="mdl-card__menu">
-                <%= link_to new_activity_path(:user_id => @user.id, :plan_id => p.id), class: 'mdl-button mdl-js-button mdl-js-ripple-effect' do %>
+                <%= link_to new_activities_user_path(:user_id => @user.id, :plan_id => p.id), class: 'mdl-button mdl-js-button mdl-js-ripple-effect' do %>
                     <i class="material-icons">add</i>
                 <% end %>
               </div>

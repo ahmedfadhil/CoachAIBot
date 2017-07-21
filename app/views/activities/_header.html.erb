@@ -1,0 +1,45 @@
+<header class="profile_content_header mdl-layout__header">
+
+  <div class="mdl-layout__header-row">
+    <nav class="mdl-navigation" >
+
+      <%= link_to users_index_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="overview-user" class="mdl-button mdl-js-button mdl-button--raised">
+            <i class="material-icons">supervisor_account</i> &nbsp Tutte
+          </button>
+      <% end %>
+
+      <%= link_to users_index_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="overview-user" class="mdl-button mdl-js-button mdl-button--raised">
+            <i class="material-icons">supervisor_account</i> &nbsp Attivita' di Salute
+          </button>
+      <% end %>
+
+      <%= link_to users_active_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="activities-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">insert_emoticon</i> &nbsp Attivita' Fisiche
+          </button>
+      <% end %>
+
+      <%= link_to users_suspended_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="notifications-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">block</i> &nbsp Benessere Mentale
+          </button>
+      <% end %>
+
+      <%= link_to users_suspended_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="notifications-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">block</i> &nbsp Diete
+          </button>
+      <% end %>
+
+      <%= link_to users_suspended_path, remote: true, class: 'mdl-navigation__link' do %>
+          <button id="notifications-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">block</i> &nbsp Altro
+          </button>
+      <% end %>
+
+
+    </nav>
+  </div>
+</header>
