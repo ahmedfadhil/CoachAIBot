@@ -1,9 +1,0 @@
-
-$('document').ready(function() {
-    $('#patients-content').empty().html("<%= escape_javascript(render 'users/index') %>")
-    $('#active-users').css('background', 'rgba(158, 158, 158, 0.2)')
-    $('#all-users').css('background', 'rgba(158, 158, 158, 0.2)')
-    $('#suspended-users').css('background', 'white')
-    $('#archived-users').css('background', 'rgba(158, 158, 158, 0.2)')
-    $('#new-users').css('rgba(158, 158, 158, 0.2)')
-});
