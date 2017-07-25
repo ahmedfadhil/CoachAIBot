@@ -41,8 +41,8 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find(params[:id])
-    if !@activity.destroy
+    activity = Activity.find(params[:id])
+    if !activity.destroy
       error
     else
       flash[:destroyed] = 'La tua attivita\' e\' stata eliminata con successo!'

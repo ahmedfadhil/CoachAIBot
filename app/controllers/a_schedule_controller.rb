@@ -27,6 +27,16 @@ class AScheduleController < ApplicationController
     redirect_to user_path(User.find(params[:u_id]))
   end
 
+  def destroy
+    schedule = ASchedule.find(params[:id])
+    if !schedule.destroy
+      error
+    else
+      flash[:destroyed] = 'L\'Orario e\' stata eliminata con successo!'
+      redirect_to user_path(User.find(params[:u_id]))
+    end
+  end
+
   private
 
     def schedule_params
