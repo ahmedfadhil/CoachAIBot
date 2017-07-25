@@ -15,6 +15,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if !@user.save
       render 'error/error.html.erb'
+    else
+      redirect_to users_path
     end
   end
 
@@ -24,20 +26,22 @@ class UsersController < ApplicationController
   end
 
 
-
   # active users
   def active
-    @users = User.all.limit 3
+    @users = User.all.limit 1
+    render 'users/index'
   end
 
   #suspended users
   def suspended
     @users = User.all.limit 10
+    render 'users/index'
   end
 
   #archived users
   def archived
     @users = User.all.limit 4
+    render 'users/index'
   end
 
 

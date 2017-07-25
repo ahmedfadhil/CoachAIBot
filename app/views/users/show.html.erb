@@ -4,6 +4,10 @@
   <%= render 'users/edit_header' %>
   <div id="patient">
 
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+
     <div class="mdl-grid">
       <div class="mdl-cell--8-col">
 
@@ -36,6 +40,56 @@
 
                         <h5>Orari</h5>
 
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                          <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Giorno</th>
+                          </tr>
+                          </thead>
+
+                          <tbody>
+
+                          <% a.a_schedule.each do |a_schedule| %>
+                              <tr>
+                                <td class="mdl-data-table__cell--non-numeric">
+                                  <% if a_schedule.date %>
+                                    <%= a_schedule.date %>
+                                  <% else %>
+                                    Nessuna Data
+                                  <% end %>
+                                </td>
+                                <td>
+                                  <% if a_schedule.time %>
+                                      <%= a_schedule.time %>
+                                  <% else %>
+                                      Nessuna ora
+                                  <% end %>
+                                </td>
+                                <td>
+                                  <% if a_schedule.day %>
+                                      <%= a_schedule.day %>
+                                  <% else %>
+                                      Nessun Giorno
+                                  <% end %>
+                                </td>
+                              </tr>
+                          <% end %>
+
+
+                          <tr>
+                            <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                            <td>50</td>
+                            <td>$1.25</td>
+                          </tr>
+                          <tr>
+                            <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                            <td>10</td>
+                            <td>$2.35</td>
+                          </tr>
+                          </tbody>
+                        </table>
 
 
                         <h5>Domande di verifica</h5>
@@ -46,8 +100,12 @@
 
                       <div class="mdl-expansion__actions">
                         <button class="mdl-expansion__action mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Aggiungi Orario</button>
-                        <button class="mdl-expansion__action mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Aggiungi Domanda</button>
-                        <button class="mdl-expansion__action mdl-button mdl-js-button mdl-button--raised">Cancel</button>
+
+                        <%= link_to 'Aggiungi Orario', new_a_schedule_path(:a_id => a.id, :u_id => @user.id) ,
+                                    method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+
+                        <%= link_to 'Destituisci Attivita', dissociate_activities_path(:a_id => a.id, :p_id => p.id, :u_id => @user.id) ,
+                                    method: 'post', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
                       </div>
 
                     </details>
@@ -59,18 +117,39 @@
 
               <% end %>
 
-              <div class="mdl-card__menu">
-                <%= link_to new_activities_user_path(:user_id => @user.id, :plan_id => p.id), class: 'mdl-button mdl-js-button mdl-js-ripple-effect' do %>
-                    <i class="material-icons">add</i>
-                <% end %>
+              <div>
+                <br><br>
+                <%= button_to 'Aggiungi una nuova attivita al Piano',
+                              new_assign_activities_path(:p_id => p.id, :u_id => @user.id), method: 'post',
+                              class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'%><br>
+                <%= button_to 'Elimina Piano',
+                              plan_path(:p_id => p.id, :u_id => @user.id), method: 'delete',
+                              class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent',
+                              data: {confirm: 'Sei sicuro di voler eliminare il piano? Una volta eliminato non potra\' piu\'
+                              essere ripristinato! Tuttavia le Attivita\' non verranno cancellate, ma le ritrovarai nella sezione Attivita\'!'}%>
               </div>
+
             </div>
-
+            <br>
       <% end %>
-
-
+        <br>
+        <%= button_to new_plans_path(:u_id => @user.id), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', method: 'get' do %>
+            Aggiungi un nuovo piano
+        <% end %>
 
       </div>
+
+      <div class="mdl-cell--1-col"></div>
+
+      <div class="mdl-cell--3-col">
+        <div class="mdl-cell--12-col">
+
+        </div>
+        <div class="mdl-cell--12-col">
+
+        </div>
+      </div>
+
     </div>
 
 

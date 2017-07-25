@@ -22,12 +22,12 @@
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Dashboard</a>
 
-    <%= link_to users_index_path, remote: true, class: 'mdl-navigation__link' do %>
-        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Patients
+    <%= link_to users_path, class: 'mdl-navigation__link' do %>
+        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Pazienti
     <% end %>
 
     <%= link_to activities_path, class: 'mdl-navigation__link' do %>
-        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Activities
+        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Attivita'
     <% end %>
 
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Notifications</a>

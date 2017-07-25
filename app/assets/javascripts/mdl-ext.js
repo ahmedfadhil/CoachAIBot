@@ -19,7 +19,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
 /******/
-/******/ 		// Create a new module (and put it into the cache)
+/******/ 		// Create a new_assign module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
@@ -3046,7 +3046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (r.classList.contains(COLLAPSIBLE_GROUP_CLASS) || r.classList.contains(COLLAPSIBLE_REGION_CLASS)) {
 	              regions.push(r);
 	            } else if (r.classList.contains(JS_COLLAPSIBLE)) {
-	              // A new collapsible component
+	              // A new_assign collapsible component
 	              break;
 	            }
 	            r = r.nextElementSibling;

@@ -14,14 +14,17 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new
   end
 
-  # receives activity attributes and tries to create a new activity
+  # receives activity attributes and tries to create a new_assign activity
   def create
-
     @activity = Activity.new activity_params
     if !@activity.save
       error
     else
-      redirect_to activities_path
+      if params[:new]
+        redirect_to new_assign_activities_path
+      else
+        redirect_to activities_path
+      end
     end
   end
 
@@ -44,6 +47,38 @@ class ActivitiesController < ApplicationController
     else
       flash[:destroyed] = 'La tua attivita\' e\' stata eliminata con successo!'
       redirect_to activities_path
+    end
+  end
+
+  def new_assign
+    @activity = Activity.new
+    @activities = Activity.all
+    @plan = Plan.find(params[:p_id])
+    @user = User.find(params[:u_id])
+  end
+
+  def assign
+    @activity = Activity.find(params[:a_id])
+    @plan = Plan.find(params[:p_id])
+    @user = User.find(params[:u_id])
+    if !(@plan.activity<<@activity)
+      error
+    end
+    redirect_to user_path(@user)
+  end
+
+  def dissociate
+    plan = Plan.find(params[:p_id])
+    user = User.find(params[:u_id])
+
+    activity = plan.activity.find(params[:a_id])
+    if activity
+      plan.activity.delete(activity)
+    end
+    if plan.save
+      redirect_to user_path(user)
+    else
+      redirect_to error
     end
   end
 

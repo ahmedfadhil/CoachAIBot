@@ -13,7 +13,7 @@
       <div id="new-user-notice" class="notice"></div>
       Tutti i campi sono obbligatori!
       <div class="insert-error-msg"><%= yield(:insert_error_msg) %></div>
-      <%= form_for @user, url: users_create_path, remote: true do |f| %>
+      <%= form_for @user, url: users_path, method: 'post' do |f| %>
 
           <div id="name">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

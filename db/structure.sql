@@ -8,6 +8,7 @@ FOREIGN KEY ("coach_user_id")
 CREATE INDEX "index_plans_on_coach_user_id" ON "plans" ("coach_user_id");
 CREATE TABLE "a_schedules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "time" time, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "user_defined" boolean, "day" integer);
 CREATE TABLE "q_schedules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "time" time, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "open" String, "completness" boolean, "range" integer, "user_defined" boolean);
+CREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "text" text, "open" boolean, "completness" boolean, "range" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "activity_id" integer);
 CREATE TABLE "coach_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar DEFAULT NULL, "last_name" varchar DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar);
 CREATE UNIQUE INDEX "index_coach_users_on_email" ON "coach_users" ("email");
 CREATE UNIQUE INDEX "index_coach_users_on_reset_password_token" ON "coach_users" ("reset_password_token");
@@ -39,7 +40,6 @@ FOREIGN KEY ("activity_id")
 );
 CREATE INDEX "index_a_schedules_activities_on_a_schedule_id" ON "a_schedules_activities" ("a_schedule_id");
 CREATE INDEX "index_a_schedules_activities_on_activity_id" ON "a_schedules_activities" ("activity_id");
-CREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "text" text DEFAULT NULL, "open" boolean DEFAULT NULL, "completness" boolean DEFAULT NULL, "range" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "activity_id" integer);
 CREATE INDEX "index_questions_on_activity_id" ON "questions" ("activity_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),

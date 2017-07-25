@@ -1,2 +1,2 @@
-module ActivitiesUsersHelper
+module ActivitiesPlanHelper
 end
