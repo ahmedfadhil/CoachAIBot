@@ -131,3 +131,11 @@ nwe-patient-card > .mdl-card__title {
 .red-col{
   color: red;
 }
+
+.no-schedule-card .mdl-card {
+  width: 100px;
+}
+.no-schedule-card > .mdl-card__title {
+  color: #00b9d8;
+  height: 50px;
+}

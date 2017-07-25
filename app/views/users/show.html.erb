@@ -40,59 +40,74 @@
 
                         <h5>Orari</h5>
 
-                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                          <thead>
-                          <tr>
-                            <th>Data</th>
-                            <th>Giorno</th>
-                            <th>Ora</th>
-                          </tr>
-                          </thead>
+                        <% if a.a_schedule %>
+                          <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                            <tr>
+                              <th>Data</th>
+                              <th>Giorno</th>
+                              <th>Ora</th>
+                            </tr>
+                            </thead>
 
-                          <tbody>
+                            <tbody>
 
-                          <% a.a_schedule.each do |a_schedule| %>
-                              <tr>
-                                <td class="mdl-data-table__cell--non-numeric">
-                                  <% if a_schedule.date %>
-                                    <%= a_schedule.date %>
-                                  <% else %>
-                                      <div class="red-col">
-                                        Nessuna Data
-                                      </div>
-                                  <% end %>
-                                </td>
+                            <% a.a_schedule.each do |a_schedule| %>
+                                <tr>
+                                  <td class="mdl-data-table__cell--non-numeric">
+                                    <% if a_schedule.date %>
+                                      <%= a_schedule.date %>
+                                    <% else %>
+                                        <div class="red-col">
+                                          /
+                                        </div>
+                                    <% end %>
+                                  </td>
 
-                                <td>
-                                  <% if a_schedule.day %>
-                                      <%= a_schedule.day_of_week(a_schedule.day) %>
-                                  <% else %>
-                                      <div class="red-col">
-                                        Nessun Giorno
-                                      </div>
-                                  <% end %>
-                                </td>
+                                  <td>
+                                    <% if a_schedule.day %>
+                                        <%= a_schedule.day_of_week(a_schedule.day) %>
+                                    <% else %>
+                                        <div class="red-col">
+                                          /
+                                        </div>
+                                    <% end %>
+                                  </td>
 
-                                <td>
-                                  <% if a_schedule.time %>
-                                      <%= a_schedule.time %>
-                                  <% else %>
-                                      <div class="red-col">
-                                        Nessuna Ora
-                                      </div>
-                                  <% end %>
-                                </td>
+                                  <td>
+                                    <% if a_schedule.time %>
+                                        <%= a_schedule.time %>
+                                    <% else %>
+                                        <div class="red-col">
+                                          /
+                                        </div>
+                                    <% end %>
+                                  </td>
 
-                                <td>
-                                  <%= link_to 'Elimina ', a_schedule_path(a_schedule, :u_id => @user.id), method: 'delete',
-                                  data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
-                                  class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %> </td>
-                                </td>
-                              </tr>
-                          <% end %>
+                                  <td>
+                                    <%= link_to 'Elimina ', a_schedule_path(a_schedule, :u_id => @user.id), method: 'delete',
+                                    data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
+                                    class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %> </td>
+                                  </td>
+                                </tr>
+                            <% end %>
 
-                          </tbody>
-                        </table>
+                            </tbody>
+                          </table>
+
+                        <% else %>
+
+                            <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                              <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Non Ci sono Orari</h2>
+                              </div>
+                              <div class="mdl-card__supporting-text">
+                                Per ora non e' stato definito nessun orario. Inserisci un nuovo orario attraverso il bottone in basso.
+                              </div>
+                            </div>
+
+                        <% end %>
+
 
 
                         <h5>Domande di verifica</h5>
