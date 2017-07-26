@@ -11,11 +11,8 @@ class PlansController < ApplicationController
     @user = User.find params[:u_id]
     @plan.coach_user = current_coach_user
     if @plan.save
-      if @user.plan << @plan
-        flash[:plan_saved] = 'Il piano e\' stato salvato con successo!'
-      else
-        flash[:plan_not_assigned] = 'Non siamo riusciti ad assegnare il piano al paziente, ci scusiamo per il disagio!'
-      end
+      @user.plan << @plan
+      flash[:plan_saved] = 'Il piano e\' stato salvato con successo!'
     else
       flash[:plan_not_saved] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
     end
@@ -38,6 +35,6 @@ class PlansController < ApplicationController
 
   private
     def plan_params
-      params.require(:plan).permit(:name, :desc, :from_day, :to_day)
+      params.require(:plan).permit(:name, :desc, :from_day, :to_day, :notification_hour_coach_def)
     end
 end

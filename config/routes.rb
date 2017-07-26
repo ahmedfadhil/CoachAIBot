@@ -21,7 +21,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :a_schedule
 
   get 'profile/index'
   get 'static_pages/help'
@@ -33,27 +32,6 @@ Rails.application.routes.draw do
 
   # Telegram webhook
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
-
-=begin
-
-  resources :activities_plan do
-    member do
-      get 'assign/:a_id/:p_id/', to: 'activities_plan#assign', as: 'assign'
-    end
-  end
-
-
-  get 'users/active', to: 'users#active', as: 'active'
-  get 'users/archived', to: 'users#archived', as: 'archived'
-  get 'users/suspended', to: 'users#suspended', as: 'suspended'
-
-
-  post 'users/create'
-
-  get 'users/index'
-  get 'users/new_assign'
-  get 'users/:id', to: 'users#show', as: 'user'
-=end
 
 
 end

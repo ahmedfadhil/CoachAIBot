@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   layout 'profile'
 
   def index
-    @users = User.all
+    @users = User.where(coach_user_id: current_coach_user.id)
   end
 
   def new
@@ -12,17 +12,19 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if !@user.save
-      render 'error/error.html.erb'
-    else
+    user = User.new(user_params)
+    if user.save
+      current_coach_user.users << user
       redirect_to users_path
+    else
+      flash[:error] = 'Errore durante il salvataggio dell\'utente! '
+      error
     end
   end
 
   def show
     @user = User.find(params[:id])
-    @plans = @user.plan
+    @plans = @user.plans
   end
 
 
@@ -50,5 +52,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
     end
+
+  def error
+    render 'error/error.html.erb'
+  end
 
 end
