@@ -1,6 +1,8 @@
 class User < ApplicationRecord
-  has_and_belongs_to_many :plan
-  has_many :q_schedule
+  has_many :plans, dependent: :destroy
+  has_one :feature, dependent: :destroy
+  has_many :responses, dependent: :destroy
+  belongs_to :coach_user, optional: true
 
   validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email
@@ -18,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def get_user_state
-    return self.bot_command_data
+    self.bot_command_data
   end
 
   def reset_user_state

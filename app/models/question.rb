@@ -1,4 +1,4 @@
 class Question < ApplicationRecord
-  has_many :q_schedule
-  belongs_to :activity
+  has_many :answers, dependent: :destroy
+  has_many :responses, dependent: :destroy
 end
