@@ -11,6 +11,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :email
       t.string :cellphone
 
+      t.references :coach_user, foreign_key: true
+
       t.timestamps
     end
   end
