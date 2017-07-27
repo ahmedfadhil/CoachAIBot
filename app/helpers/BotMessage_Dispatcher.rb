@@ -69,6 +69,9 @@ class BotMessageDispatcher
   end
 
   def should_start
+    u=User.first
+    u.telegram_id=@user.telegram_id
+    u.save
     send_message('Ciao! Io sono un robot che fa da personal trainer. Se vuoi iniziare a chattare con me '+
                      'digita /start')
   end

@@ -144,7 +144,9 @@
                             </td>
 
                             <td>
-                              Elimina Domanda
+                              <%= link_to 'Elimina ', question_path(question), method: 'delete',
+                                          data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
+                                          class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
                             </td>
 
                           </tr>

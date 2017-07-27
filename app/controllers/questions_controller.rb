@@ -60,6 +60,17 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def destroy
+    question = Question.find(params[:id])
+    if !question.destroy
+      flash[:destroyed] = 'Ce stato un problema e la domanda\' NON e\' stata eliminata! La preghiamo di riprovare piu\' tardi'
+      error
+    else
+      flash[:destroyed] = 'La domanda\' e\' stata eliminata con successo!'
+      redirect_back fallback_location: root_path
+    end
+  end
+
   private
 
     def question_params
