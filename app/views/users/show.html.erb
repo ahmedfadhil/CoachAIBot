@@ -11,19 +11,23 @@
     <div class="mdl-grid">
       <div class="mdl-cell--8-col">
 
-        <% @plans.each do |p| %>
+        <% @plans.each do |plan| %>
 
             <div class="plan-card-wide mdl-card mdl-shadow--2dp">
 
               <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text"> <%= p.name %> </h2>
+                <h2 class="mdl-card__title-text"> <%= plan.name %> </h2>
               </div>
 
               <div class="mdl-card__supporting-text">
-                <%= p.desc %>
+                <%= plan.desc %>
               </div>
 
-              <% p.activity.each do |a| %>
+              <% if plan.plannings.empty? %>
+                  <br>Non sono presenti attivita' per questo piano al momento.<br>
+              <% end %>
+
+              <% plan.plannings.each do |planning| %>
 
                 <div class="mdl-card__actions mdl-card--border">
 
@@ -31,16 +35,16 @@
 
                     <details class="activity-expander mdl-expansion">
                       <summary class="mdl-expansion__summary">
-                        <span id="activity-name-styler" class="mdl-expansion__header"><%= a.name %></span>
+                        <span id="activity-name-styler" class="mdl-expansion__header"><%= planning.activity.name %></span>
                       </summary>
 
                       <div class="mdl-expansion__content">
-                        <%= a.desc %>
+                        <br>
+                        <%= planning.activity.desc %>
                         <br>
 
                         <h5>Orari</h5>
-
-                        <% if a.a_schedule %>
+                        <% if !planning.schedules.empty? %>
                           <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                             <tr>
@@ -52,11 +56,11 @@
 
                             <tbody>
 
-                            <% a.a_schedule.each do |a_schedule| %>
+                            <% planning.schedules.each do |schedule| %>
                                 <tr>
                                   <td class="mdl-data-table__cell--non-numeric">
-                                    <% if a_schedule.date %>
-                                      <%= a_schedule.date %>
+                                    <% if schedule.date %>
+                                      <%= schedule.date %>
                                     <% else %>
                                         <div class="red-col">
                                           /
@@ -65,8 +69,8 @@
                                   </td>
 
                                   <td>
-                                    <% if a_schedule.day %>
-                                        <%= a_schedule.day_of_week(a_schedule.day) %>
+                                    <% if schedule.day %>
+                                        <%= schedule.day_of_week(schedule.day) %>
                                     <% else %>
                                         <div class="red-col">
                                           /
@@ -75,8 +79,8 @@
                                   </td>
 
                                   <td>
-                                    <% if a_schedule.time %>
-                                        <%= a_schedule.time %>
+                                    <% if schedule.time %>
+                                        <%= schedule.time %>
                                     <% else %>
                                         <div class="red-col">
                                           /
@@ -85,25 +89,22 @@
                                   </td>
 
                                   <td>
-                                    <%= link_to 'Elimina ', a_schedule_path(a_schedule, :u_id => @user.id), method: 'delete',
+                                    <%= link_to 'Elimina ', schedule_path(schedule), method: 'delete',
                                     data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
-                                    class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %> </td>
+                                    class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
                                   </td>
+
                                 </tr>
+
                             <% end %>
 
                             </tbody>
                           </table>
 
                         <% else %>
-
-                            <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-                              <div class="mdl-card__title">
-                                <h2 class="mdl-card__title-text">Non Ci sono Orari</h2>
-                              </div>
-                              <div class="mdl-card__supporting-text">
-                                Per ora non e' stato definito nessun orario. Inserisci un nuovo orario attraverso il bottone in basso.
-                              </div>
+                            <br>
+                            <div>
+                              Per ora non e' stato definito nessun orario. Inserisci un nuovo orario attraverso il bottone in basso.
                             </div>
 
                         <% end %>
@@ -111,19 +112,58 @@
 
 
                         <h5>Domande di verifica</h5>
-                        <li>Domanda 1</li>
-                        <li>Domanda 2</li>
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                          <thead>
+                          <tr>
+                            <th>Domanda</th>
+                            <th>Tipologia</th>
+                            <th>Risposte</th>
+                          </tr>
+                          </thead>
+
+                          <tbody>
+
+                          <%  planning.activity.questions.each do |question| %>
+                          <tr>
+                            <td class="mdl-data-table__cell--non-numeric">
+                              <%= question.text %>
+                            </td>
+
+                            <td>
+                              <%= question.q_type %>
+                            </td>
+
+                            <td>
+                              <% question.answers.each_with_index do |answer, index| %>
+                                  <% if index!=question.answers.size-1 %>
+                                      <%= "#{answer.text}, " %>
+                                  <% else %>
+                                      <%= "#{answer.text} " %>
+                                  <% end %>
+                              <% end %>
+                            </td>
+
+                            <td>
+                              Elimina Domanda
+                            </td>
+
+                          </tr>
+                          <% end %>
+
+                          </tbody>
+                        </table>
                         <br>
                       </div>
 
                       <div class="mdl-expansion__actions">
-                        <button class="mdl-expansion__action mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Aggiungi Orario</button>
-
-                        <%= link_to 'Aggiungi Orario', new_a_schedule_path(:a_id => a.id, :u_id => @user.id) ,
+                        <%= link_to 'Aggiungi Orario', new_schedule_path(:planning_id => planning.id) ,
                                     method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
 
-                        <%= link_to 'Destituisci Attivita', dissociate_activities_path(:a_id => a.id, :p_id => p.id, :u_id => @user.id) ,
-                                    method: 'post', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+                        <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id) ,
+                                    method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+
+                        <%= link_to 'Destituisci Attivita', planning_path(planning) ,
+                                    method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
                       </div>
 
                     </details>
@@ -138,10 +178,10 @@
               <div>
                 <br><br>
                 <%= button_to 'Aggiungi una nuova attivita al Piano',
-                              new_assign_activities_path(:p_id => p.id, :u_id => @user.id), method: 'post',
+                              new_plannings_path(:p_id => plan.id, :u_id => plan.user.id), method: 'post',
                               class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored'%><br>
                 <%= button_to 'Elimina Piano',
-                              plan_path(:p_id => p.id, :u_id => @user.id), method: 'delete',
+                              plan_path(:p_id => plan.id, :u_id => plan.user.id), method: 'delete',
                               class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent',
                               data: {confirm: 'Sei sicuro di voler eliminare il piano? Una volta eliminato non potra\' piu\'
                               essere ripristinato! Tuttavia le Attivita\' non verranno cancellate, ma le ritrovarai nella sezione Attivita\'!'}%>

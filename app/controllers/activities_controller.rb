@@ -14,17 +14,17 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new
   end
 
-  # receives activity attributes and tries to create a new_assign activity
   def create
-    @activity = Activity.new activity_params
-    if !@activity.save
-      error
-    else
-      if params[:new]
-        redirect_to new_assign_activities_path
-      else
+    activity = Activity.new activity_params
+    if activity.save
+      #automaticaly add COMPLETNESS question
+      if completness_question(activity)
         redirect_to activities_path
+      else
+        error
       end
+    else
+      error
     end
   end
 
@@ -32,8 +32,8 @@ class ActivitiesController < ApplicationController
   end
 
   def update
-    @activity = Activity.find(params[:id])
-    if !@activity.update(activity_params)
+    activity = Activity.find(params[:id])
+    if !activity.update(activity_params)
       error
     else
       redirect_to activities_path
@@ -50,37 +50,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def new_assign
-    @activity = Activity.new
-    @activities = Activity.all
-    @plan = Plan.find(params[:p_id])
-    @user = User.find(params[:u_id])
-  end
-
-  def assign
-    @activity = Activity.find(params[:a_id])
-    @plan = Plan.find(params[:p_id])
-    @user = User.find(params[:u_id])
-    if !(@plan.activity<<@activity)
-      error
-    end
-    redirect_to user_path(@user)
-  end
-
-  def dissociate
-    plan = Plan.find(params[:p_id])
-    user = User.find(params[:u_id])
-
-    activity = plan.activity.find(params[:a_id])
-    if activity
-      plan.activity.delete(activity)
-    end
-    if plan.save
-      redirect_to user_path(user)
-    else
-      redirect_to error
-    end
-  end
 
   private
 
@@ -90,6 +59,22 @@ class ActivitiesController < ApplicationController
 
     def error
       render 'error/error'
+    end
+
+    def completness_question(activity)
+      question = Question.new text: "Hai portato a termine l'attivita' #{activity.name}?", q_type: 'yes_no'
+      question.activity = activity
+      if question.save
+        answer1 = Answer.new text: 'Si'
+        answer2 = Answer.new text: 'No'
+        answer1.question = question
+        answer2.question = question
+        if answer1.save && answer2.save
+          true
+        else
+          false
+        end
+      end
     end
 
 

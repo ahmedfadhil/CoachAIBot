@@ -1,6 +1,6 @@
 <%= render 'users/edit_header' %>
 
-<div id ="mycard">
+<div id="my-plan-card">
 
   <div class="new-plan-card mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
@@ -21,8 +21,8 @@
 
         <div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <%= f.text_area :desc, class: 'mdl-textfield__input' %>
-            <%= f.label :desc, 'Descrizione', class: 'mdl-textfield__label' %>
+            <%= f.text_area :desc, class: 'plan-desc mdl-textfield__input' %>
+            <%= f.label :desc, 'Descrizione', class: 'plan-desc mdl-textfield__label' %>
           </div>
         </div>
 
@@ -45,9 +45,10 @@
             </div>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <%= f.text_field :notification_hor_coach_def, class: 'mdl-textfield__input',
+              <%= f.text_field :notification_hour_coach_def, class: 'mdl-textfield__input notification_hour',
                                pattern: '^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$' %>
-              <%= f.label :notification_hor_coach_def, 'A che ora vorresti che fosse notificato il paziente?', class: 'mdl-textfield__label' %>
+              <%= f.label :notification_hour_coach_def, 'A che ora vorresti che fosse notificato il paziente?',
+                          class: 'mdl-textfield__label notification_hour' %>
               <span class="mdl-textfield__error">Ora nel formato 24h e HH:mm</span>
             </div>
           </div>

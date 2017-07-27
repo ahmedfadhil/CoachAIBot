@@ -1,4 +1,4 @@
 class Plan < ApplicationRecord
-  belongs_to :user
-  has_many :associations, dependent: :destroy
+  belongs_to :user, optional: true
+  has_many :plannings, dependent: :destroy
 end

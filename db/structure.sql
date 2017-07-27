@@ -19,20 +19,11 @@ FOREIGN KEY ("user_id")
   REFERENCES "users" ("id")
 );
 CREATE INDEX "index_features_on_user_id" ON "features" ("user_id");
-CREATE TABLE "associations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "finished" boolean, "plan_id" integer, "activity_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_05d02cb53f"
-FOREIGN KEY ("plan_id")
-  REFERENCES "plans" ("id")
-, CONSTRAINT "fk_rails_e4418d7c25"
-FOREIGN KEY ("activity_id")
-  REFERENCES "activities" ("id")
+CREATE TABLE "schedules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "time" time, "day" integer, "planning_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_b56518c6f6"
+FOREIGN KEY ("planning_id")
+  REFERENCES "plannings" ("id")
 );
-CREATE INDEX "index_associations_on_plan_id" ON "associations" ("plan_id");
-CREATE INDEX "index_associations_on_activity_id" ON "associations" ("activity_id");
-CREATE TABLE "schedules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "time" time, "day" integer, "association_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_da30061917"
-FOREIGN KEY ("association_id")
-  REFERENCES "associations" ("id")
-);
-CREATE INDEX "index_schedules_on_association_id" ON "schedules" ("association_id");
+CREATE INDEX "index_schedules_on_planning_id" ON "schedules" ("planning_id");
 CREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "text" text, "q_type" varchar, "activity_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_553dbb8113"
 FOREIGN KEY ("activity_id")
   REFERENCES "activities" ("id")
@@ -52,6 +43,15 @@ FOREIGN KEY ("question_id")
 );
 CREATE INDEX "index_responses_on_user_id" ON "responses" ("user_id");
 CREATE INDEX "index_responses_on_question_id" ON "responses" ("question_id");
+CREATE TABLE "plannings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "finished" boolean, "plan_id" integer, "activity_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_84268e3969"
+FOREIGN KEY ("plan_id")
+  REFERENCES "plans" ("id")
+, CONSTRAINT "fk_rails_11221890a4"
+FOREIGN KEY ("activity_id")
+  REFERENCES "activities" ("id")
+);
+CREATE INDEX "index_plannings_on_plan_id" ON "plannings" ("plan_id");
+CREATE INDEX "index_plannings_on_activity_id" ON "plannings" ("activity_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -62,11 +62,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170718115019'),
 ('20170720095130'),
 ('20170725145037'),
-('20170725145419'),
 ('20170725145453'),
 ('20170725145554'),
 ('20170725145619'),
 ('20170725145701'),
-('20170726083535');
+('20170726083535'),
+('20170726134458');
 
 
