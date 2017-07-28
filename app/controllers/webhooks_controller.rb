@@ -4,7 +4,7 @@ class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def callback
-    BotMessageDispatcher.new(webhook, user).process
+    BotMessageDispatcher.new(webhook).process
     render json: nil, status: :ok
   end
 
@@ -16,6 +16,7 @@ class WebhooksController < ApplicationController
     webhook[:message][:from]
   end
 
+=begin
   def user
     @user ||= User.find_by(telegram_id: from[:id]) || register_user
   end
@@ -25,6 +26,7 @@ class WebhooksController < ApplicationController
     @user.update_attributes!(first_name: from[:first_name], last_name: from[:last_name])
     @user
   end
+=end
 
   def update_user_state
     puts "RECEIVED POST #{params}"

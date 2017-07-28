@@ -1,4 +1,5 @@
 require 'telegram/bot'
+
 task :notify => :environment do
   token = Rails.application.secrets.bot_token
   Telegram::Bot::Client.run(token) do |bot|
