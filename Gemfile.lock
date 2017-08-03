@@ -60,6 +60,7 @@ GEM
     chatscript (0.0.8)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
+    choice (0.2.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     coffee-rails (4.2.2)
@@ -139,6 +140,11 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-erd (1.5.2)
+      activerecord (>= 3.2)
+      activesupport (>= 3.2)
+      choice (~> 0.2.0)
+      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rails_12factor (0.0.2)
@@ -159,6 +165,7 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    ruby-graphviz (1.2.3)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.1)
@@ -236,6 +243,7 @@ DEPENDENCIES
   rails-assets-material-design-lite!
   rails-assets-mdl-selectfield!
   rails-assets-polyfills!
+  rails-erd
   rails_12factor (= 0.0.2)
   sass-rails (~> 5.0)
   selenium-webdriver
@@ -247,4 +255,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.2
+   1.15.3
