@@ -75,6 +75,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   gem 'rails-erd'
+  gem 'yaml_db'
 end
 
 group :production do
