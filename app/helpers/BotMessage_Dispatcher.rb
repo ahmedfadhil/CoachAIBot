@@ -7,7 +7,7 @@ class BotMessageDispatcher
 
   def initialize(message)
     @message = message
-    @user = User.find_by_telegram_id(chat_id)
+    @user = Patient.find_by_telegram_id(chat_id)
     token = Rails.application.secrets.bot_token
     @api = ::Telegram::Bot::Api.new(token)
     # @cs_bot = ChatScript::Client.new # for initializing the chatscript servver
@@ -44,7 +44,7 @@ class BotMessageDispatcher
 
   # cheks if user were registered by the coach
   def check_cellphone(phone)
-    user = User.find_by_cellphone(phone)
+    user = Patient.find_by_cellphone(phone)
     if user.nil?
       notify_not_allowed
     else

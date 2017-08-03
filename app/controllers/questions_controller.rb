@@ -4,13 +4,13 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @activity = Activity.find(params[:a_id])
-    @user = User.find(params[:u_id])
+    @user = Patient.find(params[:u_id])
   end
 
   def create
     activity = Activity.find(params[:a_id])
     question = Question.new(question_params)
-    user = User.find(params[:u_id])
+    user = Patient.find(params[:u_id])
     err = 0
     if !question.save
       flash[:error] = 'Ce stato un problema durante il SALVATAGGIO DELLA DOMANDA! Riprova piu tardi!'

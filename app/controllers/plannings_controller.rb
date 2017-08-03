@@ -5,7 +5,7 @@ class PlanningsController < ApplicationController
     @activity = Activity.new
     @activities = Activity.all
     @plan = Plan.find(params[:p_id])
-    @user = User.find(params[:u_id])
+    @user = Patient.find(params[:u_id])
   end
 
   def create
@@ -26,7 +26,7 @@ class PlanningsController < ApplicationController
     end
 
     plan = Plan.find(params[:p_id])
-    user = User.find(params[:u_id])
+    user = Patient.find(params[:u_id])
     planning = Planning.new
     planning.activity_id = activity.id
     planning.plan_id = plan.id

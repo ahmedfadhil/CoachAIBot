@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class Patient < ApplicationRecord
   has_many :plans, dependent: :destroy
   has_one :feature, dependent: :destroy
   has_many :responses, dependent: :destroy
