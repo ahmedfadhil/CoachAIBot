@@ -18,11 +18,11 @@ class WebhooksController < ApplicationController
 
 =begin
   def user
-    @user ||= Patient.find_by(telegram_id: from[:id]) || register_user
+    @user ||= User.find_by(telegram_id: from[:id]) || register_user
   end
 
   def register_user
-    @user = Patient.find_or_initialize_by(telegram_id: from[:id])
+    @user = User.find_or_initialize_by(telegram_id: from[:id])
     @user.update_attributes!(first_name: from[:first_name], last_name: from[:last_name])
     @user
   end

@@ -12,7 +12,7 @@ class SchedulesController < ApplicationController
     if schedule.save
       flash[:scheduled] = 'L\'orario\' e\' stato registrato con successo. '
       planning.schedules << schedule
-      redirect_to user_path(Patient.find(planning.plan.user.id))
+      redirect_to user_path(User.find(planning.plan.user.id))
     else
       flash[:scheduled] = ' C\'e\' stato un problema e l\'orario\' non e\' stato registrato. Ti invitiamo a riprovare piu tardi. '
       error
@@ -24,7 +24,7 @@ class SchedulesController < ApplicationController
     schedule = Schedule.find(params[:id])
     if schedule.destroy
       flash[:destroyed] = 'L\'Orario e\' stato eliminata con successo!'
-      redirect_to user_path(Patient.find(schedule.planning.plan.user.id))
+      redirect_to user_path(User.find(schedule.planning.plan.user.id))
     else
       flash[:destroyed] = 'Ce stato un errore durante la distruzione dell\'ORARIO! La invitiamo a riprovare piu\' tardi!'
       error

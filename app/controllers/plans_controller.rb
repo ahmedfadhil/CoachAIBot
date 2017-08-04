@@ -3,12 +3,12 @@ class PlansController < ApplicationController
 
   def new
     @plan = Plan.new
-    @user = Patient.find params[:u_id]
+    @user = User.find params[:u_id]
   end
 
   def create
     plan = Plan.new plan_params
-    user = Patient.find params[:u_id]
+    user = User.find params[:u_id]
     if plan.save
       user.plans << plan
       flash[:plan_saved] = 'Il nuovo piano e\' stato salvato con successo!'

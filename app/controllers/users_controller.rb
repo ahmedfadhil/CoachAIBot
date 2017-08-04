@@ -4,15 +4,15 @@ class UsersController < ApplicationController
   layout 'profile'
 
   def index
-    @users = Patient.where(coach_user_id: current_coach_user.id)
+    @users = User.where(coach_user_id: current_coach_user.id)
   end
 
   def new
-    @user = Patient.new
+    @user = User.new
   end
 
   def create
-    user = Patient.new(user_params)
+    user = User.new(user_params)
     if user.save
       current_coach_user.users << user
       redirect_to users_path
@@ -23,26 +23,26 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = Patient.find(params[:id])
+    @user = User.find(params[:id])
     @plans = @user.plans
   end
 
 
   # active users
   def active
-    @users = Patient.all.limit 1
+    @users = User.all.limit 1
     render 'users/index'
   end
 
   #suspended users
   def suspended
-    @users = Patient.all.limit 10
+    @users = User.all.limit 10
     render 'users/index'
   end
 
   #archived users
   def archived
-    @users = Patient.all.limit 4
+    @users = User.all.limit 4
     render 'users/index'
   end
 
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:patient).permit(:first_name, :last_name, :email, :cellphone)
+      params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
     end
 
   def error

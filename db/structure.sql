@@ -1,12 +1,13 @@
 CREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY);
 CREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
-CREATE TABLE "patients" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "telegram_id" varchar, "first_name" varchar, "last_name" varchar, "bot_command_data" jsonb, "email" varchar, "cellphone" varchar, "coach_user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "state" varchar, CONSTRAINT "fk_rails_f04ae787c4"
+CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "telegram_id" varchar, "first_name" varchar, "last_name" varchar, "bot_command_data" jsonb, "email" varchar, "cellphone" varchar, "coach_user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "state" varchar, CONSTRAINT "fk_rails_f04ae787c4"
 FOREIGN KEY ("coach_user_id")
   REFERENCES "coach_users" ("id")
 );
+CREATE INDEX "index_users_on_coach_user_id" ON "users" ("coach_user_id");
 CREATE TABLE "plans" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "desc" varchar, "from_day" date, "to_day" date, "notification_hour_coach_def" time, "notification_hour_user_def" time, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_45da853770"
 FOREIGN KEY ("user_id")
-  REFERENCES "patients" ("id")
+  REFERENCES "users" ("id")
 );
 CREATE INDEX "index_plans_on_user_id" ON "plans" ("user_id");
 CREATE TABLE "coach_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar DEFAULT NULL, "last_name" varchar DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar);
@@ -15,7 +16,7 @@ CREATE UNIQUE INDEX "index_coach_users_on_reset_password_token" ON "coach_users"
 CREATE TABLE "activities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar DEFAULT NULL, "desc" varchar DEFAULT NULL, "a_type" varchar DEFAULT NULL, "n_times" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "category" varchar DEFAULT NULL);
 CREATE TABLE "features" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "health" boolean, "physical" boolean, "mental" boolean, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_9e549256a3"
 FOREIGN KEY ("user_id")
-  REFERENCES "patients" ("id")
+  REFERENCES "users" ("id")
 );
 CREATE INDEX "index_features_on_user_id" ON "features" ("user_id");
 CREATE TABLE "schedules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "time" time, "day" integer, "planning_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_b56518c6f6"
@@ -35,7 +36,7 @@ FOREIGN KEY ("question_id")
 CREATE INDEX "index_answers_on_question_id" ON "answers" ("question_id");
 CREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer" text, "date" date, "user_id" integer, "question_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_2bd9a0753e"
 FOREIGN KEY ("user_id")
-  REFERENCES "patients" ("id")
+  REFERENCES "users" ("id")
 , CONSTRAINT "fk_rails_325af149a3"
 FOREIGN KEY ("question_id")
   REFERENCES "questions" ("id")
@@ -51,7 +52,6 @@ FOREIGN KEY ("activity_id")
 );
 CREATE INDEX "index_plannings_on_plan_id" ON "plannings" ("plan_id");
 CREATE INDEX "index_plannings_on_activity_id" ON "plannings" ("activity_id");
-CREATE INDEX "index_patients_on_coach_user_id" ON "patients" ("coach_user_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -67,7 +67,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170725145619'),
 ('20170725145701'),
 ('20170726083535'),
-('20170726134458'),
-('20170803174905');
+('20170726134458');
 
 
