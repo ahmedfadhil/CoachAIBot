@@ -52,6 +52,11 @@ FOREIGN KEY ("activity_id")
 );
 CREATE INDEX "index_plannings_on_plan_id" ON "plannings" ("plan_id");
 CREATE INDEX "index_plannings_on_activity_id" ON "plannings" ("activity_id");
+CREATE TABLE "weight_diary_measurments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "weight" decimal, "water_percent" decimal, "muscle_percent" decimal, "body_fat_percent" decimal, "waist_circumference" decimal, "waist_to_height_ration" decimal, "hip_circumference" decimal, "waist_hip_ratio" decimal, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_9f2027261e"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_weight_diary_measurments_on_user_id" ON "weight_diary_measurments" ("user_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -67,6 +72,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170725145619'),
 ('20170725145701'),
 ('20170726083535'),
-('20170726134458');
+('20170726134458'),
+('20170805080534');
 
 

@@ -84,3 +84,8 @@ group :production do
   # Used by heroku to serve static assets and css stylesheets
   gem 'rails_12factor', '0.0.2'
 end
+
+# use this in production
+# gem 'weight_diary', git: 'git@github.com:stoffie/ror-weight-diarty.git'
+# use this to test local changes
+gem 'weight_diary', path: '../weight_diary'
