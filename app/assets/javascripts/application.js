@@ -15,4 +15,5 @@
 //= require jquery
 //= require material-design-lite
 //= require rails-ujs
+//= require weight_diary/application
 //= require_tree .
