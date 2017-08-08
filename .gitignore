@@ -22,3 +22,6 @@
 /.idea
 
 erd.pdf
+
+# Ignore assets precompiled with `rake assets:precompile`
+public/assets/*
