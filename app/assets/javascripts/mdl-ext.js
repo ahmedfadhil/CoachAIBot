@@ -6468,7 +6468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 113 */
 /***/ function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
+	// removed by extract-text-webpack-plugins
 
 /***/ }
 /******/ ])

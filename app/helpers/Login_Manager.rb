@@ -7,7 +7,6 @@ class Login_Manager
 
   def initialize(message, user)
     @message = message
-    ap message_
     @user = user
     token = Rails.application.secrets.bot_token
     @api = ::Telegram::Bot::Api.new(token)
@@ -77,7 +76,8 @@ class Login_Manager
   end
 
   def new_state
-    {state: '0', first_time: '0', health: 0, physical: 0, coping: 0, mental: 0}
+    {state: '0', first_time: '0', health: 0, physical: 0, coping: 0, mental: 0,
+     user_id: @user.id, user_name: @user.last_name, monitoring: 0}
   end
 
   def contact_phone_number

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :plans do
     collection do
       get 'new/:u_id', to: 'plans#new', as: 'new'
+      get 'deliver/:p_id', to: 'plans#deliver', as: 'deliver'
     end
   end
 
@@ -39,8 +40,11 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
 
-  # Telegram webhook
+  # Webhooks
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
+  post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/activities' => 'webhooks#activities'
+  post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/feedback' => 'webhooks#feedback'
+
 
 
 end

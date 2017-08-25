@@ -5,6 +5,16 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# background daemon
+gem 'daemons'
+
+# jquery-UI
+gem 'jquery-ui-rails'
+
+# for polling service in notification task
+gem 'polling'
+
+# some pretty print
 gem 'awesome_print'
 
 # Authentication solution

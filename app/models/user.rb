@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   has_many :plans, dependent: :destroy
   has_one :feature, dependent: :destroy
-  has_many :responses, dependent: :destroy
   belongs_to :coach_user, optional: true
 
   validates :telegram_id, uniqueness: true, allow_nil: true

@@ -4,7 +4,7 @@ class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def callback
-    Message_Dispatcher.new(webhook, user).process
+    !webhook[:message][:from].nil? ?  Message_Dispatcher.new(webhook, user).process : nil
     render json: nil, status: :ok
   end
 
@@ -20,9 +20,14 @@ class WebhooksController < ApplicationController
     webhook[:message][:from]
   end
 
+  def user_id
+    webhook[:user_id]
+  end
+
   def update_user_state
     puts 'RECEIVED POST'
     ap params
     render json: nil, status: :ok
   end
+
 end

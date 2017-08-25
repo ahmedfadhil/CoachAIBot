@@ -6,4 +6,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for resource
     profile_index_path
   end
+
+  def call_rake(task, options = {})
+    options[:rails_env] ||= Rails.env
+    args = options.map { |n, v| "#{n.to_s.upcase}='#{v}'" }
+    system "rake #{task} #{args.join(' ')} --trace 2>&1 >> #{Rails.root}/log/rake.log &" # '&' symbol indicates that it will be executed in background
+  end
 end

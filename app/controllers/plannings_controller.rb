@@ -15,7 +15,7 @@ class PlanningsController < ApplicationController
         flash[:error] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         error
       else
-        # add the predefined completness verify method
+        # add the default completness verify method
         if !completness_question(activity)
           flash[:error] = 'C\'e\' stato un problema durante la creazione dei metodi di verifica dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
           error
@@ -38,6 +38,21 @@ class PlanningsController < ApplicationController
     end
   end
 
+  def edit
+    @planning = Planning.find(params[:id])
+  end
+
+  def update
+    @planning = Planning.find (params[:id])
+
+    if @planning.update (allowed_params)
+      redirect_to @planning.plan.user
+    else
+      flash[:error] = 'C\'e\' stato un problema durante la creazione degli orari. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+      error
+    end
+  end
+
   def destroy
     planning = Planning.find(params[:id])
     if !planning.destroy
@@ -55,12 +70,16 @@ class PlanningsController < ApplicationController
       params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times)
     end
 
+    def allowed_params
+      params.require(:planning).permit!
+    end
+
     def error
       render 'error/error'
     end
 
     def completness_question(activity)
-      question = Question.new text: "Hai portato a termine l'attivita' #{activity.name}?", q_type: 'yes_no'
+      question = Question.new text: "Hai portato a termine l'attivita'  ''#{activity.name}'' ?", q_type: 'yes_no'
       question.activity = activity
       if question.save
         answer1 = Answer.new text: 'Si'

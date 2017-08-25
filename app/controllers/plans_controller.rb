@@ -8,14 +8,15 @@ class PlansController < ApplicationController
 
   def create
     plan = Plan.new plan_params
-    user = User.find params[:u_id]
+    plan.delivered = 0
+    user_id = User.find params[:u_id]
     if plan.save
-      user.plans << plan
+      user_id.plans << plan
       flash[:plan_saved] = 'Il nuovo piano e\' stato salvato con successo!'
     else
       flash[:plan_not_saved] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
     end
-    redirect_to user_path(user)
+    redirect_to user_path(user_id)
   end
 
   def destroy
@@ -29,6 +30,19 @@ class PlansController < ApplicationController
     end
   end
 
+  def deliver
+    plan = Plan.find(params[:p_id])
+
+    # create notifications
+    # call_rake :create_notifications, :plan_id => params[:p_id]
+    system "rake --trace create_notifications  PLAN_ID=#{params[:p_id]} &"
+    # %x(rake --trace create_notifications[#{params[:p_id]}])
+
+    flash[:notice] = 'Consegnando il Piano...'
+    redirect_to user_path(plan.user.id)
+
+  end
+
   private
     def plan_params
       params.require(:plan).permit(:name, :desc, :from_day, :to_day, :notification_hour_coach_def)
@@ -37,4 +51,5 @@ class PlansController < ApplicationController
     def error
       render 'error/error.html.erb'
     end
+
 end

@@ -113,9 +113,22 @@ nwe-patient-card > .mdl-card__title {
 
 .plan-card-wide > .mdl-card__title {
   color: #fff;
-  height: inherit;
-  background: #1bb786 center / cover;
+  height: 39px;
+  background: #e2db08 center / cover;
 }
+
+.plan-card-wide > .mdl-card__title2 {
+  color: #fff;
+  height: 39px;
+  background: #6fb70f center / cover;
+}
+
+.plan-card-wide > .mdl-card__title3 {
+  color: #fff;
+  height: 39px;
+  background: #e2150b center / cover;
+}
+
 .plan-card-wide > .mdl-card__menu {
   color: #fff;
 }

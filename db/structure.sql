@@ -5,7 +5,7 @@ FOREIGN KEY ("coach_user_id")
   REFERENCES "coach_users" ("id")
 );
 CREATE INDEX "index_users_on_coach_user_id" ON "users" ("coach_user_id");
-CREATE TABLE "plans" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "desc" varchar, "from_day" date, "to_day" date, "notification_hour_coach_def" time, "notification_hour_user_def" time, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_45da853770"
+CREATE TABLE "plans" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "desc" varchar, "from_day" date, "to_day" date, "notification_hour_coach_def" time, "notification_hour_user_def" time, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "delivered" integer, CONSTRAINT "fk_rails_45da853770"
 FOREIGN KEY ("user_id")
   REFERENCES "users" ("id")
 );
@@ -34,16 +34,7 @@ FOREIGN KEY ("question_id")
   REFERENCES "questions" ("id")
 );
 CREATE INDEX "index_answers_on_question_id" ON "answers" ("question_id");
-CREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer" text, "date" date, "user_id" integer, "question_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_2bd9a0753e"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-, CONSTRAINT "fk_rails_325af149a3"
-FOREIGN KEY ("question_id")
-  REFERENCES "questions" ("id")
-);
-CREATE INDEX "index_responses_on_user_id" ON "responses" ("user_id");
-CREATE INDEX "index_responses_on_question_id" ON "responses" ("question_id");
-CREATE TABLE "plannings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "finished" boolean, "plan_id" integer, "activity_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_84268e3969"
+CREATE TABLE "plannings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "finished" boolean, "plan_id" integer, "activity_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "from_day" date, "to_day" date, CONSTRAINT "fk_rails_84268e3969"
 FOREIGN KEY ("plan_id")
   REFERENCES "plans" ("id")
 , CONSTRAINT "fk_rails_11221890a4"
@@ -52,6 +43,20 @@ FOREIGN KEY ("activity_id")
 );
 CREATE INDEX "index_plannings_on_plan_id" ON "plannings" ("plan_id");
 CREATE INDEX "index_plannings_on_activity_id" ON "plannings" ("activity_id");
+CREATE TABLE "notifications" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "default" boolean, "date" date, "time" time, "sent" boolean, "planning_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "n_type" varchar, "done" integer, CONSTRAINT "fk_rails_49e8ec0964"
+FOREIGN KEY ("planning_id")
+  REFERENCES "plannings" ("id")
+);
+CREATE INDEX "index_notifications_on_planning_id" ON "notifications" ("planning_id");
+CREATE TABLE "feedbacks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer" text, "date" date, "question_id" integer, "notification_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_76b25c55f1"
+FOREIGN KEY ("question_id")
+  REFERENCES "questions" ("id")
+, CONSTRAINT "fk_rails_570988099c"
+FOREIGN KEY ("notification_id")
+  REFERENCES "notifications" ("id")
+);
+CREATE INDEX "index_feedbacks_on_question_id" ON "feedbacks" ("question_id");
+CREATE INDEX "index_feedbacks_on_notification_id" ON "feedbacks" ("notification_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -65,8 +70,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170725145453'),
 ('20170725145554'),
 ('20170725145619'),
-('20170725145701'),
 ('20170726083535'),
-('20170726134458');
+('20170726134458'),
+('20170803133818'),
+('20170803134024'),
+('20170803144653'),
+('20170809081733'),
+('20170811102128'),
+('20170823093058');
 
 
