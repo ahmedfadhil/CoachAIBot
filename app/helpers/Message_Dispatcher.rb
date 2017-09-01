@@ -1,5 +1,7 @@
 require 'telegram/bot'
 require 'awesome_print'
+require 'bot_classes/general_actions'
+
 
 class Message_Dispatcher
   attr_reader :message, :user
@@ -30,41 +32,47 @@ class Message_Dispatcher
           Profiling_Manager.new(text, @user, hash_state).manage
 
         when 1
-          ap '--------MONITORING--------'
+          ap '--------MENU--------'
           # dispatch to monitoring
 
           case text
             when 'attivita', '/attivita', 'Attivita'
+              ap "---------SENDING ACTIVITIES FOR USER #{@user.id} ----------"
               Activity_Informer.new(@user, hash_state).inform
+
             when 'feedback', '/feedback', 'Feedback'
+              ap '---------CHECKING FOR FEEDBACK---------'
               Feedback_Manager.new(@user, hash_state).check
+
             else
               Monitoring_Manager.new(text, @user, hash_state).manage
           end
 
         when 2
-          ap '--------FEEDBACKING--------'
-          ap text
+          ap "--------FEEDBACKING USER: #{@user.id} --------"
           # dispatch to feedback
-          names = plans_names
+          general_actions = GeneralActions.new(@user, hash_state)
+          feedback_manager = Feedback_Manager.new(@user, hash_state)
+          names = general_actions.plans_names(general_actions.plans_needing_feedback)
 
           if hash_state['plan_name'].nil?
             case text
-              when 'Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back'
-                ap '------BACK'
-                back_to_monitoring hash_state
+              when *back_strings
+                general_actions.back_to_menu
+
               when *names
-                ap '---------PLAN NAME'
                 plan_name = text
-                Feedback_Manager.new(@user, hash_state).ask(plan_name)
+                ap "---------ASKING FEEDBACK FOR PLAN: #{plan_name}---------"
+                feedback_manager.ask(plan_name)
+
               else
-                ap '------CHOOOOOSE'
-                Feedback_Manager.new(@user, hash_state).please_choose(names)
+                feedback_manager.please_choose(names)
             end
           else
             case text
-              when 'Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back'
-                back_to_monitoring hash_state
+              when *back_strings
+                general_actions.back_to_menu
+
               else
                 Answer_Checker.new(@user, hash_state).respond(text)
             end
@@ -80,23 +88,8 @@ class Message_Dispatcher
     @message[:message][:text]
   end
 
-  def plans_names
-    plans_names = []
-    delivered_plans = Plan.joins(plannings: :notifications)
-                          .where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND time(notifications.time)<time(?)',
-                                 Date.today, 0, 1, Time.now.strftime('%T'))
-                          .uniq
-    delivered_plans.map do |p|
-      plans_names.push  p.name
-    end
-    plans_names
-  end
-
-
-  def back_to_monitoring(state)
-    state['state'] = 1
-    s = state.except 'plan_name'
-    user.set_user_state s
+  def back_strings
+    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back']
   end
 
 end

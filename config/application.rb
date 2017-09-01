@@ -8,6 +8,10 @@ Bundler.require(*Rails.groups)
 
 module Coach
   class Application < Rails::Application
+    # Re/Enable the autoload functionality for all environments:
+    # COULD BECAME DEPRECATED IN FUTURE VERSIONS OF Rails
+    # config.enable_dependency_loading = true
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
