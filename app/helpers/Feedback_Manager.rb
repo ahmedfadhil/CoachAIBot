@@ -23,7 +23,7 @@ class Feedback_Manager
         reply = "#{i+1} Piano: '#{plan.name}' \t\tCon le seguenti attivita':"
         send_reply reply
         plan.plannings.find_each do |planning|
-          notifications = planning.notifications.where('notifications.date<=?', Date.today)
+          notifications = planning.notifications.where('notifications.date<=? AND notifications.done=?', Date.today, 0)
           if notifications.size > 0
             notifications.each do |n|
               case planning.activity.a_type
@@ -34,8 +34,7 @@ class Feedback_Manager
                   planning.activity.a_type == 'weekly' ? period = 'a settimana' : period = 'al mese'
                   reply = "\t\t\t-#{planning.activity.name} da fare #{planning.activity.n_times} volte #{period} \n"
                   send_reply reply
-              end
-            end
+              end         end
           end
           #break
           j = j + 1
@@ -122,7 +121,7 @@ class Feedback_Manager
     end
 
     def plans_to_be_notified
-      Plan.joins(plannings: :notifications).where('notifications.date<=? AND notifications.done=? AND plans.delivered=?', Date.today, 0, 1).uniq
+      Plan.joins(plannings: :notifications).where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.user_id=?', Date.today, 0, 1, @user.id).uniq
     end
 
     def clean(state)
