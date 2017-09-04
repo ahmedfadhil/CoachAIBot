@@ -1,9 +1,8 @@
 require 'telegram/bot'
 require 'chatscript'
-require 'awesome_print'
 
 
-class Monitoring_Manager
+class ProfilingManager
   attr_reader :message, :user, :api, :cs_bot, :user_state
 
   def initialize(message, user, user_state)
@@ -22,6 +21,13 @@ class Monitoring_Manager
   end
 
   def manage
+    # if is the first time when he enters in profiling, we initialize chatscript by sending 'start' message
+    # and resetting any previous topic data saved on chatscript server side
+    if @user_state.to_dot.first_time == '0'
+      @message = 'start'
+      cs_bot.volley ':reset', user: user.telegram_id
+      first_time_done @user_state
+    end
 
     # send the user state to chatscript server (oob stands for Out Of Band Message)
     user_state_json_oob = "[#{@user_state.to_json}]"
@@ -36,7 +42,6 @@ class Monitoring_Manager
 
     # process any change in the user state and calculate any default response
     keyboard_markup = process_oob user_state_oob
-    ap JSON.parse user_state_json_oob
 
     # Some Log Info
     puts "\n ### USER_ID: #{@user.telegram_id} | USER_MSG: #{@message} ###\n"
@@ -49,11 +54,8 @@ class Monitoring_Manager
               text: reply, reply_markup: keyboard_markup)
   end
 
-  def text
-    @message[:message][:text]
-  end
-
   def process_oob(oob)
+    ap oob
     state_received = JSON.parse(oob)
     dot_state = state_received.to_dot
     flag = 0
@@ -82,9 +84,12 @@ class Monitoring_Manager
     end
   end
 
+  def first_time_done(user_state)
+    user_state[:first_time] = '1'
+  end
 
   def custom_keyboard(keyboard_values)
-    if keyboard_values.length>=4
+    if (keyboard_values.length>4)
       kb = keyboard_values.each_slice(2).to_a
     else
       kb = keyboard_values
@@ -101,6 +106,24 @@ class Monitoring_Manager
       case x
         when 'health', 'salute', 'healthy diet', 'healthy diet', 'dieta', 'dieta salutare', 'mangiare bene'
           "\u{1f52c}"+x
+        when 'attivita fisica'
+          "\u{1f93a}"+x
+        when 'strategia di adattamento'
+          "\u{1f914}"+x
+        when 'sì', 'si', 'certo', 'ok', 'va bene', 'certamente', 'sisi', 'yea', 'yes', 'S'
+          "\u{1f44d}"+x
+        when 'no', 'nono', 'assolutamente no', 'eh no', 'n', 'N'
+          "\u{1f44e}"+x
+        when 'un po'
+          "\u{1f44c}"+x
+        when 'soleggiato'
+          "\u{1f31e}"+x
+        when 'piovoso'
+          "\u{1f327}"+x
+        when 'go on', 'avanti', 'proseguiamo pure', 'proseguiamo'
+          "\u{23ed}"+x
+        when 'stop for a while', 'stop', 'fermiamoci qui per ora', 'fermiamoci', 'basta'
+          "\u{1f6d1}"+x
         when 'nutrizione'
           "\u{1f355}"+x
         when 'fitness'
@@ -111,6 +134,20 @@ class Monitoring_Manager
           "\u{1f4aa}"+x
         when 'basta'
           "\u{1f3fc}"+x
+        when 'sempre'
+          "\u{1f922}"+x
+        when 'quasi sempre'
+          "\u{1f637}"+x
+        when 'poche volte'
+          "\u{1f644}"+x
+        when 'quasi mai'
+          "\u{1f642}"+x
+        when 'mai'
+          "\u{1f60a}"+x
+        when 'benessere mentale'
+          "\u{1f60c}"+x
+        when 'feedback'
+          "\u{1f607}"+x
         else
           x
       end

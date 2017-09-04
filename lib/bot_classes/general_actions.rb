@@ -15,34 +15,13 @@ class GeneralActions
     @user.set_user_state @state.except 'plan_name', 'notification_id', 'question_id'
   end
 
-  def plans_needing_feedback
-    Plan.joins(plannings: :notifications).where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.user_id=?', Date.today, 0, 1, @user.id).uniq
-  end
-
   def clean_state
     @user.set_user_state @state.except('plan_name', 'notification_id', 'question_id')
-  end
-
-  def answers_from_question(question)
-    question.answers.map(&:text)
   end
 
   def set_state(state)
     @state['state'] = state
     user.set_user_state @state
-  end
-
-  def plans_names(delivered_plans)
-    delivered_plans.map(&:name).push('Torna Indietro')
-  end
-
-  def custom_keyboard(keyboard_values)
-    kb = slice_keyboard keyboard_values
-    Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
-  end
-
-  def slice_keyboard(values)
-    values.length >= 4 ? values.each_slice(2).to_a : values
   end
 
   def send_reply(reply)
@@ -54,4 +33,26 @@ class GeneralActions
     user.set_user_state @state
   end
 
+  def plans_needing_feedback
+    Plan.joins(plannings: :notifications).where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.user_id=?', Date.today, 0, 1, @user.id).uniq
+  end
+
+  # static methods
+
+  def self.answers_from_question(question)
+    question.answers.map(&:text)
+  end
+
+  def self.plans_names(delivered_plans)
+    delivered_plans.map(&:name).push('Torna Indietro')
+  end
+
+  def self.custom_keyboard(keyboard_values)
+    kb = GeneralActions.slice_keyboard keyboard_values
+    Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
+  end
+
+  def self.slice_keyboard(values)
+    values.length >= 4 ? values.each_slice(2).to_a : values
+  end
 end

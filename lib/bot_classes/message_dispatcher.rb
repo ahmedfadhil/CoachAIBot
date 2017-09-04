@@ -1,9 +1,14 @@
 require 'telegram/bot'
-require 'awesome_print'
+require 'chatscript'
+require 'bot_classes/activity_informer'
+require 'bot_classes/feedback_manager'
+require 'bot_classes/profiling_manager'
+require 'bot_classes/monitoring_manager'
 require 'bot_classes/general_actions'
+require 'bot_classes/answer_checker'
+require 'bot_classes/api_ai_redirecter'
 
-
-class Message_Dispatcher
+class MessageDispatcher
   attr_reader :message, :user
 
   def initialize(message, user)
@@ -16,7 +21,7 @@ class Message_Dispatcher
 
     if @user.nil?
       # user needs to log in
-      Login_Manager.new(@message, @user).manage
+      LoginManager.new(@message, @user).manage
     else
 
       # dispatch in function of user state
@@ -29,7 +34,7 @@ class Message_Dispatcher
         when '0'
           ap '--------PROFILING--------'
           # dispatch to profiling
-          Profiling_Manager.new(text, @user, hash_state).manage
+          ProfilingManager.new(text, @user, hash_state).manage
 
         when 1
           ap '--------MENU--------'
@@ -37,23 +42,24 @@ class Message_Dispatcher
 
           case text
             when 'attivita', '/attivita', 'Attivita'
-              ap "---------SENDING ACTIVITIES FOR USER #{@user.id} ----------"
-              Activity_Informer.new(@user, hash_state).inform
+              ap "---------SENDING ACTIVITIES FOR USER: #{@user.id} ----------"
+              ActivityInformer.new(@user, hash_state).inform
 
             when 'feedback', '/feedback', 'Feedback'
-              ap '---------CHECKING FOR FEEDBACK---------'
-              Feedback_Manager.new(@user, hash_state).check
+              ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
+              FeedbackManager.new(@user, hash_state).check
 
-            else
-              Monitoring_Manager.new(text, @user, hash_state).manage
+            else # 'tips', 'consigli', 'Consigli', '/consigli', '/Consigli',  '/tips', 'Tips'
+              MonitoringManager.new(text, @user, hash_state).manage
+
           end
 
         when 2
           ap "--------FEEDBACKING USER: #{@user.id} --------"
           # dispatch to feedback
           general_actions = GeneralActions.new(@user, hash_state)
-          feedback_manager = Feedback_Manager.new(@user, hash_state)
-          names = general_actions.plans_names(general_actions.plans_needing_feedback)
+          feedback_manager = FeedbackManager.new(@user, hash_state)
+          names = GeneralActions.plans_names(general_actions.plans_needing_feedback)
 
           if hash_state['plan_name'].nil?
             case text
@@ -62,7 +68,7 @@ class Message_Dispatcher
 
               when *names
                 plan_name = text
-                ap "---------ASKING FEEDBACK FOR PLAN: #{plan_name}---------"
+                ap "---------ASKING FEEDBACK FOR PLAN: #{plan_name} BY USER: #{@user.id}---------"
                 feedback_manager.ask(plan_name)
 
               else
@@ -74,7 +80,7 @@ class Message_Dispatcher
                 general_actions.back_to_menu
 
               else
-                Answer_Checker.new(@user, hash_state).respond(text)
+                AnswerChecker.new(@user, hash_state).respond(text)
             end
           end
         end

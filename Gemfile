@@ -50,6 +50,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'                      # Use ActiveModel has_secure_password
 # gem 'capistrano-rails', group: :development   # Use Capistrano for deployment
 
+# API.AI wrapper
+gem 'api-ai-ruby'
+
 # Telegram API
 gem 'telegram-bot-ruby'
 

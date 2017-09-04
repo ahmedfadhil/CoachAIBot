@@ -24,10 +24,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @plans = @user.plans
+    @overview = 'ciao'
   end
-
-
+  
   # active users
   def active
     @users = User.all.limit 1
@@ -44,6 +43,31 @@ class UsersController < ApplicationController
   def archived
     @users = User.all.limit 4
     render 'users/index'
+  end
+
+  def plans
+    @user = User.find(params[:id])
+    @plans = @user.plans
+  end
+
+  def active_plans
+    @user = User.find(params[:id])
+    @plans = @user.plans.where(:delivered => 1)
+  end
+
+  def suspended_plans
+    @user = User.find(params[:id])
+    @plans = @user.plans.where(:delivered => 2)
+  end
+
+  def interrupted_plans
+    @user = User.find(params[:id])
+    @plans = @user.plans.where(:delivered => 3)
+  end
+
+  def finished_plans
+    @user = User.find(params[:id])
+    @plans = @user.plans.where(:delivered => 4)
   end
 
 

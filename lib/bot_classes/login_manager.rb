@@ -1,8 +1,7 @@
 require 'telegram/bot'
 require 'chatscript'
-require 'awesome_print'
 
-class Login_Manager
+class LoginManager
   attr_reader :message, :user, :api, :cs_bot
 
   def initialize(message, user)

@@ -1,0 +1,4 @@
+$('document').ready(function() {
+    $('#users_plans').empty().html("<%= escape_javascript(render 'users/plans') %>")
+    document.getElementById('active_plans_users').style.backgroundColor = '#F0F8FF'
+});

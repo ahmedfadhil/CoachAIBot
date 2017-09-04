@@ -41,6 +41,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    api-ai-ruby (2.1.0)
+      http (~> 2.0)
     arel (8.0.0)
     awesome_print (1.8.0)
     axiom-types (0.1.1)
@@ -80,6 +82,8 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
     erubi (1.6.1)
     execjs (2.7.0)
@@ -89,6 +93,15 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hash_dot (2.1.0)
+    http (2.2.2)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (1.0.3)
+    http_parser.rb (0.6.0)
     i18n (0.8.6)
     ice_nine (0.11.2)
     jbuilder (2.7.0)
@@ -203,6 +216,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -225,6 +241,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  api-ai-ruby
   awesome_print
   byebug
   capybara (~> 2.13)
@@ -256,4 +273,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.2
+   1.15.3

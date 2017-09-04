@@ -1,6 +1,7 @@
 require 'telegram/bot'
+require 'bot_classes/general_actions'
 
-class Activity_Informer
+class ActivityInformer
   attr_reader :user, :api, :state
 
   def initialize(user, state)
@@ -12,7 +13,7 @@ class Activity_Informer
 
   def inform
     text = "Ciao #{@user.last_name}! Ti elenchero' tutti i piani e le loro attivita' che hai da fare: \n\n"
-    delivered_plans = @user.plans.where(:delivered => true)
+    delivered_plans = @user.plans.where(:delivered => 1)
     if delivered_plans.size > 0
       i = 0
       delivered_plans.find_each do |plan|
@@ -28,7 +29,7 @@ class Activity_Informer
 
       if i==delivered_plans.size
         buttons = %w[Attivita Feedback Tips]
-        keyboard = custom_keyboard buttons
+        keyboard = GeneralActions.custom_keyboard buttons
         @user.set_user_state @state
         @api.call('sendMessage', chat_id: @user.telegram_id, text: text, reply_markup: keyboard)
       else
@@ -36,28 +37,11 @@ class Activity_Informer
       end
 
     else
-      keyboard = custom_keyboard ['Attivita', 'Feedback', 'Consigli']
+      keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli']
       @api.call('sendMessage', chat_id: @user.telegram_id,
                 text: 'Ancora non ci sono attivit\' definite per te.', reply_markup: keyboard)
     end
 
 
-  end
-
-  def custom_keyboard(keyboard_values)
-    kb = slice_keyboard keyboard_values
-    answers =
-        Telegram::Bot::Types::ReplyKeyboardMarkup
-            .new(keyboard: kb, one_time_keyboard: true)
-    answers
-  end
-
-  def slice_keyboard(keyboard)
-    if keyboard.length > 3
-      kb = keyboard.each_slice(2).to_a
-    else
-      kb = keyboard
-    end
-    kb
   end
 end
