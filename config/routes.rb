@@ -3,13 +3,20 @@ Rails.application.routes.draw do
 
   resources :plans do
     collection do
-      get 'new/:u_id', to: 'plans#new', as: 'new'
-      get 'deliver/:p_id', to: 'plans#deliver', as: 'deliver'
+      post 'new/:u_id', to: 'plans#new', as: 'new'
+      post 'deliver/:p_id', to: 'plans#deliver', as: 'deliver'
+      post 'suspend/:p_id', to: 'plans#suspend', as: 'suspend'
+      post 'stop/:p_id', to: 'plans#stop', as: 'stop'
     end
   end
 
   resources :users do
     collection do
+      get 'plans/:id', to: 'users#plans', as: 'plans'
+      get 'active_plans/:id', to: 'users#active_plans', as: 'active_plans'
+      get 'suspended_plans/:id', to: 'users#suspended_plans', as: 'suspended_plans'
+      get 'interrupted_plans/:id', to: 'users#interrupted_plans', as: 'interrupted_plans'
+      get 'finished_plans/:id', to: 'users#finished_plans', as: 'finished_plans'
       get 'active'
       get 'archived'
       get 'suspended'

@@ -1,3 +1,9 @@
+.line-separator{
+  height:1px;
+  background:#717171;
+  border-bottom:1px solid #313030;
+}
+
 .patients-container{
   overflow: scroll;
 }
@@ -127,6 +133,12 @@ nwe-patient-card > .mdl-card__title {
   color: #fff;
   height: 39px;
   background: #e2150b center / cover;
+}
+
+plan-card-wide > .mdl-card__title4 {
+  color: #fff;
+  height: 39px;
+  background: #ACEC00 center / cover;
 }
 
 .plan-card-wide > .mdl-card__menu {

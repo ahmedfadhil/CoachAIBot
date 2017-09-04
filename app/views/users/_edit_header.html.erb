@@ -3,13 +3,13 @@
   <div class="mdl-layout__header-row">
     <nav class="mdl-navigation" >
 
-      <%= link_to users_path, class: 'mdl-navigation__link' do %>
+      <%= link_to user_path(@user), class: 'mdl-navigation__link', method: 'get' do %>
           <button id="overview-user" class="mdl-button mdl-js-button mdl-button--raised">
             <i class="material-icons">supervisor_account</i> &nbsp Panoramica
           </button>
       <% end %>
 
-      <%= link_to active_users_path, class: 'mdl-navigation__link' do %>
+      <%= link_to plans_users_path(@user), class: 'mdl-navigation__link', method: 'get' do %>
           <button id="activities-user" class="mdl-button mdl-js-button mdl-button--raised" >
             <i class="material-icons">insert_emoticon</i> &nbsp Attivita' e Piani
           </button>
@@ -20,13 +20,6 @@
             <i class="material-icons">block</i> &nbsp Communicazioniß
           </button>
       <% end %>
-
-      <%= link_to suspended_users_path, class: 'mdl-navigation__link' do %>
-          <button id="notifications-user" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">block</i> &nbsp Communicazioniß
-          </button>
-      <% end %>
-
 
     </nav>
   </div>

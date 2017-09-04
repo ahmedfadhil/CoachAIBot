@@ -10,8 +10,10 @@ module UsersHelper
         'mdl-card__title'
       when 1
         'mdl-card__title2'
-      else
+      when 2
         'mdl-card__title3'
+      else
+        'mdl-card__title4'
     end
   end
 

@@ -1,10 +1,10 @@
-require 'Message_Dispatcher'
+require 'bot_classes/message_dispatcher'
 
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def callback
-    !webhook[:message][:from].nil? ?  Message_Dispatcher.new(webhook, user).process : nil
+    !webhook[:message][:from].nil? ?  MessageDispatcher.new(webhook, user).process : nil
     render json: nil, status: :ok
   end
 
