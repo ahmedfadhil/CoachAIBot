@@ -7,6 +7,7 @@ require 'bot_classes/monitoring_manager'
 require 'bot_classes/general_actions'
 require 'bot_classes/answer_checker'
 require 'bot_classes/api_ai_redirecter'
+require 'bot_classes/login_manager'
 
 class MessageDispatcher
   attr_reader :message, :user
