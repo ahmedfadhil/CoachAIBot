@@ -1,24 +1,27 @@
-# README
+# Running in development
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Get a copy of chatscript-bot and start it using:
 
-Things you may want to cover:
+```
+./BINARIES/LinuxChatScript64 port=1024 language=italian
+```
 
-* Ruby version
+Start ngrock:
 
-* System dependencies
+```
+./ngrok http 3000
+```
 
-* Configuration
+Copy your https public address, it should look like this: `https://8750c73e.ngrok.io`
 
-* Database creation
+Now visit
 
-* Database initialization
+```
+https://api.telegram.org/bot434866375:AAF2FXmS2K598jsonxeilsnnxyOwAd83vHs/setWebhook?url=https://8750c73e.ngrok.io/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
+```
 
-* How to run the test suite
+But replace `https://8750c73e.ngrok.io` with your actual public address. You should see the message "Webhook was set"
 
-* Services (job queues, cache servers, search engines, etc.)
+## Developing your own bot
 
-* Deployment instructions
-
-* ...
+You should do this if you are willing to develop your own bot. Contact Marian because he knows what to do!
