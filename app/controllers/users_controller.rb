@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @overview = 'ciao'
   end
-  
+
   # active users
   def active
     @users = User.all.limit 1
