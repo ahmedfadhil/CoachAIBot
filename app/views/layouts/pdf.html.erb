@@ -8,7 +8,9 @@
     <%= javascript_include_tag wicked_pdf_asset_base64('application') %>
         <% end %>
 
-    <%= wicked_pdf_stylesheet_link_tag 'application' -%>
+    <%= wicked_pdf_stylesheet_link_tag 'pdf_styles' -%>
+    <%= wicked_pdf_stylesheet_link_tag 'material-design-lite' -%>
+
     <%= wicked_pdf_javascript_include_tag 'application' %>
 
   </head>
