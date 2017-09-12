@@ -6,6 +6,7 @@
 .activity-insert-card-wide{
   height: auto;
   width: 100%;
+  background: gainsboro;
 }
 
 #volte-con-es{
@@ -14,4 +15,17 @@
 
 #new-category-input{
   display: none;
+}
+
+.new-activity-grid{
+  max-width: 960px;
+}
+
+.error-grid{
+  max-width: 900px;
+  text-align: center;
+}
+
+.all-activities-card{
+  text-align: -webkit-center;
 }

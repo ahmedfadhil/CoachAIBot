@@ -55,4 +55,5 @@ class GeneralActions
   def self.slice_keyboard(values)
     values.length >= 4 ? values.each_slice(2).to_a : values
   end
+
 end

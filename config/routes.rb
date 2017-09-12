@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'active'
       get 'archived'
       get 'suspended'
+      get ':id/get_plans.pdf', to: 'users#get_plans_pdf', as: 'get_plans_pdf'
     end
   end
 
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
     end
   end
 
+  # pdf
+  get '/pdf/user_plans_pdf', to: 'pdf#user_plans_pdf', as: 'user_plans_pdf'
 
   get 'profile/index'
   get 'static_pages/help'
@@ -51,6 +54,7 @@ Rails.application.routes.draw do
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
   post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/activities' => 'webhooks#activities'
   post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/feedback' => 'webhooks#feedback'
+
 
 
 

@@ -70,6 +70,23 @@ class UsersController < ApplicationController
     @plans = @user.plans.where(:delivered => 4)
   end
 
+  def get_plans_pdf
+    user = User.find(params[:id])
+    @plans = user.plans
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{user.first_name}-Plans",
+               encoding: 'UTF-8',
+               template: 'users/user_plans',
+               locals: {:plans => plans},
+               show_as_html: params.key?('debug'),
+               title: 'Piani ed Attivita'
+      end
+    end
+  end
+
 
   private
 

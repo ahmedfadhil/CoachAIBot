@@ -14,6 +14,7 @@
 //= require eq.js.js
 //= require jquery
 //= require jquery-ui
+//= require highstock
 //= require material-design-lite
 //= require mdl-selectfield
 //= require rails-ujs

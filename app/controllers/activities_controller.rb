@@ -19,13 +19,14 @@ class ActivitiesController < ApplicationController
     if activity.save
       #automaticaly add COMPLETNESS question
       if completness_question(activity)
-        redirect_to activities_path
+        flash[:success] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
       else
-        error
+        flash[:error] = 'C\'e\' stato un problema durante la crezione dell\'attivita\'! Contattare l\'amministratore del sistema se il problema persiste!'
       end
     else
-      error
+      flash[:error] = 'ATTIVITA NON INSERITA! C\'e\' stato un problema durante la crezione dell\'attivita\'! RICONTROLLA I DATI INSERITI!'
     end
+    redirect_to activities_path
   end
 
   def edit
@@ -62,7 +63,7 @@ class ActivitiesController < ApplicationController
     end
 
     def completness_question(activity)
-      question = Question.new text: "Hai portato a termine l'attivita' #{activity.name}?", q_type: 'yes_no'
+      question = Question.new text: "Hai portato a termine l'attivita' #{activity.name}?", q_type: 'completeness'
       question.activity = activity
       if question.save
         answer1 = Answer.new text: 'Si'

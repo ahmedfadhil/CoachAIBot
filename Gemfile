@@ -5,8 +5,18 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# background daemon
-gem 'daemons'
+# pdf from html
+gem 'wicked_pdf'
+
+# wicked_pdf is a wrapper for wkhtmltopdf, I need to install that, too
+gem 'wkhtmltopdf-binary'
+
+# pdf creator
+gem 'prawn', '~> 2.2', '>= 2.2.2'
+
+# highcharts & highstock
+gem 'highcharts-rails'
+gem 'highstock-rails'
 
 # jquery-UI
 gem 'jquery-ui-rails'
@@ -43,7 +53,6 @@ gem 'coffee-rails', '~> 4.2'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-
 
 
 # gem 'redis', '~> 3.0'                         # Use Redis adapter to run Action Cable in production
