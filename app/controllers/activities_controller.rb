@@ -16,6 +16,7 @@ class ActivitiesController < ApplicationController
 
   def create
     activity = Activity.new activity_params
+    ap activity
     if activity.save
       #automaticaly add COMPLETNESS question
       if completness_question(activity)

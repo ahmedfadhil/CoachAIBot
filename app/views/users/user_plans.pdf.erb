@@ -1,34 +1,34 @@
 <div class="mdl-layout mdl-js-layout">
   <div class="mdl-layout__content">
 
-    <div class="mdl-grid pdf-grid">
-      <div class="no_break">
-        <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-cell">
-          <div class="pdf-header-img-cont mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-            <div class="mdl-card__supporting-text">
-              <h4>Piani ed Attivita' di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h4>
+    <div class="header-grid no_break mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-cell">
+        <div class="header-card mdl-card">
 
-              <%= wicked_pdf_image_tag 'pdf_head.jpg' %><br>
+          <div class="mdl-card__supporting-text">
+            <h4>Piani ed Attivita' di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h4>
 
-              Nel documento seguente troverai tutti i dettagli riguardanti le attivita' definite dal coach <%= "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
-            </div>
-            <div class="mdl-card__actions">
-              <%= link_to home_index_path, class: 'mdl-button' do %>
-                  Ulteriori Dettagli su Coach AI
-              <% end %>
-            </div>
+            <%= image_tag wicked_pdf_asset_base64('pdf_head.jpg'), class: 'header-img'%><br>
+
+            Nel documento seguente troverai tutti i dettagli riguardanti le attivita' definite dal coach <%= "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
           </div>
+
+          <div class="mdl-card__actions">
+            <%= link_to home_index_path, class: 'mdl-button' do %>
+                Ulteriori Dettagli su Coach AI
+            <% end %>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="alwaysbreak"></div>
 
     <% @plans.each do |plan| %>
-        <div class="nobreak mdl-grid pdf-grid">
+        <div class="nobreak mdl-grid">
           <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-cell">
 
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
+            <div class="mdl-card">
 
               <div class="mdl-card__title">
                 <h4 class="mdl-cell mdl-cell--12-col"> <%= plan.name %> </h4>
@@ -37,12 +37,10 @@
                 </div>
               </div>
 
-              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+              <div class="mdl-card__supporting-text">
                 <% plan.activities.each do |activity| %>
                     <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                      <div class="activity-icon section__circle-container__circle mdl-color--primary">
-                        <%= image_tag wicked_pdf_asset_base64('doc-bot.png'), class: 'activity-icon-img' %>
-                      </div>
+                      <%= image_tag wicked_pdf_asset_base64('doc-bot.png')%>
                     </div>
                     <div class="mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                       <h5> <%= activity.name %> </h5>
@@ -60,7 +58,6 @@
           </div>
         </div>
 
-        <div class="alwaysbreak"></div>
     <% end %>
 
   </div>

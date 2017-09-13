@@ -32,7 +32,5 @@ module Coach
       Devise::PasswordsController.layout 'home'
     end
 
-    # precompile some assets in order to avoid errors during production
-    config.assets.precompile += %w(assets/sylesheets/pdf_style.css application.css)
   end
 end

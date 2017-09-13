@@ -24,7 +24,7 @@ class WebhooksController < ApplicationController
     webhook[:user_id]
   end
 
-  def update_user_state
+  def upload_health
     puts 'RECEIVED POST'
     ap params
     render json: nil, status: :ok

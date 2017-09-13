@@ -78,11 +78,10 @@ class UsersController < ApplicationController
       format.html
       format.pdf do
         render pdf: "#{user.first_name}-Plans",
-               encoding: 'UTF-8',
                template: 'users/user_plans',
-               locals: {:plans => plans},
                show_as_html: params.key?('debug'),
-               title: 'Piani ed Attivita'
+               disable_smart_shrinking: true
+               #dpi: '400'
       end
     end
   end
