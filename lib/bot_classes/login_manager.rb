@@ -40,6 +40,7 @@ class LoginManager
     user.reset_user_state
     state = new_state
     user.set_user_state(state)
+    user.feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
     if user.save
       @api.call('sendMessage', chat_id: chat_id,
                 text: "Ciao #{user.last_name}! Io sono CoachAI")
@@ -75,8 +76,40 @@ class LoginManager
   end
 
   def new_state
-    {state: '0', first_time: '0', health: 0, physical: 0, coping: 0, mental: 0,
-     user_id: @user.id, user_name: @user.last_name, monitoring: 0}
+    {state: '0',
+     first_time: '0',
+     health: 0,
+     physical: 0,
+     coping: 0,
+     mental: 0,
+     user_id: @user.id, user_name: @user.last_name, monitoring: 0,
+     notification_hour_morning: nil,
+     notification_hour_evening: nil,
+     health_features: {
+         health_personality: nil,
+         health_wellbeing_meaning: nil,
+         health_nutritional_habits: nil,
+         health_drinking_water: nil,
+         health_vegetables_eaten: nil,
+         health_energy_level: nil
+     },
+     physical_features: {
+         sport: nil,
+         physical_sport_frequency: nil,
+         physical_sport_intensity: nil,
+         physical_goal: nil
+     },
+     coping_features: {
+         coping_stress: nil,
+         coping_sleep_hours: nil,
+         coping_energy_level: nil
+     },
+     mental_features: {
+         mental_nervous: nil,
+         mental_depressed: nil,
+         mental_effort: nil
+     }
+    }
   end
 
   def contact_phone_number

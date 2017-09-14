@@ -8,6 +8,7 @@ require 'bot_classes/general_actions'
 require 'bot_classes/answer_checker'
 require 'bot_classes/api_ai_redirecter'
 require 'bot_classes/login_manager'
+require 'bot_classes/chatscript_compiler'
 
 class MessageDispatcher
   attr_reader :message, :user
@@ -30,65 +31,66 @@ class MessageDispatcher
       dot_state = hash_state.to_dot
       state = dot_state.state
 
-      case state
+      if text == ':build mine'
+        ChatscriptCompiler.new(text, @user, hash_state).manage
+      else
+        case state
 
-        when '0'
-          ap '--------PROFILING--------'
-          # dispatch to profiling
-          ProfilingManager.new(text, @user, hash_state).manage
+          when '0'
+            ap '--------PROFILING--------'
+            # dispatch to profiling
+            ProfilingManager.new(text, @user, hash_state).manage
 
-        when 1
-          ap '--------MENU--------'
-          # dispatch to monitoring
+          when 1
+            ap '--------MENU--------'
+            # dispatch to monitoring
 
-          case text
-            when 'attivita', '/attivita', 'Attivita'
-              ap "---------SENDING ACTIVITIES FOR USER: #{@user.id} ----------"
-              ActivityInformer.new(@user, hash_state).inform
-
-            when 'feedback', '/feedback', 'Feedback'
-              ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
-              FeedbackManager.new(@user, hash_state).check
-
-            else # 'tips', 'consigli', 'Consigli', '/consigli', '/Consigli',  '/tips', 'Tips'
-              MonitoringManager.new(text, @user, hash_state).manage
-
-          end
-
-        when 2
-          ap "--------FEEDBACKING USER: #{@user.id} --------"
-          # dispatch to feedback
-          general_actions = GeneralActions.new(@user, hash_state)
-          feedback_manager = FeedbackManager.new(@user, hash_state)
-          names = GeneralActions.plans_names(general_actions.plans_needing_feedback)
-
-          if hash_state['plan_name'].nil?
             case text
-              when *back_strings
-                general_actions.back_to_menu
+              when 'attivita', '/attivita', 'Attivita'
+                ap "---------SENDING ACTIVITIES FOR USER: #{@user.id} ----------"
+                ActivityInformer.new(@user, hash_state).inform
 
-              when *names
-                plan_name = text
-                ap "---------ASKING FEEDBACK FOR PLAN: #{plan_name} BY USER: #{@user.id}---------"
-                feedback_manager.ask(plan_name)
+              when 'feedback', '/feedback', 'Feedback'
+                ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
+                FeedbackManager.new(@user, hash_state).check
 
-              else
-                feedback_manager.please_choose(names)
+              else # 'tips', 'consigli', 'Consigli', '/consigli', '/Consigli',  '/tips', 'Tips'
+                MonitoringManager.new(text, @user, hash_state).manage
+
             end
-          else
-            case text
-              when *back_strings
-                general_actions.back_to_menu
 
-              else
-                AnswerChecker.new(@user, hash_state).respond(text)
+          when 2
+            ap "--------FEEDBACKING USER: #{@user.id} --------"
+            # dispatch to feedback
+            general_actions = GeneralActions.new(@user, hash_state)
+            feedback_manager = FeedbackManager.new(@user, hash_state)
+            names = GeneralActions.plans_names(general_actions.plans_needing_feedback)
+
+            if hash_state['plan_name'].nil?
+              case text
+                when *back_strings
+                  general_actions.back_to_menu
+
+                when *names
+                  plan_name = text
+                  ap "---------ASKING FEEDBACK FOR PLAN: #{plan_name} BY USER: #{@user.id}---------"
+                  feedback_manager.ask(plan_name)
+
+                else
+                  feedback_manager.please_choose(names)
+              end
+            else
+              case text
+                when *back_strings
+                  general_actions.back_to_menu
+
+                else
+                  AnswerChecker.new(@user, hash_state).respond(text)
+              end
             end
-          end
         end
-
-      ap JSON.parse @user.bot_command_data
+      end
     end
-
   end
 
   def text

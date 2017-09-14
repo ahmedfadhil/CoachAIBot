@@ -1,11 +1,37 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  health: 
-  physical: 
-  mental: false
+  physical_sport: MyString
+  physical_sport_frequency: MyString
+  physical_sport_intensity: MyString
+  physical_goal: MyString
+  health_personality: MyString
+  health_wellbeing_meaning: MyString
+  health_nutritional_habits: MyString
+  health_drinking_water: MyString
+  health_vegetables_eaten: MyString
+  health_energy_level: MyString
+  coping_stress: MyString
+  coping_sleep_hours: MyString
+  coping_energy_level: MyString
+  mental_nervous: MyString
+  mental_depressed: MyString
+  mental_effort: MyString
 
 two:
-  health: 
-  physical: 
-  mental: false
+  physical_sport: MyString
+  physical_sport_frequency: MyString
+  physical_sport_intensity: MyString
+  physical_goal: MyString
+  health_personality: MyString
+  health_wellbeing_meaning: MyString
+  health_nutritional_habits: MyString
+  health_drinking_water: MyString
+  health_vegetables_eaten: MyString
+  health_energy_level: MyString
+  coping_stress: MyString
+  coping_sleep_hours: MyString
+  coping_energy_level: MyString
+  mental_nervous: MyString
+  mental_depressed: MyString
+  mental_effort: MyString

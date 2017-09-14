@@ -14,11 +14,6 @@ CREATE TABLE "coach_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "fi
 CREATE UNIQUE INDEX "index_coach_users_on_email" ON "coach_users" ("email");
 CREATE UNIQUE INDEX "index_coach_users_on_reset_password_token" ON "coach_users" ("reset_password_token");
 CREATE TABLE "activities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar DEFAULT NULL, "desc" varchar DEFAULT NULL, "a_type" varchar DEFAULT NULL, "n_times" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "category" varchar DEFAULT NULL);
-CREATE TABLE "features" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "health" boolean, "physical" boolean, "mental" boolean, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_9e549256a3"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-);
-CREATE INDEX "index_features_on_user_id" ON "features" ("user_id");
 CREATE TABLE "schedules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "time" time, "day" integer, "planning_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_b56518c6f6"
 FOREIGN KEY ("planning_id")
   REFERENCES "plannings" ("id")
@@ -57,6 +52,11 @@ FOREIGN KEY ("notification_id")
 );
 CREATE INDEX "index_feedbacks_on_question_id" ON "feedbacks" ("question_id");
 CREATE INDEX "index_feedbacks_on_notification_id" ON "feedbacks" ("notification_id");
+CREATE TABLE "features" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "physical" integer, "health" integer, "mental" integer, "coping" integer, "physical_sport" varchar, "physical_sport_frequency" varchar, "physical_sport_intensity" varchar, "physical_goal" varchar, "health_personality" varchar, "health_wellbeing_meaning" varchar, "health_nutritional_habits" varchar, "health_drinking_water" varchar, "health_vegetables_eaten" varchar, "health_energy_level" varchar, "coping_stress" varchar, "coping_sleep_hours" varchar, "coping_energy_level" varchar, "mental_nervous" varchar, "mental_depressed" varchar, "mental_effort" varchar, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_9e549256a3"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_features_on_user_id" ON "features" ("user_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -66,7 +66,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170711152815'),
 ('20170718115019'),
 ('20170720095130'),
-('20170725145037'),
 ('20170725145453'),
 ('20170725145554'),
 ('20170725145619'),
@@ -77,6 +76,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170803144653'),
 ('20170809081733'),
 ('20170811102128'),
-('20170823093058');
+('20170823093058'),
+('20170914121008');
 
 

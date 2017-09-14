@@ -15,6 +15,8 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       current_coach_user.users << user
+      feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
+      feature.save
       redirect_to users_path
     else
       flash[:error] = 'Errore durante il salvataggio dell\'utente! '
