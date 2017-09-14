@@ -16,7 +16,7 @@ class PlansController < ApplicationController
     else
       flash[:plan_not_saved] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
     end
-    redirect_to user_path(user_id)
+    redirect_to plans_users_plans(user_id)
   end
 
   def destroy

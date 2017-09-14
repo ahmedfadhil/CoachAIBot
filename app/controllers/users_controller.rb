@@ -26,7 +26,18 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @overview = 'ciao'
+  end
+
+  def features
+    @user = User.find(params[:id])
+    @features = @user.feature
+  end
+
+  def get_charts_data
+    respond_to do |format|
+      format.json do
+        render json: {status: 'ok'}
+      end
   end
 
   # active users

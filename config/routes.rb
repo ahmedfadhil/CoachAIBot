@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get 'plans/:id', to: 'users#plans', as: 'plans'
+      get 'features/:id', to: 'users#features', as: 'features'
       get 'active_plans/:id', to: 'users#active_plans', as: 'active_plans'
       get 'suspended_plans/:id', to: 'users#suspended_plans', as: 'suspended_plans'
       get 'interrupted_plans/:id', to: 'users#interrupted_plans', as: 'interrupted_plans'
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
       get 'archived'
       get 'suspended'
       get ':id/get_plans.pdf', to: 'users#get_plans_pdf', as: 'get_plans_pdf'
+      get ':id/get_charts_data', to: 'users#get_charts_data', as: 'get_charts_data'
     end
   end
 

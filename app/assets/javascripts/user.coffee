@@ -7,6 +7,15 @@ usdtoeur = [10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11
     element.style.color = textColor
 
 @firstChart = () ->
+  user_id = document.getElementById('hidden_user_id').valueOf()
+  $.ajax "/#{user_id}/get_charts_data",
+    type: 'GET'
+    dataType: 'json'
+    json: true  s
+    success: (data, textStatus, jqXHR) ->
+      $('body').append "Successful AJAX call: #{data.status}"
+
+
   myChart = Highcharts.chart('graphs-container', {
     chart: {
       type: 'bar'
@@ -42,11 +51,10 @@ usdtoeur = [10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11
   })
 
 
-
-
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
   div_plans = document.getElementsByClassName('plans-action')
+  div_features = document.getElementsByClassName('users_features')
 
   if div_plans[0] != undefined
     document.getElementById('activities-user').style.background = '#F0F8FF'
@@ -55,6 +63,9 @@ usdtoeur = [10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11
   if div_overview[0] != undefined
     firstChart()
     document.getElementById('overview-user').style.background = '#F0F8FF'
+
+  if div_features[0] != undefined
+    document.getElementById('features-user').style.background = '#F0F8FF'
 
 
 
