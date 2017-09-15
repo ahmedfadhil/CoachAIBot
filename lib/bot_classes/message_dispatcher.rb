@@ -36,12 +36,12 @@ class MessageDispatcher
       else
         case state
 
-          when '0'
+          when 0, '0'
             ap '--------PROFILING--------'
             # dispatch to profiling
             ProfilingManager.new(text, @user, hash_state).manage
 
-          when 1
+          when 1, '1'
             ap '--------MENU--------'
             # dispatch to monitoring
 
@@ -59,7 +59,7 @@ class MessageDispatcher
 
             end
 
-          when 2
+          when 2, '2'
             ap "--------FEEDBACKING USER: #{@user.id} --------"
             # dispatch to feedback
             general_actions = GeneralActions.new(@user, hash_state)
@@ -69,7 +69,7 @@ class MessageDispatcher
             if hash_state['plan_name'].nil?
               case text
                 when *back_strings
-                  general_actions.back_to_menu
+                  general_actions.back_to_menu_with_menu
 
                 when *names
                   plan_name = text
@@ -82,7 +82,7 @@ class MessageDispatcher
             else
               case text
                 when *back_strings
-                  general_actions.back_to_menu
+                  general_actions.back_to_menu_with_menu
 
                 else
                   AnswerChecker.new(@user, hash_state).respond(text)

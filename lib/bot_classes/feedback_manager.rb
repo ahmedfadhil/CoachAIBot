@@ -47,13 +47,24 @@ class FeedbackManager
       # @api.send_document(chat_id: message.from.id, document: Faraday::UploadIO.new('test.gif', 'image/gif'))
 
       plans_keyboard = GeneralActions.custom_keyboard plan_names
-      GeneralActions.new(@user, @state).clean_state
+
+      ap' INITIALY user IS'
+      ap @user
+      ap 'AND state is'
+      ap @state
+
+      @user = GeneralActions.new(@user, @state).clean_state
+
+      ap 'THEN user IS'
+      ap @user
+      ap 'AND state IS'
+      ap @user.state
 
       @api.call('sendMessage', chat_id: @user.telegram_id,
                 text: 'Per che piano vuoi fornire il feedback?', reply_markup: plans_keyboard)
 
       # set feedback state
-      GeneralActions.new(@user, @state).set_state 2
+      GeneralActions.new(@user, JSON.parse(@user.bot_command_data)).set_state 2
 
     else
       reply = 'Per ora non c\'e\' piu\' feedback da dare. Prosegui con le attivita e potrai dare feedback su di esse.'
@@ -62,25 +73,22 @@ class FeedbackManager
       @api.call('sendMessage', chat_id: @user.telegram_id,
                 text: reply, reply_markup: keyboard)
     end
-
-
   end
 
   def ask(plan_name)
     notification = Notification.joins(planning: :plan)
-        .where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.name=?',
-               Date.today, 0, 1, plan_name)
+        .where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.name=?', Date.today, 0, 1, plan_name)
         .limit(1)[0]
 
     if notification.nil?
       reply = "Abbiamo finito con il piano ''#{plan_name}''"
       @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
-      GeneralActions.new(@user, @state).clean_state
-      FeedbackManager.new(@user, @state).check
+      @user = GeneralActions.new(@user, @state).clean_state
+      FeedbackManager.new(@user, JSON.parse(@user.bot_command_data)).check
     else
       ap "NOTIFICATION= #{notification.date} #{notification.time}"
       ap "FEEDBACK= #{notification.feedbacks.size} QUESTIONS= #{notification.planning.activity.questions.size}"
-      if notification.feedbacks.size<notification.planning.activity.questions.size
+      if !(notification.feedbacks.size == notification.planning.activity.questions.size)
         question = notification.planning.activity.questions[notification.feedbacks.size]
         reply = "In data #{notification.date} alle ore #{notification.time.strftime('%H:%M')} \n"
         reply = reply + "\n\t #{question.text}?"
@@ -98,8 +106,8 @@ class FeedbackManager
       else
         notification.done = 1
         notification.save
-        GeneralActions.new(@user, @state).clean_state
-        FeedbackManager.new(@user, @state).check
+        @user = GeneralActions.new(@user, @state).clean_state
+        FeedbackManager.new(@user, JSON.parse(@user.bot_command_data)).check
       end
     end
   end
@@ -108,9 +116,9 @@ class FeedbackManager
     if plans.size==0
       GeneralActions.new(@user, @state).back_to_menu
     else
-      reply = 'Per favore scegli uno dei piani indicati'
+      reply = 'Scegli uno dei piani indicati, per fornire feedback sulla meno recente attivita che cera da fare.'
       @api.call('sendMessage', chat_id: @user.telegram_id,
-                text: reply, reply_markup: custom_keyboard(plans))
+                text: reply, reply_markup: GeneralActions.custom_keyboard(plans))
     end
   end
 

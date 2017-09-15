@@ -18,5 +18,5 @@ Rails.application.config.assets.precompile += %w( profile.css )
 Rails.application.config.assets.precompile += %w( home.js )
 Rails.application.config.assets.precompile += %w( profile.js )
 
-Rails.application.config.assets.precompile += %w( pdf_styles.css )
+Rails.application.config.assets.precompile += %w( pdf_styles.scss )
 Rails.application.config.assets.precompile += %w( material-design-lite.js )

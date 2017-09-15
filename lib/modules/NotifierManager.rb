@@ -1,3 +1,5 @@
+require 'telegram/bot'
+
 module NotifierManager
   class Notifier
 
@@ -19,7 +21,7 @@ module NotifierManager
           default_time = def_time(plan)
 
           case activity_type
-            when 'daily'
+            when 'daily', 0, '0'
               # coach defined schedules for daily activity
               if planning.schedules.present?
                 (start_date..end_date).each do |date|
@@ -37,7 +39,7 @@ module NotifierManager
                 end
               end
 
-            when 'weekly'
+            when 'weekly', 1, '1'
               if planning.schedules.present?
                 (start_date..end_date).each do |date|
                   planning.schedules.each do |schedule|
@@ -77,6 +79,15 @@ module NotifierManager
       end
     end
 
+    def notify_for_new_activities(plan)
+      token = Rails.application.secrets.bot_token
+      api = ::Telegram::Bot::Api.new(token)
+      user = plan.user
+      message = "Nuove Attivita' sono state definite per te #{user.first_name}. Vai nella sezione ATTIVITA' per avere ulteriori dettagli."
+
+      api.call('sendMessage', chat_id: user.telegram_id, text: message)
+    end
+
     private
 
     def loop_through(by, start_date, end_date, planning, default_time)
@@ -95,7 +106,7 @@ module NotifierManager
         interval_start = Date.parse(start.inspect)
         interval_end = Date.parse(stop.inspect)
         (interval_start..interval_end).step(planning.activity.n_times) do |date|
-          set(Notification.new(time: default_time, date: date, n_type: 'ACTIVITY_NOTIFICATION'), planning)
+          set(Notification.new(time: default_time, done: 0, date: date, n_type: 'ACTIVITY_NOTIFICATION'), planning)
         end
 
         start = stop.send("beginning_of_#{interval}")

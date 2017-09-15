@@ -31,7 +31,7 @@ class PlanningsController < ApplicationController
     planning.activity_id = activity.id
     planning.plan_id = plan.id
     if planning.save
-      redirect_to user_path(user)
+      redirect_to plans_users_path(user)
     else
       flash[:error] = 'C\'e\' stato un problema durante l\'assegnamento dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
       error

@@ -38,6 +38,7 @@ class UsersController < ApplicationController
       format.json do
         render json: {status: 'ok'}
       end
+    end
   end
 
   # active users

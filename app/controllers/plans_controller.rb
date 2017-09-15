@@ -16,7 +16,7 @@ class PlansController < ApplicationController
     else
       flash[:plan_not_saved] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
     end
-    redirect_to plans_users_plans(user_id)
+    redirect_to plans_users_path(user_id)
   end
 
   def destroy
@@ -36,10 +36,11 @@ class PlansController < ApplicationController
     # create notifications
     # call_rake :create_notifications, :plan_id => params[:p_id]
     system "rake --trace create_notifications  PLAN_ID=#{params[:p_id]} &"
+    system "rake --trace notify_for_new_activities  PLAN_ID=#{params[:p_id]} &"
     # %x(rake --trace create_notifications[#{params[:p_id]}])
 
     flash[:notice] = 'Consegnando il Piano...'
-    redirect_to user_path(plan.user.id)
+    redirect_to plans_users_path(plan.user.id)
   end
 
   def suspend

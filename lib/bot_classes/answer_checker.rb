@@ -27,7 +27,7 @@ class AnswerChecker
         FeedbackManager.new(@user, @state).ask(@state['plan_name'])
       end
     else
-      reply = "Per favore rispondi con le opzioni a disposizione!"
+      reply = 'Per favore rispondi con le opzioni a disposizione!'
       keyboard = GeneralActions.slice_keyboard answers
       @api.call('sendMessage', chat_id: @user.telegram_id,
                 text: reply, reply_markup: GeneralActions.custom_keyboard(keyboard))
