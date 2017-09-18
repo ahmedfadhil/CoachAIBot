@@ -34,6 +34,10 @@ class UsersController < ApplicationController
   end
 
   def get_charts_data
+    user = User.find(params[:id])
+    plans = user.plans.where(delivered: 1)
+
+
     respond_to do |format|
       format.json do
         render json: {status: 'ok'}
