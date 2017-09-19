@@ -4,23 +4,142 @@
 #
 # Note that this schema.rb definition is the authoritative source for your
 # database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running index the migrations
+# system, you should be using db:schema:load, not running all the migrations
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711085753) do
+ActiveRecord::Schema.define(version: 20170823093058) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.string "a_type"
+    t.integer "n_times"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "category"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.text "text"
+    t.integer "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
 
   create_table "coach_users", force: :cascade do |t|
-    t.string "email"
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.index ["email"], name: "index_coach_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_coach_users_on_reset_password_token", unique: true
   end
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'jsonb' for column 'bot_command_data'
+  create_table "features", force: :cascade do |t|
+    t.boolean "health"
+    t.boolean "physical"
+    t.boolean "mental"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_features_on_user_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.text "answer"
+    t.date "date"
+    t.integer "question_id"
+    t.integer "notification_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_feedbacks_on_notification_id"
+    t.index ["question_id"], name: "index_feedbacks_on_question_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.boolean "default"
+    t.date "date"
+    t.time "time"
+    t.boolean "sent"
+    t.integer "planning_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "n_type"
+    t.integer "done"
+    t.index ["planning_id"], name: "index_notifications_on_planning_id"
+  end
+
+  create_table "plannings", force: :cascade do |t|
+    t.boolean "finished"
+    t.integer "plan_id"
+    t.integer "activity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "from_day"
+    t.date "to_day"
+    t.index ["activity_id"], name: "index_plannings_on_activity_id"
+    t.index ["plan_id"], name: "index_plannings_on_plan_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.date "from_day"
+    t.date "to_day"
+    t.time "notification_hour_coach_def"
+    t.time "notification_hour_user_def"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "delivered"
+    t.index ["user_id"], name: "index_plans_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "text"
+    t.string "q_type"
+    t.integer "activity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_questions_on_activity_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.date "date"
+    t.time "time"
+    t.integer "day"
+    t.integer "planning_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["planning_id"], name: "index_schedules_on_planning_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "telegram_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "bot_command_data"
+    t.string "email"
+    t.string "cellphone"
+    t.integer "coach_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "state"
+    t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
+  end
 
 end
