@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823093058) do
+ActiveRecord::Schema.define(version: 20170914121008) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -50,9 +50,26 @@ ActiveRecord::Schema.define(version: 20170823093058) do
   end
 
   create_table "features", force: :cascade do |t|
-    t.boolean "health"
-    t.boolean "physical"
-    t.boolean "mental"
+    t.integer "physical"
+    t.integer "health"
+    t.integer "mental"
+    t.integer "coping"
+    t.string "physical_sport"
+    t.string "physical_sport_frequency"
+    t.string "physical_sport_intensity"
+    t.string "physical_goal"
+    t.string "health_personality"
+    t.string "health_wellbeing_meaning"
+    t.string "health_nutritional_habits"
+    t.string "health_drinking_water"
+    t.string "health_vegetables_eaten"
+    t.string "health_energy_level"
+    t.string "coping_stress"
+    t.string "coping_sleep_hours"
+    t.string "coping_energy_level"
+    t.string "mental_nervous"
+    t.string "mental_depressed"
+    t.string "mental_effort"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
