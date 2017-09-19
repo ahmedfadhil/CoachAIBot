@@ -4,7 +4,7 @@
     <nav class="mdl-navigation" >
 
       <%= link_to user_path(@user), class: 'mdl-navigation__link', method: 'get' do %>
-          <button id="overview-user" class="mdl-button mdl-js-button mdl-button--raised">
+          <button id="overview-user" class="mdl-button mdl-js-button mdl-button--raised ">
             <i class="material-icons">supervisor_account</i> &nbsp Panoramica
           </button>
       <% end %>
@@ -15,9 +15,9 @@
           </button>
       <% end %>
 
-      <%= link_to suspended_users_path, class: 'mdl-navigation__link' do %>
-          <button id="notifications-user" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">block</i> &nbsp Communicazioniß
+      <%= link_to features_users_path(@user), class: 'mdl-navigation__link' do %>
+          <button id="features-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">block</i> &nbsp Informazioni Raccolte
           </button>
       <% end %>
 

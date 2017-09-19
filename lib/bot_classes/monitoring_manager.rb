@@ -25,25 +25,29 @@ class MonitoringManager
     user_state_json_oob = "[#{@user_state.to_json}]"
     cs_bot.volley "#{user_state_json_oob}", user: user.telegram_id
 
+    # Some Log Info
+    puts "\n ### USER_ID: #{@user.telegram_id} | USER_MSG: #{@message} ###\n"
+    puts "\n ### USER_STATE_SENT TO CHATSCRIPT: ###\n"
+    ap JSON.parse(@user_state.to_json)
+
     # send the user text message
     volley = cs_bot.volley "#{@message}", user: user.telegram_id
     reply = volley.text
 
-    if reply=='Non so che dire!'
-      ApiAIRedirector.new(@message, @user, @state).redirect
+    puts "\n ### CHATSCRIPT REPLY: #{reply} ###\n"
+
+    if reply == 'UNKNOWN'
+      ApiAIRedirector.new(@message, @user, @user_state).redirect
     else
       # catch user state after chatscript interaction
       user_state_oob = volley.oob
 
       # process any change in the user state and calculate any default response
       keyboard_markup = process_oob user_state_oob
-      ap JSON.parse user_state_json_oob
 
       # Some Log Info
-      puts "\n ### USER_ID: #{@user.telegram_id} | USER_MSG: #{@message} ###\n"
-      puts "\n ### USER_STATE_SENT: #{user_state_json_oob}} ###\n"
-      puts "\n ### BOT_REPLY: #{reply} ### \n"
-      puts "\n ### USER_STATE_RECEIVED: #{user_state_oob} ###\n"
+      puts "\n ### USER_STATE_RECEIVED: ###\n"
+      ap user_state_oob
 
 
       # Send Chatscript response to user thought telegram

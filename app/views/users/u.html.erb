@@ -1,0 +1,64 @@
+<div class="mdl-layout mdl-js-layout">
+  <div class="mdl-layout__content">
+
+    <div class="header-grid no_break mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-cell">
+        <div class="header-card mdl-card">
+
+          <div class="mdl-card__supporting-text">
+            <h4>Piani ed Attivita' di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h4>
+
+            <%= image_tag wicked_pdf_asset_base64('pdf_head.jpg'), class: 'header-img'%><br>
+
+            Nel documento seguente troverai tutti i dettagli riguardanti le attivita' definite dal coach <%= "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
+          </div>
+
+          <div class="mdl-card__actions">
+            <%= link_to home_index_path, class: 'mdl-button' do %>
+                Ulteriori Dettagli su Coach AI
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <% @plans.each do |plan| %>
+        <div class="nobreak mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-cell">
+
+            <div class="mdl-card">
+
+              <div class="mdl-card__title">
+                <h4 class="mdl-cell mdl-cell--12-col"> <%= plan.name %> </h4>
+                <div class="mdl-card__subtitle-text mdl-cell mdl-cell--12-col">
+                  <h6> <%= plan.desc %> </h6>
+                </div>
+              </div>
+
+              <div class="mdl-card__supporting-text">
+                <% plan.activities.each do |activity| %>
+                    <div class="mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                      <%= image_tag wicked_pdf_asset_base64('doc-bot.png')%>
+                    </div>
+                    <div class="mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                      <h5> <%= activity.name %> </h5>
+                      <%= activity.a_type %>
+                    </div>
+                <% end %>
+              </div>
+
+              <div class="mdl-card__actions">
+                <div class="mdl-button">Durata del piano</div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+    <% end %>
+
+  </div>
+</div>

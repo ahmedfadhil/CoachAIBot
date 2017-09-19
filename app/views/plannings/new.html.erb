@@ -1,114 +1,119 @@
 
 <%= render 'users/edit_header' %>
 
-<div class="new-activity-container">
+<div class="mdl-grid new-activity-grid">
+  <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <div class="new-activity-container">
+      <div class="mycard">
+        <div id="activity-insert-card-wide" class="mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Scegli un'attivita gia presente nel sistema oppure </h2>
+          </div>
 
 
-<div class="mycard">
-  <div class="activity-insert-card-wide mdl-card mdl-shadow--2dp">
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Scegli un'attivita gia presente nel sistema oppure </h2>
+          <div id="assign_table" class="mdl-card__supporting-text">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+              <thead>
+              <tr>
+                <th class="mdl-data-table__cell--non-numeric">Nome Attivita</th>
+                <th>Categoria</th>
+                <th>Tipologia</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @activities.each do |a| %>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric"> <%= a.name %> </td>
+                    <td> <%= a.category %> </td>
+                    <td> <%= a.a_type %> </td>
+                    <td><%= link_to 'Vedi Attivita', activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
+                    <td>
+                      <%= link_to 'Assegna Attivita', plannings_path(:a_id => a.id, :p_id => @plan.id, :u_id => @user.id) ,
+                                  method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div><br>
+
+        <div id="activity-insert-card-wide" class="mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Oppure inserisci una nuova attivita'</h2>
+          </div>
+
+
+          <div id="assign_table" class="mdl-card__supporting-text">
+            Tutti i campi sono obbligatori!
+            <div class="insert-error-msg"><%= yield(:insert_error_msg) %></div>
+            <%= form_for @activity, url: plannings_path(:new => true, :p_id => @plan.id, :u_id => @user.id), method: 'post' do |f| %>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                  <%= f.label :name, 'Nome', class: 'mdl-textfield__label' %>
+                  <%= f.text_field :name, class: 'mdl-textfield__input' %>
+                </div>
+
+
+
+                <div class="activity-type">
+                  <%= f.label :a_type, 'Tipologia attivita: '%>
+                  <%= f.radio_button :a_type, 'daily', :checked => true %>
+                  <%= label :a_type, 'Giornaliera' %>
+                  <%= f.radio_button :a_type, 'weekly' %>
+                  <%= label :a_type, 'Settimanale' %>
+                  <%= f.radio_button :a_type, 'monthly' %>
+                  <%= label :a_type, 'Mensile' %>
+                </div>
+
+                <div id="volte-con-es" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                  <%= f.label :n_times, 'Volte per tipologia (Es. 2 = 2 volte a settimana se tipologia e settimanale)', class: 'mdl-textfield__label' %>
+                  <%= f.text_field :n_times, class: 'mdl-textfield__input', type: 'number' %>
+                </div>
+
+                <div class="activity-category">
+                  <%= f.label :category, 'Categoria attivita: '%>
+                  <%= f.radio_button :category, 'health', :checked => true, 'data-other-category' => 'false' %>
+                  <%= label :category, 'Salute' %>
+                  <%= f.radio_button :category, 'physical', 'data-other-category' => 'false' %>
+                  <%= label :category, 'Attivita fisica' %>
+                  <%= f.radio_button :category, 'mental', 'data-other-category' => 'false' %>
+                  <%= label :category, 'Benessere mentale' %>
+                  <%= f.radio_button :category, 'medicine', 'data-other-category' => 'false' %>
+                  <%= label :category, 'Medicina' %>
+                  <%= f.radio_button :category, 'other', 'data-other-category' => 'true' %>
+                  <%= label :category, 'Altro' %>
+                </div>
+
+                <div id="new-category-input" class="activity-category-other">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                    <%= f.label :category, 'Nuova categoria', class: 'mdl-textfield__label' %>
+                    <%= f.text_field :category, class: 'mdl-textfield__input' %>
+                  </div>
+                </div>
+
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <%= f.label :desc, 'Descrizione', class: 'mdl-textfield__label' %>
+                  <%= f.text_area :desc, class: 'mdl-textfield__input' %>
+                </div>
+
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type="submit">
+                  <i class="material-icons">add</i> &nbsp Inserisci nuova attivita
+                </button>
+            <% end %>
+          </div>
+        </div>
+
+
+      </div>
     </div>
 
 
-    <div class="mdl-card__supporting-text">
-      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead>
-        <tr>
-          <th class="mdl-data-table__cell--non-numeric">Nome Attivita</th>
-          <th>Categoria</th>
-          <th>Tipologia</th>
-          <th></th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-          <% @activities.each do |a| %>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric"> <%= a.name %> </td>
-              <td> <%= a.category %> </td>
-              <td> <%= a.a_type %> </td>
-              <td><%= link_to 'Vedi Attivita', activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
-              <td>
-                <%= link_to 'Assegna Attivita', plannings_path(:a_id => a.id, :p_id => @plan.id, :u_id => @user.id) ,
-                            method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
   </div>
-
-  <div class="activity-insert-card-wide mdl-card mdl-shadow--2dp">
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Oppure inserisci una nuova attivita'</h2>
-    </div>
-
-
-    <div class="mdl-card__supporting-text">
-      Tutti i campi sono obbligatori!
-      <div class="insert-error-msg"><%= yield(:insert_error_msg) %></div>
-      <%= form_for @activity, url: plannings_path(:new => true, :p_id => @plan.id, :u_id => @user.id), method: 'post' do |f| %>
-
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-            <%= f.label :name, 'Nome', class: 'mdl-textfield__label' %>
-            <%= f.text_field :name, class: 'mdl-textfield__input' %>
-          </div>
-
-
-
-          <div class="activity-type">
-            <%= f.label :a_type, 'Tipologia attivita: '%>
-            <%= f.radio_button :a_type, 'daily', :checked => true %>
-            <%= label :a_type, 'Giornaliera' %>
-            <%= f.radio_button :a_type, 'weekly' %>
-            <%= label :a_type, 'Settimanale' %>
-            <%= f.radio_button :a_type, 'monthly' %>
-            <%= label :a_type, 'Mensile' %>
-          </div>
-
-          <div id="volte-con-es" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-            <%= f.label :n_times, 'Volte per tipologia (Es. 2 = 2 volte a settimana se tipologia e settimanale)', class: 'mdl-textfield__label' %>
-            <%= f.text_field :n_times, class: 'mdl-textfield__input', type: 'number' %>
-          </div>
-
-          <div class="activity-category">
-            <%= f.label :category, 'Categoria attivita: '%>
-            <%= f.radio_button :category, 'health', :checked => true, 'data-other-category' => 'false' %>
-            <%= label :category, 'Salute' %>
-            <%= f.radio_button :category, 'physical', 'data-other-category' => 'false' %>
-            <%= label :category, 'Attivita fisica' %>
-            <%= f.radio_button :category, 'mental', 'data-other-category' => 'false' %>
-            <%= label :category, 'Benessere mentale' %>
-            <%= f.radio_button :category, 'medicine', 'data-other-category' => 'false' %>
-            <%= label :category, 'Medicina' %>
-            <%= f.radio_button :category, 'other', 'data-other-category' => 'true' %>
-            <%= label :category, 'Altro' %>
-          </div>
-
-          <div id="new-category-input" class="activity-category-other">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-              <%= f.label :category, 'Nuova categoria', class: 'mdl-textfield__label' %>
-              <%= f.text_field :category, class: 'mdl-textfield__input' %>
-            </div>
-          </div>
-
-
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <%= f.label :desc, 'Descrizione', class: 'mdl-textfield__label' %>
-            <%= f.text_area :desc, class: 'mdl-textfield__input' %>
-          </div>
-
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type="submit">
-            <i class="material-icons">add</i> &nbsp Inserisci nuova attivita
-          </button>
-      <% end %>
-    </div>
-  </div>
-
-
 </div>
-</div>
+
 
 

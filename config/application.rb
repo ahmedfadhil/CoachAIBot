@@ -31,5 +31,6 @@ module Coach
       Devise::UnlocksController.layout 'home'
       Devise::PasswordsController.layout 'home'
     end
+
   end
 end

@@ -15,6 +15,8 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       current_coach_user.users << user
+      feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
+      feature.save
       redirect_to users_path
     else
       flash[:error] = 'Errore durante il salvataggio dell\'utente! '
@@ -24,7 +26,23 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @overview = 'ciao'
+  end
+
+  def features
+    @user = User.find(params[:id])
+    @features = @user.feature
+  end
+
+  def get_charts_data
+    user = User.find(params[:id])
+    plans = user.plans.where(delivered: 1)
+
+
+    respond_to do |format|
+      format.json do
+        render json: {status: 'ok'}
+      end
+    end
   end
 
   # active users
@@ -68,6 +86,22 @@ class UsersController < ApplicationController
   def finished_plans
     @user = User.find(params[:id])
     @plans = @user.plans.where(:delivered => 4)
+  end
+
+  def get_plans_pdf
+    user = User.find(params[:id])
+    @plans = user.plans
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{user.first_name}-Plans",
+               template: 'users/user_plans',
+               show_as_html: params.key?('debug'),
+               disable_smart_shrinking: true
+               #dpi: '400'
+      end
+    end
   end
 
 

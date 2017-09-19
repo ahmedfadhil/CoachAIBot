@@ -68,8 +68,48 @@ class ProfilingManager
       new_state = state_received
     end
 
-    # !!!!!!!!!!!!!!!!!!!!!!! ToDo
     # we also need to detect if chatscript collected features and if yes we need to store them
+    feature = @user.feature
+
+    if feature.health == 0 && dot_state.health == 1
+      feature.health = 1
+      feature.health_personality = dot_state.health_features.health_personality
+      feature.health_wellbeing_meaning = dot_state.health_features.health_wellbeing_meaning
+      feature.health_nutritional_habits = dot_state.health_features.health_nutritional_habits
+      feature.health_drinking_water = dot_state.health_features.health_drinking_water
+      feature.health_vegetables_eaten = dot_state.health_features.health_vegetables_eaten
+      feature.health_energy_level = dot_state.health_features.health_energy_level
+      feature.save
+    end
+
+    if feature.mental == 0 && dot_state.mental == 1
+      feature.mental = 1
+      feature.mental_nervous = dot_state.mental_features.mental_nervous
+      feature.mental_depressed = dot_state.mental_features.mental_depressed
+      feature.mental_effort = dot_state.mental_features.mental_effort
+      feature.save
+    end
+
+    if feature.coping == 0 && dot_state.coping == 1
+      feature.coping = 1
+      feature.coping_stress = dot_state.coping_features.coping_stress
+      feature.coping_sleep_hours = dot_state.coping_features.coping_sleep_hours
+      feature.coping_energy_level = dot_state.coping_features.coping_energy_level
+      ap '############ COPING'
+      ap feature
+      feature.save
+      ap feature
+
+    end
+
+    if feature.physical == 0 && dot_state.physical == 1
+      feature.physical = 1
+      feature.physical_sport = dot_state.physical_features.sport
+      feature.physical_sport_frequency = dot_state.physical_features.physical_sport_frequency
+      feature.physical_sport_intensity = dot_state.physical_features.physical_sport_intensity
+      feature.physical_goal = dot_state.physical_features.physical_goal
+      feature.save
+    end
 
     @user.set_user_state(new_state)
 

@@ -17,7 +17,7 @@ class AnswerChecker
     notification = Notification.find(@state['notification_id'])
     answers = GeneralActions.answers_from_question question
     if answers.include? answer
-      feedback = Feedback.new(:answer => 'answer', :date => Date.today, :notification_id => @state['notification_id'],
+      feedback = Feedback.new(:answer => answer, :date => Date.today, :notification_id => @state['notification_id'],
                               :question_id => @state['question_id'])
       notification.feedbacks.size == question.answers.size ? notification.done = 1 : nil
       if feedback.save && notification.save
@@ -27,7 +27,7 @@ class AnswerChecker
         FeedbackManager.new(@user, @state).ask(@state['plan_name'])
       end
     else
-      reply = "Per favore rispondi con le opzioni a disposizione!"
+      reply = 'Per favore rispondi con le opzioni a disposizione!'
       keyboard = GeneralActions.slice_keyboard answers
       @api.call('sendMessage', chat_id: @user.telegram_id,
                 text: reply, reply_markup: GeneralActions.custom_keyboard(keyboard))

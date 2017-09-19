@@ -12,16 +12,26 @@ class GeneralActions
 
   def back_to_menu
     @state['state'] = 1
-    @user.set_user_state @state.except 'plan_name', 'notification_id', 'question_id'
+    @user.set_user_state (@state.except 'plan_name', 'notification_id', 'question_id')
+  end
+
+  def back_to_menu_with_menu
+    back_to_menu
+    keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli']
+    @api.call('sendMessage', chat_id: @user.telegram_id,
+              text: 'Scegli con cosa vuoi continuare.', reply_markup: keyboard)
   end
 
   def clean_state
-    @user.set_user_state @state.except('plan_name', 'notification_id', 'question_id')
+    @user.set_user_state (@state.except 'plan_name', 'notification_id', 'question_id')
+    @user.save
+    @user
   end
 
   def set_state(state)
     @state['state'] = state
-    user.set_user_state @state
+    @user.set_user_state @state
+    @user
   end
 
   def send_reply(reply)
@@ -30,7 +40,7 @@ class GeneralActions
 
   def set_plan_name(plan_name)
     @state['plan_name'] = plan_name
-    user.set_user_state @state
+    @user.set_user_state @state
   end
 
   def plans_needing_feedback
@@ -55,4 +65,5 @@ class GeneralActions
   def self.slice_keyboard(values)
     values.length >= 4 ? values.each_slice(2).to_a : values
   end
+
 end

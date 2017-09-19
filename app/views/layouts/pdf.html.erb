@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Activity PDF</title>
+    <meta charset='utf-8' />
+
+    <%= stylesheet_link_tag wicked_pdf_asset_base64('pdf_styles') %>
+    <%= javascript_include_tag wicked_pdf_asset_base64('material-design-lite') %>
+
+  </head>
+
+  <body>
+
+    <div>
+      <%= yield %>
+    </div>
+
+
+  </body>
+</html>
+

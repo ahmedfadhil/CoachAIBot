@@ -1,0 +1,19 @@
+@import "material-design-lite";
+
+
+div.alwaysbreak { page-break-before: always; }
+div.nobreak:before { clear:both; }
+div.nobreak { page-break-inside: avoid; }
+
+div.header-grid{
+  text-align: -webkit-center;
+}
+
+img.header-img{
+  width: 100%;
+}
+
+div.header-card{
+  width: 70%;
+  height: 100%
+}

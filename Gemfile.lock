@@ -73,7 +73,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    daemons (1.2.4)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.3.0)
@@ -93,6 +92,10 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hash_dot (2.1.0)
+    highcharts-rails (5.0.7)
+      railties (>= 3.1)
+    highstock-rails (5.0.11)
+      railties (>= 3.1)
     http (2.2.2)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -129,8 +132,12 @@ GEM
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     orm_adapter (0.5.0)
+    pdf-core (0.7.0)
     pg (0.17.1)
     polling (0.1.5)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -212,6 +219,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
+    ttfunk (1.5.1)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
@@ -234,6 +242,8 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    wicked_pdf (1.1.0)
+    wkhtmltopdf-binary-edge (0.12.4.0)
     xpath (2.1.0)
       nokogiri (~> 1.3)
 
@@ -247,14 +257,16 @@ DEPENDENCIES
   capybara (~> 2.13)
   chatscript
   coffee-rails (~> 4.2)
-  daemons
   devise
   hash_dot
+  highcharts-rails
+  highstock-rails
   jbuilder (~> 2.5)
   jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
   pg (= 0.17.1)
   polling
+  prawn (~> 2.2, >= 2.2.2)
   puma (~> 3.7)
   rails (~> 5.1.1)
   rails-assets-eq.js!
@@ -271,6 +283,8 @@ DEPENDENCIES
   telegram-bot-ruby
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  wicked_pdf
+  wkhtmltopdf-binary-edge
 
 BUNDLED WITH
    1.15.3

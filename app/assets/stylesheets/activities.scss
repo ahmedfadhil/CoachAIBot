@@ -1,11 +1,12 @@
+#activity-insert-card-wide{
+  height: auto;
+  width: 100%;
+  background: transparent;
+}
+
 .customContainer {
   max-width: 960px;
   margin: 0 auto;
-}
-
-.activity-insert-card-wide{
-  height: auto;
-  width: 100%;
 }
 
 #volte-con-es{
@@ -14,4 +15,26 @@
 
 #new-category-input{
   display: none;
+}
+
+.new-activity-grid{
+  max-width: 960px;
+}
+
+.error-grid{
+  max-width: 900px;
+  text-align: center;
+}
+
+.all-activities-card{
+  text-align: -webkit-center;
+}
+
+textarea.activity-desc{
+  height: 160px;
+}
+
+div.activity-desc-container{
+  width: 100%;
+  height: 200px;
 }

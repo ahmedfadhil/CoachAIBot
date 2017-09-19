@@ -15,8 +15,8 @@ class PlanningsController < ApplicationController
         flash[:error] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         error
       else
-        # add the default completness verify method
-        if !completness_question(activity)
+        # add the default completeness verify method
+        unless completeness_question(activity)
           flash[:error] = 'C\'e\' stato un problema durante la creazione dei metodi di verifica dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
           error
         end
@@ -31,7 +31,7 @@ class PlanningsController < ApplicationController
     planning.activity_id = activity.id
     planning.plan_id = plan.id
     if planning.save
-      redirect_to user_path(user)
+      redirect_to plans_users_path(user)
     else
       flash[:error] = 'C\'e\' stato un problema durante l\'assegnamento dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
       error
@@ -78,7 +78,7 @@ class PlanningsController < ApplicationController
       render 'error/error'
     end
 
-    def completness_question(activity)
+    def completeness_question(activity)
       question = Question.new text: "Hai portato a termine l'attivita'  ''#{activity.name}'' ?", q_type: 'yes_no'
       question.activity = activity
       if question.save
