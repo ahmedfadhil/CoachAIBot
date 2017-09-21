@@ -24,6 +24,11 @@ Rails.application.routes.draw do
       get ':id/get_plans.pdf', to: 'users#get_plans_pdf', as: 'get_plans_pdf'
       get ':id/get_charts_data', to: 'users#get_charts_data', as: 'get_charts_data'
     end
+
+		member do
+			get 'wearables'
+			post 'fitbit_invite'
+		end
   end
 
   resources :plannings do
@@ -56,7 +61,7 @@ Rails.application.routes.draw do
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
   post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/upload_health_features' => 'webhooks#upload_health_features'
 
-
-
+	# fitbit stuff
+	get 'wearables/fitbit/connect/:token', to: 'wearables#connect', as: 'wearables_fitbit_connect'
 
 end

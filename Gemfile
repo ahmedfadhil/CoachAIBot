@@ -71,6 +71,8 @@ gem 'chatscript'
 # very usefull for hash dot notation
 gem 'hash_dot'
 
+# oauth2 client
+gem 'oauth2'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-eq.js'
