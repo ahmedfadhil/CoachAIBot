@@ -61,7 +61,9 @@ Rails.application.routes.draw do
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
   post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/upload_health_features' => 'webhooks#upload_health_features'
 
-	# fitbit stuff
+	# start fitbit oauth2 procedure
 	get 'wearables/fitbit/connect/:token', to: 'wearables#connect', as: 'wearables_fitbit_connect'
-
+	get 'users/auth/fitbit/callback', to: 'wearables#oauth2_callback'
+	# webhook callback
+	get 'fitbit/webhook', to: 'wearables#webhook'
 end
