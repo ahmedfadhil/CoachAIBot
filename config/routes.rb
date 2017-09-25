@@ -64,6 +64,7 @@ Rails.application.routes.draw do
 	# start fitbit oauth2 procedure
 	get 'wearables/fitbit/connect/:token', to: 'wearables#connect', as: 'wearables_fitbit_connect'
 	get 'users/auth/fitbit/callback', to: 'wearables#oauth2_callback'
+	# DEPRECATED
 	# webhook callback
 	get 'fitbit/webhook', to: 'wearables#webhook'
 end

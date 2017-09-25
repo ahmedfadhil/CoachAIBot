@@ -14,6 +14,8 @@ class User < ApplicationRecord
 	validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
 
 	serialize :properties, JSON
+	serialize :access_token, JSON
+
 
 	enum fitbit_status: {fitbit_disabled: 0, fitbit_invited: 1, fitbit_enabled: 2}
 
