@@ -15,8 +15,11 @@ module Fitbit
 
 		private
 
-		def update_profile(user, token)
-			raise "ROLLING"
+		def self.update_profile(user, token)
+			date = Time.now
+			today = "#{date.year.to_s}-#{date.month.to_s}-#{date.day.to_s}" #"2017-09-25"
+			#pp JSON.parse(token.get('/1/user/-/activities/date/2017-09-12.json').body)
+			pp JSON.parse(token.get("/1/user/-/activities/tracker/steps/date/#{today}/7d.json").body)
 		end
 
 		def self.refresh_access_token(user, &block)
