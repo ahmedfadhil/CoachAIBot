@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921093023) do
+ActiveRecord::Schema.define(version: 20170926102359) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 20170921093023) do
     t.string "last_sign_in_ip"
     t.index ["email"], name: "index_coach_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_coach_users_on_reset_password_token", unique: true
+  end
+
+  create_table "daily_logs", force: :cascade do |t|
+    t.integer "user_id"
+    t.float "distance"
+    t.integer "calories"
+    t.integer "steps"
+    t.integer "sleep"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_daily_logs_on_user_id"
   end
 
   create_table "features", force: :cascade do |t|

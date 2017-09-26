@@ -18,8 +18,13 @@ module Fitbit
 		def self.update_profile(user, token)
 			date = Time.now
 			today = "#{date.year.to_s}-#{date.month.to_s}-#{date.day.to_s}" #"2017-09-25"
-			#pp JSON.parse(token.get('/1/user/-/activities/date/2017-09-12.json').body)
-			pp JSON.parse(token.get("/1/user/-/activities/tracker/steps/date/#{today}/7d.json").body)
+			#pp JSON.parse(token.get("/1/user/-/activities/tracker/steps/date/today/1d.json").body)
+			#pp JSON.parse(token.get("/1/user/-/activities/tracker/calories/date/today/1d.json").body)
+			#pp JSON.parse(token.get("/1/user/-/activities/tracker/distance/date/today/1d.json").body)
+
+			response = token.get("/1.2/user/-/sleep/list.json?beforeDate=today&offset=0&limit=100&sort=asc")
+			pp response
+			pp JSON.parse(response.body)
 		end
 
 		def self.refresh_access_token(user, &block)
@@ -31,9 +36,9 @@ module Fitbit
 			secret = encode_secret(client_id, client_secret)
 			token = OAuth2::AccessToken.from_hash(client, user.access_token)
 			fresh_token = token.refresh!(headers: {'Authorization' => "Basic #{secret}"})
-			block.call(fresh_token)
 			user.access_token = fresh_token.to_hash
 			user.save!
+			block.call(fresh_token)
 		end
 
 		def self.encode_secret(client_id, client_secret)
