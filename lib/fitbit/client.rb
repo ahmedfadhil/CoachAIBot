@@ -19,6 +19,7 @@ module Fitbit
 			update_steps(user, token, period)
 			update_calories(user, token, period)
 			update_distance(user, token, period)
+			update_sleep(user, token)
 		end
 
 		def self.update_calories(user, token, period)
@@ -39,8 +40,19 @@ module Fitbit
 			array = JSON.parse(response.body)["activities-tracker-#{param}"]
 			pp array
 			array.each do |row|
-				log = user.daily_logs.where(date: row["dateTime"]).first_or_create
+				log = user.daily_logs.where(date: row["dateTime"]).first_or_initialize
 				log.send(param + "=", row["value"])
+				log.save!
+			end
+		end
+
+		def self.update_sleep(user, token)
+			path = "/1.2/user/-/sleep/list.json?beforeDate=today&sort=desc&offset=0&limit=30"
+			response = token.get(path)
+			array = JSON.parse(response.body)["sleep"]
+			array.each do |row|
+				log = user.daily_logs.where(date: row["dateOfSleep"]).first_or_initialize
+				log.sleep = row["duration"]
 				log.save!
 			end
 		end
