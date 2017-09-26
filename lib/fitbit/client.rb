@@ -3,28 +3,46 @@ require 'base64'
 
 module Fitbit
 	module Client
-		def self.pull_data
+		def self.pull_data(period)
 			# TODO: select only users that have a flag set
 			# User.where(fitbit_status: :fitbit_enabled)
 			User.all.each do |user|
 				refresh_access_token(user) do |token|
-					update_profile(user, token)
+					update_profile(user, token, period)
 				end
 			end
 		end
 
 		private
 
-		def self.update_profile(user, token)
-			date = Time.now
-			today = "#{date.year.to_s}-#{date.month.to_s}-#{date.day.to_s}" #"2017-09-25"
-			#pp JSON.parse(token.get("/1/user/-/activities/tracker/steps/date/today/1d.json").body)
-			#pp JSON.parse(token.get("/1/user/-/activities/tracker/calories/date/today/1d.json").body)
-			#pp JSON.parse(token.get("/1/user/-/activities/tracker/distance/date/today/1d.json").body)
+		def self.update_profile(user, token, period)
+			update_steps(user, token, period)
+			update_calories(user, token, period)
+			update_distance(user, token, period)
+		end
 
-			response = token.get("/1.2/user/-/sleep/list.json?beforeDate=today&offset=0&limit=100&sort=asc")
-			pp response
-			pp JSON.parse(response.body)
+		def self.update_calories(user, token, period)
+			update_generic_param("calories", user, token, period)
+		end
+
+		def self.update_steps(user, token, period)
+			update_generic_param("steps", user, token, period)
+		end
+
+		def self.update_distance(user, token, period)
+			update_generic_param("distance", user, token, period)
+		end
+
+		def self.update_generic_param(param, user, token, period)
+			path = "/1/user/-/activities/tracker/#{param}/date/today/#{period}.json"
+			response = token.get(path)
+			array = JSON.parse(response.body)["activities-tracker-#{param}"]
+			pp array
+			array.each do |row|
+				log = user.daily_logs.where(date: row["dateTime"]).first_or_create
+				log.send(param + "=", row["value"])
+				log.save!
+			end
 		end
 
 		def self.refresh_access_token(user, &block)
