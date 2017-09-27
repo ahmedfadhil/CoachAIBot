@@ -36,13 +36,59 @@ class UsersController < ApplicationController
   def get_charts_data
     user = User.find(params[:id])
     plans = user.plans.where(delivered: 1)
-
-
-    respond_to do |format|
-      format.json do
-        render json: {status: 'ok'}
+    data = {:plans => []}
+    i = 0
+    plans.find_each do |plan|
+      data[:plans].push({:name => plan.name,
+                         :from_day => plan.from_day.strftime('%m/%d/%Y') ,
+                         :to_day => plan.to_day.strftime('%m/%d/%Y') ,
+                         :activities => []
+                        })
+      j = 0
+      plan.plannings.find_each do |planning|
+        text = 'PROGRESSO'
+        notifications = planning.notifications
+        feedbacks_completeness = Feedback.where('question_id = (?) AND  notification_id in (?)',
+                                   planning.activity.questions.where(:q_type => 'completeness').select(:id).uniq,
+                                   notifications.where(:done => 1).select(:id))
+        tot = notifications.size
+        done = feedbacks_completeness.where(:answer => 'Si').size
+        undone = feedbacks_completeness.where(:answer => 'No').size
+        done_perc = done.as_percentage_of(tot)
+        undone_perc = undone.as_percentage_of(tot)
+        to_do_perc = (tot-(undone+done)).as_percentage_of(tot)
+        data[:plans][i][:activities].push({:name => planning.activity.name,
+                                           :planning_id => planning.id,
+                                           :completeness_data => {:text => text,
+                                                                 :data => [["Seguita #{done_perc.to_i}%", done_perc.to_i],
+                                                                           ["Saltata #{undone_perc.to_i}%", undone_perc.to_i],
+                                                                           ["Da Fare #{to_do_perc.to_i}%", to_do_perc.to_i]],
+                                           },
+                                           :scalar_data => []
+                                          })
+        scalar_questions = planning.activity.questions.where(:q_type => 'scalar').select(:id).uniq
+        h=0
+        scalar_questions.each do |q|
+          feedbacks_scalars = Feedback.where('question_id = (?) AND  notification_id in (?)',
+                                             q.id,
+                                             notifications.where(:done => 1).select(:id))
+          data[:plans][i][:activities][j][:scalar_data].push({:text => Question.find(q.id).text,
+                                                              :data => []
+                                                             })
+          feedbacks_scalars.find_each do |f|
+            t = f.notification.date.to_time
+            t += t.utc_offset
+            t = t.to_i * 1000
+            data[:plans][i][:activities][j][:scalar_data][h][:data].push([t, f.answer.to_f])
+          end
+          h = h + 1
+        end
+        j = j + 1
       end
+      i = i + 1
     end
+    ap data
+    render json: data, status: :ok
   end
 
   # active users
@@ -113,6 +159,10 @@ class UsersController < ApplicationController
 
   def error
     render 'error/error.html.erb'
+  end
+
+  def percent_of(n)
+    self.to_f / n.to_f * 100.0
   end
 
 end

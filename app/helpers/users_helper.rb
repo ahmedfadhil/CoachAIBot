@@ -22,4 +22,8 @@ module UsersHelper
     string.downcase.tr('_', ' ')
   end
 
+  def features?(feature)
+    c = feature.physical + feature.health + featur
+  end
+
 end

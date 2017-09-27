@@ -5,6 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# calculate percentages
+gem 'percentage'
+
 # pdf from html
 gem 'wicked_pdf'
 

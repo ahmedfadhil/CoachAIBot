@@ -37,6 +37,25 @@
   </div>
 </header>
 
+<div>
+  <% if @plans.size == 0 %>
+    <div id="no-info-grid" class="mdl-grid">
+      <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+        <div id="no-info-card" class="mdl-card mdl-shadow--4dp">
+          <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text"> Nessuna Piano Presente </h2>
+          </div>
+          <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+
+            All'utente <%= @user.last_name %> <%= @user.first_name %> non e' stato ancora definito un piano da seguire. Aggiungi un nuovo piano per iniziare!
+
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <div id="user-plans-grid" class="mdl-grid">
   <div class="mdl-cell--12-col">
     <div class="plans-action"></div>

@@ -79,7 +79,7 @@ class PlanningsController < ApplicationController
     end
 
     def completeness_question(activity)
-      question = Question.new text: "Hai portato a termine l'attivita'  ''#{activity.name}'' ?", q_type: 'yes_no'
+      question = Question.new text: "Hai portato a termine l'attivita'  ''#{activity.name}'' ?", q_type: 'completeness'
       question.activity = activity
       if question.save
         answer1 = Answer.new text: 'Si'

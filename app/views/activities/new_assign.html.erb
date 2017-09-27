@@ -39,22 +39,23 @@
         </div>
       </div>
 
-      <div class="activity-insert-card-wide mdl-card mdl-shadow--2dp">
+    <div class="mycard">
+      <div id="activity-insert-card-wide" class="mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Oppure inserisci una nuova attivita'</h2>
+          <h2 class="mdl-card__title-text">Inserisci i dati delle nuova attivita</h2>
         </div>
 
 
         <div class="mdl-card__supporting-text">
           Tutti i campi sono obbligatori!
           <div class="insert-error-msg"><%= yield(:insert_error_msg) %></div>
-          <%= form_for @activity, url: activities_path(:new => true), method: 'post' do |f| %>
+          <%= form_for @activity, url: activities_path, method: 'post' do |f| %>
+              <%= f.hidden_field :id%>
 
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
                 <%= f.label :name, 'Nome', class: 'mdl-textfield__label' %>
                 <%= f.text_field :name, class: 'mdl-textfield__input' %>
               </div>
-
 
 
               <div class="activity-type">
@@ -69,8 +70,9 @@
                 </div>
               </div>
 
+
               <div id="volte-con-es" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                <%= f.label :n_times, 'Volte per tipologia (Es. 2 = 2 volte a settimana se tipologia e settimanale)', class: 'mdl-textfield__label' %>
+                <%= f.label :n_times, 'Volte per Tipologia (Es. 2 = 2 volte a settimana se tipologia e settimanale)', class: 'mdl-textfield__label' %>
                 <%= f.text_field :n_times, class: 'mdl-textfield__input', type: 'number' %>
               </div>
 
@@ -87,25 +89,24 @@
 
               </div>
 
-              <div id="new-category-input" class="activity-category-other">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                  <%= f.label :category, 'Nuova categoria', class: 'mdl-textfield__label' %>
-                  <%= f.text_field :category, class: 'mdl-textfield__input' %>
-                </div>
-              </div>
 
-
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <div class="activity-desc-container mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
                 <%= f.label :desc, 'Descrizione', class: 'mdl-textfield__label' %>
-                <%= f.text_area :desc, class: 'mdl-textfield__input' %>
+                <%= f.text_area :desc, class: 'mdl-textfield__input activity-desc' %>
               </div>
 
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type="submit">
-                <i class="material-icons">add</i> &nbsp Inserisci nuova attivita
-              </button>
+
+
+              <div>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type="submit">
+                  <i class="material-icons">add</i> &nbsp Aggiungi nuova attivita
+                </button>
+              </div>
+
           <% end %>
         </div>
       </div>
+    </div>
 
 
   </div>
