@@ -61,10 +61,13 @@ Rails.application.routes.draw do
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
   post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/upload_health_features' => 'webhooks#upload_health_features'
 
-	# start fitbit oauth2 procedure
+	# Wearable devices
+	# Actions reserved for the coach:
+	get 'wearables/:id', to: 'wearables#show', as: 'wearables_show'
+	post 'wearables/:id/invite', to: 'wearables#invite', as: 'wearables_invite'
+	# Actions reserved for the user
+	# starts fitbit oauth2 procedure
 	get 'wearables/fitbit/connect/:token', to: 'wearables#connect', as: 'wearables_fitbit_connect'
+	# oauth2 callback
 	get 'users/auth/fitbit/callback', to: 'wearables#oauth2_callback'
-	# DEPRECATED
-	# webhook callback
-	get 'fitbit/webhook', to: 'wearables#webhook'
 end

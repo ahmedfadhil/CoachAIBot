@@ -8,7 +8,7 @@
 			<% if @user.fitbit_disabled? %>
 				L'integrazione con fitbit per questo utente non e' ancora abilitata.<br>
 				Se desideri, puoi abilitarla ora usando il seguente bottone:
-				<%= form_for(@user, url: fitbit_invite_user_path(@user), method: 'POST') do |f| %>
+				<%= form_for(@user, url: wearables_invite_url(@user), method: 'POST') do |f| %>
 					<%= f.submit 'Invita' %>
 				<% end %>
 			<% end %>

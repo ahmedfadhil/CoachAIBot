@@ -108,27 +108,6 @@ class UsersController < ApplicationController
   end
 
 
-	def wearables
-		@user = User.find(params[:id])
-	end
-
-	def fitbit_invite
-		@user = User.find(params[:id])
-
-		# create a new identity token for the selected user
-		@user.identity_token = SecureRandom.hex
-		@user.save!
-
-		url = wearables_fitbit_connect_url(token: @user.identity_token)
-		message1 = "Hai ricevuto un invito dal coach a collegare il tuo dispositivo indossabile"
-		message2 = "Perfavore visita il seguente indirizzo per continuare: #{url}"
-
-		ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data))
-		ga.send_reply(message1)
-		ga.send_reply(message2)
-		redirect_to wearables_user_url(@user)
-	end
-
   private
 
     def user_params

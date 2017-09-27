@@ -2,6 +2,31 @@ require 'oauth2'
 require 'base64'
 
 class WearablesController < ApplicationController
+	before_action :authenticate_coach_user!, only: [:show, :invite]
+  respond_to :html
+  layout 'profile'
+
+	def show
+		@user = User.find(params[:id])
+	end
+
+	def invite
+		@user = User.find(params[:id])
+
+		# create a new identity token for the selected user
+		@user.identity_token = SecureRandom.hex
+		@user.save!
+
+		url = wearables_fitbit_connect_url(token: @user.identity_token)
+		message1 = "Hai ricevuto un invito dal coach a collegare il tuo dispositivo indossabile"
+		message2 = "Perfavore visita il seguente indirizzo per continuare: #{url}"
+
+		ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data))
+		ga.send_reply(message1)
+		ga.send_reply(message2)
+		redirect_to wearables_show_url(@user)
+	end
+
 	def connect
 		token = params[:token]
 		user = User.where(identity_token: token).first
@@ -46,27 +71,6 @@ class WearablesController < ApplicationController
 
 		user.access_token = access_token.to_hash
 		user.save!
-
-		asdflol
-		raise "TBD BRB 8-)"
-	end
-
-	# DEPRECATED
-	def webhook
-		# XXX move into .env file
-		subscriber_verification_code = 'aa2b6337e95b970af5128e71b707d1dfa35382787e4317fed9dd33b36dd47135'
-		subscriber_id = '1'
-		code = params[:verify]
-		unless code.nil?
-			if code == subscriber_verification_code
-				render body: nil, status: 204
-			else
-				render body: nil, status: 404
-			end
-		else
-			raise "Nothing to do here"
-		end
-
 	end
 
 	private
