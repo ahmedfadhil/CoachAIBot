@@ -24,11 +24,6 @@ Rails.application.routes.draw do
       get ':id/get_plans.pdf', to: 'users#get_plans_pdf', as: 'get_plans_pdf'
       get ':id/get_charts_data', to: 'users#get_charts_data', as: 'get_charts_data'
     end
-
-		member do
-			get 'wearables'
-			post 'fitbit_invite'
-		end
   end
 
   resources :plannings do
