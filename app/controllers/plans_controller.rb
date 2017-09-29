@@ -23,11 +23,10 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:p_id])
     if plan.destroy
       flash[:plan_destroyed] = 'Il piano e\' stato rimosso!'
-      redirect_to user_path, id: params[:u_id]
     else
       flash[:plan_not_destroyed] = 'C\'e\' stato un problema e il piano non e\' stato rimosso! Ti preghiamo di riprovare piu\' tardi!'
-      error
     end
+    redirect_to plans_users_path(plan.user.id)
   end
 
   def deliver
@@ -48,7 +47,7 @@ class PlansController < ApplicationController
     plan.delivered = 2
     if plan.save
       flash[:notice] = "Piano #{plan.name} Sospeso"
-      redirect_to user_path(plan.user.id)
+      redirect_to plans_users_path(plan.user.id)
     else
       flash[:plan_not_suspended] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
       error
@@ -60,7 +59,7 @@ class PlansController < ApplicationController
     plan.delivered = 3
     if plan.save
       flash[:notice] = "Piano #{plan.name} Interrotto"
-      redirect_to user_path(plan.user.id)
+      redirect_to plans_users_path(plan.user.id)
     else
       flash[:plan_not_suspended] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
       error

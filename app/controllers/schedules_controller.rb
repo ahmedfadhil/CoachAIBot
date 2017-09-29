@@ -65,11 +65,10 @@ class SchedulesController < ApplicationController
     schedule = Schedule.find(params[:id])
     if schedule.destroy
       flash[:destroyed] = 'L\'Orario e\' stato eliminata con successo!'
-      redirect_to user_path(User.find(schedule.planning.plan.user.id))
     else
       flash[:destroyed] = 'Ce stato un errore durante la distruzione dell\'ORARIO! La invitiamo a riprovare piu\' tardi!'
-      error
     end
+    redirect_to plans_users_path(schedule.planning.plan.user)
   end
 
   private

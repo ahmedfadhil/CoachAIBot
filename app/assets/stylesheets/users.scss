@@ -1,8 +1,47 @@
+/* Highcharts DARK UNICA theme */
+
+/* */
+
+#user-card-img-container{
+  background-color: #ffffff;
+  text-align: -webkit-center;
+}
+
+#user-card-img{
+  max-width: 60%;
+}
+
+#user-card-page-btn{
+  color: #7caec3;
+}
+
+#user-card-actions{
+  outline: #54e2df solid 0px;
+  z-index: 0;
+  text-align: -webkit-center;
+}
+
+#user-card-supporting-text{
+  text-align: -webkit-center;
+}
+
+#user-card-title{
+  text-align: -webkit-center;
+  justify-content: center;
+}
+
+#activity-expandible{
+  margin-bottom: 1px;
+  border-top: 0px solid rgba(0, 0, 0, 0.1);
+}
+
 #overview-activity-card{
+  background: darkcyan;
   width: auto;
 }
 
 #overview-plan-card{
+  background-color: cadetblue;
   width: auto;
 }
 
@@ -177,7 +216,7 @@ nwe-patient-card > .mdl-card__title {
 }
 
 .active-patient-card {
-  box-shadow:0px 0px 7px 2px rgb(129, 154, 255);
+  box-shadow:0px 0px 4px 0px rgba(23, 142, 95, 1);
 }
 
 .plan-card-wide.mdl-card {

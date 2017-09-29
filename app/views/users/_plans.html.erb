@@ -37,6 +37,10 @@
   </div>
 </header>
 
+<div id="overview-title">
+  <h5>Elenco PIANI di <%= @user.last_name %> <%= @user.first_name %></h5>
+</div>
+
 <div>
   <% if @plans.size == 0 %>
     <div id="no-info-grid" class="mdl-grid">
@@ -80,7 +84,7 @@
 
           <% plan.plannings.each do |planning| %>
 
-              <div class="mdl-card__actions mdl-card--border">
+              <div id="activity-expandible" class="mdl-card__actions mdl-card--border">
 
                 <div class="activities-container">
 

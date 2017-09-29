@@ -20,19 +20,23 @@ class FeedbackManager
       i = 0
       delivered_plans.each do |plan|
         j = 0
-        reply = "#{i+1} Piano: '#{plan.name}' \t\tCon le seguenti attivita':"
+        reply = "#{i+1} Per il piano: '#{plan.name}' c'erano le seguenti attivita' da fare:"
         send_reply reply
         plan.plannings.find_each do |planning|
           notifications = planning.notifications.where('notifications.date<=? AND notifications.done=?', Date.today, 0)
           if notifications.size > 0
             notifications.each do |n|
               case planning.activity.a_type
-                when 'daily'
-                  reply = "\t\t\t-#{planning.activity.name} in data #{n.date} alle ore #{n.time.strftime('%H:%M')}\n"
+                when '0'
+                  reply = "\t\t\t-'#{planning.activity.name}' attivita GIORNALIERA in data #{n.date}\n"
+                  send_reply reply
+                when '1'
+                  week, turn = week_and_order('week', plan, planning, n)
+                  reply = "\t\t\t-'#{planning.activity.name}' attivita SETTIMANALE per la #{turn} volta durante la #{week} settimana\n"
                   send_reply reply
                 else
-                  planning.activity.a_type == 'weekly' ? period = 'a settimana' : period = 'al mese'
-                  reply = "\t\t\t-#{planning.activity.name} da fare #{planning.activity.n_times} volte #{period} \n"
+                  month, turn = week_and_order('month', plan, planning, n)
+                  reply = "\t\t\t-'#{planning.activity.name}' attivita MENSILE per la #{turn} volta durante il #{month} mese\n"
                   send_reply reply
               end
             end
@@ -48,17 +52,8 @@ class FeedbackManager
 
       plans_keyboard = GeneralActions.custom_keyboard plan_names
 
-      ap' INITIALY user IS'
-      ap @user
-      ap 'AND state is'
-      ap @state
-
       @user = GeneralActions.new(@user, @state).clean_state
 
-      ap 'THEN user IS'
-      ap @user
-      ap 'AND state IS'
-      ap @user.state
 
       @api.call('sendMessage', chat_id: @user.telegram_id,
                 text: 'Per che piano vuoi fornire il feedback?', reply_markup: plans_keyboard)
@@ -126,23 +121,31 @@ class FeedbackManager
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
   end
 
+  def week_and_order(by, plan, planning, notification)
+    # looping through months
+    date = notification.date
+    from = plan.from_day
+    to = plan.to_day
+    interval = by
+    start = from
+    week_number = 1
+    while start < to
+      stop  = start.send("end_of_#{interval}")
+      if stop > to
+        stop = to
+      end
 
-=begin
-  def add_emoji_multidim(values)
-    values.map! {|row|
-      row.map!{|x|
-        "\u{1F4DC} "+x
-      }
-    }
-    values
-  end
+      # create default notifications based on period and number of times to do an activity
+      interval_start = Date.parse(start.inspect)
+      interval_end = Date.parse(stop.inspect)
+      if interval_start<=date && interval_end>=date
+        return week_number, Notification.where('planning_id = (?) AND date >= (?) AND date <= (?)', planning.id, interval_start, interval_end).index(notification)+1
+      end
 
-  def add_emoji(values)
-    values.map!{|x|
-        "\u{1F4DC} "+x
-    }
-    values
+      start = stop.send("beginning_of_#{interval}")
+      start += 1.send(interval)
+      week_number = week_number + 1
+    end
   end
-=end
 
 end

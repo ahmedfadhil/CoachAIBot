@@ -233,3 +233,15 @@ _:-ms-input-placeholder, :root .graph {
 .profile_content_header{
   background-color: #37474F;
 }
+
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error-grid{
+  text-align: -webkit-center;
+  max-width: 80%;
+}

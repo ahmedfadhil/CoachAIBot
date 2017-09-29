@@ -11,7 +11,25 @@
 
         <div id="patients-content">
           <% if flash[:notice] %>
-              <div class="notice"><%= flash[:notice] %></div>
+            <div class="notice">
+              <% if flash[:notice].length > 1 %>
+                <div id="error-grid" class="mdl-grid">
+                  <% flash[:notice].each do |key, value| %>
+
+                      <div class="mdl-cell--12-col-desktop">
+                        <div class="field_with_errors">
+                          <%= value[0] %>
+                        </div>
+                      </div><br>
+
+
+
+                  <% end %>
+                </div>
+              <% else %>
+                  <%= flash[:notice] %>
+              <% end %>
+            </div>
           <% end %>
           <%= yield %>
         </div>

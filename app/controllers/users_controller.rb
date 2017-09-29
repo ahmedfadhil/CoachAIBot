@@ -13,15 +13,16 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    if user.save
+    if user.valid?
+      user.save
       current_coach_user.users << user
-      feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
-      feature.save
-      redirect_to users_path
+      generate_features user
+      flash[:notice] = 'Utente inserito con successo!'
     else
-      flash[:error] = 'Errore durante il salvataggio dell\'utente! '
-      error
+      flash[:notice] = user.errors
     end
+
+    redirect_to users_path
   end
 
   def show
@@ -72,15 +73,26 @@ class UsersController < ApplicationController
           feedbacks_scalars = Feedback.where('question_id = (?) AND  notification_id in (?)',
                                              q.id,
                                              notifications.where(:done => 1).select(:id))
+
           data[:plans][i][:activities][j][:scalar_data].push({:text => Question.find(q.id).text,
                                                               :data => []
                                                              })
+=begin
+            # insert first date as null
+            first_d = (feedbacks_scalars.first.notification.date - 1).to_time
+            first_d += first_d.utc_offset
+            first_d = first_d.to_i * 1000
+            data[:plans][i][:activities][j][:scalar_data][h][:data].push([first_d, nil])
+=end
+
           feedbacks_scalars.find_each do |f|
             t = f.notification.date.to_time
             t += t.utc_offset
             t = t.to_i * 1000
             data[:plans][i][:activities][j][:scalar_data][h][:data].push([t, f.answer.to_f])
           end
+
+
           h = h + 1
         end
         j = j + 1
@@ -164,5 +176,12 @@ class UsersController < ApplicationController
   def percent_of(n)
     self.to_f / n.to_f * 100.0
   end
+
+  def generate_features(user)
+    feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
+    feature.save
+  end
+
+
 
 end

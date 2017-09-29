@@ -12,6 +12,16 @@
     success: (data, textStatus, jqXHR) ->
       for plan in data.plans
         for activity in plan.activities
+          options = {
+            lang: {
+              months: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+              weekdays: ['Domenica', 'Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato'],
+              shortMonths: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+              loading: "Caricamento..."
+            }
+          }
+
+          Highcharts.setOptions(options);
           div_completeness_id = "completeness-#{activity.planning_id}"
           Highcharts.chart(div_completeness_id, {
             chart: {
@@ -19,6 +29,7 @@
               plotBorderWidth: 0,
               plotShadow: false
             },
+            colors: ['#6ab344', '#bd0e3d', '#ff861b'],
             title: {
               text: 'Progresso',
               align: 'center',
@@ -67,6 +78,7 @@
           for scalar_adherence in activity.scalar_data
             div_scalar_id = "scalar-adherence-#{i}-#{activity.planning_id}"
             if scalar_adherence.data.length>0
+              Highcharts.setOptions(options);
               Highcharts.chart(div_scalar_id, {
                 chart: {
                   type: 'area'
