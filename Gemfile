@@ -74,6 +74,11 @@ gem 'hash_dot'
 # oauth2 client
 gem 'oauth2'
 
+# View Components for Ruby and Rails.
+gem 'cells'
+gem 'cells-rails'
+gem 'cells-erb'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-eq.js'
   gem 'rails-assets-jquery'

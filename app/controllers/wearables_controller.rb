@@ -2,9 +2,13 @@ require 'oauth2'
 require 'base64'
 
 class WearablesController < ApplicationController
-	before_action :authenticate_coach_user!, only: [:show, :invite]
+	before_action :authenticate_coach_user!, only: [:index, :show, :invite]
   respond_to :html
   layout 'profile'
+
+	def index
+		render layout: 'cell_application'
+	end
 
 	def show
 		@user = User.find(params[:id])

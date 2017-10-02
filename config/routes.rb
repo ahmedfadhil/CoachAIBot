@@ -58,6 +58,7 @@ Rails.application.routes.draw do
 
 	# Wearable devices
 	# Actions reserved for the coach:
+	get 'wearables', to: 'wearables#index', as: 'wearables'
 	get 'wearables/:id', to: 'wearables#show', as: 'wearables_show'
 	post 'wearables/:id/invite', to: 'wearables#invite', as: 'wearables_invite'
 	# Actions reserved for the user
