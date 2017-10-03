@@ -15,6 +15,7 @@
 //= require jquery
 //= require jquery-ui
 //= require highstock
+//= require highstock/themes/dark-unica
 //= require material-design-lite
 //= require mdl-selectfield
 //= require rails-ujs

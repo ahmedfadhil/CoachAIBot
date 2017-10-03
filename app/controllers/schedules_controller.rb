@@ -22,8 +22,6 @@ class SchedulesController < ApplicationController
     saved_schedules = []
 
     schedules_params.each do |s_params|
-      ap '------------'
-      ap s_params
       s = Schedule.new(s_params)
       if s.save
         saved_schedules.push s
@@ -37,13 +35,11 @@ class SchedulesController < ApplicationController
       saved_schedules.each  do |schedule|
         planning.schedules << schedule
       end
-      flash[:scheduled] = 'L\'orario\' e\' stato registrato con successo. '
-      redirect_to user_path(User.find(planning.plan.user.id))
+      flash[:notice] = 'L\'orario\' e\' stato registrato con successo. '
     else
-      flash[:scheduled] = ' C\'e\' stato un problema e l\'orario\' non e\' stato registrato. Ti invitiamo a riprovare piu tardi. '
-      error
+      flash[:notice] = ' C\'e\' stato un problema e l\'orario\' non e\' stato registrato. Ti invitiamo a riprovare piu tardi. '
     end
-
+    redirect_to user_path(User.find(planning.plan.user.id))
 
   end
 
@@ -51,22 +47,20 @@ class SchedulesController < ApplicationController
     schedule = Schedule.new schedule_params
     planning = Planning.find(params[:planning_id])
     if schedule.save
-      flash[:scheduled] = 'L\'orario\' e\' stato registrato con successo. '
+      flash[:notice] = 'L\'orario\' e\' stato registrato con successo. '
       planning.schedules << schedule
-      redirect_to user_path(User.find(planning.plan.user.id))
     else
-      flash[:scheduled] = ' C\'e\' stato un problema e l\'orario\' non e\' stato registrato. Ti invitiamo a riprovare piu tardi. '
-      error
+      flash[:notice] = ' C\'e\' stato un problema e l\'orario\' non e\' stato registrato. Ti invitiamo a riprovare piu tardi. '
     end
-
+    redirect_to user_path(User.find(planning.plan.user.id))
   end
 
   def destroy
     schedule = Schedule.find(params[:id])
     if schedule.destroy
-      flash[:destroyed] = 'L\'Orario e\' stato eliminata con successo!'
+      flash[:notice] = 'L\'Orario e\' stato eliminata con successo!'
     else
-      flash[:destroyed] = 'Ce stato un errore durante la distruzione dell\'ORARIO! La invitiamo a riprovare piu\' tardi!'
+      flash[:notice] = 'Ce stato un errore durante la distruzione dell\'ORARIO! La invitiamo a riprovare piu\' tardi!'
     end
     redirect_to plans_users_path(schedule.planning.plan.user)
   end
@@ -80,9 +74,4 @@ class SchedulesController < ApplicationController
     def schedules_params
       params.permit(:schedules => [])
     end
-
-    def error
-      render 'error/error'
-    end
-
 end

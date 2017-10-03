@@ -10,27 +10,46 @@
       <main class="mdl-layout__content mdl-color--grey-100">
 
         <div id="patients-content">
+
+          <% if flash[:info] %>
+              <div id="error-grid" class="mdl-grid">
+                <div class="mdl-cell--12-col-desktop">
+                  <div class="field_with_info">
+                    <%= flash[:info] %>
+                  </div>
+                </div><br>
+              </div>
+          <% end %>
+
           <% if flash[:notice] %>
+              <div id="error-grid" class="mdl-grid">
+                <div class="mdl-cell--12-col-desktop">
+                  <div class="field_with_notice">
+                    <%= flash[:notice] %>
+                  </div>
+                </div><br>
+              </div>
+          <% end %>
+
+          <% if flash[:errors] %>
             <div class="notice">
-              <% if flash[:notice].length > 1 %>
+              <% if flash[:errors].class == Hash %>
                 <div id="error-grid" class="mdl-grid">
-                  <% flash[:notice].each do |key, value| %>
-
-                      <div class="mdl-cell--12-col-desktop">
-                        <div class="field_with_errors">
-                          <%= value[0] %>
-                        </div>
-                      </div><br>
-
-
+                  <% flash[:errors].each do |key, values| %>
+                    <% values.each do |value| %>
+                        <div class="mdl-cell--12-col-desktop">
+                          <div class="field_with_errors">
+                            <%= value %>
+                          </div>
+                        </div><br><br>
+                    <% end %>
 
                   <% end %>
                 </div>
-              <% else %>
-                  <%= flash[:notice] %>
               <% end %>
             </div>
           <% end %>
+
           <%= yield %>
         </div>
 

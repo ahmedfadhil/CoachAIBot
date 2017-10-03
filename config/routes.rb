@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     collection do
       post 'new/:p_id/:u_id', to: 'plannings#new', as: 'new'
       post 'dissociate/:a_id/:p_id/:u_id', to: 'activities#dissociate', as: 'dissociate'
+      post 'destroy_all_schedules/:p_id', to: 'plannings#destroy_all_schedules', as: 'destroy_all_schedules'
     end
   end
 

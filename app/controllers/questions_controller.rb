@@ -11,20 +11,19 @@ class QuestionsController < ApplicationController
     activity = Activity.find(params[:a_id])
     question = Question.new(question_params)
     user = User.find(params[:u_id])
-    err = 0
     if !question.save
-      flash[:error] = 'Ce stato un problema durante il SALVATAGGIO DELLA DOMANDA! Riprova piu tardi!'
-      err = 1
+      flash[:notice] = 'Ce stato un problema durante il SALVATAGGIO DELLA DOMANDA! Riprova piu tardi!'
+      flash[:errors] = question.errors.messages
     else
+      flash[:info] = 'Domanda salvata con successo!'
       activity.questions << question
-
       case question.q_type
         when 'yes_no'
           answer1 = Answer.new(text: 'si')
           answer2 = Answer.new(text: 'no')
           if !answer1.save || !answer2.save
-            flash[:error] = 'Ce stato un problema durante il salvataggio delle risposte SI/NO! Riprova piu tardi!'
-            err = 1
+            flash[:notice] = 'Ce stato un problema durante il salvataggio delle risposte SI/NO! Riprova piu tardi!'
+            flash[:errors] = answer1.errors.messages
           else
             question.answers << answer1
             question.answers << answer2
@@ -35,8 +34,8 @@ class QuestionsController < ApplicationController
             if answer.save
               question.answers << answer
             else
-              flash[:error] = 'Ce stato un problema durante il salvataggio delle risposte NUMERICHE! Riprova piu tardi!'
-              err = 1
+              flash[:notice] = 'Ce stato un problema durante il salvataggio delle risposte NUMERICHE! Riprova piu tardi!'
+              flash[:errors] = answer.errors.messages
             end
           end
         else
@@ -46,29 +45,23 @@ class QuestionsController < ApplicationController
             if answer.save
               question.answers << answer
             else
-              flash[:error] = 'Ce stato un problema durante il salvataggio delle risposte alla DOMANDA APERTA! Riprova piu tardi!'
-              err = 1
+              flash[:notice] = 'Ce stato un problema durante il salvataggio delle risposte alla DOMANDA APERTA! Riprova piu tardi!'
             end
           end
       end
-
-      if err!=0
-        error
-      else
-        redirect_to user_path(user.id)
-      end
+      redirect_to user_path(user.id)
     end
   end
 
   def destroy
     question = Question.find(params[:id])
-    if !question.destroy
-      flash[:destroyed] = 'Ce stato un problema e la domanda\' NON e\' stata eliminata! La preghiamo di riprovare piu\' tardi'
-      error
+    if question.destroy
+      flash[:info] = 'La domanda\' e\' stata eliminata con successo!'
     else
-      flash[:destroyed] = 'La domanda\' e\' stata eliminata con successo!'
-      redirect_back fallback_location: root_path
+      flash[:notice] = 'Ce stato un problema e la domanda\' NON e\' stata eliminata! La preghiamo di riprovare piu\' tardi'
+      flash[:errors] = question.errors.messages
     end
+    redirect_back fallback_location: root_path
   end
 
   private

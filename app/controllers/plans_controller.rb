@@ -9,22 +9,24 @@ class PlansController < ApplicationController
   def create
     plan = Plan.new plan_params
     plan.delivered = 0
-    user_id = User.find params[:u_id]
+    user = User.find params[:u_id]
     if plan.save
-      user_id.plans << plan
-      flash[:plan_saved] = 'Il nuovo piano e\' stato salvato con successo!'
+      user.plans << plan
+      flash[:info] = 'Il nuovo piano e\' stato salvato con successo!'
     else
-      flash[:plan_not_saved] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
+      flash[:notice] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
+      flash[:errors] = plan.errors.messages
     end
-    redirect_to plans_users_path(user_id)
+    redirect_to plans_users_path(user)
   end
 
   def destroy
     plan = Plan.find(params[:p_id])
     if plan.destroy
-      flash[:plan_destroyed] = 'Il piano e\' stato rimosso!'
+      flash[:info] = 'Il piano e\' stato rimosso!'
     else
-      flash[:plan_not_destroyed] = 'C\'e\' stato un problema e il piano non e\' stato rimosso! Ti preghiamo di riprovare piu\' tardi!'
+      flash[:notice] = 'C\'e\' stato un problema e il piano non e\' stato rimosso! Ti preghiamo di riprovare piu\' tardi!'
+      flash[:errors] = plan.errors.messages
     end
     redirect_to plans_users_path(plan.user.id)
   end
@@ -38,7 +40,7 @@ class PlansController < ApplicationController
     system "rake --trace notify_for_new_activities  PLAN_ID=#{params[:p_id]} &"
     # %x(rake --trace create_notifications[#{params[:p_id]}])
 
-    flash[:notice] = 'Consegnando il Piano...'
+    flash[:info] = 'Consegnando il Piano...'
     redirect_to plans_users_path(plan.user.id)
   end
 
@@ -46,33 +48,28 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:p_id])
     plan.delivered = 2
     if plan.save
-      flash[:notice] = "Piano #{plan.name} Sospeso"
-      redirect_to plans_users_path(plan.user.id)
+      flash[:info] = "Piano #{plan.name} Sospeso!"
     else
-      flash[:plan_not_suspended] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
-      error
+      flash[:notice] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
+      flash[:errors] = plan.errors.messages
     end
+    redirect_to plans_users_path(plan.user.id)
   end
 
   def stop
     plan = Plan.find(params[:p_id])
     plan.delivered = 3
     if plan.save
-      flash[:notice] = "Piano #{plan.name} Interrotto"
-      redirect_to plans_users_path(plan.user.id)
+      flash[:info] = "Piano #{plan.name} Interrotto"
     else
-      flash[:plan_not_suspended] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
-      error
+      flash[:notice] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
+      flash[:errors] = plan.errors.messages
     end
+    redirect_to plans_users_path(plan.user.id)
   end
 
   private
     def plan_params
       params.require(:plan).permit(:name, :desc, :from_day, :to_day, :notification_hour_coach_def)
     end
-
-    def error
-      render 'error/error.html.erb'
-    end
-
 end

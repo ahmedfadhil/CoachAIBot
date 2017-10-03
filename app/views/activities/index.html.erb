@@ -1,13 +1,5 @@
 <%= render 'activities/header' %>
 
-<% flash.each do |key, value| %>
-    <div class="mdl-grid error-grid">
-      <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-        <div class="alert alert"><%= value %></div>
-      </div>
-    </div>
-<% end %>
-
 <div class="mdl-grid new-activity-grid">
   <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
     <div class="all-activities-card">

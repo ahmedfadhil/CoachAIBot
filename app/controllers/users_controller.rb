@@ -16,12 +16,16 @@ class UsersController < ApplicationController
     if user.valid?
       user.save
       current_coach_user.users << user
-      generate_features user
-      flash[:notice] = 'Utente inserito con successo!'
+      features = generate_features user
+      if features.nil?
+        flash[:notice] = "C'e' stato un problema interno e l'utente non e' stato inserito, riprova piu' tardi!"
+      else
+        flash[:notice] = 'Utente inserito con successo!'
+      end
     else
-      flash[:notice] = user.errors
+      flash[:notice] = user.errors.messages
     end
-
+    ap flash
     redirect_to users_path
   end
 
@@ -178,8 +182,7 @@ class UsersController < ApplicationController
   end
 
   def generate_features(user)
-    feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
-    feature.save
+    Feature.create(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
   end
 
 

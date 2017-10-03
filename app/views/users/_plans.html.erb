@@ -105,8 +105,10 @@
                           <div>
                             L'Attivita' e' stata programmata per:
                           </div>
+
+
                           <% case planning.activity.a_type %>
-                      <% when 'daily' %>
+                          <% when 'daily', 0, '0' %>
                               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                                 <thead>
                                 <tr>
@@ -126,7 +128,7 @@
                               </table>
 
 
-                          <% when 'weekly' %>
+                          <% when 'weekly', 1, '1' %>
 
                               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                                 <thead>
@@ -191,7 +193,7 @@
                               <div>
                                 <%= link_to 'Modifica Orario', edit_planning_path(planning) ,
                                             method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-                                <%= link_to 'Elimina Orario', edit_planning_path(planning), method: 'delete',
+                                <%= link_to 'Elimina Orario', destroy_all_schedules_plannings_path(planning), method: 'post',
                                             data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
                                             class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
                               </div>

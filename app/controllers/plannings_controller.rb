@@ -11,9 +11,10 @@ class PlanningsController < ApplicationController
   def create
     planning = Planning.new(:activity_id => (get_or_create_activity params[:new], params).id, :plan_id => params[:p_id])
     if planning.save
-      flash[:notice] = 'Attivita creata/assegnata con successo!'
+      flash[:info] = 'Attivita creata/assegnata con successo!'
     else
       flash[:notice] = 'C\'e\' stato un problema durante l\'assegnamento dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+      flash[:errors] = planning.errors.messages
     end
     redirect_to plans_users_path(User.find(params[:u_id]))
   end
@@ -25,20 +26,28 @@ class PlanningsController < ApplicationController
   def update
     planning = Planning.find (params[:id])
     if planning.update (allowed_params)
-      flash[:notice] = 'Orari creati con successo!'
+      flash[:info] = 'Pianificazione inserita con successo!'
     else
-      flash[:notice] = 'C\'e\' stato un problema durante la creazione degli orari. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+      flash[:notice] = "La pianificazione non e' stata inserita!"
+      flash[:errors] = planning.errors.messages
     end
     redirect_to plans_users_path(planning.plan.user)
   end
 
   def destroy
     planning = Planning.find(params[:id])
-    if !planning.destroy
-      flash[:notice] = 'C\'e\' stato un problema durante la rimozione dell\'attivit\a\' dal piano. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+    if planning.destroy
+      flash[:info] = 'La tua attivita\' e\' stata rimossa dal piano con successo!'
     else
-      flash[:notice] = 'La tua attivita\' e\' stata rimossa dal piano con successo!'
+      flash[:notice] = 'C\'e\' stato un problema durante la rimozione dell\'attivit\a\' dal piano.'
+      flash[:errors] = planning.errors.messages
     end
+    redirect_back fallback_location: root_path
+  end
+
+  def destroy_all_schedules
+    planning = Planning.find(params[:p_id])
+    planning.schedules.delete_all
     redirect_back fallback_location: root_path
   end
 

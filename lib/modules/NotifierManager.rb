@@ -41,6 +41,8 @@ module NotifierManager
               if planning.schedules.present?
                 (start_date..end_date).each do |date|
                   planning.schedules.each do |schedule|
+                    ap planning.activity
+                    ap schedule
                     if date.wday == schedule.day + 1
                       schedule.time.present? ? time = schedule.time : time = default_time
                       set(Notification.new(time: time, date: date, done: 0, n_type: 'ACTIVITY_NOTIFICATION'), planning)
