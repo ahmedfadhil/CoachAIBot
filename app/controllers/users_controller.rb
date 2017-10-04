@@ -159,9 +159,7 @@ class UsersController < ApplicationController
       format.pdf do
         render pdf: "#{user.first_name}-Plans",
                template: 'users/user_plans',
-               show_as_html: params.key?('debug'),
-               disable_smart_shrinking: true
-               #dpi: '400'
+               show_as_html: params.key?('debug')
       end
     end
   end
