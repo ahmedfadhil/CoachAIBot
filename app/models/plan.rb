@@ -14,5 +14,9 @@ class Plan < ApplicationRecord
       errors.add(:date, "Il piano non puo' iniziare nel passato o finire prima che inizi. Ricontrolla le date!")
     end
   end
+
+  def ita_duration
+    "Dal #{self.from_day.strftime('%-m/%-d/%Y')} al #{self.to_day.strftime('%-m/%-d/%Y')} - #{(self.to_day-self.from_day).to_i} Giorni"
+  end
 end
 

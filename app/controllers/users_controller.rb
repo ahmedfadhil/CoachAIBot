@@ -159,7 +159,11 @@ class UsersController < ApplicationController
       format.pdf do
         render pdf: "#{user.first_name}-Plans",
                template: 'users/user_plans',
-               show_as_html: params.key?('debug')
+               show_as_html: params.key?('debug'),
+               dpi: '250',
+               # orientation: 'Landscape',
+               viewport: '1280x1024',
+               footer: { right: '[page] of [topage]' }
       end
     end
   end
@@ -167,9 +171,9 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
-    end
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
+  end
 
   def error
     render 'error/error.html.erb'

@@ -13,8 +13,8 @@ gem 'percentage'
 gem 'wicked_pdf'
 
 # wicked_pdf is a wrapper for wkhtmltopdf, I need to install that, too
-#gem 'wkhtmltopdf-binary-edge'
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary-edge'
+#gem 'wkhtmltopdf-binary'
 
 # pdf creator
 gem 'prawn', '~> 2.2', '>= 2.2.2'

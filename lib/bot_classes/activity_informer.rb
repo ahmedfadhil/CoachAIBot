@@ -12,135 +12,38 @@ class ActivityInformer
   end
 
   def inform
-
-    pdf = Prawn::Document.new(:margin => 50)
-    pdf.text "Panoramica <color rgb='ff0000'>Piani</color> e <color rgb='0000ff'>Attivita'</color>",
-       :inline_format => true,
-       :align => :center,
-       :size => 16
-    pdf.move_down 20
-
-    pdf.font_size 10
-    pdf.text "Utente: #{@user.first_name} #{@user.last_name}",
-             :align => :right
-    pdf.text "Coach: #{@user.coach_user.first_name} #{@user.coach_user.last_name}",
-             :align => :right
-    pdf.text "Data: #{Date.today.strftime('%d/%m/%y')}",
-             :align => :right
-
-
-
-    text = "Ciao #{@user.last_name}! Ti elenchero' tutti i piani e le loro attivita' che hai da fare: \n\n"
     delivered_plans = @user.plans.where(:delivered => 1)
+    delivered_plans_names = delivered_plans.map(&:name)
     if delivered_plans.size > 0
-      i = 0
-      delivered_plans.find_each do |plan|
-        j = 1
-        text = text + "\t #{i+1}. Piano: '#{plan.name}' \n\t\tCon le seguenti attivita':\n"
-
-        pdf.move_down 10
-        pdf.font_size 13
-        pdf.text "#{i+1}. Piano <color rgb='ff0000'>#{plan.name}</color>",
-                 :inline_format => true
-
-        pdf.text "Per il <u>Periodo</u>: dal <b>#{plan.from_day.strftime('%d/%m/%y')}</b> al <b>#{plan.to_day.strftime('%d/%m/%y')}</b>",
-                 :indent_paragraphs => 30, :inline_format => true
-
-        pdf.move_down 5
-        pdf.text 'Con le seguenti <b>ATTIVITA\'</b>:',
-                 :indent_paragraphs => 30, :inline_format => true
-
-        plan.plannings.find_each do |planning|
-          pdf.move_down 5
-
-          activity = planning.activity
-          text = text + "\t\t\t #{j}. #{activity.name}\n"
-
-          pdf.text "#{j}. <color rgb='0000ff'>#{activity.name}</color>",
-                   :indent_paragraphs => 30, :inline_format => true
-
-          pdf.text "-Categoria: <b>#{a_category(activity.category)}</b>",
-                   :indent_paragraphs => 60, :inline_format => true
-
-          case activity.a_type
-            when 'daily'
-              pdf.text '-Tipologia: <b>GIORNALIERA</b>',
-                       :indent_paragraphs => 60, :inline_format => true
-
-              pdf.text "-Frequenza: <b>#{activity.n_times}/giorno</b>",
-                       :indent_paragraphs => 60, :inline_format => true
-
-              unless planning.schedules.empty?
-                pdf.text "-Programmazione:",
-                         :indent_paragraphs => 60
-
-                planning.schedules.find_each do |schedule|
-                  pdf.text "<b>#{day(schedule.day)}</b> Ora <b>#{schedule.time.strftime('%H:%M')}</b>",
-                           :indent_paragraphs => 90, :inline_format => true
-                end
-              end
-            when 'weekly'
-              pdf.text '-Tipologia: <b>SETTIMANALE</b>',
-                       :indent_paragraphs => 60, :inline_format => true
-
-              pdf.text "-Frequenza: <b>#{activity.n_times}/settimana</b>",
-                       :indent_paragraphs => 60, :inline_format => true
-              unless planning.schedules.empty?
-                pdf.text "-Programmazione:",
-                         :indent_paragraphs => 60
-
-                planning.schedules.find_each do |schedule|
-                  pdf.text "Giorno <b>#{schedule.date.strftime('%d/%m/%y')}</b> Ora <b>#{schedule.time.strftime('%H:%M')}</b>",
-                           :indent_paragraphs => 90, :inline_format => true
-                end
-              end
-
-            else # monthly
-              pdf.text '-Tipologia: <b>MENSILE</b>',
-                       :indent_paragraphs => 60, :inline_format => true
-
-              pdf.text "-Frequenza: <b>#{activity.n_times}/mese</b>",
-                       :indent_paragraphs => 60, :inline_format => true
-
-              unless planning.schedules.empty?
-                pdf.text "-Programmazione:",
-                         :indent_paragraphs => 60
-
-                ap planning.schedules
-
-                planning.schedules.find_each do |schedule|
-                  pdf.text "Giorno <b>#{schedule.date.strftime('%d/%m/%y')}</b>",
-                           :indent_paragraphs => 90, :inline_format => true
-                end
-              end
+      text = "Ciao #{@user.last_name}! Ti elenchero' tutti i piani che ti sono stati asegnati dal coach: \n"
+      text += "-#{delivered_plans_names.join("\n-")}"
+      buttons = %w[Attivita Feedback Tips]
+      keyboard = GeneralActions.custom_keyboard buttons
+      @user.set_user_state @state
+      @api.call('sendMessage', chat_id: @user.telegram_id, text: text, reply_markup: keyboard)
 
 
-          end
+      #create activities pdf
+      controller = UsersController.new
+      controller.instance_variable_set(:'@plans', delivered_plans)
 
-          pdf.text "-Ulteriori Dettagli: <b>#{activity.desc}</b>",
-                   :indent_paragraphs => 60, :inline_format => true
-          # pdf.text_box "Another text box with no :width option passed, so it will " +
-          #             "flow to a new line whenever it reaches the right margin. ",
-          #         :at => pdf.cursor
-
-
-          j = j + 1
-        end
-        i = i + 1
-      end
-      text = text + "\n"
-
-      pdf.render_file 'example.pdf'
-
-      if i == delivered_plans.size
-        buttons = %w[Attivita Feedback Tips]
-        keyboard = GeneralActions.custom_keyboard buttons
-        @user.set_user_state @state
-        @api.call('sendMessage', chat_id: @user.telegram_id, text: text, reply_markup: keyboard)
-      else
-        @api.call('sendMessage', chat_id: @user.telegram_id, text: text)
+      pdf = WickedPdf.new.pdf_from_string(
+          controller.render_to_string('users/user_plans', layout: 'layouts/pdf.html'),
+          dpi: '250',
+                # orientation: 'Landscape',
+                viewport: '1280x1024',
+                footer: { right: '[page] of [topage]'}
+      )
+      save_path = Rails.root.join('pdfs',"#{@user.id}-plans.pdf")
+      ap save_path
+      File.open(save_path, 'wb') do |file|
+        file << pdf
       end
 
+
+
+      @api.call('sendDocument', chat_id: @user.telegram_id,
+                document: Faraday::UploadIO.new("pdfs/#{@user.id}-plans.pdf", 'pdf'))
 
 
     else

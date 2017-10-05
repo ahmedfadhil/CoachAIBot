@@ -22,8 +22,65 @@ module UsersHelper
     string.downcase.tr('_', ' ')
   end
 
-  def features?(feature)
-    c = feature.physical + feature.health + featur
+  def ita_category(cat)
+    case cat
+      when '0', 0
+        'Dieta'
+      when '1', 1
+        'Attivita\' Fisica'
+      when '2', 2
+        'Benessere Mentale'
+      when '3', 3
+        'Medicina'
+      else
+        'Altro'
+    end
   end
+
+  def ita_a_type(a_type)
+    case a_type
+      when 0, '0'
+        'Giorno'
+      when 1, '1'
+        'Settimana'
+      else
+        'Mese'
+    end
+  end
+
+  def ita_schedule(schedule)
+    ita_text = ''
+    unless schedule.date.nil?
+      ita_text += "Data: #{schedule.date.strftime('%d.%m.%Y')} "
+    end
+    unless schedule.day.nil?
+      ita_text += "Giorno: #{ita_day(schedule.day)} "
+    end
+    unless schedule.time.nil?
+      ita_text += "Ora: #{schedule.time.strftime('%H:%M')} "
+    end
+    ita_text
+  end
+
+  def ita_day(day)
+    case day
+      when 0
+        'Lunedi'
+      when 1
+        'Martedi'
+      when 2
+        'Mercoledi'
+      when 3
+        'Giovedi'
+      when 4
+        'Venerdi'
+      when 5
+        'Sabato'
+      else
+        'Domenica'
+
+    end
+  end
+
 
 end
