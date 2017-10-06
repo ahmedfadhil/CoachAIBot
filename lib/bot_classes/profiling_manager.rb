@@ -55,7 +55,6 @@ class ProfilingManager
   end
 
   def process_oob(oob)
-    ap oob
     state_received = JSON.parse(oob)
     dot_state = state_received.to_dot
     flag = 0
@@ -95,11 +94,7 @@ class ProfilingManager
       feature.coping_stress = dot_state.coping_features.coping_stress
       feature.coping_sleep_hours = dot_state.coping_features.coping_sleep_hours
       feature.coping_energy_level = dot_state.coping_features.coping_energy_level
-      ap '############ COPING'
-      ap feature
       feature.save
-      ap feature
-
     end
 
     if feature.physical == 0 && dot_state.physical == 1
@@ -129,16 +124,12 @@ class ProfilingManager
   end
 
   def custom_keyboard(keyboard_values)
-    if (keyboard_values.length>4)
-      kb = keyboard_values.each_slice(2).to_a
+    if keyboard_values.length>4
+      kb = add_emoji keyboard_values.each_slice(2).to_a
     else
-      kb = keyboard_values
+      kb = add_emoji keyboard_values
     end
-    kb = add_emoji kb
-    answers =
-        Telegram::Bot::Types::ReplyKeyboardMarkup
-            .new(keyboard: kb, one_time_keyboard: true)
-    answers
+    Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
   end
 
   def add_emoji(values)

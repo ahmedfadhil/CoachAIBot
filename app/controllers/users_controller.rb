@@ -168,6 +168,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_feedbacks_to_do_pdf
+    user = User.find(params[:id])
+    @plans = user.plans
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{user.first_name}-Plans",
+               template: 'users/user_feedbacks',
+               show_as_html: params.key?('debug'),
+               dpi: '250',
+               # orientation: 'Landscape',
+               viewport: '1280x1024',
+               footer: { right: '[page] of [topage]' }
+      end
+    end
+  end
+
 
   private
 

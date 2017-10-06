@@ -1,5 +1,32 @@
 module UsersHelper
 
+  def week_and_order(by, plan, planning, notification)
+    # looping through months
+    date = notification.date
+    from = plan.from_day
+    to = plan.to_day
+    interval = by
+    start = from
+    week_number = 1
+    while start < to
+      stop  = start.send("end_of_#{interval}")
+      if stop > to
+        stop = to
+      end
+
+      # create default notifications based on period and number of times to do an activity
+      interval_start = Date.parse(start.inspect)
+      interval_end = Date.parse(stop.inspect)
+      if interval_start<=date && interval_end>=date
+        return week_number, Notification.where('planning_id = (?) AND date >= (?) AND date <= (?)', planning.id, interval_start, interval_end).index(notification)+1
+      end
+
+      start = stop.send("beginning_of_#{interval}")
+      start += 1.send(interval)
+      week_number = week_number + 1
+    end
+  end
+
   def time_format(datetime)
     datetime.strftime('%H:%M') unless datetime.blank?
   end
@@ -78,9 +105,22 @@ module UsersHelper
         'Sabato'
       else
         'Domenica'
-
     end
   end
 
+  def pdf_activity_img(category)
+    case category
+      when '0'
+        'rsz_diet.png'
+      when '1'
+        'rsz_doc-bot.png'
+      when '2'
+        'rsz_mental.png'
+      when '3'
+        'rsz_medicine.png'
+      else
+        'rsz_other.png'
+    end
+  end
 
 end

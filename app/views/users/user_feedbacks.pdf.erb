@@ -10,7 +10,7 @@
         <div class="col-xs-6">
           <h2>Piani ed Attivita' di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h2>
           <p>
-            Nel documento seguente troverai tutti i dettagli riguardanti le attivita' definite dal coach <%= "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
+            Nel documento seguente troverai le attivita' che dovevi fare fino ad oggi e sulle quali non hai fornito feedback.
           </p>
         </div>
         <div class="col-xs-3">
@@ -30,25 +30,14 @@
         <div class="media-body">
           <h4 class="media-heading">Piano <u><b><%= plan.name %></b></u></h4>
 
-          <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">Dettagli</h3>
-            </div>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-danger"><b>Durata: </b> <%= plan.ita_duration %></li>
+          </ul>
 
-            <div class="panel-body">
-
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-danger"><b>Descrizione: </b> <%= plan.desc %></li>
-                <li class="list-group-item list-group-item-danger"><b>Durata: </b> <%= plan.ita_duration %></li>
-              </ul>
-
-            </div>
-
-          </div>
 
           <div class="panel panel-danger">
             <div class="panel-heading">
-                <h3 class="panel-title">Attivita' sotto questo piano</h3>
+                <h3 class="panel-title">Questo piano ha bisogno di feedback per le seguenti attivita'</h3>
             </div>
 
             <div class="panel-body">
@@ -61,13 +50,33 @@
                     <h4 class="media-heading">Attivita' <b><u><%= planning.activity.name %></u></b></h4>
                     <div class="panel panel-info">
                       <div class="panel-heading">
-                          <h3 class="panel-title">Dettagli attivita'</h3>
+                          <h3 class="panel-title">Che era da fare:</h3>
                       </div>
                       <div class="panel-body">
                         <ul class="list-group">
-                          <li class="list-group-item list-group-item-info"><b>Descrizione: </b> <%= planning.activity.desc %></li>
+
+
+                        RIMASTO QUIIIIIIIIIIIII
+
+
+                          <% notifications = planning.notifications.where('notifications.date<=? AND notifications.done=?', Date.today, 0) %>
+                          <% notifications.each do |n| %>
+                            <% case planning.activity.a_type %>
+                              <% when '0' %>
+                                <li class="list-group-item list-group-item-info"><b> </b> <%= ita_category(planning.activity.category) %></li>
+                              <% when '1' %>
+
+                              <% else %>
+
+                            <% end %>
+                          <% end %>
+
                           <li class="list-group-item list-group-item-info"><b>Categoria: </b> <%= ita_category(planning.activity.category) %></li>
                           <li class="list-group-item list-group-item-info"><b>Frequenza: </b> <%= planning.activity.n_times %> / <%= ita_a_type(planning.activity.a_type) %></li>
+
+
+                          <li class="list-group-item list-group-item-info"><b>Descrizione: </b> <%= planning.activity.desc %></li>
+
                           <% unless planning.schedules.empty? %>
                             <li class="list-group-item list-group-item-info"><b>Pianificazioni fatte dal Coach: </b><br>
                               <div class="list-group">

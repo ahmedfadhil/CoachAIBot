@@ -31,7 +31,7 @@ class MessageDispatcher
       dot_state = hash_state.to_dot
       state = dot_state.state
 
-      if text == ':build mine'
+      if text == ':build mine' || text == ':reset'
         ChatscriptCompiler.new(text, @user, hash_state).manage
       else
         case state

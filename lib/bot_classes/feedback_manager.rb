@@ -24,23 +24,22 @@ class FeedbackManager
         send_reply reply
         plan.plannings.find_each do |planning|
           notifications = planning.notifications.where('notifications.date<=? AND notifications.done=?', Date.today, 0)
-          if notifications.size > 0
-            notifications.each do |n|
-              case planning.activity.a_type
-                when '0'
-                  reply = "\t\t\t-'#{planning.activity.name}' attivita GIORNALIERA in data #{n.date}\n"
-                  send_reply reply
-                when '1'
-                  week, turn = week_and_order('week', plan, planning, n)
-                  reply = "\t\t\t-'#{planning.activity.name}' attivita SETTIMANALE per la #{turn} volta durante la #{week} settimana\n"
-                  send_reply reply
-                else
-                  month, turn = week_and_order('month', plan, planning, n)
-                  reply = "\t\t\t-'#{planning.activity.name}' attivita MENSILE per la #{turn} volta durante il #{month} mese\n"
-                  send_reply reply
-              end
+          notifications.each do |n|
+            case planning.activity.a_type
+              when '0'
+                reply = "\t\t\t-'#{planning.activity.name}' attivita GIORNALIERA in data #{n.date}\n"
+                send_reply reply
+              when '1'
+                week, turn = week_and_order('week', plan, planning, n)
+                reply = "\t\t\t-'#{planning.activity.name}' attivita SETTIMANALE per la #{turn} volta durante la #{week} settimana\n"
+                send_reply reply
+              else
+                month, turn = week_and_order('month', plan, planning, n)
+                reply = "\t\t\t-'#{planning.activity.name}' attivita MENSILE per la #{turn} volta durante il #{month} mese\n"
+                send_reply reply
             end
           end
+
           #break
           j = j + 1
         end
@@ -81,8 +80,7 @@ class FeedbackManager
       @user = GeneralActions.new(@user, @state).clean_state
       FeedbackManager.new(@user, JSON.parse(@user.bot_command_data)).check
     else
-      ap "NOTIFICATION= #{notification.date} #{notification.time}"
-      ap "FEEDBACK= #{notification.feedbacks.size} QUESTIONS= #{notification.planning.activity.questions.size}"
+
       if !(notification.feedbacks.size == notification.planning.activity.questions.size)
         question = notification.planning.activity.questions[notification.feedbacks.size]
         reply = "In data #{notification.date} alle ore #{notification.time.strftime('%H:%M')} \n"

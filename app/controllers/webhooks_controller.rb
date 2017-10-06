@@ -24,27 +24,6 @@ class WebhooksController < ApplicationController
     webhook[:user_id]
   end
 
-  def upload_health_features
-    ap 'RECEIVING HEALTH FEATURES'
-    ap all_params
-    user = User.find(all_params['user_id'])
-    feature = user.feature
-    if user.feature.nil?
-      feature = Feature.new(all_params)
-      feature.user_id = user.id
-      feature.save
-    else
-      feature.health_personality = params.health_personality
-      feature.health_wellbeing_meaning = params.health_wellbeing_meaning
-      feature.health_nutritional_habits = params.health_nutritional_habits
-      feature.health_drinking_water = params.health_drinking_water
-      feature.health_vegetables_eaten = params.health_vegetables_eaten
-      feature.health_energy_level = params.health_energy_level
-      feature.save
-    end
-    render json: {status: 'OK'}, status: :ok
-  end
-
   private
   def all_params
     params.require(:webhook).permit!
