@@ -1,3 +1,5 @@
+###
+
 Highcharts.createElement('link', {
   href: 'https://fonts.googleapis.com/css?family=Unica+One',
   rel: 'stylesheet',
@@ -206,10 +208,7 @@ maskColor: 'rgba(255,255,255,0.3)'
 # Apply the theme
 Highcharts.setOptions(Highcharts.theme);
 
-@paintIt = (element, backgroundColor, textColor) ->
-  element.style.backgroundColor = backgroundColor
-  if textColor?
-    element.style.color = textColor
+###
 
 @user_charts = () ->
   user_id = document.getElementById('hidden_user_id').value
@@ -235,7 +234,16 @@ Highcharts.setOptions(Highcharts.theme);
             chart: {
               plotBackgroundColor: null,
               plotBorderWidth: 0,
-              plotShadow: false
+              plotShadow: false,
+              # Edit chart spacing
+              spacingBottom: 10,
+              spacingTop: 2,
+              spacingLeft: 2,
+              spacingRight: 2,
+
+              # Explicitly tell the width and height of a chart
+              width: null,
+              height: null
             },
             colors: ['#6ab344', '#bd0e3d', '#ff861b'],
             title: {
@@ -313,12 +321,21 @@ Highcharts.setOptions(Highcharts.theme);
               });
               i++
 
+@getScores = () ->
+  $.ajax "/users/get_scores",
+    type: 'GET'
+    dataType: 'json'
+    json: true
+    success: (data, textStatus, jqXHR) ->
+
+
 
 
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
   div_plans = document.getElementsByClassName('plans-action')
   div_features = document.getElementsByClassName('users_features')
+  div_index = document.getElementsByClassName('users-index')
 
   if div_plans[0] != undefined
     document.getElementById('activities-user').style.background = '#F0F8FF'
@@ -331,6 +348,8 @@ Highcharts.setOptions(Highcharts.theme);
   if div_features[0] != undefined
     document.getElementById('features-user').style.background = '#F0F8FF'
 
+  if div_index[0] != undefined
+    getScores()
 
 
 
@@ -342,4 +361,6 @@ $ ->
 
     backgroundColor = $(this).data("background-color")
     textColor = $(this).data("text-color")
-    paintIt(this, backgroundColor, textColor)
+
+    $('.datepicker').datepicker () ->
+      weekStart:1

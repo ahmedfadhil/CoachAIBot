@@ -4,6 +4,7 @@
   <%= render 'users/users_header' %>
 
   <div id="patients">
+    <div class="users-index"></div>
     <div class="mdl-grid" >
 
       <% if @users.empty? %>
@@ -16,22 +17,45 @@
       <% end %>
 
       <% @users.each do |user|  %>
-          <div class="active-patient-card patient-card mdl-cell--3-col-desktop mdl-card">
-            <div id="user-card-img-container" class="mdl-card__media">
-              <%= image_tag 'patient-conn.jpg', alt: 'paziente', id: 'user-card-img' %>
-            </div>
-            <div id="user-card-title" class="mdl-card__title">
-              <h2 class="mdl-card__title-text"> <%= user.first_name %> <%= user.last_name %> </h2>
-            </div>
-            <div id="user-card-supporting-text" class="mdl-card__supporting-text">
-              Dati sul Utente
-            </div>
-            <div id="user-card-actions" class="mdl-card__actions mdl-card--border">
-              <%= link_to 'Vedi Pagina Utente', user_path(user), id: 'user-card-page-btn', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+        <div class="mdl-cell mdl-cell--3-col-desktop">
+          <div class="user-card mdl-card">
+            <div class="user-card-grid mdl-grid">
+              <div class="mdl-cell mdl-cell--4-col-desktop">
+                <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
+              </div>
+              <div class="mel-cell mdl-cell--7-col-desktop">
+                <div class="user-card-name">
+                  <%= user.first_name %> <%= user.last_name %>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--1-col-desktop">
+                <div class="user-card-n">
+                  <i class="n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">notifications_none</i>
+                </div>
+              </div>
             </div>
 
+            <div class="scores-grid mdl-grid">
+              <div class="mdl-cell mdl-cell--4-col-desktop">
+                <div id="physical_score_<%= user.id %>">
+                  <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
+                </div>
+              </div>
+              <div class="mel-cell mdl-cell--4-col-desktop">
+                <div id="diet_score_<%= user.id %>">
+                  <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--4-col-desktop">
+                <div id="mental_score_<%= user.id %>">
+                  <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
       <% end %>
+
 
     </div>
   </div>

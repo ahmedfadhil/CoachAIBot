@@ -103,7 +103,6 @@ class UsersController < ApplicationController
       end
       i = i + 1
     end
-    ap data
     render json: data, status: :ok
   end
 
@@ -183,6 +182,15 @@ class UsersController < ApplicationController
                footer: { right: '[page] of [topage]' }
       end
     end
+  end
+
+  def get_scores
+    data = {:scores => [
+        {:id => 3, :physical_s => 1, :diet_s => 2, :mental_s => 3},
+        {:id => 4, :physical_s => 1, :diet_s => 2, :mental_s => 3},
+        {:id => 5, :physical_s => 1, :diet_s => 2, :mental_s => 3}
+    ]}
+    render json: data, status: :ok
   end
 
 

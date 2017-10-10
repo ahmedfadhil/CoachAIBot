@@ -1,104 +1,17 @@
-<div class="container">
-
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-
-      <div class="row">
-        <div class="col">
-          <%= image_tag wicked_pdf_asset_base64('logo.png'), class: 'header-img'%><br>
-        </div>
-        <div class="col">
-          <h5>Piani ed Attivita' di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h5>
-          <p>
-            Nel documento seguente troverai tutti i dettagli riguardanti le attivita' definite dal coach <%= "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
-          </p>
-        </div>
-        <div class="col">
-          <%= image_tag wicked_pdf_asset_base64('pdf_head.jpg'), class: 'header-img'%><br>
-        </div>
+<% @users.each do |user|  %>
+    <div class="active-patient-card patient-card mdl-cell--3-col-desktop mdl-card">
+      <div id="user-card-img-container" class="mdl-card__media">
+        <%= image_tag 'patient-conn.jpg', alt: 'paziente', id: 'user-card-img' %>
+      </div>
+      <div id="user-card-title" class="mdl-card__title">
+        <h2 class="mdl-card__title-text"> <%= user.first_name %> <%= user.last_name %> </h2>
+      </div>
+      <div id="user-card-supporting-text" class="mdl-card__supporting-text">
+        Dati sul Utente
+      </div>
+      <div id="user-card-actions" class="mdl-card__actions mdl-card--border">
+        <%= link_to 'Vedi Pagina Utente', user_path(user), id: 'user-card-page-btn', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
       </div>
 
     </div>
-  </div>
-
-
-  <% @plans.each do |plan| %>
-      <div class="card">
-        <h4 class="card-header">Piano: <b><%= plan.name %></b></h4>
-        <div class="card-body">
-          Lista Attivita
-        </div>
-      </div>
-
-  <% end %>
-
-</div>
-
-
-
-<div class="pdf-container">
-  <div id="pdf-header">
-    <h4>Piani ed Attivita' di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h4>
-    <%= image_tag wicked_pdf_asset_base64('pdf_head.jpg'), class: 'header-img'%><br>
-    Nel documento seguente troverai tutti i dettagli riguardanti le attivita' definite dal coach <%= "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
-  </div>
-
-  <% @plans.each do |plan| %>
-
-
-      <div id="pdf-plan">
-
-        <div class="pdf-plan-title">
-          <h4>Piano: <b><%= plan.name %></b> </h4>
-        </div>
-
-        <div class="pdf-plan-content">
-          <div class="pdf-plan-details">
-            Dettagli del piano:
-            <div id="pdf-activity-card">
-              <div>Durata del piano: <%= (plan.to_day-plan.from_day).to_i %> giorni</div>
-              <div>Dal <b><%= plan.from_day %></b> al <b><%= plan.from_day %></b></div>
-              <div>Descrizione: <b><%= plan.desc %></b></div>
-            </div>
-          </div>
-          <br><br>
-
-          Attivita' sotto questo piano:
-          <% plan.plannings.each do |planning| %>
-              <div id="nobreak">
-                <div id="pdf-activity-card">
-
-                  <div class="pdf-activity-title">
-                    <h4><%= image_tag wicked_pdf_asset_base64('doc-bot.png'), id: 'activity_img'%> Attivita': <%= planning.activity.name %> </h4>
-                  </div>
-
-                  Dettagli dell'attivita':
-                  <div id="pdf-activity-desc-card">
-                    <div>Categoria: <b><%= ita_category(planning.activity.category) %></b></div>
-                    <div>Frequenza: <b><%= planning.activity.n_times %> volte al <%= ita_a_type planning.activity.a_type %></b></div>
-                    <div>Descrizione: <b><%= planning.activity.desc %></b></div>
-
-                    <% unless planning.schedules.empty? %>
-                        <div>
-                          Pianificazioni Imposte dal Coach: <br>
-                          <% planning.schedules.each do |schedule| %>
-                              <div><%= ita_schedule(schedule) %></div>
-                          <% end %>
-                        </div>
-                    <% end %>
-
-                  </div>
-
-                </div>
-              </div><br><br>
-
-          <% end %>
-        </div>
-
-      </div>
-
-      <br><br>
-
-  <% end %>
-
-</div>
+<% end %>
