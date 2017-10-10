@@ -1,5 +1,33 @@
 module UsersHelper
 
+  def ita_feedbacks_from_n(notification)
+    planning = notification.planning
+    activity = planning.activity
+    case activity.a_type
+      when '0'
+        if planning.schedules.empty?
+          "Il giorno #{notification.date.strftime('%d.%m.%Y')} per #{activity.n_times} volte."
+        else
+          "Il giorno #{notification.date.strftime('%d.%m.%Y')} alle ore #{notification.time.strftime('%H:%M')}."
+        end
+      when '1'
+        if planning.schedules.empty?
+          week, turn = week_and_order('week', planning.plan, planning, notification)
+          "Per la #{turn} volta durante la #{week} settimana."
+        else
+          "Il giorno #{notification.date.strftime('%d.%m.%Y')} alle ore #{notification.time.strftime('%H:%M')}."
+        end
+      else
+        if planning.schedules.empty?
+          month, turn = week_and_order('month', plan, planning, n)
+          "Per la #{turn} volta durante il #{month} mese."
+        else
+          "Il giorno #{notification.date.strftime('%d.%m.%Y')} alle ore #{notification.time.strftime('%H:%M')}."
+        end
+
+    end
+  end
+
   def week_and_order(by, plan, planning, notification)
     # looping through months
     date = notification.date
@@ -14,7 +42,6 @@ module UsersHelper
         stop = to
       end
 
-      # create default notifications based on period and number of times to do an activity
       interval_start = Date.parse(start.inspect)
       interval_end = Date.parse(stop.inspect)
       if interval_start<=date && interval_end>=date

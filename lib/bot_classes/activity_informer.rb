@@ -27,11 +27,11 @@ class ActivityInformer
   private
 
   def inform_about(delivered_plans_names)
-    another_actuator = GeneralActions.new(@user,@state)
-    another_actuator.send_chat_action 'typing'
+    actuator = GeneralActions.new(@user,@state)
+    actuator.send_chat_action 'typing'
     reply = "In breva hai da seguire i seguenti piani: \n\n"
     reply += "\t-#{delivered_plans_names.join("\n\t-")}"
-    another_actuator.send_reply_with_keyboard(reply,GeneralActions.menu_keyboard)
+    actuator.send_reply_with_keyboard(reply,GeneralActions.menu_keyboard)
   end
 
 end

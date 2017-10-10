@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get 'archived'
       get 'suspended'
       get ':id/get_plans.pdf', to: 'users#get_plans_pdf', as: 'get_plans_pdf'
+      get ':id/get_feedbacks_to_do_pdf.pdf', to: 'users#get_feedbacks_to_do_pdf', as: 'get_feedbacks_to_do_pdf'
       get ':id/get_charts_data', to: 'users#get_charts_data', as: 'get_charts_data'
     end
   end

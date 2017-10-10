@@ -53,7 +53,7 @@ class GeneralActions
   end
 
   def send_plans_details(delivered_plans)
-    send_reply "#{@user.last_name}, ti sto inviando un documento con tutti i dettagli relativi alle attivita' che hai da fare. Leggilo con attenzione!"
+    send_reply "#{@user.last_name} nel seguente documento ci sono tutti i dettagli relativi alle attivita' che hai da fare. Leggilo con attenzione!"
     send_chat_action 'upload_document'
 
     controller = UsersController.new
@@ -63,6 +63,30 @@ class GeneralActions
 
     pdf = WickedPdf.new.pdf_from_string(
         controller.render_to_string('users/user_plans', layout: 'layouts/pdf.html'),
+        dpi: '250',
+        # orientation: 'Landscape',
+        viewport: '1280x1024',
+        footer: { right: '[page] of [topage]'}
+    )
+    save_path = Rails.root.join('pdfs',doc_name)
+    File.open(save_path, 'wb') do |file|
+      file << pdf
+    end
+
+    send_doc "pdfs/#{doc_name}"
+  end
+
+  def send_feedback_details(plans)
+    send_reply "#{@user.last_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi! Leggilo con Attenzione"
+    send_chat_action 'upload_document'
+
+    controller = UsersController.new
+    controller.instance_variable_set(:'@plans', plans)
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdf"
+
+
+    pdf = WickedPdf.new.pdf_from_string(
+        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdf.html'),
         dpi: '250',
         # orientation: 'Landscape',
         viewport: '1280x1024',
@@ -97,7 +121,7 @@ class GeneralActions
   end
 
   def self.plans_names(delivered_plans)
-    delivered_plans.map(&:name).push('Torna Indietro')
+    delivered_plans.map(&:name).push('Ulteriori Dettagli').push('Torna al Menu')
   end
 
   def self.custom_keyboard(keyboard_values)

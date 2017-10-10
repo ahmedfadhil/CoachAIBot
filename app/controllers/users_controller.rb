@@ -169,13 +169,12 @@ class UsersController < ApplicationController
   end
 
   def get_feedbacks_to_do_pdf
-    user = User.find(params[:id])
-    @plans = user.plans
+    @plans = Plan.joins(plannings: :notifications).where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.user_id=?', Date.today, 0, 1, params[:id]).uniq
 
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "#{user.first_name}-Plans",
+        render pdf: "#{@plans[0].user.first_name}-Plans",
                template: 'users/user_feedbacks',
                show_as_html: params.key?('debug'),
                dpi: '250',

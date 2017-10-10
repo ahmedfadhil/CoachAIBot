@@ -68,6 +68,9 @@ class MessageDispatcher
 
             if hash_state['plan_name'].nil?
               case text
+                when *tell_me_more_strings
+                  feedback_manager.send_details
+
                 when *back_strings
                   general_actions.back_to_menu_with_menu
 
@@ -98,7 +101,11 @@ class MessageDispatcher
   end
 
   def back_strings
-    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back']
+    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu']
+  end
+
+  def tell_me_more_strings
+    ['Dimmi di piu', 'ulteriori dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
   end
 
 end
