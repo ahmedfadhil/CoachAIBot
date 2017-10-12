@@ -1,0 +1,38 @@
+<% if model[:info] %>
+    <div id="error-grid" class="mdl-grid">
+      <div class="mdl-cell--12-col-desktop">
+        <div class="field_with_info">
+          <%= model[:info] %>
+        </div>
+      </div><br>
+    </div>
+<% end %>
+
+<% if model[:notice] %>
+    <div id="error-grid" class="mdl-grid">
+      <div class="mdl-cell--12-col-desktop">
+        <div class="field_with_notice">
+          <%= model[:notice] %>
+        </div>
+      </div><br>
+    </div>
+<% end %>
+
+<% if model[:errors] %>
+    <div class="notice">
+      <% if model[:errors].class == Hash %>
+          <div id="error-grid" class="mdl-grid">
+            <% model[:errors].each do |key, values| %>
+                <% values.each do |value| %>
+                    <div class="mdl-cell--12-col-desktop">
+                      <div class="field_with_errors">
+                        <%= value %>
+                      </div>
+                    </div><br><br>
+                <% end %>
+
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+<% end %>

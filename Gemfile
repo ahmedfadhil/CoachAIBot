@@ -6,6 +6,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# use Trailblazer::Cell
+gem 'cells'
+gem 'cells-rails'
+gem 'cells-erb'
+
 # calculate percentages
 gem 'percentage'
 

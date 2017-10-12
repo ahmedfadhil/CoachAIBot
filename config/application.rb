@@ -32,5 +32,9 @@ module Coach
       Devise::PasswordsController.layout 'home'
     end
 
+    config.cells.with_assets = ['profile_header_cell']
+
+    # Load Cell classes when pre compiling classes
+    config.assets.initialize_on_precompile = true
   end
 end

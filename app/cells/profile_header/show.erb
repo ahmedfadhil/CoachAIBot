@@ -1,6 +1,6 @@
 <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
   <div class="mdl-layout__header-row">
-    <span class="mdl-layout-title"><%= yield(:sub_title) %></span>
+    <span class="mdl-layout-title">Profilo Personale</span>
     <div class="mdl-layout-spacer"></div>
 
     <form class="navbar-form navbar-right" role="search">
@@ -9,10 +9,9 @@
         <span class="material-input"></span>
         <span class="material-input"></span></div>
       <button type="submit" class="btn btn-white btn-round btn-just-icon">
-        <i class="material-icons">search</i><div class="ripple-container"></div>
+        <i class="material-icons">search</i>
       </button>
     </form>
-
 
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="notificationsButton">
       <i class="material-icons mdl-badge" data-badge="4">notifications</i>
@@ -24,7 +23,6 @@
       <li class="mdl-menu__item">notifica 4</li>
     </ul>
 
-
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="moreButton">
       <i class="material-icons">more_vert</i>
     </button>
@@ -34,7 +32,7 @@
       <% end %>
 
       <%= link_to static_pages_help_path do %>
-        <li class="mdl-menu__item">Help</li>
+          <li class="mdl-menu__item">Help</li>
       <% end %>
 
       <%= link_to destroy_coach_user_session_path, method: :delete do %>

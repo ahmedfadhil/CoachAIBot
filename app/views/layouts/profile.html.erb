@@ -2,58 +2,29 @@
 <html>
   <%= render 'layouts/head' %>
 
+
   <body>
     <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      <%= render 'profile/header' %>
-      <%= render 'profile/drawer' %>
+
+      <!-- Cell Profile Header -->
+      <%= cell(:profile_header, current_coach_user) %>
+
+
+      <!-- Cell Profile Left Drawer -->
+      <%= cell(:profile_drawer, current_coach_user) %>
 
       <main class="mdl-layout__content mdl-color--grey-100">
 
         <div id="patients-content">
 
-          <% if flash[:info] %>
-              <div id="error-grid" class="mdl-grid">
-                <div class="mdl-cell--12-col-desktop">
-                  <div class="field_with_info">
-                    <%= flash[:info] %>
-                  </div>
-                </div><br>
-              </div>
-          <% end %>
-
-          <% if flash[:notice] %>
-              <div id="error-grid" class="mdl-grid">
-                <div class="mdl-cell--12-col-desktop">
-                  <div class="field_with_notice">
-                    <%= flash[:notice] %>
-                  </div>
-                </div><br>
-              </div>
-          <% end %>
-
-          <% if flash[:errors] %>
-            <div class="notice">
-              <% if flash[:errors].class == Hash %>
-                <div id="error-grid" class="mdl-grid">
-                  <% flash[:errors].each do |key, values| %>
-                    <% values.each do |value| %>
-                        <div class="mdl-cell--12-col-desktop">
-                          <div class="field_with_errors">
-                            <%= value %>
-                          </div>
-                        </div><br><br>
-                    <% end %>
-
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
+          <!-- Cell with Messages like Error/Success/Info -->
+          <%= cell(:messages, flash) %>
 
           <%= yield %>
         </div>
 
-        <%= render 'profile/footer' %>
+        <!-- Cell Footoer -->
+        <%= cell(:footer, nil) %>
       </main>
 
     </div>
