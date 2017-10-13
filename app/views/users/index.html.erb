@@ -1,7 +1,7 @@
 <% provide(:sub_title, 'Patients') %>
 
 <div>
-  <%= render 'users/users_header' %>
+  <%= cell(:users_index_menu, nil) %>
 
   <div id="patients">
     <div class="users-index"></div>
@@ -17,43 +17,7 @@
       <% end %>
 
       <% @users.each do |user|  %>
-        <div class="mdl-cell mdl-cell--3-col-desktop">
-          <div class="user-card mdl-card">
-            <div class="user-card-grid mdl-grid">
-              <div class="mdl-cell mdl-cell--4-col-desktop">
-                <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
-              </div>
-              <div class="mel-cell mdl-cell--7-col-desktop">
-                <div class="user-card-name">
-                  <%= user.first_name %> <%= user.last_name %>
-                </div>
-              </div>
-              <div class="mdl-cell mdl-cell--1-col-desktop">
-                <div class="user-card-n">
-                  <i class="n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">notifications_none</i>
-                </div>
-              </div>
-            </div>
-
-            <div class="scores-grid mdl-grid">
-              <div class="mdl-cell mdl-cell--4-col-desktop">
-                <div id="physical_score_<%= user.id %>">
-                  <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
-                </div>
-              </div>
-              <div class="mel-cell mdl-cell--4-col-desktop">
-                <div id="diet_score_<%= user.id %>">
-                  <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
-                </div>
-              </div>
-              <div class="mdl-cell mdl-cell--4-col-desktop">
-                <div id="mental_score_<%= user.id %>">
-                  <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%= cell(:user, user) %>
       <% end %>
 
 

@@ -3,13 +3,19 @@ class PlanningsController < ApplicationController
 
   def new
     @activity = Activity.new
+    @plan_id = params[:p_id]
+    @user_id = params[:u_id]
+  end
+
+  def assign
     @activities = Activity.all
-    @plan = Plan.find(params[:p_id])
-    @user = User.find(params[:u_id])
+    @plan_id = params[:p_id]
+    @user_id = params[:u_id]
   end
 
   def create
-    planning = Planning.new(:activity_id => (get_or_create_activity params[:new], params).id, :plan_id => params[:p_id])
+    activity = get_or_create_activity params[:new], params
+    planning = Planning.new(:activity_id =>activity .id, :plan_id => params[:p_id])
     if planning.save
       flash[:info] = 'Attivita creata/assegnata con successo!'
     else
@@ -81,10 +87,11 @@ class PlanningsController < ApplicationController
       activity = Activity.new(params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times))
       if !activity.save
         flash[:notice] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
-        activity
       else
         # add the default completeness verify method
-        unless completeness_question(activity)
+        if completeness_question(activity)
+          activity
+        else
           flash[:notice] = 'C\'e\' stato un problema durante la creazione dei metodi di verifica dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         end
       end

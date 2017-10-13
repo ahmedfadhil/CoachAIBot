@@ -126,7 +126,6 @@ class UsersController < ApplicationController
 
   def plans
     @user = User.find(params[:id])
-    @plans = @user.plans
   end
 
   def active_plans

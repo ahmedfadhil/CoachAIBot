@@ -2,7 +2,7 @@ require 'date'
 
 module PlanningsHelper
   def setup_planning(planning)
-    if !planning.schedules.any?
+    unless planning.schedules.any?
       planning.activity.n_times.times do
         planning.schedules.build
       end

@@ -1,0 +1,38 @@
+<h5><b>Pianificazioni</b></h5>
+
+<% if !planning.schedules.empty? %>
+
+    <% if planning.activity.a_type == '0' %>
+        <%= daily %>
+    <% elsif planning.activity.a_type == '1' %>
+        <%= weekly %>
+    <% else %>
+        <%= monthly %>
+    <% end %>
+
+
+    <% if planning.plan.delivered != 1 && planning.plan.delivered != 3 %>
+        <div>
+          <%= link_to 'Modifica Pianificazioni', edit_planning_path(planning) ,
+                      method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+          <%= link_to 'Elimina Pianificazioni', destroy_all_schedules_plannings_path(planning), method: 'post',
+                      data: {confirm: 'Sei sicuro di voler eliminare tutte le pianificazioni?'},
+                      class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+        </div>
+    <% end %>
+
+<% else %>
+
+    <div>
+      Per ora non e' stato definito un ORARIO.
+    </div>
+    <br>
+    <% if planning.plan.delivered != 1 && planning.plan.delivered != 3 %>
+        <div>
+          <%= link_to 'Aggiungi Orario', edit_planning_path(planning) ,
+                      method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+        </div>
+    <% end %>
+
+
+<% end %>

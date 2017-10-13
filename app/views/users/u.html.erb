@@ -15,3 +15,12 @@
 
     </div>
 <% end %>
+
+<% case planning.activity.a_type %>
+<% when '0' %>
+    <%= daily %>
+<% when '1' %>
+    <%= weekly %>
+<% else %>
+    <%= monthly %>
+<% end %>

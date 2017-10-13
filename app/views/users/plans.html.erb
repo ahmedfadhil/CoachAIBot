@@ -1,15 +1,13 @@
 <% provide(:sub_title, 'Patients') %>
 
 <div>
-  <%= render 'users/edit_header' %>
+  <%= cell(:user_menu, @user) %>
   <div id="patient">
     <div class="line-separator"></div>
 
     <div id="users_plans">
-      <%= render 'users/plans'%>
+      <%= cell(:user_plans, @user)%>
     </div>
 
-
   </div>
-
 </div>
