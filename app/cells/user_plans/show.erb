@@ -60,7 +60,7 @@
                   </div>
                   <div class="mdl-expansion__actions">
                     <% if plan.delivered != 1 && plan.delivered != 3 %>
-                        <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id) ,
+                        <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id) , remote: true,
                                     method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
                         <%= link_to 'Destituisci Attivita', planning_path(planning) ,
                                     method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>

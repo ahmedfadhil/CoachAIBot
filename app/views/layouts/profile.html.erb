@@ -13,11 +13,10 @@
 
       <main class="mdl-layout__content mdl-color--grey-100">
 
+        <!-- Cell with Messages like Error/Success/Info -->
+        <%= cell(:messages, flash) %>
+
         <div id="patients-content">
-
-          <!-- Cell with Messages like Error/Success/Info -->
-          <%= cell(:messages, flash) %>
-
           <%= yield %>
         </div>
 

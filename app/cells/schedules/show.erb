@@ -13,7 +13,7 @@
 
     <% if planning.plan.delivered != 1 && planning.plan.delivered != 3 %>
         <div>
-          <%= link_to 'Modifica Pianificazioni', edit_planning_path(planning) ,
+          <%= link_to 'Modifica Pianificazioni', edit_planning_path(planning) , remote: true,
                       method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
           <%= link_to 'Elimina Pianificazioni', destroy_all_schedules_plannings_path(planning), method: 'post',
                       data: {confirm: 'Sei sicuro di voler eliminare tutte le pianificazioni?'},
@@ -29,7 +29,7 @@
     <br>
     <% if planning.plan.delivered != 1 && planning.plan.delivered != 3 %>
         <div>
-          <%= link_to 'Aggiungi Orario', edit_planning_path(planning) ,
+          <%= link_to 'Aggiungi Orario', edit_planning_path(planning), remote: true,
                       method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
         </div>
     <% end %>

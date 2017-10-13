@@ -18,7 +18,7 @@
             <td> <%= match_category(a.category) %> </td>
             <td><%= link_to 'Vedi', activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
             <td>
-              <%= link_to 'Assegna', plannings_path(:a_id => a.id, :p_id => @plan_id, :u_id => @user_id) ,
+              <%= link_to 'Assegna', plannings_path(:a_id => a.id, :p_id => @plan_id, :u_id => @user_id),
                           method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
             </td>
           </tr>
