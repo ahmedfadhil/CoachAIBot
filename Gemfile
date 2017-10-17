@@ -115,6 +115,8 @@ group :development do
 
 	# Deploy without confidence ®
 	gem "capistrano", "~> 3.9"
+	gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
 end
 
 group :production do
