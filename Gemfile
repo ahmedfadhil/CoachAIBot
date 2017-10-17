@@ -84,11 +84,6 @@ gem 'hash_dot'
 # oauth2 client
 gem 'oauth2'
 
-# View Components for Ruby and Rails.
-gem 'cells'
-gem 'cells-rails'
-gem 'cells-erb'
-
 ####
 gem 'rails-assets-eq.js'
 gem 'rails-assets-jquery'
@@ -117,6 +112,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+
+	# Deploy without confidence ®
+	gem "capistrano", "~> 3.9"
 end
 
 group :production do
