@@ -2,7 +2,7 @@
 lock "3.9.1"
 
 set :application, "coachai"
-set :repo_url, "git@github.com:ahmedfadhil/CoachAIBot.git"
+set :repo_url, "git@git.ict4g.org:stoffie/coachai.git ict4g"
 
 # rbenv stuff
 set :rbenv_type, :user # or :system, depends on your rbenv setup
