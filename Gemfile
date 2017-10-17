@@ -117,6 +117,7 @@ group :development do
 	gem "capistrano", "~> 3.9"
 	gem 'capistrano-rails'
   gem 'capistrano-rbenv'
+	gem 'capistrano-passenger'
 end
 
 group :production do
