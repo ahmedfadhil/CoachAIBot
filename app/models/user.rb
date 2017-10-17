@@ -30,5 +30,4 @@ class User < ApplicationRecord
     self.bot_command_data = hash.to_json
     save
   end
->>>>>>> b7ad0cc2f5ba54ced391ebeaae2677eae46c4f1b
 end
