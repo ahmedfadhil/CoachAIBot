@@ -12,7 +12,6 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
 
 set :passenger_restart_with_touch, true
-set :bower_flags, '--quiet --config.interactive=false'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
