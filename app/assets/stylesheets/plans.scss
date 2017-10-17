@@ -1,8 +1,8 @@
 .new-plan-card.mdl-card {
-  width: 640px;
-  height: 400px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+  /* margin-bottom: 20px; */
   padding: 10px;
 }
 
@@ -45,18 +45,6 @@
   // outline: red solid 5px; 
   margin-left: 10px ;
 
-}
-.new-plan-card {
-  height: 200px;
-  // outline: limegreen 10px solid;
-}
-
-.new-plan-card.mdl-card {
-  width: 640px;
-  height: 500px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 11px;
 }
 
 .new-plan-card > .mdl-card__title {

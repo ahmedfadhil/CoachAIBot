@@ -1,11 +1,10 @@
-<% plans = user.plans %>
-
 <!-- Submenu for the plans list of a specified patient -->
-<% cell(:plans_submenu, user) %>
+<%= sub_menu %>
 
 <div id="myTitle">
   <h5>Elenco PIANI di <%= user.last_name %> <%= user.first_name %></h5>
 </div>
+
 
 <div>
   <% if plans.size == 0 %>
@@ -26,11 +25,10 @@
   <% end %>
 </div>
 
-<div id="user-plans-grid" class="mdl-grid">
-
-  <div class="mdl-cell--7-col">
-    <div class="plans-action"></div>
-    <% plans.each do |plan| %>
+<div id="user-plans-grid" class="mdl-grid" data-panel="true">
+  <% plans.each do |plan| %>
+    <div class="mdl-cell--7-col">
+      <div class="plans-action"></div>
       <div class="plan-card-wide mdl-card mdl-shadow--2dp">
         <div class="<%= is_delivered?(plan) %>">
           <h2 class="mdl-card__title-text"> <%= plan.name %> </h2>
@@ -60,7 +58,7 @@
                   </div>
                   <div class="mdl-expansion__actions">
                     <% if plan.delivered != 1 && plan.delivered != 3 %>
-                        <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id) , remote: true,
+                        <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
                                     method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
                         <%= link_to 'Destituisci Attivita', planning_path(planning) ,
                                     method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
@@ -106,17 +104,18 @@
                       essere ripristinato! Tuttavia le Attivita\' non verranno cancellate, ma le ritrovarai nella sezione Attivita\'!'}%>
       </div>
 
-    <% end %>
-    <%= button_to new_plans_path(:u_id => user.id), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', method: 'post' do %>
-        Aggiungi un nuovo piano
-    <% end %>
-  </div>
-
-  <div class="mdl-cell--5-col">
-    <div id="lateral-panel">
-
     </div>
-  </div>
+
+    <div class="mdl-cell--5-col">
+      <div id="lateral-panel-<%= plan.id %>">
+
+      </div>
+    </div>
+  <% end %>
+
+  <%= button_to new_plans_path(:u_id => user.id), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', method: 'post' do %>
+      Aggiungi un nuovo piano
+  <% end %>
 
 
 </div>

@@ -1,5 +1,26 @@
 $('document').ready(function() {
-    panel = $('#lateral-panel')
-    panel.empty()
-    panel.html("<%= escape_javascript(render 'plannings/edit') %>")
+    $('#lateral-panel-<%= @plan_id %>').empty().html("<%= escape_javascript(render 'plannings/edit') %>");
+
+    check_daily_blank();
+
+    $('.daily-input').change(function(e) {
+        e.preventDefault();
+        return check_daily_blank();
+    });
+
+    $('.monthly-schedule-date').datepicker({
+        dateFormat: 'dd/mm/yy',
+        onSelect: function(dateText) {
+            return $(this).parent().addClass("is-dirty");
+        }
+    });
+
+    $('.add-hour').click(function(e) {
+        e.preventDefault();
+        return show_hide_hour();
+    });
+
+    // adds is dirty class to the label in order to make a floating label
+    $('.mdl-textfield__input').parent().addClass('is-focused');
+
 });

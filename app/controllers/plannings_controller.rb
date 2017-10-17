@@ -27,6 +27,7 @@ class PlanningsController < ApplicationController
 
   def edit
     @planning = Planning.find(params[:id])
+    @plan_id = @planning.plan.id
   end
 
   def update

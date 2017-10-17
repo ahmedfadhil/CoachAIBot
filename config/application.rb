@@ -36,5 +36,8 @@ module Coach
 
     # Load Cell classes when pre compiling classes
     config.assets.initialize_on_precompile = true
+
+    # Add vendors paths to assets in order to easily include them to application.js or .css
+    config.assets.paths << Rails.root.join('vendor')
   end
 end

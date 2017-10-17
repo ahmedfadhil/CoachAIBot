@@ -1,3 +1,3 @@
 $('document').ready(function() {
-    $('#lateral-panel').empty().html("<%= escape_javascript(render 'plannings/assign') %>")
+    $('#lateral-panel-<%= @plan_id %>').empty().html("<%= escape_javascript(render 'plannings/assign') %>")
 });

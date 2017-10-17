@@ -3,12 +3,20 @@ class UserPlansCell < Cell::ViewModel
     render
   end
 
+  def sub_menu
+    render
+  end
+
   def user
     model
   end
 
   def model_name
     model[:name]
+  end
+
+  def plans
+    options[:plans]
   end
 
   # returns the class to apply to the plan in function of his state
