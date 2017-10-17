@@ -1,10 +1,214 @@
+###
 
-usdtoeur = [10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23]
+Highcharts.createElement('link', {
+  href: 'https://fonts.googleapis.com/css?family=Unica+One',
+  rel: 'stylesheet',
+  type: 'text/css'
+}, null, document.getElementsByTagName('head')[0]);
 
-@paintIt = (element, backgroundColor, textColor) ->
-  element.style.backgroundColor = backgroundColor
-  if textColor?
-    element.style.color = textColor
+Highcharts.theme = {
+  colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+    '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+  chart: {
+    backgroundColor: {
+      linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+      stops: [
+        [0, '#2a2a2b'],
+        [1, '#3e3e40']
+      ]
+    },
+    style: {
+      fontFamily: '\'Unica One\', sans-serif'
+    },
+    plotBorderColor: '#606063'
+  },
+  title: {
+    style: {
+      color: '#E0E0E3',
+      textTransform: 'uppercase',
+      fontSize: '20px'
+    }
+  },
+  subtitle: {
+    style: {
+      color: '#E0E0E3',
+      textTransform: 'uppercase'
+    }
+  },
+  xAxis: {
+    gridLineColor: '#707073',
+    labels: {
+      style: {
+        color: '#E0E0E3'
+      }
+    },
+    lineColor: '#707073',
+    minorGridLineColor: '#505053',
+    tickColor: '#707073',
+    title: {
+      style: {
+        color: '#A0A0A3'
+
+      }
+    }
+  },
+  yAxis: {
+    gridLineColor: '#707073',
+    labels: {
+      style: {
+        color: '#E0E0E3'
+      }
+    },
+    lineColor: '#707073',
+    minorGridLineColor: '#505053',
+    tickColor: '#707073',
+    tickWidth: 1,
+    title: {
+      style: {
+        color: '#A0A0A3'
+      }
+    }
+  },
+  tooltip: {
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    style: {
+      color: '#F0F0F0'
+    }
+  },
+  plotOptions: {
+    series: {
+      dataLabels: {
+        color: '#B0B0B3'
+      },
+      marker: {
+        lineColor: '#333'
+      }
+    },
+    boxplot: {
+      fillColor: '#505053'
+    },
+    candlestick: {
+      lineColor: 'white'
+    },
+    errorbar: {
+      color: 'white'
+    }
+  },
+  legend: {
+    itemStyle: {
+      color: '#E0E0E3'
+    },
+    itemHoverStyle: {
+      color: '#FFF'
+    },
+    itemHiddenStyle: {
+      color: '#606063'
+    }
+  },
+  credits: {
+    style: {
+      color: '#666'
+    }
+  },
+  labels: {
+    style: {
+      color: '#707073'
+    }
+  },
+
+  drilldown: {
+    activeAxisLabelStyle: {
+      color: '#F0F0F3'
+    },
+    activeDataLabelStyle: {
+      color: '#F0F0F3'
+    }
+  },
+
+  navigation: {
+    buttonOptions: {
+      symbolStroke: '#DDDDDD',
+      theme: {
+        fill: '#505053'
+      }
+    }
+  },
+
+# scroll charts
+rangeSelector: {
+  buttonTheme: {
+    fill: '#505053',
+    stroke: '#000000',
+    style: {
+      color: '#CCC'
+    },
+    states: {
+      hover: {
+        fill: '#707073',
+        stroke: '#000000',
+        style: {
+          color: 'white'
+        }
+      },
+      select: {
+        fill: '#000003',
+        stroke: '#000000',
+        style: {
+          color: 'white'
+        }
+      }
+    }
+  },
+  inputBoxBorderColor: '#505053',
+  inputStyle: {
+    backgroundColor: '#333',
+    color: 'silver'
+  },
+  labelStyle: {
+    color: 'silver'
+  }
+},
+
+navigator: {
+  handles: {
+    backgroundColor: '#666',
+    borderColor: '#AAA'
+  },
+  outlineColor: '#CCC',
+  maskFill: 'rgba(255,255,255,0.1)',
+  series: {
+    color: '#7798BF',
+    lineColor: '#A6C7ED'
+  },
+  xAxis: {
+    gridLineColor: '#505053'
+  }
+},
+
+scrollbar: {
+  barBackgroundColor: '#808083',
+  barBorderColor: '#808083',
+  buttonArrowColor: '#CCC',
+  buttonBackgroundColor: '#606063',
+  buttonBorderColor: '#606063',
+  rifleColor: '#FFF',
+  trackBackgroundColor: '#404043',
+  trackBorderColor: '#404043'
+},
+
+# special colors for some of the
+legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+background2: '#505053',
+dataLabelsColor: '#B0B0B3',
+textColor: '#C0C0C0',
+contrastTextColor: '#F0F0F3',
+maskColor: 'rgba(255,255,255,0.3)'
+};
+
+# Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+
+###
 
 @user_charts = () ->
   user_id = document.getElementById('hidden_user_id').value
@@ -13,141 +217,125 @@ usdtoeur = [10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11
     dataType: 'json'
     json: true
     success: (data, textStatus, jqXHR) ->
-      console.log "Successful AJAX call: #{data.status}"
-
-
-  Highcharts.chart('graphs-container', {
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: 'Monthly Average Rainfall'
-    },
-    subtitle: {
-      text: 'Source: WorldClimate.com'
-    },
-    xAxis: {
-      categories: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ],
-      crosshair: true
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: 'Rainfall (mm)'
-      }
-    },
-    tooltip: {
-      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-      pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-      footerFormat: '</table>',
-      shared: true,
-      useHTML: true
-    },
-    plotOptions: {
-      column: {
-        pointPadding: 0.2,
-        borderWidth: 0
-      }
-    },
-    series: [{
-      name: 'Tokyo',
-      data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-    }, {
-      name: 'New York',
-      data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-    }, {
-      name: 'London',
-      data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-    }, {
-      name: 'Berlin',
-      data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-    }]
-  });
-
-  Highcharts.chart('container2', {
-
-    title: {
-      text: 'Solar Employment Growth by Sector, 2010-2016'
-    },
-
-    subtitle: {
-      text: 'Source: thesolarfoundation.com'
-    },
-
-    yAxis: {
-      title: {
-        text: 'Number of Employees'
-      }
-    },
-    legend: {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle'
-    },
-
-    plotOptions: {
-      series: {
-        pointStart: 2010
-      }
-    },
-
-    series: [{
-      name: 'Installation',
-      data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-    }, {
-      name: 'Manufacturing',
-      data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-    }, {
-      name: 'Sales & Distribution',
-      data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-    }, {
-      name: 'Project Development',
-      data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-    }, {
-      name: 'Other',
-      data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-    }],
-
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
+      for plan in data.plans
+        for activity in plan.activities
+          options = {
+            lang: {
+              months: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+              weekdays: ['Domenica', 'Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato'],
+              shortMonths: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+              loading: "Caricamento..."
+            }
           }
-        }
-      }]
-    }
 
-  });
+          Highcharts.setOptions(options);
+          div_completeness_id = "completeness-#{activity.planning_id}"
+          Highcharts.chart(div_completeness_id, {
+            chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: 0,
+              plotShadow: false,
+              # Edit chart spacing
+              spacingBottom: 10,
+              spacingTop: 2,
+              spacingLeft: 2,
+              spacingRight: 2,
+
+              # Explicitly tell the width and height of a chart
+              width: null,
+              height: null
+            },
+            colors: ['#6ab344', '#bd0e3d', '#ff861b'],
+            title: {
+              text: 'Progresso',
+              align: 'center',
+              verticalAlign: 'bottom',
+              x: 0,
+              y: -75,
+              floating: true
+            },
+            tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+              pie: {
+                dataLabels: {
+                  enabled: true,
+                  distance: -50,
+                  style: {
+                    fontWeight: 'bold',
+                    color: 'white'
+                  }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%']
+              }
+            },
+            series: [{
+              type: 'pie',
+              name: 'Progresso',
+              innerSize: '50%',
+              data: [
+                activity.completeness_data.data[0],
+                activity.completeness_data.data[1],
+                activity.completeness_data.data[2],
+                {
+                  name: 'Proprietary or Undetectable',
+                  y: 0.2,
+                  dataLabels: {
+                    enabled: false
+                  }
+                }
+              ]
+            }]
+          });
+          i = 0
+          for scalar_adherence in activity.scalar_data
+            div_scalar_id = "scalar-adherence-#{i}-#{activity.planning_id}"
+            if scalar_adherence.data.length>0
+              Highcharts.setOptions(options);
+              Highcharts.chart(div_scalar_id, {
+                chart: {
+                  type: 'area'
+                },
+                title: {
+                  text: scalar_adherence.text
+                },
+                xAxis: {
+                  type: 'datetime',
+                  allowDecimals: false,
+                  title: {
+                    text: 'Tempo'
+                  }
+                },
+                yAxis: {
+                  title: {
+                    text: scalar_adherence.text
+                  }
+                },
+                series: [{
+                  name: 'Andamento',
+                  data: scalar_adherence.data
+                }]
+              });
+              i++
+
+@getScores = () ->
+  $.ajax "/users/get_scores",
+    type: 'GET'
+    dataType: 'json'
+    json: true
+    success: (data, textStatus, jqXHR) ->
+
+
 
 
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
   div_plans = document.getElementsByClassName('plans-action')
   div_features = document.getElementsByClassName('users_features')
+  div_index = document.getElementsByClassName('users-index')
 
   if div_plans[0] != undefined
     document.getElementById('activities-user').style.background = '#F0F8FF'
@@ -160,6 +348,8 @@ usdtoeur = [10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11,23,10,20,11
   if div_features[0] != undefined
     document.getElementById('features-user').style.background = '#F0F8FF'
 
+  if div_index[0] != undefined
+    getScores()
 
 
 
@@ -171,4 +361,6 @@ $ ->
 
     backgroundColor = $(this).data("background-color")
     textColor = $(this).data("text-color")
-    paintIt(this, backgroundColor, textColor)
+
+    $('.datepicker').datepicker () ->
+      weekStart:1

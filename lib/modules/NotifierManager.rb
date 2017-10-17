@@ -21,14 +21,12 @@ module NotifierManager
           default_time = def_time(plan)
 
           case activity_type
-            when 'daily', 0, '0'
+            when '0' #daily
               # coach defined schedules for daily activity
               if planning.schedules.present?
                 (start_date..end_date).each do |date|
                   planning.schedules.each do |schedule|
                     set(Notification.new(time: schedule.time, date: date, done: 0, n_type: 'ACTIVITY_NOTIFICATION'), planning)
-                    ap 'DONE'
-                    ap schedule.time
                   end
                 end
                 # coach did not define schedules
@@ -39,10 +37,12 @@ module NotifierManager
                 end
               end
 
-            when 'weekly', 1, '1'
+            when '1' # weekly
               if planning.schedules.present?
                 (start_date..end_date).each do |date|
                   planning.schedules.each do |schedule|
+                    ap planning.activity
+                    ap schedule
                     if date.wday == schedule.day + 1
                       schedule.time.present? ? time = schedule.time : time = default_time
                       set(Notification.new(time: time, date: date, done: 0, n_type: 'ACTIVITY_NOTIFICATION'), planning)
@@ -91,6 +91,30 @@ module NotifierManager
     private
 
     def loop_through(by, start_date, end_date, planning, default_time)
+      from = start_date
+      to = end_date
+      interval = by
+      start = from
+      while start < to
+        stop  = start.send("end_of_#{interval}")
+        if stop > to
+          stop = to
+        end
+
+        # create default notifications based on period and number of times to do an activity
+        interval_start = Date.parse(start.inspect)
+        interval_end = Date.parse(stop.inspect)
+        step = ((interval_end - interval_start).to_i / planning.activity.n_times) + 1
+        (interval_start..interval_end).step(step) do |date|
+          set(Notification.new(time: default_time, done: 0, date: date, n_type: 'ACTIVITY_NOTIFICATION'), planning)
+        end
+
+        start = stop.send("beginning_of_#{interval}")
+        start += 1.send(interval)
+      end
+    end
+
+    def loop_through_tester(by, start_date, end_date, planning, default_time)
       # looping through months
       from = start_date
       to = end_date
@@ -105,8 +129,11 @@ module NotifierManager
         # create default notifications based on period and number of times to do an activity
         interval_start = Date.parse(start.inspect)
         interval_end = Date.parse(stop.inspect)
-        (interval_start..interval_end).step(planning.activity.n_times) do |date|
-          set(Notification.new(time: default_time, done: 0, date: date, n_type: 'ACTIVITY_NOTIFICATION'), planning)
+        step = ((interval_end - interval_start).to_i / planning.activity.n_times) + 1
+
+        puts "start #{interval_start} - end #{interval_end} - step #{step}"
+        (interval_start..interval_end).step(step) do |date|
+          puts "date #{date}"
         end
 
         start = stop.send("beginning_of_#{interval}")
@@ -134,6 +161,14 @@ module NotifierManager
       puts "\n ------ INSERITO ORARIO ------\n ATTIVITA': #{planning.activity.name} \n DATA: #{notification.date} \n ORA: #{notification.time} \n -----------------"
     end
 
+    def step_from(by)
+      case by
+        when 'day'
+          1
+        when 'week'
+          7
+      end
+    end
 
   end
 end

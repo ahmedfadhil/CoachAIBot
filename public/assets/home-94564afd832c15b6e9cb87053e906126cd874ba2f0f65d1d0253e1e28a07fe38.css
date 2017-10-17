@@ -1,0 +1,661 @@
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* line 18, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+body {
+  margin: 0;
+}
+
+/* Disable ugly boxes around images in IE10 */
+/* line 23, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+a img {
+  border: 0px;
+}
+
+/* line 27, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+::-moz-selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+/* line 32, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+::selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+/* line 37, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-search-box .mdl-textfield__input {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* line 41, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .mdl-menu__container {
+  z-index: 50;
+  margin: 0 !important;
+}
+
+/* line 47, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-textfield--expandable {
+  width: auto;
+}
+
+/* line 51, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-fab {
+  position: absolute;
+  right: 20%;
+  bottom: -26px;
+  z-index: 3;
+  background: #64ffda !important;
+  color: black !important;
+}
+
+/* line 60, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-mobile-title {
+  display: none !important;
+}
+
+/* line 65, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-logo-image {
+  height: 28px;
+  width: 140px;
+}
+
+/* line 71, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header {
+  overflow: visible;
+  background-color: white;
+}
+
+/* line 76, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .material-icons {
+  color: #767777 !important;
+}
+
+/* line 80, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .mdl-layout__drawer-button {
+  background: transparent;
+  color: #767777;
+}
+
+/* line 85, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .mdl-navigation__link {
+  color: #757575;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* line 91, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation-container {
+  /* Simple hack to make the overflow happen to the left instead... */
+  direction: rtl;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  width: 500px;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* line 102, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation {
+  /* ... and now make sure the content is actually LTR */
+  direction: ltr;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  width: 800px;
+}
+
+/* line 111, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-search-box.is-focused + .android-navigation-container {
+  opacity: 0;
+  width: 100px;
+}
+
+/* line 117, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation .mdl-navigation__link {
+  display: inline-block;
+  height: 60px;
+  line-height: 68px;
+  background-color: transparent !important;
+  border-bottom: 4px solid transparent;
+}
+
+/* line 125, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation .mdl-navigation__link:hover {
+  border-bottom: 4px solid #8bc34a;
+}
+
+/* line 129, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-search-box {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+/* line 137, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-more-button {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3;
+}
+
+/* line 144, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer {
+  border-right: none;
+}
+
+/* line 148, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer-separator {
+  height: 1px;
+  background-color: #dcdcdc;
+  margin: 8px 0;
+}
+
+/* line 154, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer .mdl-navigation__link.mdl-navigation__link {
+  font-size: 14px;
+  color: #757575;
+}
+
+/* line 159, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer span.mdl-navigation__link.mdl-navigation__link {
+  color: #8bc34a;
+}
+
+/* line 163, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer .mdl-layout-title {
+  position: relative;
+  background: #6ab344;
+  height: 160px;
+}
+
+/* line 169, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer .android-logo-image {
+  position: absolute;
+  bottom: 16px;
+}
+
+/* line 174, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-be-together-section {
+  position: relative;
+  height: 800px;
+  width: auto;
+  background-color: #f3f3f3;
+  background: url("slide01.jpg") center 30% no-repeat;
+  background-size: cover;
+}
+
+/* line 183, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.logo-font {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #767777;
+  font-weight: 500;
+}
+
+/* line 190, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-slogan {
+  font-size: 60px;
+  padding-top: 160px;
+}
+
+/* line 195, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-sub-slogan {
+  font-size: 21px;
+  padding-top: 24px;
+}
+
+/* line 200, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-create-character {
+  font-size: 21px;
+  padding-top: 400px;
+}
+
+/* line 205, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-create-character a {
+  text-decoration: none;
+  color: #767777;
+  font-weight: 300;
+}
+
+/* line 211, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screen-section {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+/* line 217, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screens {
+  text-align: right;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+/* line 224, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screen {
+  text-align: center;
+}
+
+/* line 228, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screen .android-link {
+  margin-top: 16px;
+  display: block;
+  z-index: 2;
+}
+
+/* line 234, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-image-link {
+  text-decoration: none;
+}
+
+/* line 238, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear {
+  display: inline-block;
+  width: 160px;
+  margin-right: 32px;
+}
+
+/* line 244, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear .android-screen-image {
+  width: 40%;
+  z-index: 1;
+}
+
+/* line 250, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-phone {
+  display: inline-block;
+  width: 64px;
+  margin-right: 48px;
+}
+
+/* line 256, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-phone .android-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+/* line 262, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tablet {
+  display: inline-block;
+  width: 110px;
+  margin-right: 64px;
+}
+
+/* line 268, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tablet .android-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+/* line 273, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tablet .android-link {
+  display: block;
+  z-index: 2;
+}
+
+/* line 279, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tv {
+  display: inline-block;
+  width: 300px;
+  margin-right: 80px;
+}
+
+/* line 285, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tv .android-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+/* line 291, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-auto {
+  display: inline-block;
+  width: 300px;
+  overflow: hidden;
+}
+
+/* line 297, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-auto .android-screen-image {
+  display: block;
+  height: 300px;
+  z-index: 1;
+}
+
+/* line 304, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-section {
+  position: relative;
+  background: url("images/wear.png") center top no-repeat;
+  background-size: cover;
+  height: 800px;
+}
+
+/* line 311, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-band {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #37474f;
+}
+
+/* line 319, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-band-text {
+  max-width: 800px;
+  margin-left: 25%;
+  padding: 24px;
+  text-align: left;
+  color: white;
+}
+
+/* line 327, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-band-text p {
+  padding-top: 8px;
+}
+
+/* line 331, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link {
+  text-decoration: none;
+  color: #8bc34a !important;
+}
+
+/* line 336, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link:hover {
+  color: #7cb342 !important;
+}
+
+/* line 340, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link .material-icons {
+  position: relative;
+  top: -1px;
+  vertical-align: middle;
+}
+
+/* line 346, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-alt-link {
+  text-decoration: none;
+  color: #64ffda !important;
+  font-size: 16px;
+}
+
+/* line 352, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-alt-link:hover {
+  color: #00bfa5 !important;
+}
+
+/* line 356, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-alt-link .material-icons {
+  position: relative;
+  top: 6px;
+}
+
+/* line 361, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section {
+  text-align: center;
+}
+
+/* line 365, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section-text {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 80px 16px 0 16px;
+}
+
+/* line 372, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section-text p {
+  padding-top: 16px;
+}
+
+/* line 376, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section-image {
+  background: url("images/devices.jpg") center top no-repeat;
+  background-size: cover;
+  height: 400px;
+}
+
+/* line 382, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-more-section {
+  padding: 80px 0;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 389, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-more-section .android-section-title {
+  margin-left: 12px;
+  padding-bottom: 24px;
+}
+
+/* line 397, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__media {
+  overflow: hidden;
+  background: transparent;
+}
+
+/* line 402, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__media img {
+  width: 100%;
+}
+
+/* line 406, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__title {
+  background: transparent;
+  height: auto;
+}
+
+/* line 411, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__title-text {
+  color: black;
+  height: auto;
+}
+
+/* line 416, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__supporting-text {
+  height: auto;
+  color: black;
+  padding-bottom: 56px;
+}
+
+/* line 422, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__actions {
+  position: absolute;
+  bottom: 0;
+}
+
+/* line 427, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__actions a {
+  border-top: none;
+  font-size: 16px;
+}
+
+/* line 432, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer {
+  background-color: #fafafa;
+  position: relative;
+}
+
+/* line 437, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer a:hover {
+  color: #8bc34a;
+}
+
+/* line 441, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--top-section::after {
+  border-bottom: none;
+}
+
+/* line 445, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--middle-section::after {
+  border-bottom: none;
+}
+
+/* line 449, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--bottom-section {
+  position: relative;
+}
+
+/* line 453, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--bottom-section a {
+  margin-right: 2em;
+}
+
+/* line 457, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--right-section a .material-icons {
+  position: relative;
+  top: 6px;
+}
+
+/* line 463, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link-menu:hover {
+  cursor: pointer;
+}
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+  /* line 470, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-navigation-container {
+    display: none;
+  }
+
+  /* line 474, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-title {
+    display: none !important;
+  }
+
+  /* line 478, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-mobile-title {
+    display: block !important;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: 12px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
+     consecutive "+" operators in some cases. Therefore, we need to use both
+     here to cover index the bases. */
+  /* line 489, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android.android-search-box.is-focused ~ .android-mobile-title,
+  .android-search-box.is-focused + .android-navigation-container + .android-mobile-title {
+    opacity: 0;
+  }
+
+  /* line 494, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-more-button {
+    display: none;
+  }
+
+  /* line 498, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-search-box.is-focused {
+    width: calc(100% - 48px);
+  }
+
+  /* line 502, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-search-box .mdl-textfield__expandable-holder {
+    width: 100%;
+  }
+
+  /* line 506, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-be-together-section {
+    height: 350px;
+  }
+
+  /* line 510, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-slogan {
+    font-size: 26px;
+    margin: 0 16px;
+    padding-top: 24px;
+  }
+
+  /* line 516, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-sub-slogan {
+    font-size: 16px;
+    margin: 0 16px;
+    padding-top: 8px;
+  }
+
+  /* line 522, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-create-character {
+    padding-top: 200px;
+    font-size: 16px;
+  }
+
+  /* line 527, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-create-character img {
+    height: 12px;
+  }
+
+  /* line 531, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-fab {
+    display: none;
+  }
+
+  /* line 535, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-wear-band-text {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  /* line 540, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-footer .mdl-mega-footer--bottom-section {
+    display: none;
+  }
+}
+/*
+  Log In Style
+ */
+/* line 548, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.container-log-in {
+  position: relative;
+  top: 40px;
+  perspective: 1000px;
+  width: 330px;
+  height: 375px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* line 558, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+#cube {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+/* line 565, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+#cube figure {
+  backface-visibility: hidden;
+  margin: 0;
+  width: 330px;
+  height: 375px;
+  display: block;
+  position: absolute;
+}
+
+/* line 574, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-textfield__label {
+  color: rgba(0, 0, 1, 0.5);
+}
+
+/* line 578, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/home.scss */
+#cube-submit:hover {
+  cursor: pointer;
+}

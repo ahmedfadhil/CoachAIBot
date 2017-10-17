@@ -7,6 +7,10 @@
 
   <%= javascript_include_tag 'application'%>
   <%= csrf_meta_tags %>
-  <%= render 'layouts/shim' %>
+
+  <!-- include HTML5 shim javascript code to accept old browser -->
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+  <![endif]-->
 
 </head>

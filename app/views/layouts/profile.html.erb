@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
   <%= render 'layouts/head' %>
-
   <body>
     <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      <%= render 'profile/header' %>
-      <%= render 'profile/drawer' %>
+
+      <!-- Cell Profile Header -->
+      <%= cell(:profile_header, current_coach_user) %>
+
+
+      <!-- Cell Profile Left Drawer -->
+      <%= cell(:drawer, current_coach_user) %>
 
       <main class="mdl-layout__content mdl-color--grey-100">
 
+        <!-- Cell with Messages like Error/Success/Info -->
+        <%= cell(:messages, flash) %>
+
         <div id="patients-content">
-          <% if flash[:notice] %>
-              <div class="notice"><%= flash[:notice] %></div>
-          <% end %>
           <%= yield %>
         </div>
 
-        <%= render 'profile/footer' %>
+        <!-- Cell Footoer -->
+        <%= cell(:footer, nil) %>
       </main>
 
     </div>

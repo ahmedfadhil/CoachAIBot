@@ -1,0 +1,367 @@
+/* line 2, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.mdl-button--icon {
+  height: 43px;
+}
+
+/* line 6, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.material-icons.icon,
+.material-label {
+  font-size: 10px;
+  line-height: 1;
+  display: block;
+  color: #424242;
+  margin: 25px;
+}
+
+/* line 16, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.material-icons.mdl-badge[data-badge]::after,
+.material-label.mdl-badge[data-badge]::after {
+  font-size: .37em;
+  width: 2.1em;
+  height: 2.1em;
+}
+
+/* line 23, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.material-icons.mdl-badge[data-badge]::after {
+  top: -1em;
+  right: -0.6em;
+}
+
+/* line 28, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.card-wide.mdl-card {
+  width: 512px;
+}
+
+/* line 31, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url("welcome-card.jpg") center/cover;
+}
+
+/* line 36, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+/* line 39, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.mdl-card__media > img {
+  max-width: 100%;
+}
+
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* line 59, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+/* line 62, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+}
+
+/* line 67, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.layout .mdl-layout__header .mdl-layout__drawer-button {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+/* line 70, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.mdl-layout__drawer .avatar {
+  margin-bottom: 16px;
+}
+
+/* line 73, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.drawer {
+  border: none;
+}
+
+/* iOS Safari specific workaround */
+/* line 77, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.drawer .mdl-menu__container {
+  z-index: -1;
+}
+
+/* line 80, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.drawer .navigation {
+  z-index: -2;
+}
+
+/* END iOS Safari specific workaround */
+/* line 84, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.drawer .mdl-menu .mdl-menu__item {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+/* line 92, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.drawer-header {
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 16px;
+  height: 151px;
+}
+
+/* line 106, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.avatar-dropdown {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* line 120, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.navigation {
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+/* line 125, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.layout .navigation .mdl-navigation__link {
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.56);
+  font-weight: 500;
+}
+
+/* line 138, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.layout .navigation .mdl-navigation__link:hover {
+  background-color: #00BCD4;
+  color: #37474F;
+}
+
+/* line 142, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.navigation .mdl-navigation__link .material-icons {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.56);
+  margin-right: 32px;
+}
+
+/* line 148, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.content {
+  max-width: 1080px;
+}
+
+/* line 152, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.charts {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+/* line 157, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.chart:nth-child(1) {
+  color: #ACEC00;
+}
+
+/* line 160, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.chart:nth-child(2) {
+  color: #00BBD6;
+}
+
+/* line 163, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.chart:nth-child(3) {
+  color: #BA65C9;
+}
+
+/* line 166, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.chart:nth-child(4) {
+  color: #EF3C79;
+}
+
+/* line 169, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.graphs {
+  padding: 16px 32px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+/* TODO: Find a proper solution to have the graphs
+ * not float around outside their container in IE10/11.
+ * Using a browserhacks.com solution for now.
+ */
+/* line 185, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+_:-ms-input-placeholder, :root .graphs {
+  min-height: 664px;
+}
+
+/* line 188, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+_:-ms-input-placeholder, :root .graph {
+  max-height: 300px;
+}
+
+/* TODO end */
+/* line 192, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.graph:nth-child(1) {
+  color: #00b9d8;
+}
+
+/* line 195, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.graph:nth-child(2) {
+  color: #d9006e;
+}
+
+/* line 199, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.cards {
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
+}
+
+/* line 207, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.cards .separator {
+  height: 32px;
+}
+
+/* line 210, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.cards .mdl-card__title.mdl-card__title {
+  color: white;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+/* line 215, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.cards ul {
+  padding: 0;
+}
+
+/* line 218, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.cards h3 {
+  font-size: 1em;
+}
+
+/* line 221, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.updates .mdl-card__title {
+  min-height: 200px;
+  background-image: url("images/dog.png");
+  background-position: 90% 100%;
+  background-repeat: no-repeat;
+}
+
+/* line 227, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.cards .mdl-card__actions a {
+  color: #00BCD4;
+  text-decoration: none;
+}
+
+/* line 232, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.options h3 {
+  margin: 0;
+}
+
+/* line 235, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.options .mdl-checkbox__box-outline {
+  border-color: rgba(255, 255, 255, 0.89);
+}
+
+/* line 238, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.options ul {
+  margin: 0;
+  list-style-type: none;
+}
+
+/* line 242, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.options li {
+  margin: 4px 0;
+}
+
+/* line 245, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.options .material-icons {
+  color: rgba(255, 255, 255, 0.89);
+}
+
+/* line 248, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.options .mdl-card__actions {
+  height: 64px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-sizing: border-box;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+/* line 259, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.profile_content_header {
+  background-color: #37474F;
+}
+
+/* line 264, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: yellow;
+  display: table;
+}
+
+/* line 270, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.field_with_info {
+  padding: 2px;
+  background-color: lawngreen;
+  display: table;
+}
+
+/* line 276, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+.field_with_notice {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 282, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
+#error-grid {
+  text-align: -webkit-center;
+  max-width: 80%;
+}

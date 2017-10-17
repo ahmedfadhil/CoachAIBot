@@ -31,9 +31,5 @@ class ChatscriptCompiler
     ap '####### CHATSCRIPT COMPILED '
   end
 
-  def text
-    @message[:message][:text]
-  end
-
 
 end

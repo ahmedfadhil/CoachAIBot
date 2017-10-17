@@ -1,15 +1,25 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
+# use Trailblazer::Cell
+gem 'cells'
+gem 'cells-rails'
+gem 'cells-erb'
+
+# calculate percentages
+gem 'percentage'
+
 # pdf from html
 gem 'wicked_pdf'
 
 # wicked_pdf is a wrapper for wkhtmltopdf, I need to install that, too
 gem 'wkhtmltopdf-binary-edge'
+#gem 'wkhtmltopdf-binary'
 
 # pdf creator
 gem 'prawn', '~> 2.2', '>= 2.2.2'
@@ -79,13 +89,15 @@ gem 'cells'
 gem 'cells-rails'
 gem 'cells-erb'
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-eq.js'
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-material-design-lite'
-  gem 'rails-assets-mdl-selectfield'
-  gem 'rails-assets-polyfills'
-end
+####
+gem 'rails-assets-eq.js'
+gem 'rails-assets-jquery'
+#gem 'rails-assets-material-design-lite'
+gem 'material_design_lite-rails', '~> 1.3'
+gem 'rails-assets-mdl-selectfield'
+gem 'rails-assets-polyfills'
+
+
 
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver

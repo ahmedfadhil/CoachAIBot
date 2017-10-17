@@ -1,0 +1,5 @@
+$('document').ready(function() {
+    panel = $('#lateral-panel')
+    panel.empty()
+    panel.html("<%= escape_javascript(render 'plannings/edit') %>")
+});

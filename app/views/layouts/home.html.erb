@@ -5,17 +5,15 @@
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-      <%= render 'home/header' %>
-      <%= render 'home/drawer' %>
+      <!-- Cell Footoer -->
+      <%= cell(:home_header, nil) %>
 
-      <div class="android-content mdl-layout__content">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+      <div class="mdl-layout__content">
 
         <%= yield %>
 
-        <br><br><br><br><br><br>
-        <%= render 'profile/footer' %>
+        <!-- Cell Footoer -->
+        <%= cell(:footer, nil) %>
       </div>
 
     </div>

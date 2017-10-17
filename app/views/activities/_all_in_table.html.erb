@@ -1,0 +1,25 @@
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+  <thead>
+  <tr>
+    <th class="mdl-data-table__cell--non-numeric">Nome Attivita</th>
+    <th>Categoria</th>
+    <th>Tipologia</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @activities.each do |a| %>
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric"> <b><%= a.name %></b> </td>
+        <td> <%= match_category(a.category) %> </td>
+        <td> <%= match_a_type(a.a_type) %> </td>
+        <td><%= link_to 'Vedi', activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
+        <td><%= link_to 'Elimina ', activity_path(a), method: 'delete',
+                        data: {confirm: 'Sei sicuro di voler eliminare l\'attivita\'? L\'attivita\' potrebbe essere gia\' stata assegnata ad un paziente!!!'},
+                        class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %> </td>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

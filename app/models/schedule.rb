@@ -1,9 +1,10 @@
 class Schedule < ApplicationRecord
   belongs_to :planning, inverse_of: :schedules
+  validate :date_cannot_be_other_than_plan
 
   def at_least_one_name
     if [self.date, self.time, self.day].reject(&:blank?).size == 0
-      errors[:base] << ('Please choose at least one name - any language will do.')
+      errors[:base] << ('Devi inserire almeno un dato per una pianificazione!')
     end
   end
 
@@ -27,5 +28,15 @@ class Schedule < ApplicationRecord
         'UNKNOWN'
     end
   end
+
+  def  date_cannot_be_other_than_plan
+    unless self.date.nil?
+      if self.date < self.planning.plan.from_day || self.date < self.planning.plan.from_day
+        self.planning.errors.add(:schedules, "Pianificazione non inserita")
+        self.planning.errors.add(:schedules, "Le pianificazioni per il piano #{self.planning.plan.name} devono essere tra #{self.planning.plan.from_day} e il #{self.planning.plan.to_day}")
+      end
+    end
+  end
+
 
 end

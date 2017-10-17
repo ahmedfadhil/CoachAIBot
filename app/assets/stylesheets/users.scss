@@ -1,7 +1,124 @@
-#user-plans-grid{
+/* Highcharts DARK UNICA theme */
+
+/* */
+
+.pushRight{
+  float: right;
+}
+
+.n-icon{
+  color: rgb(220, 160, 15) !important;
+}
+
+.user-card-n{
+  margin-left: 5px;
+}
+
+.user-card-name{
+  margin-top: 15px;
+  font-family: sans-serif;
+  text-align: -webkit-center;
+  color: #383333;
+  margin-left: -20px;
+}
+
+.user-card-grid{
+  margin: 0;
+  max-height: 50%;
+}
+
+.user-img-round{
+  border-radius: 50%;
+  margin: 5px;
+  border: 1px solid darkgray;
+}
+
+.user-card{
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: 40px;
+  width: 350px;
+  height: 200px;
+}
+
+#myTitle{
+  text-align: center;
+  font-size: large;
+}
+
+#user-card-img-container{
+  background-color: #ffffff;
+  text-align: -webkit-center;
+}
+
+#user-card-img{
+  max-width: 60%;
+}
+
+#user-card-page-btn{
+  color: #7caec3;
+}
+
+#user-card-actions{
+  outline: #54e2df solid 0px;
+  z-index: 0;
+  text-align: -webkit-center;
+}
+
+#user-card-supporting-text{
+  text-align: -webkit-center;
+}
+
+#user-card-title{
+  text-align: -webkit-center;
+  justify-content: center;
+}
+
+#activity-expandible{
+  margin-bottom: 5px;
+  border-top: 0px solid rgba(0, 0, 0, 0.1);
+  width: 95%;
+  margin-left: 17px;
+  color: rgba(0,0,0, 0.54);
+  padding: 13px;
+}
+
+#activity-desc-table{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#overview-activity-card{
+  background: darkcyan;
+  width: auto;
+}
+
+#overview-plan-card{
+  background-color: cadetblue;
+  width: auto;
+}
+
+#overview-title {
+  text-align: -webkit-center;
+}
+
+#overview-grid{
   text-align: -webkit-center;
   max-width: 80%;
   margin-top: 15px;
+}
+
+#no-info-grid{
+  text-align: -webkit-center;
+}
+
+#no-info-card{
+  margin: 20px;
+  margin-top: 5px;
+}
+
+#user-plans-grid{
+  max-width: 95%;
 }
 
 #feature-card-supporting-text{
@@ -150,7 +267,7 @@ nwe-patient-card > .mdl-card__title {
 }
 
 .active-patient-card {
-  box-shadow:0px 0px 7px 2px rgb(129, 154, 255);
+  box-shadow:0px 0px 4px 0px rgba(23, 142, 95, 1);
 }
 
 .plan-card-wide.mdl-card {
@@ -164,28 +281,45 @@ nwe-patient-card > .mdl-card__title {
   outline: #1cb9b6 solid 1px;
 }
 
-.plan-card-wide > .mdl-card__title {
+.plan-card-wide > .mdl-card__titleNew {
   color: #fff;
   height: 39px;
   background: #e2db08 center / cover;
 }
 
-.plan-card-wide > .mdl-card__title2 {
+.plan-card-wide > .mdl-card__titleDelivered {
   color: #fff;
   height: 39px;
   background: #6fb70f center / cover;
 }
 
-.plan-card-wide > .mdl-card__title3 {
+.plan-card-wide > .mdl-card__titleSuspended {
   color: #fff;
   height: 39px;
   background: #e2150b center / cover;
 }
 
-plan-card-wide > .mdl-card__title4 {
+plan-card-wide > .mdl-card__titleStopped {
   color: #fff;
   height: 39px;
   background: #ACEC00 center / cover;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 15px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+#plan-supporting-text{
+  width: 100%;
 }
 
 .plan-card-wide > .mdl-card__menu {

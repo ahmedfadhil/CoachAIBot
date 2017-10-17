@@ -1,0 +1,31 @@
+<div id="activity-insert-card-wide" class="mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Scegli un'attivita gia presente nel sistema </h2>
+  </div>
+
+  <div id="assign_table" class="mdl-card__supporting-text">
+    <table>
+      <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Nome Attivita</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% activities.each do |a| %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"> <%= a.name %> </td>
+            <td> <%= decode_category(a.category) %> </td>
+            <td> <%= decode_type(a.category) %> </td>
+            <td><%= link_to 'Vedi Attivita', activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
+            <td>
+              <%= link_to 'Assegna Attivita', plannings_path(:a_id => a.id, :p_id => plan_id, :u_id => user_id) ,
+                          method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

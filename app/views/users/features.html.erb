@@ -5,259 +5,291 @@
   <div id="patient">
     <div class="line-separator"></div>
 
+    <div id="overview-title">
+      <h5>Informazioni raccolte su <%= @user.last_name %> <%= @user.first_name %></h5>
+    </div>
+
+    <% if  (@features.health==0) && (@features.physical == 0) && (@features.coping == 0) && (@features.mental == 0)  %>
+        <div id="no-info-grid" class="mdl-grid">
+          <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div id="no-info-card" class="mdl-card mdl-shadow--4dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text"> Nessuna Informazione Raccolta </h2>
+              </div>
+              <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+
+                L'Utente <%= @features.user.last_name %> <%= @features.user.first_name %> non ha ancora fornito nessuna informazione sul suo stato.
+                Non appena queste saranno disponibili verra' Notificato.
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    <% end %>
+
     <div class="users_features">
       <div class="features-grid mdl-grid">
-
-
-        <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-          <div id="features-card" class="mdl-card mdl-shadow--4dp">
-            <div id ="media-health" class="mdl-card__media">
-              <%= image_tag 'health_heart.png', alt: 'salute', id: 'features_img' %>
-            </div>
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text"> Salute </h2>
-            </div>
-            <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
-
-              <div class="mdl-grid">
-                <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
-                  <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
-
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                      <tbody>
-
-                        <tr>
-                          <td>
-                            Personalita'
-                          </td>
-                          <td>
-                            <%= remove_first_char(@features.health_personality) %>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            Acqua Bevuta al Giorno
-                          </td>
-                          <td>
-                            <%= remove_first_char(@features.health_drinking_water) %>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            Significato Benessere e Salute
-                          </td>
-                          <td>
-                            <%= remove_first_char(@features.health_wellbeing_meaning) %>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            Abitudini Alimentari
-                          </td>
-                          <td>
-                            <%= remove_first_char(@features.health_nutritional_habits) %>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            Frutta/Verdura
-                          </td>
-                          <td>
-                            <%= remove_first_char(@features.health_vegetables_eaten) %>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            Livello di Energia
-                          </td>
-                          <td>
-                            <%= remove_first_char(@features.health_energy_level) %>
-                          </td>
-                        </tr>
-
-
-                      </tbody>
-                    </table>
-
-                  </div>
+        <% if @features.health == 1 %>
+            <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div id="features-card" class="mdl-card mdl-shadow--4dp">
+                <div id ="media-health" class="mdl-card__media">
+                  <%= image_tag 'health_heart.png', alt: 'salute', id: 'features_img' %>
                 </div>
-              </div>
+                <div class="mdl-card__title mdl-card--expand">
+                  <h2 class="mdl-card__title-text"> Salute </h2>
+                </div>
+                <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
 
-            </div>
-          </div>
-        </div>
+                  <div class="mdl-grid">
+                    <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
+                      <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
 
-        <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-          <div id="features-card" class="mdl-card mdl-shadow--4dp">
-            <div id ="media-health" class="mdl-card__media">
-              <%= image_tag 'mental_head.jpg', alt: 'benessere mentale', id: 'features_img' %>
-            </div>
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text"> Benessere Mentale </h2>
-            </div>
-            <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                          <tbody>
 
-              <div class="mdl-grid">
-                <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
-                  <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
+                          <tr>
+                            <td>
+                              Personalita'
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.health_personality) %>
+                            </td>
+                          </tr>
 
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                      <tbody>
+                          <tr>
+                            <td>
+                              Acqua Bevuta al Giorno
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.health_drinking_water) %>
+                            </td>
+                          </tr>
 
-                      <tr>
-                        <td>
-                          Nervoso
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.mental_nervous) %>
-                        </td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Significato Benessere e Salute
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.health_wellbeing_meaning) %>
+                            </td>
+                          </tr>
 
-                      <tr>
-                        <td>
-                          Depresso
-                        </td>
-                        <td><%= remove_first_char(@features.mental_depressed) %></td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Abitudini Alimentari
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.health_nutritional_habits) %>
+                            </td>
+                          </tr>
 
-                      <tr>
-                        <td>Affaticato</td>
-                        <td><%= remove_first_char(@features.mental_effort) %></td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Frutta/Verdura
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.health_vegetables_eaten) %>
+                            </td>
+                          </tr>
 
-                      </tbody>
-                    </table>
+                          <tr>
+                            <td>
+                              Livello di Energia
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.health_energy_level) %>
+                            </td>
+                          </tr>
 
+
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
                   </div>
+
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+        <% end %>
 
-        <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-          <div id="features-card" class="mdl-card mdl-shadow--4dp">
-            <div id ="media-health" class="mdl-card__media">
-              <%= image_tag 'physical_man.png', alt: 'attivita fisica', id: 'features_img' %>
-            </div>
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text"> Attivita Fisica </h2>
-            </div>
-            <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+        <% if @features.mental == 1 %>
+            <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div id="features-card" class="mdl-card mdl-shadow--4dp">
+                <div id ="media-health" class="mdl-card__media">
+                  <%= image_tag 'mental_head.jpg', alt: 'benessere mentale', id: 'features_img' %>
+                </div>
+                <div class="mdl-card__title mdl-card--expand">
+                  <h2 class="mdl-card__title-text"> Benessere Mentale </h2>
+                </div>
+                <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
 
-              <div class="mdl-grid">
-                <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
-                  <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
+                  <div class="mdl-grid">
+                    <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
+                      <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
 
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                      <tbody>
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                          <tbody>
 
-                      <tr>
-                        <td>
-                          Sport Preferito
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.physical_sport) %>
-                        </td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Nervoso
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.mental_nervous) %>
+                            </td>
+                          </tr>
 
-                      <tr>
-                        <td>
-                          Frequenza
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.physical_sport_frequency) %>
-                        </td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Depresso
+                            </td>
+                            <td><%= remove_first_char(@features.mental_depressed) %></td>
+                          </tr>
 
-                      <tr>
-                        <td>
-                          Intensita'
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.physical_sport_intensity) %>
-                        </td>
-                      </tr>
+                          <tr>
+                            <td>Affaticato</td>
+                            <td><%= remove_first_char(@features.mental_effort) %></td>
+                          </tr>
 
-                      <tr>
-                        <td>
-                          Obiettivi
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.physical_goal) %>
-                        </td>
-                      </tr>
+                          </tbody>
+                        </table>
 
-                      </tbody>
-                    </table>
-
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
-          </div>
-        </div>
+        <% end %>
 
-        <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-          <div id="features-card" class="mdl-card mdl-shadow--4dp">
-            <div id ="media-health" class="mdl-card__media">
-              <%= image_tag 'coping_mans.png', alt: 'attivita fisica', id: 'features_img' %>
-            </div>
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text"> Strategie Adattamento </h2>
-            </div>
-            <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+        <% if @features.physical == 1 %>
+            <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div id="features-card" class="mdl-card mdl-shadow--4dp">
+                <div id ="media-health" class="mdl-card__media">
+                  <%= image_tag 'physical_man.png', alt: 'attivita fisica', id: 'features_img' %>
+                </div>
+                <div class="mdl-card__title mdl-card--expand">
+                  <h2 class="mdl-card__title-text"> Attivita Fisica </h2>
+                </div>
+                <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
 
-              <div class="mdl-grid">
-                <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
-                  <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
+                  <div class="mdl-grid">
+                    <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
+                      <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
 
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                      <tbody>
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                          <tbody>
 
-                      <tr>
-                        <td>
-                          Livello Energia
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.coping_energy_level) %>
-                        </td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Sport Preferito
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.physical_sport) %>
+                            </td>
+                          </tr>
 
-                      <tr>
-                        <td>
-                          Ore di Sonno
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.coping_sleep_hours) %>
-                        </td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Frequenza
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.physical_sport_frequency) %>
+                            </td>
+                          </tr>
 
-                      <tr>
-                        <td>
-                          Livello Stress
-                        </td>
-                        <td>
-                          <%= remove_first_char(@features.coping_stress) %>
-                        </td>
-                      </tr>
+                          <tr>
+                            <td>
+                              Intensita'
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.physical_sport_intensity) %>
+                            </td>
+                          </tr>
 
-                      </tbody>
-                    </table>
+                          <tr>
+                            <td>
+                              Obiettivi
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.physical_goal) %>
+                            </td>
+                          </tr>
 
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
                   </div>
+
                 </div>
               </div>
-
             </div>
-          </div>
-        </div>
+        <% end %>
+
+        <% if @features.coping == 1 %>
+            <div class="mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div id="features-card" class="mdl-card mdl-shadow--4dp">
+                <div id ="media-health" class="mdl-card__media">
+                  <%= image_tag 'coping_mans.png', alt: 'attivita fisica', id: 'features_img' %>
+                </div>
+                <div class="mdl-card__title mdl-card--expand">
+                  <h2 class="mdl-card__title-text"> Strategie Adattamento </h2>
+                </div>
+                <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+
+                  <div class="mdl-grid">
+                    <div id="feature-table-card" class="mdl-card mdl-shadow--4dp mdl-cell--6-col-desktop">
+                      <div id="feature-table-card-supporting-text" class="mdl-card__supporting-text">
+
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                          <tbody>
+
+                          <tr>
+                            <td>
+                              Livello Energia
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.coping_energy_level) %>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>
+                              Ore di Sonno
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.coping_sleep_hours) %>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td>
+                              Livello Stress
+                            </td>
+                            <td>
+                              <%= remove_first_char(@features.coping_stress) %>
+                            </td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+        <% end %>
+
+
 
       </div>
     </div>

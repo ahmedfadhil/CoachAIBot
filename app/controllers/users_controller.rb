@@ -16,15 +16,20 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    if user.save
+    if user.valid?
+      user.save
       current_coach_user.users << user
-      feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
-      feature.save
-      redirect_to users_path
+      features = generate_features user
+      if features.nil?
+        flash[:notice] = "C'e' stato un problema interno e l'utente non e' stato inserito, riprova piu' tardi!"
+      else
+        flash[:notice] = 'Utente inserito con successo!'
+      end
     else
-      flash[:error] = 'Errore durante il salvataggio dell\'utente! '
-      error
+      flash[:notice] = user.errors.messages
     end
+    ap flash
+    redirect_to users_path
   end
 
   def show
@@ -39,13 +44,69 @@ class UsersController < ApplicationController
   def get_charts_data
     user = User.find(params[:id])
     plans = user.plans.where(delivered: 1)
+    data = {:plans => []}
+    i = 0
+    plans.find_each do |plan|
+      data[:plans].push({:name => plan.name,
+                         :from_day => plan.from_day.strftime('%m/%d/%Y') ,
+                         :to_day => plan.to_day.strftime('%m/%d/%Y') ,
+                         :activities => []
+                        })
+      j = 0
+      plan.plannings.find_each do |planning|
+        text = 'PROGRESSO'
+        notifications = planning.notifications
+        feedbacks_completeness = Feedback.where('question_id = (?) AND  notification_id in (?)',
+                                   planning.activity.questions.where(:q_type => 'completeness').select(:id).uniq,
+                                   notifications.where(:done => 1).select(:id))
+        tot = notifications.size
+        done = feedbacks_completeness.where(:answer => 'Si').size
+        undone = feedbacks_completeness.where(:answer => 'No').size
+        done_perc = done.as_percentage_of(tot)
+        undone_perc = undone.as_percentage_of(tot)
+        to_do_perc = (tot-(undone+done)).as_percentage_of(tot)
+        data[:plans][i][:activities].push({:name => planning.activity.name,
+                                           :planning_id => planning.id,
+                                           :completeness_data => {:text => text,
+                                                                 :data => [["Seguita #{done_perc.to_i}%", done_perc.to_i],
+                                                                           ["Saltata #{undone_perc.to_i}%", undone_perc.to_i],
+                                                                           ["Da Fare #{to_do_perc.to_i}%", to_do_perc.to_i]],
+                                           },
+                                           :scalar_data => []
+                                          })
+        scalar_questions = planning.activity.questions.where(:q_type => 'scalar').select(:id).uniq
+        h=0
+        scalar_questions.each do |q|
+          feedbacks_scalars = Feedback.where('question_id = (?) AND  notification_id in (?)',
+                                             q.id,
+                                             notifications.where(:done => 1).select(:id))
+
+          data[:plans][i][:activities][j][:scalar_data].push({:text => Question.find(q.id).text,
+                                                              :data => []
+                                                             })
+=begin
+            # insert first date as null
+            first_d = (feedbacks_scalars.first.notification.date - 1).to_time
+            first_d += first_d.utc_offset
+            first_d = first_d.to_i * 1000
+            data[:plans][i][:activities][j][:scalar_data][h][:data].push([first_d, nil])
+=end
+
+          feedbacks_scalars.find_each do |f|
+            t = f.notification.date.to_time
+            t += t.utc_offset
+            t = t.to_i * 1000
+            data[:plans][i][:activities][j][:scalar_data][h][:data].push([t, f.answer.to_f])
+          end
 
 
-    respond_to do |format|
-      format.json do
-        render json: {status: 'ok'}
+          h = h + 1
+        end
+        j = j + 1
       end
+      i = i + 1
     end
+    render json: data, status: :ok
   end
 
   # active users
@@ -68,7 +129,6 @@ class UsersController < ApplicationController
 
   def plans
     @user = User.find(params[:id])
-    @plans = @user.plans
   end
 
   def active_plans
@@ -101,21 +161,59 @@ class UsersController < ApplicationController
         render pdf: "#{user.first_name}-Plans",
                template: 'users/user_plans',
                show_as_html: params.key?('debug'),
-               disable_smart_shrinking: true
-               #dpi: '400'
+               dpi: '250',
+               # orientation: 'Landscape',
+               viewport: '1280x1024',
+               footer: { right: '[page] of [topage]' }
       end
     end
+  end
+
+  def get_feedbacks_to_do_pdf
+    @plans = Plan.joins(plannings: :notifications).where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.user_id=?', Date.today, 0, 1, params[:id]).uniq
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@plans[0].user.first_name}-Plans",
+               template: 'users/user_feedbacks',
+               show_as_html: params.key?('debug'),
+               dpi: '250',
+               # orientation: 'Landscape',
+               viewport: '1280x1024',
+               footer: { right: '[page] of [topage]' }
+      end
+    end
+  end
+
+  def get_scores
+    data = {:scores => [
+        {:id => 3, :physical_s => 1, :diet_s => 2, :mental_s => 3},
+        {:id => 4, :physical_s => 1, :diet_s => 2, :mental_s => 3},
+        {:id => 5, :physical_s => 1, :diet_s => 2, :mental_s => 3}
+    ]}
+    render json: data, status: :ok
   end
 
 
   private
 
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
-    end
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
+  end
 
   def error
     render 'error/error.html.erb'
   end
+
+  def percent_of(n)
+    self.to_f / n.to_f * 100.0
+  end
+
+  def generate_features(user)
+    Feature.create(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
+  end
+
+
 
 end

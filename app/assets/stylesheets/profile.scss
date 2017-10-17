@@ -1,4 +1,30 @@
 
+.mdl-button--icon{
+  height: 43px;
+}
+
+.material-icons.icon,
+.material-label {
+  font-size: 10px;
+  line-height: 1;
+  display: block;
+  color: #424242;
+  margin: 25px
+}
+
+
+.material-icons.mdl-badge[data-badge]::after,
+.material-label.mdl-badge[data-badge]::after{
+  font-size: .37em;
+  width: 2.1em;
+  height: 2.1em;
+}
+
+.material-icons.mdl-badge[data-badge]::after {
+  top: -1em;
+  right: -0.6em;
+}
+
 .card-wide.mdl-card {
   width: 512px;
 }
@@ -232,4 +258,28 @@ _:-ms-input-placeholder, :root .graph {
 
 .profile_content_header{
   background-color: #37474F;
+}
+
+
+.field_with_errors {
+  padding: 2px;
+  background-color: yellow;
+  display: table;
+}
+
+.field_with_info {
+  padding: 2px;
+  background-color: lawngreen;
+  display: table;
+}
+
+.field_with_notice {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error-grid{
+  text-align: -webkit-center;
+  max-width: 80%;
 }

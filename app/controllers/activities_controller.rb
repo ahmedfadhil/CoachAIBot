@@ -5,7 +5,6 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
   end
 
-  #tutte le attivita -> solo nel menu attivita del drawer
   def index
     @activities = Activity.all
   end
@@ -16,16 +15,17 @@ class ActivitiesController < ApplicationController
 
   def create
     activity = Activity.new activity_params
-    ap activity
     if activity.save
       #automaticaly add COMPLETNESS question
       if completness_question(activity)
-        flash[:success] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
+        flash[:info] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
       else
-        flash[:error] = 'C\'e\' stato un problema durante la crezione dell\'attivita\'! Contattare l\'amministratore del sistema se il problema persiste!'
+        flash[:notice] = 'C\'e\' stato un problema durante la crezione dell\'attivita\', in particolare durante la creazione dei metodi di verifica/domande completezza automatiche! Contattare l\'amministratore del sistema se il problema persiste!'
+        flash[:errors] = activity.errors.messages
       end
     else
-      flash[:error] = 'ATTIVITA NON INSERITA! C\'e\' stato un problema durante la crezione dell\'attivita\'! RICONTROLLA I DATI INSERITI!'
+      flash[:notice] = "L'Attivita NON E' STATA INSERITA"
+      flash[:errors] = activity.errors.messages
     end
     redirect_to activities_path
   end
@@ -36,20 +36,23 @@ class ActivitiesController < ApplicationController
   def update
     activity = Activity.find(params[:id])
     if !activity.update(activity_params)
-      error
+      flash[:info] = "L'Attivita e' stata modificata con successo!"
     else
-      redirect_to activities_path
+      flash[:notice] = "C'e' stato un problema durante l'aggiornamento dell'attivita'. La preghiamo di ricontrollare i dati inseriti e riprovare."
+      flash[:errors] = activity.errors.messages
     end
+    redirect_to activities_path
   end
 
   def destroy
     activity = Activity.find(params[:id])
-    if !activity.destroy
-      error
+    if activity.destroy
+      flash[:info] = 'La tua attivita\' e\' stata eliminata con successo!'
     else
-      flash[:destroyed] = 'La tua attivita\' e\' stata eliminata con successo!'
-      redirect_to activities_path
+      flash[:notice] = "C'e' stato un problema durante la distruzione dell'attivita'. La preghiamo di riprovare piu' tardi."
+      flash[:errors] = activity.errors.messages
     end
+    redirect_to activities_path
   end
 
 
@@ -57,10 +60,6 @@ class ActivitiesController < ApplicationController
 
     def activity_params
       params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times)
-    end
-
-    def error
-      render 'error/error'
     end
 
     def completness_question(activity)
@@ -71,13 +70,8 @@ class ActivitiesController < ApplicationController
         answer2 = Answer.new text: 'No'
         answer1.question = question
         answer2.question = question
-        if answer1.save && answer2.save
-          true
-        else
-          false
-        end
+        answer1.save && answer2.save ? true : false
       end
     end
-
 
 end
