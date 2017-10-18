@@ -4,7 +4,7 @@ set :stage, :staging
 set :deploy_to, "/www/ict4g/ict4g.apps/#{fetch(:application)}"
 set :branch, "fitbit"
 
-set :rails_env, 'development' #lololol
+set :rails_env, 'production'
 
 role :app, %w{ict4g@dev.ict4g.org}
 role :web, %w{ict4g@dev.ict4g.org}
