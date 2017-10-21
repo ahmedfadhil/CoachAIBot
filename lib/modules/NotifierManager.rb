@@ -114,12 +114,13 @@ module NotifierManager
       end
     end
 
-    def loop_through_tester(by, start_date, end_date, planning, default_time)
+    def loop_through_tester(by, start_date, end_date)
       # looping through months
       from = start_date
       to = end_date
       interval = by
       start = from
+      periods = 0
       while start < to
         stop  = start.send("end_of_#{interval}")
         if stop > to
@@ -129,16 +130,14 @@ module NotifierManager
         # create default notifications based on period and number of times to do an activity
         interval_start = Date.parse(start.inspect)
         interval_end = Date.parse(stop.inspect)
-        step = ((interval_end - interval_start).to_i / planning.activity.n_times) + 1
 
-        puts "start #{interval_start} - end #{interval_end} - step #{step}"
-        (interval_start..interval_end).step(step) do |date|
-          puts "date #{date}"
-        end
+        puts "#{interval_start} - #{interval_end}"
+        periods = periods + 1
 
         start = stop.send("beginning_of_#{interval}")
         start += 1.send(interval)
       end
+      periods
     end
 
     def def_time(plan)
