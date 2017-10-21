@@ -1,6 +1,6 @@
 CREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY);
 CREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
-CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "telegram_id" varchar, "first_name" varchar, "last_name" varchar, "bot_command_data" jsonb, "email" varchar, "cellphone" varchar, "coach_user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "state" varchar, CONSTRAINT "fk_rails_f04ae787c4"
+CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "telegram_id" varchar, "first_name" varchar, "last_name" varchar, "bot_command_data" jsonb, "email" varchar, "cellphone" varchar, "coach_user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "state" varchar, "cluster" varchar, CONSTRAINT "fk_rails_f04ae787c4"
 FOREIGN KEY ("coach_user_id")
   REFERENCES "coach_users" ("id")
 );
@@ -77,6 +77,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170809081733'),
 ('20170811102128'),
 ('20170823093058'),
-('20170914121008');
+('20170914121008'),
+('20171019085512');
 
 
