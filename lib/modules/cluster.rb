@@ -2,9 +2,14 @@
 class Cluster
   YELLOW_THRESHOLD, RED_THRESHOLD = 0.05, 0.2
   DAILY, WEEKLY, MONTHLY, NO_ANSWER = '0', '1', '2', 'No'
+  GREEN, YELLOW, RED = 0, 1, 2
 
   def init
     puts 'Ready to go!'
+  end
+
+  def test
+    puts 'TESTED'
   end
 
   def group
@@ -28,19 +33,10 @@ class Cluster
       end
     end
 
-    undone = 0
-    (delivered_plans.minimum.(:from_day)..delivered_plans.maximum.(:to_day)).each do |date|
-      unless Feedback.joins(:notification).where(:notifications => {:date => date}).exists?
-        undone += 1
-      end
-    end
-
-
-
     {
         :to_do_activities => to_do,
         :undone_activities => undone_activities,
-        :undone_feedback_days => undone
+        :undone_feedback_days => undone_feedback_days(delivered_plans)
     }
   end
 
@@ -71,24 +67,29 @@ class Cluster
     undone
   end
 
-  def feedback_days(delivered_plans)
+  def undone_feedback_days(delivered_plans)
     undone = 0
-    (delivered_plans.minimum.(:from_day)..delivered_plans.maximum.(:to_day)).each do |date|
-      unless Feedback.joins(:notification).where(:notifications => {:date => date}).exists?
+    (delivered_plans.minimum('from_day')..Date.today).each do |date|
+      unless Feedback.joins(notification: :planning).where(:plannings => {:plan_id => 1}, :notifications => {:date => date}).exists?
         undone += 1
       end
     end
     undone
   end
 
+  # performs Cluster's main check
   def mark(user, to_do_activities, undone_activities, undone_feedback_days)
     if (undone_activities <= YELLOW_THRESHOLD*to_do_activities) && (undone_feedback_days <= 3 )
-      ap 'GREEN'
+      update(user, GREEN)
     elsif (undone_activities <= RED_THRESHOLD*to_do_activities) && (undone_feedback_days <= 6 )
-      ap 'YELLOW'
+      update(user, YELLOW)
     else
-      ap 'RED'
+      update(user, RED)
     end
   end
 
+  def update(user, cluster)
+    user.cluster = cluster
+    user.save
+  end
 end

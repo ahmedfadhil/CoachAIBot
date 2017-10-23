@@ -2,9 +2,19 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
+
+# writing and deploying cron jobs.
+# gem 'whenever', :require => false
+
+# another way for cron jobs
+gem 'crono'
+
+# cron jobs web ui
+gem 'haml'
+gem 'sinatra', require: nil
 
 gem 'time_difference'
 
@@ -91,7 +101,6 @@ gem 'rails-assets-jquery'
 gem 'material_design_lite-rails', '~> 1.3'
 gem 'rails-assets-mdl-selectfield'
 gem 'rails-assets-polyfills'
-
 
 
 group :development, :test do
