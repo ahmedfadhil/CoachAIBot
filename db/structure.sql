@@ -57,6 +57,8 @@ FOREIGN KEY ("user_id")
   REFERENCES "users" ("id")
 );
 CREATE INDEX "index_features_on_user_id" ON "features" ("user_id");
+CREATE TABLE "crono_jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "job_id" varchar NOT NULL, "log" text(1073741823), "last_performed_at" datetime, "healthy" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
+CREATE UNIQUE INDEX "index_crono_jobs_on_job_id" ON "crono_jobs" ("job_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -78,6 +80,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170811102128'),
 ('20170823093058'),
 ('20170914121008'),
-('20171019085512');
+('20171019085512'),
+('20171023151145');
 
 
