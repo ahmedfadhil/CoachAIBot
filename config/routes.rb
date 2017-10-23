@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # crono jobs route
+  mount Crono::Web, at: '/crono'
+
   resources :activities
 
   resources :plans do

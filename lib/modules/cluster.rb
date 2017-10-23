@@ -1,3 +1,5 @@
+require 'bot_classes/general_actions'
+
 # Congregate patients, that is, clusters patients into 3 main clusters <GREEN>, <YELLOW>, <RED>
 class Cluster
   YELLOW_THRESHOLD, RED_THRESHOLD = 0.05, 0.2
@@ -6,10 +8,6 @@ class Cluster
 
   def init
     puts 'Ready to go!'
-  end
-
-  def test
-    puts 'TESTED'
   end
 
   def group
