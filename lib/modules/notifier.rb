@@ -3,6 +3,10 @@ require 'telegram/bot'
 # creates all the notifications for the user, that are reminders
 class Notifier
 
+  def init
+    puts 'Ready to notify!'
+  end
+
   def create_notifications(plan)
     plannings = plan.plannings
     start_date = plan.from_day
@@ -24,7 +28,42 @@ class Notifier
           create_notifications_monthly(planning, start_date, end_date, default_time)
       end
     end
+  end
 
+  def notify_for_new_activities(plan)
+    user = plan.user
+    message = "Nuove Attivita' sono state definite per te #{user.first_name}. Vai nella sezione ATTIVITA' per avere ulteriori dettagli."
+    send_message(user, message)
+  end
+
+  def check_and_notify
+    puts 'Looking for users to be Notified...'
+    users = User.joins(:plans).where(:plans => {:delivered => 1})
+    users.each do |user|
+      message = need_to_be_notified?(user)
+      unless message.nil?
+        send_message(user, message)
+      end
+    end
+  end
+
+  def need_to_be_notified?(user)
+    message = "Ciao #{user.last_name}! Ti ricordo che hai le seguenti attivita' programmate per oggi \n"
+    flag = false
+    plans = user.plans.where(:delivered => 1)
+    plans.each do |plan|
+      plan.plannings.each do |planning|
+        notifications = planning.notifications.where('date = ? AND sent = ? AND n_type = ? AND ( (? - time) < ? )', Date.today, false, 'ACTIVITY_NOTIFICATION', Time.now, 60.minutes)
+        notifications.find_each do |notification|
+          notification.sent = true
+          notification.save!
+          message += " -#{planning.activity.name}, alle ore #{notification.time.strftime('%H:%M')} \n"
+          flag = true
+        end
+      end
+
+    end
+    flag ? message : nil
   end
 
   def create_notifications_daily(planning, start_date, end_date, default_time)
@@ -74,14 +113,6 @@ class Notifier
     planning.save
   end
 
-  def notify_for_new_activities(plan)
-    token = Rails.application.secrets.bot_token
-    api = ::Telegram::Bot::Api.new(token)
-    user = plan.user
-    message = "Nuove Attivita' sono state definite per te #{user.first_name}. Vai nella sezione ATTIVITA' per avere ulteriori dettagli."
-    api.call('sendMessage', chat_id: user.telegram_id, text: message)
-  end
-
   private
 
   # loops through a period with a step=by and
@@ -124,6 +155,12 @@ class Notifier
     notification.planning = planning
     notification.save!
     puts "creata notifica per #{planning.activity.name} data #{notification.date} ora #{notification.time}"
+  end
+
+  def send_message(user, message)
+    token = Rails.application.secrets.bot_token
+    api = ::Telegram::Bot::Api.new(token)
+    api.call('sendMessage', chat_id: user.telegram_id, text: message)
   end
 
 end

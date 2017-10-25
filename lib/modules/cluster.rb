@@ -7,7 +7,7 @@ class Cluster
   GREEN, YELLOW, RED = 0, 1, 2
 
   def init
-    puts 'Ready to go!'
+    puts 'Ready to cluster!'
   end
 
   def group
