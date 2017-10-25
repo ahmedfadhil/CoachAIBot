@@ -33,14 +33,21 @@ class PlansController < ApplicationController
 
   def deliver
     plan = Plan.find(params[:p_id])
+    plan.delivered = 1
+    if plan.save
+      # create notifications
+      # call_rake :create_notifications, :plan_id => params[:p_id]
+      system "rake --trace create_notifications  PLAN_ID=#{params[:p_id]} &"
+      system "rake --trace notify_for_new_activities  PLAN_ID=#{params[:p_id]} &"
+      # %x(rake --trace create_notifications[#{params[:p_id]}])
 
-    # create notifications
-    # call_rake :create_notifications, :plan_id => params[:p_id]
-    system "rake --trace create_notifications  PLAN_ID=#{params[:p_id]} &"
-    system "rake --trace notify_for_new_activities  PLAN_ID=#{params[:p_id]} &"
-    # %x(rake --trace create_notifications[#{params[:p_id]}])
+      flash[:info] = 'Consegnando il Piano...'
+    else
+      flash[:notice] = 'Piano non consegnato. Forse ce stato un problema, la preghiamo di riprovare piu\' tardi.'
+      flash[:errors] = plan.errors.messages
+    end
 
-    flash[:info] = 'Consegnando il Piano...'
+
     redirect_to plans_users_path(plan.user.id)
   end
 
