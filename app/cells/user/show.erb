@@ -1,15 +1,15 @@
-<div class="mdl-cell mdl-cell--4-col-desktop">
+<div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
   <div class="user-card mdl-card">
     <div class="user-card-grid mdl-grid">
-      <div class="mdl-cell mdl-cell--4-col-desktop">
+      <div class="mdl-cell mdl-cell--2-col-desktop">
         <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
       </div>
-      <div class="mel-cell mdl-cell--7-col-desktop">
+      <div class="mel-cell mdl-cell--8-col-desktop">
         <div class="user-card-name">
           <%= user.first_name %> <%= " #{user.last_name}" %>
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--1-col-desktop">
+      <div class="mdl-cell mdl-cell--2-col-desktop">
         <div class="user-card-n">
           <i class="n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">notifications_none</i>
         </div>
@@ -18,20 +18,26 @@
 
     <div class="scores-grid mdl-grid">
       <div class="mdl-cell mdl-cell--4-col-desktop">
-        <div id="physical_score_<%= user.id %>">
-          <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
+        <div class="score" id="physical_score_<%= user.id %>">
+
         </div>
       </div>
       <div class="mel-cell mdl-cell--4-col-desktop">
-        <div id="diet_score_<%= user.id %>">
-          <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
+        <div class="score" id="diet_score_<%= user.id %>">
+
         </div>
       </div>
       <div class="mdl-cell mdl-cell--4-col-desktop">
-        <div id="mental_score_<%= user.id %>">
-          <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
+        <div class="score" id="mental_score_<%= user.id %>">
         </div>
       </div>
     </div>
+
+    <div class="user-card-actions mdl-card__actions">
+      <%= link_to user_path(user) do %>
+        Vedi utente
+      <% end %>
+    </div>
+
   </div>
 </div>
