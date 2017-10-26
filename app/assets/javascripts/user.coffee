@@ -321,15 +321,6 @@ Highcharts.setOptions(Highcharts.theme);
               });
               i++
 
-@getScores = () ->
-  $.ajax "/users/get_scores",
-    type: 'GET'
-    dataType: 'json'
-    json: true
-    success: (data, textStatus, jqXHR) ->
-
-
-
 
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
@@ -371,9 +362,75 @@ Highcharts.setOptions(Highcharts.theme);
   else
     $('#open_answer_val').val($('#open-answers').val())
 
+@animate = (bar, type, user) ->
+  switch type
+    when 0
+      bar.animate user.diet_score/100
+    when 1
+      bar.animate user.physical_score/100
+    else
+      bar.animate user.mental_score/100
+
+@get_labels_name = (type) ->
+  switch type
+    when 0
+      ['Attivita\' Fisica', 'physical']
+    when 1
+      ['Dieta', 'diet']
+    else
+      ['Mentale', 'mental']
+
+@score = (user, type) ->
+  labels = get_labels_name(type)
+  bar = new (ProgressBar.Circle)("##{labels[1]}_score_#{user.id}",
+    strokeWidth: 10
+    color: '#FF0000'
+    trailColor: '#025102'
+    trailWidth: 1
+    easing: 'easeInOut'
+    duration: 1400
+    svgStyle: null
+    text:
+      value: labels[0]
+      alignToBottom: false
+      style:
+        color: '#000000'
+        position: 'relative'
+        left: '0',
+        top: '-72%',
+        padding: 0,
+        margin: 0,
+    from: color: '#FF0000'
+    to: color: '#008000'
+    step: (state, semicircle, attachment) ->
+      semicircle.path.setAttribute('stroke', state.color)
+    autoStyleContainer: false
+  )
+  bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif'
+  bar.text.style.fontSize = '15px'
+  bar.text = labels[0]
+  animate(bar, type, user)
+
+@getScores = () ->
+  $.ajax "/users/get_scores",
+    type: 'GET'
+    dataType: 'json'
+    json: true
+    success: (data, textStatus, jqXHR) ->
+      for user in data.users
+        console.log user
+        score(user, 0)
+        score(user, 1)
+        score(user, 2)
+
+
+
+
 
 $ ->
   default_tab()
+
+
 
   $("button[data-background-color]").click (e) ->
     e.preventDefault()
@@ -384,3 +441,6 @@ $ ->
     $('.datepicker').datepicker () ->
       weekStart:1
 
+  $("tr[data-href]").click (e) ->
+    e.preventDefault()
+    window.location = $(this).data("href");

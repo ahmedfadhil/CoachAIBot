@@ -21,4 +21,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree ./third_party
+//= require_tree ./my_modules
 //= require_tree .
