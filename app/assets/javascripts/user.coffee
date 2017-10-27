@@ -1,216 +1,209 @@
-###
+@load_dark_theme = () ->
+  Highcharts.createElement('link', {
+    href: 'https://fonts.googleapis.com/css?family=Unica+One',
+    rel: 'stylesheet',
+    type: 'text/css'
+  }, null, document.getElementsByTagName('head')[0]);
 
-Highcharts.createElement('link', {
-  href: 'https://fonts.googleapis.com/css?family=Unica+One',
-  rel: 'stylesheet',
-  type: 'text/css'
-}, null, document.getElementsByTagName('head')[0]);
-
-Highcharts.theme = {
-  colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
-    '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-  chart: {
-    backgroundColor: {
-      linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-      stops: [
-        [0, '#2a2a2b'],
-        [1, '#3e3e40']
-      ]
-    },
-    style: {
-      fontFamily: '\'Unica One\', sans-serif'
-    },
-    plotBorderColor: '#606063'
-  },
-  title: {
-    style: {
-      color: '#E0E0E3',
-      textTransform: 'uppercase',
-      fontSize: '20px'
-    }
-  },
-  subtitle: {
-    style: {
-      color: '#E0E0E3',
-      textTransform: 'uppercase'
-    }
-  },
-  xAxis: {
-    gridLineColor: '#707073',
-    labels: {
+  Highcharts.theme = {
+    colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+      '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+    chart: {
+      backgroundColor: null,
       style: {
-        color: '#E0E0E3'
-      }
+        fontFamily: '\'Raleway\', sans-serif',
+      },
+      plotBorderColor: '#606063'
     },
-    lineColor: '#707073',
-    minorGridLineColor: '#505053',
-    tickColor: '#707073',
     title: {
       style: {
-        color: '#A0A0A3'
-
+        color: '#0b0b0b',
+        textTransform: 'uppercase',
+        fontSize: '22px'
       }
-    }
-  },
-  yAxis: {
-    gridLineColor: '#707073',
+    },
+    subtitle: {
+      style: {
+        color: '#0b0b0b',
+        textTransform: 'uppercase'
+      }
+    },
+    xAxis: {
+      gridLineColor: '#707073',
+      labels: {
+        style: {
+          color: '#363637'
+        }
+      },
+      lineColor: '#707073',
+      minorGridLineColor: '#505053',
+      tickColor: '#707073',
+      title: {
+        style: {
+          color: '#363637'
+
+        }
+      }
+    },
+    yAxis: {
+      gridLineColor: '#707073',
+      labels: {
+        style: {
+          color: '#363637',
+        }
+      },
+      lineColor: '#707073',
+      minorGridLineColor: '#505053',
+      tickColor: '#707073',
+      tickWidth: 1,
+      title: {
+        style: {
+          color: '#363637'
+        }
+      }
+    },
+    tooltip: {
+      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+      style: {
+        color: '#F0F0F0'
+        fontSize: '16px'
+      }
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          color: '#B0B0B3'
+        },
+        marker: {
+          lineColor: '#333'
+        }
+      },
+      boxplot: {
+        fillColor: '#505053'
+      },
+      candlestick: {
+        lineColor: 'white'
+      },
+      errorbar: {
+        color: 'white'
+      }
+    },
+    legend: {
+      itemStyle: {
+        color: '#292929'
+      },
+      itemHoverStyle: {
+        color: '#000000'
+      },
+      itemHiddenStyle: {
+        color: '#606063'
+      }
+    },
+    credits: {
+      style: {
+        color: '#666'
+      }
+    },
     labels: {
       style: {
-        color: '#E0E0E3'
+        color: '#707073'
       }
     },
-    lineColor: '#707073',
-    minorGridLineColor: '#505053',
-    tickColor: '#707073',
-    tickWidth: 1,
-    title: {
-      style: {
-        color: '#A0A0A3'
-      }
-    }
-  },
-  tooltip: {
-    backgroundColor: 'rgba(0, 0, 0, 0.85)',
-    style: {
-      color: '#F0F0F0'
-    }
-  },
-  plotOptions: {
-    series: {
-      dataLabels: {
-        color: '#B0B0B3'
+
+    drilldown: {
+      activeAxisLabelStyle: {
+        color: '#F0F0F3'
       },
-      marker: {
-        lineColor: '#333'
+      activeDataLabelStyle: {
+        color: '#F0F0F3'
       }
     },
-    boxplot: {
-      fillColor: '#505053'
-    },
-    candlestick: {
-      lineColor: 'white'
-    },
-    errorbar: {
-      color: 'white'
-    }
-  },
-  legend: {
-    itemStyle: {
-      color: '#E0E0E3'
-    },
-    itemHoverStyle: {
-      color: '#FFF'
-    },
-    itemHiddenStyle: {
-      color: '#606063'
-    }
-  },
-  credits: {
-    style: {
-      color: '#666'
-    }
-  },
-  labels: {
-    style: {
-      color: '#707073'
-    }
-  },
 
-  drilldown: {
-    activeAxisLabelStyle: {
-      color: '#F0F0F3'
-    },
-    activeDataLabelStyle: {
-      color: '#F0F0F3'
-    }
-  },
-
-  navigation: {
-    buttonOptions: {
-      symbolStroke: '#DDDDDD',
-      theme: {
-        fill: '#505053'
-      }
-    }
-  },
-
-# scroll charts
-rangeSelector: {
-  buttonTheme: {
-    fill: '#505053',
-    stroke: '#000000',
-    style: {
-      color: '#CCC'
-    },
-    states: {
-      hover: {
-        fill: '#707073',
-        stroke: '#000000',
-        style: {
-          color: 'white'
-        }
-      },
-      select: {
-        fill: '#000003',
-        stroke: '#000000',
-        style: {
-          color: 'white'
+    navigation: {
+      buttonOptions: {
+        symbolStroke: '#DDDDDD',
+        theme: {
+          fill: '#505053'
         }
       }
-    }
-  },
-  inputBoxBorderColor: '#505053',
-  inputStyle: {
-    backgroundColor: '#333',
-    color: 'silver'
-  },
-  labelStyle: {
-    color: 'silver'
-  }
-},
+    },
 
-navigator: {
-  handles: {
-    backgroundColor: '#666',
-    borderColor: '#AAA'
-  },
-  outlineColor: '#CCC',
-  maskFill: 'rgba(255,255,255,0.1)',
-  series: {
-    color: '#7798BF',
-    lineColor: '#A6C7ED'
-  },
-  xAxis: {
-    gridLineColor: '#505053'
-  }
-},
+  # scroll charts
+    rangeSelector: {
+      buttonTheme: {
+        fill: '#505053',
+        stroke: '#000000',
+        style: {
+          color: '#CCC'
+        },
+        states: {
+          hover: {
+            fill: '#707073',
+            stroke: '#000000',
+            style: {
+              color: 'white'
+            }
+          },
+          select: {
+            fill: '#000003',
+            stroke: '#000000',
+            style: {
+              color: 'white'
+            }
+          }
+        }
+      },
+      inputBoxBorderColor: '#505053',
+      inputStyle: {
+        backgroundColor: '#333',
+        color: 'silver'
+      },
+      labelStyle: {
+        color: 'silver'
+      }
+    },
 
-scrollbar: {
-  barBackgroundColor: '#808083',
-  barBorderColor: '#808083',
-  buttonArrowColor: '#CCC',
-  buttonBackgroundColor: '#606063',
-  buttonBorderColor: '#606063',
-  rifleColor: '#FFF',
-  trackBackgroundColor: '#404043',
-  trackBorderColor: '#404043'
-},
+    navigator: {
+      handles: {
+        backgroundColor: '#666',
+        borderColor: '#AAA'
+      },
+      outlineColor: '#CCC',
+      maskFill: 'rgba(255,255,255,0.1)',
+      series: {
+        color: '#7798BF',
+        lineColor: '#A6C7ED'
+      },
+      xAxis: {
+        gridLineColor: '#505053'
+      }
+    },
 
-# special colors for some of the
-legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
-background2: '#505053',
-dataLabelsColor: '#B0B0B3',
-textColor: '#C0C0C0',
-contrastTextColor: '#F0F0F3',
-maskColor: 'rgba(255,255,255,0.3)'
-};
+    scrollbar: {
+      barBackgroundColor: '#808083',
+      barBorderColor: '#808083',
+      buttonArrowColor: '#CCC',
+      buttonBackgroundColor: '#606063',
+      buttonBorderColor: '#606063',
+      rifleColor: '#FFF',
+      trackBackgroundColor: '#404043',
+      trackBorderColor: '#404043'
+    },
 
-# Apply the theme
-Highcharts.setOptions(Highcharts.theme);
+  # special colors for some of the
+    legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+    background2: '#505053',
+    dataLabelsColor: '#B0B0B3',
+    textColor: '#C0C0C0',
+    contrastTextColor: '#F0F0F3',
+    maskColor: 'rgba(255,255,255,0.3)'
+  };
 
-###
+  # Apply the theme
+  Highcharts.setOptions(Highcharts.theme);
 
 @user_charts = () ->
+  load_dark_theme()
   user_id = document.getElementById('hidden_user_id').value
   $.ajax "/users/#{user_id}/get_charts_data",
     type: 'GET'
@@ -385,8 +378,8 @@ Highcharts.setOptions(Highcharts.theme);
   bar = new (ProgressBar.Circle)("##{labels[1]}_score_#{user.id}",
     strokeWidth: 10
     color: '#FF0000'
-    trailColor: '#025102'
-    trailWidth: 1
+    trailColor: '#787878'
+    trailWidth: 10
     easing: 'easeInOut'
     duration: 1400
     svgStyle: null
@@ -429,9 +422,6 @@ Highcharts.setOptions(Highcharts.theme);
 
 $ ->
   default_tab()
-
-
-
   $("button[data-background-color]").click (e) ->
     e.preventDefault()
 
