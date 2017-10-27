@@ -5,6 +5,10 @@ class UsersController < ApplicationController
   respond_to :html, :js
   layout 'profile'
 
+  def chat
+    @user = User.find(params[:id])
+  end
+
   def index
     @users = User.where(coach_user_id: current_coach_user.id)
   end
