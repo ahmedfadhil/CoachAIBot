@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :chats
   has_many :plans, dependent: :destroy
   has_one :feature, dependent: :destroy
   belongs_to :coach_user, optional: true

@@ -59,6 +59,15 @@ FOREIGN KEY ("user_id")
 CREATE INDEX "index_features_on_user_id" ON "features" ("user_id");
 CREATE TABLE "crono_jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "job_id" varchar NOT NULL, "log" text(1073741823), "last_performed_at" datetime, "healthy" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
 CREATE UNIQUE INDEX "index_crono_jobs_on_job_id" ON "crono_jobs" ("job_id");
+CREATE TABLE "chats" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "coach_user_id_id" integer, "user_id_id" integer, "text" varchar, "direction" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_cd45c89ea8"
+FOREIGN KEY ("coach_user_id_id")
+  REFERENCES "coach_user_ids" ("id")
+, CONSTRAINT "fk_rails_1facb4e4ab"
+FOREIGN KEY ("user_id_id")
+  REFERENCES "user_ids" ("id")
+);
+CREATE INDEX "index_chats_on_coach_user_id_id" ON "chats" ("coach_user_id_id");
+CREATE INDEX "index_chats_on_user_id_id" ON "chats" ("user_id_id");
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170711085623'),
 ('20170711085753'),
@@ -81,6 +90,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170823093058'),
 ('20170914121008'),
 ('20171019085512'),
-('20171023151145');
+('20171023151145'),
+('20171027160818');
 
 
