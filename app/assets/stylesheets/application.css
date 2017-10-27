@@ -13,6 +13,14 @@
  *= require material
  *= require mdl-selectfield
  *= require jquery-ui
+ *= require activities
+ *= require home
+ *= require plannings
+ *= require plans
+ *= require profile
+ *= require questions
+ *= require static_pages
  *= require_tree .
+ *= require_tree ./third_party
  *= require_self
  */

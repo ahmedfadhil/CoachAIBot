@@ -1,5 +1,8 @@
-/* Highcharts DARK UNICA theme */
 
+/* Add question Panel styles */
+.numeric-answers{
+  display: none;
+}
 /* */
 
 .pushRight{
@@ -75,7 +78,7 @@
 }
 
 #activity-expandible{
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-top: 0px solid rgba(0, 0, 0, 0.1);
   width: 95%;
   margin-left: 17px;
@@ -271,7 +274,7 @@ nwe-patient-card > .mdl-card__title {
 }
 
 .plan-card-wide.mdl-card {
-  margin: auto;
+  margin-bottom: 20px;
   width: 100%;
   padding: 20px;
 }

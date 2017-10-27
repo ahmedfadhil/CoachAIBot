@@ -15061,7 +15061,7 @@ jQuery.extend( {
 			text: "text/plain",
 			html: "text/html",
 			xml: "application/xml, text/xml",
-			json: "application/json, text/javascript"
+			json: "application/json, text/javascripts"
 		},
 
 		contents: {
@@ -15854,7 +15854,7 @@ jQuery.ajaxPrefilter( function( s ) {
 // Install script dataType
 jQuery.ajaxSetup( {
 	accepts: {
-		script: "text/javascript, application/javascript, " +
+		script: "text/javascripts, application/javascripts, " +
 			"application/ecmascript, application/x-ecmascript"
 	},
 	contents: {
@@ -41152,8 +41152,8 @@ Released under the MIT license
         text: 'text/plain',
         html: 'text/html',
         xml: 'application/xml, text/xml',
-        json: 'application/json, text/javascript',
-        script: 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript'
+        json: 'application/json, text/javascripts',
+        script: 'text/javascripts, application/javascripts, application/ecmascript, application/x-ecmascript'
       };
 
       Rails.ajax = function(options) {
@@ -44142,7 +44142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	
 	/**
-	 * A javascript utility for conditionally creating a list of strings.
+	 * A javascripts utility for conditionally creating a list of strings.
 	 * The function takes any number of arguments which can be a string or object.
 	 * Inspired by (but not copied from) JedWatson/classnames, https://github.com/JedWatson/classnames
 	 *
@@ -44198,7 +44198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	/**
-	 * A simple javascript utility for conditionally joining strings together.
+	 * A simple javascripts utility for conditionally joining strings together.
 	 * The function takes a delimiter string and any number of arguments which can be a string or object.
 	 *
 	 * @param delimiter delimiter to separate joined strings
@@ -49790,7 +49790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    , iframeDocument;
 	  iframe.style.display = 'none';
 	  __webpack_require__(81).appendChild(iframe);
-	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+	  iframe.src = 'javascripts:'; // eslint-disable-line no-script-url
 	  // createDict = iframe.contentWindow.Object;
 	  // html.removeChild(iframe);
 	  iframeDocument = iframe.contentWindow.document;
