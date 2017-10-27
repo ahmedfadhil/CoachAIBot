@@ -315,11 +315,16 @@
               i++
 
 
+
+@scroll_list = () ->
+  $('li').last().addClass('active-li').focus();
+
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
   div_plans = document.getElementsByClassName('plans-action')
   div_features = document.getElementsByClassName('users_features')
   div_index = document.getElementsByClassName('users-index')
+  div_chat = document.getElementsByClassName('chat')
 
   if div_plans[0] != undefined
     document.getElementById('activities-user').style.background = '#F0F8FF'
@@ -334,6 +339,10 @@
 
   if div_index[0] != undefined
     getScores()
+
+  if div_chat[0] != undefined
+    scroll_list()
+
 
 @show_hide = (element, type) ->
   if type=='open'
