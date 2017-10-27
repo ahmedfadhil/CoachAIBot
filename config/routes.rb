@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       get ':id/get_feedbacks_to_do_pdf.pdf', to: 'users#get_feedbacks_to_do_pdf', as: 'get_feedbacks_to_do_pdf'
       get ':id/get_charts_data', to: 'users#get_charts_data', as: 'get_charts_data'
       get 'get_scores', to: 'users#get_scores', as: 'get_scores'
+      get 'chat/:id', to: 'users#chat', as: 'chat'
     end
   end
 
