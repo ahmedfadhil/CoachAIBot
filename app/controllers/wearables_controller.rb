@@ -14,6 +14,10 @@ class WearablesController < ApplicationController
 		@user = User.find(params[:id])
 	end
 
+	def edit
+		@user = User.find(params[:id])
+	end
+
 	def invite
 		@user = User.find(params[:id])
 
@@ -28,7 +32,11 @@ class WearablesController < ApplicationController
 		ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data))
 		ga.send_reply(message1)
 		ga.send_reply(message2)
-		redirect_to wearables_show_url(@user)
+		redirect_to wearables_edit_url(@user)
+	end
+
+	def disable
+		# XXX TODO
 	end
 
 	def connect

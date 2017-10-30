@@ -7,13 +7,17 @@ class LayoutCell < Cell::ViewModel
 
 	private
 
+	def section
+		model[:section]
+	end
+
 	def title
-		model.capitalize
+		model[:title]
 	end
 
 	def navigation_link(name, path)
 		content_tag :li, class: "nav-item" do
-			if model == name
+			if section == name
 				link_to name.capitalize, path, class: "nav-link active"
 			else
 				link_to name.capitalize, path, class: "nav-link"

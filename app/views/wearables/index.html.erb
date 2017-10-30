@@ -1,12 +1,10 @@
-<%= cell(:layout, "wearables").() do %>
+<%= cell(:layout, section: "wearables", title: "All users").() do %>
 	<% capture do %>
 		<section class="row text-center placeholders">
-			<% 13.times do %>
-				<% User.all.each do |user| %>
-					<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
-						<%= cell(:wearable, user).(:card) %>
-					</div>
-				<% end %>
+			<% User.all.each do |user| %>
+				<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
+					<%= cell(:wearable, user).(:card) %>
+				</div>
 			<% end %>
 		</section>
 	<% end %>
