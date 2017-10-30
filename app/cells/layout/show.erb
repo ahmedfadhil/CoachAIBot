@@ -1,42 +1,51 @@
-<div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-	<header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-		<div class="mdl-layout__header-row">
-			<span class="mdl-layout-title">
-				<%= title %>
-			</span>
-		</div>
-	</header>
-	<div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-		<header class="drawer-header">
-			<%= image_tag 'bot.jpg', class: 'avatar' %>
-			<div class="avatar-dropdown">
-				<span><%= "#{current_coach_user.first_name} #{current_coach_user.last_name}" %></span>
-				<div class="mdl-layout-spacer"></div>
-				<button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-					<i class="material-icons" role="presentation">arrow_drop_down</i>
-					<span class="visuallyhidden">Accounts</span>
-				</button>
-				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-					<li class="mdl-menu__item"><i class="material-icons">email</i><%= current_coach_user.email %> </li>
-					<li class="mdl-menu__item"><i class="material-icons">settings</i>Impostazioni</li>
-					<li class="mdl-menu__item"><i class="material-icons">clear</i>Log out</li>
-				</ul>
-			</div>
-		</header>
-		<nav class="navigation mdl-navigation mdl-color--blue-grey-800">
-			<%= navigation_link(users_path, 'home', 'Home') %>
-			<%= navigation_link(users_path, 'dashboard', 'Dashboard') %>
-			<%= navigation_link(users_path, 'people', 'Patients') %>
-			<%= navigation_link(activities_path, 'inbox', 'Activities') %>
-			<%= navigation_link(wearables_path, 'warning', 'Wearables') %>
-			<div class="mdl-layout-spacer"></div>
-			<a class="mdl-navigation__link" href="">
-				<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>
-				<span class="visuallyhidden">Help</span>
-			</a>
-		</nav>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<a class="navbar-brand" href="#">CoachAI</a>
+	<button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Settings</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Profile</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Help</a>
+			</li>
+		</ul>
+		<form class="form-inline mt-2 mt-md-0">
+			<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		</form>
 	</div>
-	<main class="mdl-layout__content mdl-color--grey-100">
-		<%= yield %>
-	</main>
+</nav>
+
+<div class="container-fluid">
+	<div class="row">
+		<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+			<ul class="nav nav-pills flex-column">
+				<%= navigation_link("home", root_path) %>
+				<%= navigation_link("dashboard", root_path) %>
+				<%= navigation_link("patients", root_path) %>
+				<%= navigation_link("activities", root_path) %>
+			</ul>
+
+			<ul class="nav nav-pills flex-column">
+				<%= navigation_link("wearables", root_path) %>
+				<%= navigation_link("stepcounter", root_path) %>
+			</ul>
+		</nav>
+
+		<main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+			<h1><%= title %></h1>
+			<%= yield %>
+		</main>
+	</div>
 </div>

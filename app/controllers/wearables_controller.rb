@@ -4,7 +4,7 @@ require 'base64'
 class WearablesController < ApplicationController
 	before_action :authenticate_coach_user!, only: [:index, :show, :invite]
   respond_to :html
-  layout 'profile'
+  layout 'cell_application'
 
 	def index
 		render layout: 'cell_application'

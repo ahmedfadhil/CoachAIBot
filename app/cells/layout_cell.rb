@@ -11,9 +11,13 @@ class LayoutCell < Cell::ViewModel
 		model.capitalize
 	end
 
-	def navigation_link(path, icon, name)
-		link_to path, class: 'mdl-navigation__link' do
-			content_tag(:i, icon, class: 'mdl-color-text--blue-grey-400 material-icons') + name
+	def navigation_link(name, path)
+		content_tag :li, class: "nav-item" do
+			if model == name
+				link_to name.capitalize, path, class: "nav-link active"
+			else
+				link_to name.capitalize, path, class: "nav-link"
+			end
 		end
 	end
 end
