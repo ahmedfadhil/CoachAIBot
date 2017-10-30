@@ -438,7 +438,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	
 	/**
-	 * A javascript utility for conditionally creating a list of strings.
+	 * A javascripts utility for conditionally creating a list of strings.
 	 * The function takes any number of arguments which can be a string or object.
 	 * Inspired by (but not copied from) JedWatson/classnames, https://github.com/JedWatson/classnames
 	 *
@@ -494,7 +494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	/**
-	 * A simple javascript utility for conditionally joining strings together.
+	 * A simple javascripts utility for conditionally joining strings together.
 	 * The function takes a delimiter string and any number of arguments which can be a string or object.
 	 *
 	 * @param delimiter delimiter to separate joined strings
@@ -6086,7 +6086,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    , iframeDocument;
 	  iframe.style.display = 'none';
 	  __webpack_require__(81).appendChild(iframe);
-	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+	  iframe.src = 'javascripts:'; // eslint-disable-line no-script-url
 	  // createDict = iframe.contentWindow.Object;
 	  // html.removeChild(iframe);
 	  iframeDocument = iframe.contentWindow.document;

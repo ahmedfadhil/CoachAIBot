@@ -19,4 +19,6 @@
 //= require material
 //= require mdl-selectfield
 //= require rails-ujs
+//= require turbolinks
+//= require_tree ./third_party
 //= require_tree .

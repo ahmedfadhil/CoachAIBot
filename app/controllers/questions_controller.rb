@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
     @question = Question.new
     @activity = Activity.find(params[:a_id])
     @user = User.find(params[:u_id])
+    @plan_id = params[:p_id]
   end
 
   def create
@@ -32,6 +33,7 @@ class QuestionsController < ApplicationController
           (params[:scalar_from_val].to_i..params[:scalar_to_val].to_i).each do |i|
             answer = Answer.new(text: i)
             if answer.save
+              puts answer.text
               question.answers << answer
             else
               flash[:notice] = 'Ce stato un problema durante il salvataggio delle risposte NUMERICHE! Riprova piu tardi!'
@@ -49,7 +51,7 @@ class QuestionsController < ApplicationController
             end
           end
       end
-      redirect_to user_path(user.id)
+      redirect_to plans_users_path(user)
     end
   end
 

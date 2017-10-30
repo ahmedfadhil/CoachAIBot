@@ -10,14 +10,6 @@
     $('.open-answers').css('display', 'none')
 
 
-$ ->
-  $('input[type="radio"][data-answers]').change (e) ->
-    e.preventDefault()
-
-    type = $(this).data("answers")
-    show_hide(this, type)
-
-
 @assign_to_hidden = (element, type) ->
   if type=='from'
     $('#scalar_from_val').val($('#scalar_from').val())
@@ -26,10 +18,3 @@ $ ->
   else
     $('#open_answer_val').val($('#open-answers').val())
 
-
-$ ->
-  $('input[data-answer]').change (e) ->
-    e.preventDefault()
-
-    type = $(this).data("answer")
-    assign_to_hidden(this, type)

@@ -339,7 +339,7 @@ Highcharts.setOptions(Highcharts.theme);
 
   if div_plans[0] != undefined
     document.getElementById('activities-user').style.background = '#F0F8FF'
-    document.getElementById('all_plans_users').style.background = '#F0F8FF'
+    # document.getElementById('all_plans_users').style.background = '#F0F8FF'
 
   if div_overview[0] != undefined
     document.getElementById('overview-user').style.background = '#F0F8FF'
@@ -351,6 +351,25 @@ Highcharts.setOptions(Highcharts.theme);
   if div_index[0] != undefined
     getScores()
 
+@show_hide = (element, type) ->
+  if type=='open'
+    $('.numeric-answers').css('display', 'none')
+    $('.open-answers').css('display', 'block')
+  else if type=='scalar'
+    $('.numeric-answers').css('display', 'block')
+    $('.open-answers').css('display', 'none')
+  else if type=='yes-no'
+    $('.numeric-answers').css('display', 'none')
+    $('.open-answers').css('display', 'none')
+
+
+@assign_to_hidden = (element, type) ->
+  if type=='from'
+    $('#scalar_from_val').val($('#scalar_from').val())
+  else if type=='to'
+    $('#scalar_to_val').val($('#scalar_to').val())
+  else
+    $('#open_answer_val').val($('#open-answers').val())
 
 
 $ ->
@@ -364,3 +383,4 @@ $ ->
 
     $('.datepicker').datepicker () ->
       weekStart:1
+

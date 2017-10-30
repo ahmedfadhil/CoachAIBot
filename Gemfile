@@ -2,9 +2,21 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
+
+# writing and deploying cron jobs.
+# gem 'whenever', :require => false
+
+# another way for cron jobs
+gem 'crono'
+
+# cron jobs web ui
+gem 'haml'
+gem 'sinatra', require: nil
+
+gem 'time_difference'
 
 # use Trailblazer::Cell
 gem 'cells'
@@ -59,7 +71,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'coffee-rails', '~> 4.2'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-#gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
