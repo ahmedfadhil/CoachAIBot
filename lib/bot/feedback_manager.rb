@@ -1,5 +1,5 @@
 require 'telegram/bot'
-require 'bot_classes/general_actions'
+require 'bot/general_actions'
 
 class FeedbackManager
   attr_reader :user, :state, :api

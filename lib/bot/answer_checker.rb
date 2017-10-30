@@ -1,6 +1,6 @@
 require 'telegram/bot'
-require 'bot_classes/feedback_manager'
-require 'bot_classes/general_actions'
+require 'bot/feedback_manager'
+require 'bot/general_actions'
 
 class AnswerChecker
   attr_reader :user, :api, :state

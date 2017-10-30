@@ -30,6 +30,12 @@ class Notifier
     end
   end
 
+  def notify_for_new_messages
+    user = plan.user
+    message = "Ciao #{user.first_name}, il coach ti ha inviato dei nuovi messaggi. Vai nella sezione MESSAGGI per visualizzarli e rispondere."
+    send_message(user, message)
+  end
+
   def notify_for_new_activities(plan)
     user = plan.user
     message = "Nuove Attivita' sono state definite per te #{user.first_name}. Vai nella sezione ATTIVITA' per avere ulteriori dettagli."

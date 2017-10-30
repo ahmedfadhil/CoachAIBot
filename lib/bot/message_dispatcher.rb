@@ -1,14 +1,13 @@
-require 'telegram/bot'
-require 'chatscript'
-require 'bot_classes/activity_informer'
-require 'bot_classes/feedback_manager'
-require 'bot_classes/profiling_manager'
-require 'bot_classes/monitoring_manager'
-require 'bot_classes/general_actions'
-require 'bot_classes/answer_checker'
-require 'bot_classes/api_ai_redirecter'
-require 'bot_classes/login_manager'
-require 'bot_classes/chatscript_compiler'
+require 'bot/activity_informer'
+require 'bot/feedback_manager'
+require 'bot/profiling_manager'
+require 'bot/monitoring_manager'
+require 'bot/general_actions'
+require 'bot/answer_checker'
+require 'bot/api_ai_redirecter'
+require 'bot/login_manager'
+require 'bot/chatscript_compiler'
+require 'bot/messages_informer'
 
 class MessageDispatcher
   attr_reader :message, :user
@@ -54,6 +53,10 @@ class MessageDispatcher
                 ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
                 FeedbackManager.new(@user, hash_state).check
 
+              when '/messages', 'messaggi', 'Messaggi'
+                ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
+                MessagesInformer.new(@user, hash_state).inform
+
               else # 'tips', 'consigli', 'Consigli', '/consigli', '/Consigli',  '/tips', 'Tips'
                 MonitoringManager.new(text, @user, hash_state).manage
 
@@ -91,6 +94,11 @@ class MessageDispatcher
                   AnswerChecker.new(@user, hash_state).respond(text)
               end
             end
+
+          when 3, '3'
+            ap "---------RECEIVING RESPONSE FOR COACH MESSAGE BY USER: #{@user.id}---------"
+
+
         end
       end
     end
