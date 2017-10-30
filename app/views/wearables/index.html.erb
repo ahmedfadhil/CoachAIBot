@@ -2,21 +2,11 @@
 	<% capture do %>
 		<section class="row text-center placeholders">
 			<% 13.times do %>
-				<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
-					<div class="card">
-						<%= image_tag 'rsz_user_icon.png', class: "card-img-top" %>
-						<div class="card-body">
-							<h4 class="card-title">Card title</h4>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item list-group-item-primary">This is a primary list group item</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="btn btn-primary">Show</a>
-							<a href="#" class="btn btn-warning">Edit</a>
-						</div>
+				<% User.all.each do |user| %>
+					<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
+						<%= cell(:wearable, user).(:card) %>
 					</div>
-				</div>
+				<% end %>
 			<% end %>
 		</section>
 	<% end %>
