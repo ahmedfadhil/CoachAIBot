@@ -8,6 +8,11 @@ class ChatsController < ApplicationController
   end
 
   def create
+    @chat = Chat.create(chat_params)
+  end
 
+  private
+  def chat_params
+    params.require(:chat).permit(:text, :user_id, :coach_user_id, :direction)
   end
 end
