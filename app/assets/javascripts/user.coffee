@@ -316,9 +316,6 @@
 
 
 
-@scroll_list = () ->
-  $('li').last().addClass('active-li').focus();
-
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
   div_plans = document.getElementsByClassName('plans-action')
@@ -340,8 +337,6 @@
   if div_index[0] != undefined
     getScores()
 
-  if div_chat[0] != undefined
-    scroll_list()
 
 
 @show_hide = (element, type) ->
