@@ -2855,7 +2855,7 @@ h2.title {
 .card .card-footer button, .card .card-footer a {
   margin: 0 !important;
   position: relative;
-  bottom: 25px;
+  /* bottom: 25px; */
   width: auto;
 }
 .card .card-footer button:first-child, .card .card-footer a:first-child {

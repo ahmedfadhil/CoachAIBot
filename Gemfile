@@ -37,7 +37,7 @@ gem 'wkhtmltopdf-binary-edge'
 gem 'prawn', '~> 2.2', '>= 2.2.2'
 
 # highcharts & highstock
-gem 'highcharts-rails'
+#gem 'highcharts-rails'
 gem 'highstock-rails'
 
 # jquery-UI
@@ -71,7 +71,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'coffee-rails', '~> 4.2'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'

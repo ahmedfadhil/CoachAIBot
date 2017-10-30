@@ -20,7 +20,10 @@
   <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
 
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Dashboard</a>
+
+    <%= link_to profile_index_path, class: 'mdl-navigation__link' do %>
+        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Dashboard</a>
+    <% end %>
 
     <%= link_to users_path, class: 'mdl-navigation__link' do %>
         <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Pazienti
