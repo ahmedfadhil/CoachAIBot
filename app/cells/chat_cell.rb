@@ -8,11 +8,11 @@ class ChatCell < Cell::ViewModel
   end
 
   def user
-    model
+    options[:user]
   end
 
-  def messages
-    user.chats
+  def chats
+    model
   end
 
   def new_chat

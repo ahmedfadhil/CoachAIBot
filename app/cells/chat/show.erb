@@ -5,11 +5,11 @@
     <div class="chat-container">
       <div class="mdl-cell--12-col-desktop">
         <%= user_status %>
-        <ol id="chats" class="chat">
+        <ol id="chats" class="chat" data-url="<%= chats_chats_path(user) %>">
 
           <div class="day">Oggi</div>
 
-          <% messages.each do |message| %>
+          <% chats.each do |message| %>
               <%= cell(:chats_message, message) %>
           <% end %>
 
@@ -36,10 +36,7 @@
 
         <% end %>
 
-
-
       </div>
-
     </div>
   </div>
 </div>

@@ -17,7 +17,7 @@ class GeneralActions
 
   def back_to_menu_with_menu
     back_to_menu
-    keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli']
+    keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli', 'Messaggi']
     @api.call('sendMessage', chat_id: @user.telegram_id,
               text: 'Scegli con cosa vuoi continuare.', reply_markup: keyboard)
   end

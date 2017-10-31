@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :chats do
     collection do
       post 'chat/:id', to: 'chats#chat', as: 'chat'
+      get 'chats/:id', to: 'chats#chats', as: 'chats'
     end
   end
 

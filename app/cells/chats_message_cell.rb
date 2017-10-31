@@ -44,4 +44,8 @@ class ChatsMessageCell < Cell::ViewModel
     image_tag img, draggable: false
   end
 
+  def div_personal &block
+    content_tag :div, class: 'messages', data: {id: message.id}, &block
+  end
+
 end

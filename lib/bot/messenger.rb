@@ -1,11 +1,11 @@
 require 'bot/general_actions'
 
-class MessagesInformer
-  attr_reader :message, :user, :user_state
+class Messenger
+  attr_reader :user, :state
 
   def initialize(user, user_state)
     @user = user
-    @user_state = user_state
+    @state = user_state
   end
 
   def inform
@@ -13,13 +13,15 @@ class MessagesInformer
     if messages.empty?
       no_messages
     else
-      forward messages
+      forward messages # that is, forward to the coach
     end
   end
 
   def register_patient_response(response)
-    Chat.create(user_id: @user.id, coach_user_id: @user.coach.id, text: response)
-    
+    Chat.create(user_id: @user.id, coach_user_id: @user.coach_user.id, text: response, direction: true)
+    actuator = GeneralActions.new(@user, @state)
+    actuator.send_reply 'Il tuo messaggio e\' stato inviato al coach. Ti notificheremo se ci dovessero essere nuovi messaggi per te.'
+    actuator.back_to_menu_with_menu
   end
 
   private
@@ -38,14 +40,13 @@ class MessagesInformer
   end
 
   def no_messages
-    actuator = GeneralActions.new(@user, @user_state)
-    message = 'Non hai nessun messaggio in attesa di essere letto.'
-    actuator.send_reply message
+    actuator = GeneralActions.new(@user, @state)
+    actuator.send_reply 'Non hai nessun messaggio in attesa di essere letto.'
     actuator.back_to_menu_with_menu
   end
 
   def forward messages
-    actuator = GeneralActions.new(@user, @user_state)
+    actuator = GeneralActions.new(@user, @state)
     actuator.set_state 3
     actuator.send_reply 'Il medico che ti segue ti ha inviato i seguenti messaggi:'
 

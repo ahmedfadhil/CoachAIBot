@@ -7,9 +7,9 @@ require 'bot/answer_checker'
 require 'bot/api_ai_redirecter'
 require 'bot/login_manager'
 require 'bot/chatscript_compiler'
-require 'bot/messages_informer'
+require 'bot/messenger'
 
-class MessageDispatcher
+class Dispatcher
   attr_reader :message, :user
 
   def initialize(message, user)
@@ -55,7 +55,7 @@ class MessageDispatcher
 
               when '/messages', 'messaggi', 'Messaggi'
                 ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
-                MessagesInformer.new(@user, hash_state).inform
+                Messenger.new(@user, hash_state).inform
 
               else # 'tips', 'consigli', 'Consigli', '/consigli', '/Consigli',  '/tips', 'Tips'
                 MonitoringManager.new(text, @user, hash_state).manage
@@ -97,6 +97,15 @@ class MessageDispatcher
 
           when 3, '3'
             ap "---------RECEIVING RESPONSE FOR COACH MESSAGE BY USER: #{@user.id}---------"
+            general_actions = GeneralActions.new(@user, hash_state)
+
+            case text
+              when *back_strings
+                general_actions.back_to_menu_with_menu
+              else
+                Messenger.new(@user, hash_state).register_patient_response(text)
+
+            end
 
 
         end
@@ -109,7 +118,7 @@ class MessageDispatcher
   end
 
   def back_strings
-    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu']
+    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu', 'Rispondi piu\' tardi/Torna al Menu']
   end
 
   def tell_me_more_strings

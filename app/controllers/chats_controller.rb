@@ -5,10 +5,15 @@ class ChatsController < ApplicationController
 
   def chat
     @user = User.find(params[:id])
+    @chats = @user.chats
   end
 
   def create
     @chat = Chat.create(chat_params)
+  end
+
+  def chats
+    @chats = Chat.where('user_id = ? AND id > ?', params[:id], params[:after].to_i)
   end
 
   private
