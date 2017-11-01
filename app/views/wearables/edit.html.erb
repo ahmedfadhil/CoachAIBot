@@ -9,10 +9,18 @@
 				<% end %>
 			<% end %>
 			<% if @user.fitbit_invited? %>
-				Invite to connect wearable has been delivered to the user
+				Invite to connect wearable has been delivered to the user<br>
+				To disable the wearable integration, use the following button:
+				<%= form_for(@user, url: wearable_disable_url(@user), method: 'POST') do |f| %>
+					<%= f.submit 'Disable', class: 'btn btn-danger' %>
+				<% end %>
 			<% end %>
 			<% if @user.fitbit_enabled? %>
-				Wearable integration for this user is enabled
+				Wearable integration for this user is enabled<br>
+				To disable the wearable integration, use the following button:
+				<%= form_for(@user, url: wearable_disable_url(@user), method: 'POST') do |f| %>
+					<%= f.submit 'Disable', class: 'btn btn-danger' %>
+				<% end %>
 			<% end %>
 		</p>
 	<% end %>

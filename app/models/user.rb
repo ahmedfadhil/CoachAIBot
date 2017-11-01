@@ -17,6 +17,7 @@ class User < ApplicationRecord
   validates :email, presence: { message: "Email non puo' essere vuota." }, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX, message: "Formato dell'email non valido. Usare email della forma esempio@myemail.org" }
 
 	serialize :properties, JSON
+	serialize :access_token, JSON
 	enum fitbit_status: {fitbit_disabled: 0, fitbit_invited: 1, fitbit_enabled: 2}
 
   def set_user_state(state)
