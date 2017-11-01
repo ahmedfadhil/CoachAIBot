@@ -1,5 +1,11 @@
-<%= cell(:layout, "wearables").() do %>
+<%= cell(:layout, section: "wearables", title: "All users").() do %>
 	<% capture do %>
-		<p>What is this <b>bullshit?!</b></p>
+		<section class="row text-center placeholders">
+			<% User.all.each do |user| %>
+				<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
+					<%= cell(:wearable, user).(:card) %>
+				</div>
+			<% end %>
+		</section>
 	<% end %>
 <% end %>

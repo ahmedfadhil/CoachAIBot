@@ -4,13 +4,17 @@ require 'base64'
 class WearablesController < ApplicationController
 	before_action :authenticate_coach_user!, only: [:index, :show, :invite]
   respond_to :html
-  layout 'profile'
+  layout 'cell_application'
 
 	def index
 		render layout: 'cell_application'
 	end
 
 	def show
+		@user = User.find(params[:id])
+	end
+
+	def edit
 		@user = User.find(params[:id])
 	end
 
@@ -28,7 +32,11 @@ class WearablesController < ApplicationController
 		ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data))
 		ga.send_reply(message1)
 		ga.send_reply(message2)
-		redirect_to wearables_show_url(@user)
+		redirect_to wearables_edit_url(@user)
+	end
+
+	def disable
+		# XXX TODO
 	end
 
 	def connect

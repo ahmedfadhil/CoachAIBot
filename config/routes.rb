@@ -66,8 +66,10 @@ Rails.application.routes.draw do
 	# Wearable devices
 	# Actions reserved for the coach:
 	get 'wearables', to: 'wearables#index', as: 'wearables'
-	get 'wearables/:id', to: 'wearables#show', as: 'wearables_show'
-	post 'wearables/:id/invite', to: 'wearables#invite', as: 'wearables_invite'
+	get 'wearables/:id', to: 'wearables#show', as: 'show_wearable'
+	get 'wearables/:id/edit', to: 'wearables#edit', as: 'edit_wearable'
+	post 'wearables/:id/invite', to: 'wearables#invite', as: 'wearable_invite'
+	post 'wearables/:id/disable', to: 'wearables#disable', as: 'wearable_disable'
 	# Actions reserved for the user
 	# starts fitbit oauth2 procedure
 	get 'wearables/fitbit/connect/:token', to: 'wearables#connect', as: 'wearables_fitbit_connect'

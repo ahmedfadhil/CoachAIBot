@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926102359) do
+ActiveRecord::Schema.define(version: 20171023151145) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20170926102359) do
     t.string "last_sign_in_ip"
     t.index ["email"], name: "index_coach_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_coach_users_on_reset_password_token", unique: true
+  end
+
+  create_table "crono_jobs", force: :cascade do |t|
+    t.string "job_id", null: false
+    t.text "log", limit: 1073741823
+    t.datetime "last_performed_at"
+    t.boolean "healthy"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_crono_jobs_on_job_id", unique: true
   end
 
   create_table "daily_logs", force: :cascade do |t|
@@ -172,6 +182,7 @@ ActiveRecord::Schema.define(version: 20170926102359) do
     t.string "identity_token"
     t.integer "identity_token_expires_at"
     t.string "access_token"
+    t.string "cluster"
     t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
   end
 
