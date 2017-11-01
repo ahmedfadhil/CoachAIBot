@@ -81,6 +81,7 @@ class WearablesController < ApplicationController
 
 		Thread.new {
 			user = User.find(user_id)
+			user.fitbit_enabled!
 
 			message1 = "Gentile utente, grazie per avere abilitato l'integrazione con il tuo dispositivo indossabile"
 			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data))
