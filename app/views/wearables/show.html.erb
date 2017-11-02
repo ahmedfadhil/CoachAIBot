@@ -1,5 +1,5 @@
-<%= cell(:layout, section: "wearables", title: "Show user: #{@user.first_name} #{@user.last_name}").() do %>
+<%= cell(:layout, section: "wearables", title: "Weekly report: #{@user.first_name} #{@user.last_name}").() do %>
 	<% capture do %>
-		I can smell the bs
+		<%= cell(:weekly_report, @user).() %>
 	<% end %>
 <% end %>
