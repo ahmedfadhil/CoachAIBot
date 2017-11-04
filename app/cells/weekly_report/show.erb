@@ -11,7 +11,7 @@
 			<div class="card text-white bg-success mb-3">
 				<div class="card-header">MOST ACTIVE DAY OF THE WEEK</div>
 				<div class="card-body">
-					<h4 class="card-title">mer 13 set</h4>
+					<h4 class="card-title"><%= most_active_day %></h4>
 					<!--p class="card-text">mer 13 set</p-->
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 			<div class="card text-white bg-danger mb-3">
 				<div class="card-header">LEAST ACTIVE DAY OF THE WEEK</div>
 				<div class="card-body">
-					<h4 class="card-title">mer 13 set</h4>
+					<h4 class="card-title"><%= least_active_day %></h4>
 				</div>
 			</div>
 		</div>
@@ -35,8 +35,8 @@
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-header">-</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-group-item-primary">DAILY AVERAGE: 1400 steps</li>
-				<li class="list-group-item list-group-item-primary">RECORD DAY: 5000 steps</li>
+				<li class="list-group-item list-group-item-primary">DAILY AVERAGE: <%= daily_steps_average %> steps</li>
+				<li class="list-group-item list-group-item-primary">RECORD DAY: <%= record_steps %> steps</li>
 			</ul>
 		</div>
 	</div>
@@ -50,8 +50,8 @@
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-header">-</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-group-item-primary">DAILY AVERAGE: 1,5 Km</li>
-				<li class="list-group-item list-group-item-primary">RECORD DAY: 4,6 Km</li>
+				<li class="list-group-item list-group-item-primary">DAILY AVERAGE: <%= daily_distance_average %> Km</li>
+				<li class="list-group-item list-group-item-primary">RECORD DAY: <%= record_distance %> Km</li>
 			</ul>
 		</div>
 	</div>
@@ -65,8 +65,8 @@
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-header">-</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-group-item-primary">DAILY AVERAGE: 1997 cal.</li>
-				<li class="list-group-item list-group-item-primary">RECORD DAY: 3456 cal.</li>
+				<li class="list-group-item list-group-item-primary">DAILY AVERAGE: <%= daily_calories_average %> cal.</li>
+				<li class="list-group-item list-group-item-primary">RECORD DAY: <%= record_calories %> cal.</li>
 			</ul>
 		</div>
 	</div>
@@ -74,7 +74,7 @@
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-header">SLEEP LENGTH AVERAGE</div>
 			<div class="card-body">
-				<h4 class="card-title">7h 45min</h4>
+				<h4 class="card-title"><%= sleep_length_h %>h <%= sleep_length_min %>min</h4>
 			</div>
 		</div>
 	</div>
