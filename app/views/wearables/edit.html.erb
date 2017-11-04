@@ -1,27 +1,32 @@
 <%= cell(:layout, section: "wearables", title: "Edit user: #{@user.first_name} #{@user.last_name}").() do %>
 	<% capture do %>
-		<p>
-			<% if @user.fitbit_disabled? %>
-				Wearable integration for this user is not enabled<br>
-				If you wish, you can enable it using the following button:
-				<%= form_for(@user, url: wearable_invite_url(@user), method: 'POST') do |f| %>
-					<%= f.submit 'Invite', class: 'btn btn-success' %>
+		<div class="container" style="max-width: 800px">
+			<h1>
+				Edit user: <%= @user.first_name + " " + @user.last_name %>
+			</h1>
+			<p>
+				<% if @user.fitbit_disabled? %>
+					Wearable integration for this user is <span class="badge badge-danger">disabled</span><br>
+					If you wish, you can enable it using the following button:
+					<%= form_for(@user, url: wearable_invite_url(@user), method: 'POST') do |f| %>
+						<%= f.submit 'Invite', class: 'btn btn-success' %>
+					<% end %>
 				<% end %>
-			<% end %>
-			<% if @user.fitbit_invited? %>
-				Invite to connect wearable has been delivered to the user<br>
-				To disable the wearable integration, use the following button:
-				<%= form_for(@user, url: wearable_disable_url(@user), method: 'POST') do |f| %>
-					<%= f.submit 'Disable', class: 'btn btn-danger' %>
+				<% if @user.fitbit_invited? %>
+					Invite to connect wearable has been delivered to the user<br>
+					To disable the wearable integration, use the following button:
+					<%= form_for(@user, url: wearable_disable_url(@user), method: 'POST') do |f| %>
+						<%= f.submit 'Disable', class: 'btn btn-danger' %>
+					<% end %>
 				<% end %>
-			<% end %>
-			<% if @user.fitbit_enabled? %>
-				Wearable integration for this user is enabled<br>
-				To disable the wearable integration, use the following button:
-				<%= form_for(@user, url: wearable_disable_url(@user), method: 'POST') do |f| %>
-					<%= f.submit 'Disable', class: 'btn btn-danger' %>
+				<% if @user.fitbit_enabled? %>
+					Wearable integration for this user is <span class="badge badge-success">enabled</span><br>
+					To disable the wearable integration, use the following button:
+					<%= form_for(@user, url: wearable_disable_url(@user), method: 'POST') do |f| %>
+						<%= f.submit 'Disable', class: 'btn btn-danger' %>
+					<% end %>
 				<% end %>
-			<% end %>
-		</p>
+			</p>
+		</div>
 	<% end %>
 <% end %>
