@@ -4,8 +4,6 @@ class User < ApplicationRecord
   has_one :feature, dependent: :destroy
   belongs_to :coach_user, optional: true
 
-  attr_accessor :physical_score,:diet_score,:mental_score
-
   validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email, message: 'Email in uso. Scegli altra email.'
   validates_uniqueness_of :cellphone, message: 'Cellulare in uso. Scegli un altro numero di cellulare.'
