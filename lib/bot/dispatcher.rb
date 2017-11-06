@@ -17,6 +17,9 @@ class Dispatcher
     @user = user
   end
 
+  ap 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'
+  ap @message
+
   # process the user state
   def process
 
@@ -104,7 +107,6 @@ class Dispatcher
                 general_actions.back_to_menu_with_menu
               else
                 Messenger.new(@user, hash_state).register_patient_response(text)
-
             end
 
 
