@@ -1,6 +1,6 @@
 <div class="container" style="max-width: 800px">
 	<h1>
-		Weekly report:
+		Monthly report:
 		<%= model.first_name %>
 		<%= " " %>
 		<%= model.last_name %>
@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-sm">
 			<div class="card text-white bg-success mb-3">
-				<div class="card-header">MOST ACTIVE DAY OF THE WEEK</div>
+				<div class="card-header">MOST ACTIVE DAY OF THE MONTH</div>
 				<div class="card-body">
 					<h4 class="card-title"><%= most_active_day %></h4>
 					<!--p class="card-text">mer 13 set</p-->
@@ -18,7 +18,7 @@
 		</div>
 		<div class="col-sm">
 			<div class="card text-white bg-danger mb-3">
-				<div class="card-header">LEAST ACTIVE DAY OF THE WEEK</div>
+				<div class="card-header">LEAST ACTIVE DAY OF THE MONTH</div>
 				<div class="card-body">
 					<h4 class="card-title"><%= least_active_day %></h4>
 				</div>
