@@ -6,27 +6,28 @@
 		<%= model.last_name %>
 	</h1>
 	<p>From <%= begin_day %> to <%= end_day %></p>
+	<br><br>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div id="container-steps" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div id="container-distance" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div id="container-calories" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div id="container-sleep" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<style>.highcharts-credits{display:none}</style>
 	<script>
-	Highcharts.chart('container', {
+	Highcharts.chart('container-steps', {
 		chart: {
 			type: 'area'
 		},
 		title: {
-			text: 'US and USSR nuclear stockpiles'
-		},
-		subtitle: {
-			text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
-			'thebulletin.metapress.com</a>'
+			text: null
 		},
 		xAxis: {
 			type: 'datetime'
 		},
 		yAxis: {
 			title: {
-				text: 'Nuclear weapon states'
+				text: null
 			},
 			labels: {
 				formatter: function () {
@@ -35,19 +36,126 @@
 			}
 		},
 		tooltip: {
-			pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+			pointFormat: '{series.name} made: <b>{point.y:,.0f}</b>'
 		},
 		plotOptions: {
 			area: {
-				pointStart: Date.UTC(2010, 0, 1),
+				pointStart: <%= begin_day_utc %>,
 				pointInterval: 24 * 3600 * 1000
 			}
 		},
 		series: [{
 			name: 'steps',
-			data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+			data: <%= steps_json %>,
 			}]
 		});
+
+	Highcharts.chart('container-distance', {
+		chart: {
+			type: 'area'
+		},
+		title: {
+			text: null
+		},
+		xAxis: {
+			type: 'datetime'
+		},
+		yAxis: {
+			title: {
+				text: null
+			},
+			labels: {
+				formatter: function () {
+					return this.value + ' Km';
+				}
+			}
+		},
+		tooltip: {
+			pointFormat: '{series.name} traveled: <b>{point.y:.2f} Km</b>'
+		},
+		plotOptions: {
+			area: {
+				pointStart: <%= begin_day_utc %>,
+				pointInterval: 24 * 3600 * 1000
+			}
+		},
+		series: [{
+			name: 'distance',
+			data: <%= distance_json %>,
+			}]
+		});
+
+	Highcharts.chart('container-calories', {
+		chart: {
+			type: 'area'
+		},
+		title: {
+			text: null
+		},
+		xAxis: {
+			type: 'datetime'
+		},
+		yAxis: {
+			title: {
+				text: null
+			},
+			labels: {
+				formatter: function () {
+					return this.value / 1000 + 'K cal';
+				}
+			}
+		},
+		tooltip: {
+			pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
+		},
+		plotOptions: {
+			area: {
+				pointStart: <%= begin_day_utc %>,
+				pointInterval: 24 * 3600 * 1000
+			}
+		},
+		series: [{
+			name: 'calories',
+			data: <%= calories_json %>,
+			}]
+		});
+
+	Highcharts.chart('container-sleep', {
+		chart: {
+			type: 'area'
+		},
+		title: {
+			text: null
+		},
+		xAxis: {
+			type: 'datetime'
+		},
+		yAxis: {
+			title: {
+				text: null
+			},
+			labels: {
+				formatter: function () {
+					return this.value / 1000 + 'K cal';
+				}
+			}
+		},
+		tooltip: {
+			pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
+		},
+		plotOptions: {
+			area: {
+				pointStart: <%= begin_day_utc %>,
+				pointInterval: 24 * 3600 * 1000
+			}
+		},
+		series: [{
+			name: 'sleep',
+			data: <%= calories_json %>,
+			}]
+		});
+
+
 	</script>
 	<hr>
 	<a href="#">Weekly report</a><br>

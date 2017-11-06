@@ -8,11 +8,29 @@ class WeeklyReportCell < Cell::ViewModel
 	end
 
 	def begin_day
-		Date.today.at_beginning_of_week
+		Date.today.at_beginning_of_week - 7.days
+	end
+
+	def begin_day_utc
+		t = begin_day.to_time
+		t += t.utc_offset
+		return t = t.to_i * 1000
+	end
+
+	def steps_json
+		JSON.generate(weekly_logs.map{ |e| e.steps })
+	end
+
+	def distance_json
+		JSON.generate(weekly_logs.map{ |e| e.distance })
+	end
+
+	def calories_json
+		JSON.generate(weekly_logs.map{ |e| e.calories })
 	end
 
 	def end_day
-		Date.today.at_end_of_week
+		Date.today.at_end_of_week - 7.days
 	end
 
 	def most_active_day
@@ -70,7 +88,7 @@ class WeeklyReportCell < Cell::ViewModel
 	private
 
 	def weekly_logs
-		model.daily_logs.where("date >= ?", begin_day)
+		model.daily_logs.where("date >= ? AND date <= ?", begin_day, end_day)
 	end
 
 	def sleep_length
