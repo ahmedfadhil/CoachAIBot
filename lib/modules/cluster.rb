@@ -67,13 +67,25 @@ class Cluster
 
   def undone_feedback_days(delivered_plans)
     undone = 0
-    (delivered_plans.minimum('from_day')..Date.today).each do |date|
-      unless Feedback.joins(notification: :planning).where(:plannings => {:plan_id => 1}, :notifications => {:date => date}).exists?
-        undone += 1
-      end
+    if delivered_plans.maximum('to_day') < Date.today
+      upper_extremity_date = delivered_plans.maximum('to_day')
+    else
+      upper_extremity_date = Date.today
     end
+
+    (delivered_plans.minimum('from_day')..upper_extremity_date).each do |date|
+      flag = false
+      delivered_plans.each do |plan|
+        unless Feedback.joins(notification: :planning).where(:plannings => {:plan_id => plan.id}, :notifications => {:date => date}).exists?
+          flag = true
+        end
+      end
+      undone += 1 if flag == true
+    end
+
     undone
   end
+
 
   # performs Cluster's main check
   def mark(user, to_do_activities, undone_activities, undone_feedback_days)
