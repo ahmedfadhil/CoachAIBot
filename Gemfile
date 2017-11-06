@@ -67,7 +67,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -95,6 +95,8 @@ gem 'chatscript'
 # very usefull for hash dot notation
 gem 'hash_dot'
 
+# oauth2 client
+gem 'oauth2'
 
 ####
 gem 'rails-assets-eq.js'
@@ -104,6 +106,8 @@ gem 'material_design_lite-rails', '~> 1.3'
 gem 'rails-assets-mdl-selectfield'
 gem 'rails-assets-polyfills'
 
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
 
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
@@ -111,22 +115,28 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'selenium-webdriver'
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+
 end
 
 group :development do
+	gem 'rails-erd'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+
+	# Deploy without confidence ®
+	gem "capistrano", "~> 3.9"
+	gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+	gem 'capistrano-passenger'
 end
 
 group :production do
   # Heroku requests postgres for deploy
-  gem 'pg','0.17.1'
+  #gem 'pg','0.17.1'
   # Used by heroku to serve static assets and css stylesheets
-  gem 'rails_12factor', '0.0.2'
+  #gem 'rails_12factor', '0.0.2'
 end

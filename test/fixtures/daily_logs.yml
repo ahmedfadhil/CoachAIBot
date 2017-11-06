@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  distance: 1.5
+  calories: 1
+  steps: 1
+  sleep: 1
+  date: 2017-09-26
+
+two:
+  user: two
+  distance: 1.5
+  calories: 1
+  steps: 1
+  sleep: 1
+  date: 2017-09-26

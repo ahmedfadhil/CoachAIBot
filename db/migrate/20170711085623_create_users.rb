@@ -6,7 +6,9 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :last_name
 
       #t.jsonb :bot_command_data, default: {}
-      t.column :bot_command_data, :jsonb
+      #t.column :bot_command_data, :json
+			#t.json :bot_command_data, default: {}
+			t.string :bot_command_data
 
       t.string :email
       t.string :cellphone

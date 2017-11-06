@@ -1,0 +1,42 @@
+<div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+	<header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+		<div class="mdl-layout__header-row">
+			<span class="mdl-layout-title">
+				<%= title %>
+			</span>
+		</div>
+	</header>
+	<div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+		<header class="drawer-header">
+			<%= image_tag 'bot.jpg', class: 'avatar' %>
+			<div class="avatar-dropdown">
+				<span><%= "#{current_coach_user.first_name} #{current_coach_user.last_name}" %></span>
+				<div class="mdl-layout-spacer"></div>
+				<button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+					<i class="material-icons" role="presentation">arrow_drop_down</i>
+					<span class="visuallyhidden">Accounts</span>
+				</button>
+				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+					<li class="mdl-menu__item"><i class="material-icons">email</i><%= current_coach_user.email %> </li>
+					<li class="mdl-menu__item"><i class="material-icons">settings</i>Impostazioni</li>
+					<li class="mdl-menu__item"><i class="material-icons">clear</i>Log out</li>
+				</ul>
+			</div>
+		</header>
+		<nav class="navigation mdl-navigation mdl-color--blue-grey-800">
+			<%= navigation_link(users_path, 'home', 'Home') %>
+			<%= navigation_link(users_path, 'dashboard', 'Dashboard') %>
+			<%= navigation_link(users_path, 'people', 'Patients') %>
+			<%= navigation_link(activities_path, 'inbox', 'Activities') %>
+			<%= navigation_link(wearables_path, 'warning', 'Wearables') %>
+			<div class="mdl-layout-spacer"></div>
+			<a class="mdl-navigation__link" href="">
+				<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>
+				<span class="visuallyhidden">Help</span>
+			</a>
+		</nav>
+	</div>
+	<main class="mdl-layout__content mdl-color--grey-100">
+		<%= yield %>
+	</main>
+</div>

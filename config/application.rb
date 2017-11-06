@@ -16,7 +16,7 @@ module Coach
     config.load_defaults 5.1
 
     # Changing schema for ActiveRecord
-    config.active_record.schema_format = :sql
+    config.active_record.schema_format = :ruby
 
     # Autoload customized modules from /lib
     config.autoload_paths += %W(#{config.root}/lib)

@@ -1,10 +1,9 @@
 class User < ApplicationRecord
   has_many :chats
+	has_many :daily_logs
   has_many :plans, dependent: :destroy
   has_one :feature, dependent: :destroy
   belongs_to :coach_user, optional: true
-
-  attr_accessor :physical_score,:diet_score,:mental_score
 
   validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email, message: 'Email in uso. Scegli altra email.'
@@ -26,7 +25,7 @@ class User < ApplicationRecord
   end
 
   def reset_user_state
-    hash = { :state => "no_state"}
+    hash = { :state => 'no_state'}
     self.bot_command_data = hash.to_json
     save
   end
