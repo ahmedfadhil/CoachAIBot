@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # crono jobs route
   mount Crono::Web, at: '/crono'
 
+  resources :communications
+
   resources :activities
 
   resources :chats do
