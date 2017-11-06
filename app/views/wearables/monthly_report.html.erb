@@ -1,0 +1,5 @@
+<%= cell(:layout, section: "wearables").() do %>
+	<% capture do %>
+		<%= cell(:monthly_report, @user).() %>
+	<% end %>
+<% end %>

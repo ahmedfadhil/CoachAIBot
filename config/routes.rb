@@ -67,7 +67,9 @@ Rails.application.routes.draw do
 	# Actions reserved for the coach:
 	get 'wearables', to: 'wearables#index', as: 'wearables'
 	get 'wearables/:id', to: 'wearables#show', as: 'show_wearable'
-	get 'wearables/:id/month', to: 'wearables#month', as: 'montly_report'
+	get 'wearables/:id/monthly_report', to: 'wearables#monthly_report', as: 'montly_report'
+	get 'wearables/:id/weekly_chart', to: 'wearables#weekly_chart', as: 'weekly_chart'
+	get 'wearables/:id/monthly_chart', to: 'wearables#monthly_chart', as: 'monthly_chart'
 	get 'wearables/:id/edit', to: 'wearables#edit', as: 'edit_wearable'
 	post 'wearables/:id/invite', to: 'wearables#invite', as: 'wearable_invite'
 	post 'wearables/:id/disable', to: 'wearables#disable', as: 'wearable_disable'

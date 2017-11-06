@@ -15,7 +15,11 @@ class WearablesController < ApplicationController
 		@user = User.find(params[:id])
 	end
 
-	def month
+	def monthly_report
+		@user = User.find(params[:id])
+	end
+
+	def weekly_chart
 		@user = User.find(params[:id])
 	end
 

@@ -1,0 +1,58 @@
+<div class="container" style="max-width: 800px">
+	<h1>
+		Weekly charts:
+		<%= model.first_name %>
+		<%= " " %>
+		<%= model.last_name %>
+	</h1>
+	<p>From <%= begin_day %> to <%= end_day %></p>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<script>
+	Highcharts.chart('container', {
+		chart: {
+			type: 'area'
+		},
+		title: {
+			text: 'US and USSR nuclear stockpiles'
+		},
+		subtitle: {
+			text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
+			'thebulletin.metapress.com</a>'
+		},
+		xAxis: {
+			type: 'datetime'
+		},
+		yAxis: {
+			title: {
+				text: 'Nuclear weapon states'
+			},
+			labels: {
+				formatter: function () {
+					return this.value / 1000 + 'k';
+				}
+			}
+		},
+		tooltip: {
+			pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+		},
+		plotOptions: {
+			area: {
+				pointStart: Date.UTC(2010, 0, 1),
+				pointInterval: 24 * 3600 * 1000
+			}
+		},
+		series: [{
+			name: 'steps',
+			data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+			}]
+		});
+	</script>
+	<hr>
+	<a href="#">Weekly report</a><br>
+	<a href="#">Montly report</a><br>
+	<a href="#">Weekly graphs</a><br>
+	<a href="#">Montly graphs</a><br>
+	<br><br>
+</div>

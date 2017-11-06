@@ -3,6 +3,10 @@ class WeeklyReportCell < Cell::ViewModel
 		render
 	end
 
+	def chart
+		render
+	end
+
 	def begin_day
 		Date.today.at_beginning_of_week
 	end
