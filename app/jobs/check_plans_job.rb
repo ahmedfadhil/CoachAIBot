@@ -2,6 +2,6 @@ require './lib/modules/plan_checker'
 
 class PlanCheckerJob < ActiveJob::Base
   def perform
-    PlanChecker.new.check_and_notify
+    Communicator.new.check_plans
   end
 end

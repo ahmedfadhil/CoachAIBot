@@ -1,9 +1,10 @@
-class PlanChecker
+# communicates relevant information to the coach and when needed also to the patient
+
+class Communicator
   def init
-    puts 'Checking Plans...'
   end
 
-  def check_and_notify
+  def check_plans
     plans = Plan.where('delivered = ? AND (communicated is ? OR communicated = ?)', 1, nil, false)
     plans.find_each do |plan|
       if plan.has_period_exceeded? && plan.has_missing_feedback?
