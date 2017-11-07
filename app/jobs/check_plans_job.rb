@@ -1,6 +1,6 @@
-require './lib/modules/plan_checker'
+require './lib/modules/communicator'
 
-class PlanCheckerJob < ActiveJob::Base
+class CheckPlanJobs < ActiveJob::Base
   def perform
     Communicator.new.check_plans
   end
