@@ -1,3 +1,12 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+@CommunicationsPooler =
+  pool: ->
+    setTimeout(@request, 5000)
+
+  request: ->
+    $.get($('#communications').data('url'), after: $('.communication_hidden')[$('.communication_hidden').length-1].value)
+
+$ ->
+  scroll_list()
+
+  if $('#chats').length > 0
+    ChatsPooler.pool()
