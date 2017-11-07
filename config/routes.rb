@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :communications do
     collection do
-      get 'communications/:id', to: 'communications#communications', as: 'all'
+      get 'communications/:id', to: 'communications#all', as: 'all'
     end
   end
 
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :chats do
     collection do
-      post 'chat/:id', to: 'chats#chat', as: 'chat'
+      get 'chat/:id', to: 'chats#chat', as: 'chat'
       get 'chats/:id', to: 'chats#chats', as: 'chats'
     end
   end

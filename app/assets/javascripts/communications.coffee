@@ -3,10 +3,7 @@
     setTimeout(@request, 5000)
 
   request: ->
-    $.get($('#communications').data('url'), after: $('.communication_hidden')[$('.communication_hidden').length-1].value)
+    $.get($('#communications').data('url'))
 
 $ ->
-  scroll_list()
-
-  if $('#chats').length > 0
-    ChatsPooler.pool()
+  CommunicationsPooler.pool()
