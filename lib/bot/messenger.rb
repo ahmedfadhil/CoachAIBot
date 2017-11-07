@@ -1,4 +1,5 @@
 require 'bot/general_actions'
+require './lib/modules/communicator'
 
 class Messenger
   attr_reader :user, :state
@@ -19,6 +20,8 @@ class Messenger
 
   def register_patient_response(response)
     Chat.create(user_id: @user.id, coach_user_id: @user.coach_user.id, text: response, direction: true)
+    communicator = Communicator.new
+    communicator.communicate_new_message(@user)
     actuator = GeneralActions.new(@user, @state)
     actuator.send_reply 'Il tuo messaggio e\' stato inviato al coach. Ti notificheremo se ci dovessero essere nuovi messaggi per te.'
     actuator.back_to_menu_with_menu

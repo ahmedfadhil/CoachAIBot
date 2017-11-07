@@ -17,9 +17,6 @@ class Dispatcher
     @user = user
   end
 
-  ap 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'
-  ap @message
-
   # process the user state
   def process
 

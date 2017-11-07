@@ -110,7 +110,8 @@ class ProfilingManager
 
     if flag == 1
       if new_state.monitoring == 1
-        custom_keyboard %w(Attivita Feedback Consigli)
+        communicate_profiling_done! @user
+        custom_keyboard %w(Attivita Feedback Consigli Messaggi)
       else
         custom_keyboard default_responses
       end
@@ -125,65 +126,17 @@ class ProfilingManager
 
   def custom_keyboard(keyboard_values)
     if keyboard_values.length>4
-      kb = add_emoji keyboard_values.each_slice(2).to_a
+      kb = keyboard_values.each_slice(2).to_a
     else
-      kb = add_emoji keyboard_values
+      kb = keyboard_values
     end
     Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
   end
 
-  def add_emoji(values)
-    values.map! {|x|
-      case x
-        when 'health', 'salute', 'healthy diet', 'healthy diet', 'dieta', 'dieta salutare', 'mangiare bene'
-          "\u{1f52c}"+x
-        when 'attivita fisica'
-          "\u{1f93a}"+x
-        when 'strategia di adattamento'
-          "\u{1f914}"+x
-        when 'sì', 'si', 'certo', 'ok', 'va bene', 'certamente', 'sisi', 'yea', 'yes', 'S'
-          "\u{1f44d}"+x
-        when 'no', 'nono', 'assolutamente no', 'eh no', 'n', 'N'
-          "\u{1f44e}"+x
-        when 'un po'
-          "\u{1f44c}"+x
-        when 'soleggiato'
-          "\u{1f31e}"+x
-        when 'piovoso'
-          "\u{1f327}"+x
-        when 'go on', 'avanti', 'proseguiamo pure', 'proseguiamo'
-          "\u{23ed}"+x
-        when 'stop for a while', 'stop', 'fermiamoci qui per ora', 'fermiamoci', 'basta'
-          "\u{1f6d1}"+x
-        when 'nutrizione'
-          "\u{1f355}"+x
-        when 'fitness'
-          "\u{1f3cb}"+x
-        when 'consapevolezza'
-          "\u{1f64c}"+x
-        when 'ancora'
-          "\u{1f4aa}"+x
-        when 'basta'
-          "\u{1f3fc}"+x
-        when 'sempre'
-          "\u{1f922}"+x
-        when 'quasi sempre'
-          "\u{1f637}"+x
-        when 'poche volte'
-          "\u{1f644}"+x
-        when 'quasi mai'
-          "\u{1f642}"+x
-        when 'mai'
-          "\u{1f60a}"+x
-        when 'benessere mentale'
-          "\u{1f60c}"+x
-        when 'feedback'
-          "\u{1f607}"+x
-        else
-          x
-      end
-    }
-    values
+  def communicate_profiling_done!(user)
+    communicator = Communicator.new
+    communicator.communicate_profiling_finished user
   end
+
 
 end

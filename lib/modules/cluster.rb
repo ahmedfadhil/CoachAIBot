@@ -7,7 +7,6 @@ class Cluster
   GREEN, YELLOW, RED = 0, 1, 2
 
   def init
-    puts 'Ready to cluster!'
   end
 
   def group
@@ -18,6 +17,8 @@ class Cluster
       mark(user, therms[:to_do_activities], therms[:undone_activities], therms[:undone_feedback_days])
     end
   end
+
+  private
 
   def get_therms(delivered_plans)
     to_do = 0
@@ -94,12 +95,18 @@ class Cluster
     elsif (undone_activities <= RED_THRESHOLD*to_do_activities) && (undone_feedback_days <= 6 )
       update(user, YELLOW)
     else
+      if user.cluster != RED
+        communicator = Communicator.new
+        communicator.communicate_user_critical(user)
+      end
       update(user, RED)
     end
   end
 
   def update(user, cluster)
-    user.cluster = cluster
-    user.save
+    if user.cluster != cluster
+      user.cluster = cluster
+      user.save
+    end
   end
 end
