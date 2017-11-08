@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :communications
   has_many :chats
 	has_many :daily_logs
   has_many :plans, dependent: :destroy

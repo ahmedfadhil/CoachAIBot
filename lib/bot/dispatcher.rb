@@ -104,7 +104,6 @@ class Dispatcher
                 general_actions.back_to_menu_with_menu
               else
                 Messenger.new(@user, hash_state).register_patient_response(text)
-
             end
 
 

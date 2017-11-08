@@ -1,3 +1,5 @@
+require './lib/modules/notifier'
+
 class ChatsController < ApplicationController
   before_action :authenticate_coach_user!
   respond_to :html, :js
@@ -10,6 +12,7 @@ class ChatsController < ApplicationController
 
   def create
     @chat = Chat.create(chat_params)
+    Notifier.new.notify_for_new_messages(@chat.user)
   end
 
   def chats

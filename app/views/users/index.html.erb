@@ -16,9 +16,12 @@
           </div>
       <% end %>
 
-      <% @users.each do |user|  %>
-        <%= cell(:user, user) %>
-      <% end %>
+      <div class="row">
+        <% @users.each do |user|  %>
+            <%= cell(:user, user) %>
+        <% end %>
+      </div>
+
 
 
     </div>

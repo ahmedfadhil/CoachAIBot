@@ -13,6 +13,7 @@ gem 'record_tag_helper', '~> 1.0'
 
 # another way for cron jobs
 gem 'crono'
+gem 'daemons' #used by crono
 
 # cron jobs web ui
 gem 'haml'

@@ -4,7 +4,6 @@
 @ChatsPooler =
   pool: ->
     setTimeout(@request, 5000)
-    console.log 'wewewe'
 
   request: ->
     $.get($('#chats').data('url'), after: $('.message_hidden')[$('.message_hidden').length-1].value)

@@ -75,7 +75,7 @@ class FeedbackManager
   end
 
   def finished(plan_name)
-   "Abbiamo finito con il piano ''#{plan_name}''"
+   "Abbiamo tutti i feedback per il piano''#{plan_name}'' dall'inizio fino ad oggi."
   end
 
   def prepare_state_for_feedback(notification, question, plan_name)

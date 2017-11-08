@@ -107,6 +107,7 @@ GEM
     crono (1.1.2)
       activerecord (>= 4.0)
       activesupport (>= 4.0)
+    daemons (1.2.4)
     declarative-builder (0.1.0)
       declarative-option (< 0.2.0)
     declarative-option (0.1.0)
@@ -343,6 +344,10 @@ DEPENDENCIES
   chatscript
   coffee-rails (~> 4.2)
   crono
+<<<<<<< HEAD
+=======
+  daemons
+>>>>>>> coach_notifications
   devise
   haml
   hash_dot

@@ -1,69 +1,71 @@
+<div class="new-plan-grid mdl-grid">
+  <div id="my-plan-card">
+
+    <div class="new-plan-card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Nuovo Piano per il paziente <%= "#{@user.first_name} #{@user.last_name}" %></h2>
+      </div>
 
 
-<div id="my-plan-card">
+      <div class="mdl-card__supporting-text">
+        Inserisci i dati del nuovo piano!
+        <%= form_for @plan, url: plans_path(@plan, :u_id => @user.id), method: 'post' do |f| %>
 
-  <div class="new-plan-card mdl-card mdl-shadow--2dp">
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Nuovo Piano per il paziente <%= "#{@user.first_name} #{@user.last_name}" %></h2>
-    </div>
-
-
-    <div class="mdl-card__supporting-text">
-      Inserisci i dati del nuovo piano!
-      <%= form_for @plan, url: plans_path(@plan, :u_id => @user.id), method: 'post' do |f| %>
-
-        <div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <%= f.text_field :name, class: 'mdl-textfield__input' %>
-            <%= f.label :name, 'Nome', class: 'mdl-textfield__label' %>
-          </div>
-        </div>
-
-        <div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <%= f.text_area :desc, class: 'plan-desc mdl-textfield__input' %>
-            <%= f.label :desc, 'Descrizione', class: 'plan-desc mdl-textfield__label' %>
-          </div>
-        </div>
-
-        <div id ="contact">
-          <div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <%= f.text_field :from_day, class: 'mdl-textfield__input',
-                               pattern: '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$'
-              %>
-              <%= f.label :from_day, 'Dal giorno', class: 'mdl-textfield__label' %>
-              <span class="mdl-textfield__error">Data nella forma GG/MM/AAAA oppure GG.MM.AAA oppure GG-MM-AAAA</span>
+            <div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.text_field :name, class: 'mdl-textfield__input' %>
+                <%= f.label :name, 'Nome*', class: 'mdl-textfield__label' %>
+              </div>
             </div>
 
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <%= f.text_field :to_day, class: 'mdl-textfield__input',
-                               pattern: '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$'
-              %>
-              <%= f.label :to_day, 'Al giorno', class: 'mdl-textfield__label' %>
-              <span class="mdl-textfield__error">Data nella forma GG/MM/AAAA oppure GG.MM.AAA oppure GG-MM-AAAA</span>
+            <div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.text_area :desc, class: 'plan-desc mdl-textfield__input' %>
+                <%= f.label :desc, 'Descrizione*', class: 'plan-desc mdl-textfield__label' %>
+              </div>
             </div>
 
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <%= f.text_field :notification_hour_coach_def, class: 'mdl-textfield__input notification_hour',
-                               pattern: '^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$' %>
-              <%= f.label :notification_hour_coach_def, 'A che ora vorresti che fosse notificato il paziente?',
-                          class: 'mdl-textfield__label notification_hour' %>
-              <span class="mdl-textfield__error">Ora nel formato 24h e HH:mm</span>
+            <div id ="contact">
+              <div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <%= f.text_field :from_day, class: 'mdl-textfield__input',
+                                   pattern: '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$'
+                  %>
+                  <%= f.label :from_day, 'Dal giorno*', class: 'mdl-textfield__label' %>
+                  <span class="mdl-textfield__error">Data nella forma GG/MM/AAAA oppure GG.MM.AAA oppure GG-MM-AAAA</span>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <%= f.text_field :to_day, class: 'mdl-textfield__input',
+                                   pattern: '^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$'
+                  %>
+                  <%= f.label :to_day, 'Al giorno*', class: 'mdl-textfield__label' %>
+                  <span class="mdl-textfield__error">Data nella forma GG/MM/AAAA oppure GG.MM.AAA oppure GG-MM-AAAA</span>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <%= f.text_field :notification_hour_coach_def, class: 'mdl-textfield__input notification_hour',
+                                   pattern: '^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$' %>
+                  <%= f.label :notification_hour_coach_def, 'A che ora vorresti che fosse notificato il paziente?',
+                              class: 'mdl-textfield__label notification_hour' %>
+                  <span class="mdl-textfield__error">Ora nel formato 24h e HH:mm</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div>
-          <br>
-          <%= f.submit 'Aggiungi ed assegna piano', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
-        </div>
+            <div>
+              <br>
+              <%= f.submit 'Aggiungi ed assegna piano', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+            </div>
 
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 
+
+
+</div>
 
 
 
