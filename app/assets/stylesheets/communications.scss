@@ -1,3 +1,39 @@
-// Place all the styles related to the Communications controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.communication_not_read{
+  font-weight: bold;
+}
+
+.all_communications{
+  text-align: -webkit-center;
+  color: blue;
+}
+
+.communication-hour{
+  text-align: -webkit-right;
+  margin-top: -10px;
+  margin-right: 10px;
+  color: cadetblue;
+}
+
+.mdl-menu__item:hover{
+  background-color: transparent;
+}
+
+.communications-list{
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.communications-list-hour{
+  text-align: -webkit-right;
+  margin-top: -10px;
+  margin-right: 10px;
+  color: #f9f9f9;
+}
+
+#communications-list-header{
+  margin-top: 5px;
+}
+
+li.last{
+  position: inherit;
+}
