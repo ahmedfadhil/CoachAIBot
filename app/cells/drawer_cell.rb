@@ -3,4 +3,8 @@ class DrawerCell < Cell::ViewModel
     render
   end
 
+  def coach
+    model
+  end
+
 end

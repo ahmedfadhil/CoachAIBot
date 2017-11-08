@@ -7,4 +7,10 @@
     <td><i>Periodo:</i></td>
     <td>dal <b> <%= plan.from_day.strftime('%m/%d/%Y') %> </b>  al <b><%= plan.to_day.strftime('%m/%d/%Y') %></b></td>
   </tr>
+  <% if options[:activities_count] %>
+    <tr>
+      <td><i>Attivita' sotto questo piano:</i></td>
+      <td><%= plan.activities.count %></td>
+    </tr>
+  <% end %>
 </table>

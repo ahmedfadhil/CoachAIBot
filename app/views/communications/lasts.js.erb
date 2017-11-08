@@ -1,0 +1,8 @@
+$('document').ready(function() {
+    <% unless @communications.empty? %>
+    $("li:has('div'):contains('Vedi tutte le notifiche')").remove();
+    $('#communications').append("<%= escape_javascript(render 'communications/communications_list') %>");
+    $('#communications-badge').attr('data-badge', <%= @communications.where(:read_at => nil).count %>);
+    <% end %>
+    CommunicationsPooler.pool();
+});

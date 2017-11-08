@@ -3,14 +3,14 @@
     <%= image_tag 'bot.jpg', class: 'avatar' %>
 
     <div class="avatar-dropdown">
-      <span><%= "#{model.first_name} #{model.last_name}" %></span>
+      <span><%= "#{coach.first_name} #{coach.last_name}" %></span>
       <div class="mdl-layout-spacer"></div>
       <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
         <i class="material-icons" role="presentation">arrow_drop_down</i>
         <span class="visuallyhidden">Accounts</span>
       </button>
       <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-        <li class="mdl-menu__item"><i class="material-icons">email</i><%= model.email %> </li>
+        <li class="mdl-menu__item"><i class="material-icons">email</i><%= coach.email %> </li>
         <li class="mdl-menu__item"><i class="material-icons">settings</i>Impostazioni</li>
         <li class="mdl-menu__item"><i class="material-icons">clear</i>Log out</li>
       </ul>
@@ -35,8 +35,9 @@
         <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Attivita'
     <% end %>
 
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Notifications</a>
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Communications</a>
+    <%= link_to all_communications_path(coach), class: 'mdl-navigation__link' do %>
+        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Communications
+    <% end %>
 
     <div class="mdl-layout-spacer"></div>
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>

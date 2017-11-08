@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   resources :communications do
     collection do
-      get 'communications/:id', to: 'communications#all', as: 'all'
+      get 'lasts/:id', to: 'communications#lasts', as: 'lasts'
+      get 'all/:id', to: 'communications#all', as: 'all'
     end
   end
 
