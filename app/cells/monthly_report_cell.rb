@@ -4,11 +4,33 @@ class MonthlyReportCell < Cell::ViewModel
 	end
 
 	def begin_day
-		Date.today.beginning_of_month
+		Date.today.beginning_of_month - 1.month
 	end
 
 	def end_day
-		Date.today.end_of_month
+		Date.today.end_of_month - 1.month
+	end
+
+	def begin_day_utc
+		t = begin_day.to_time
+		t += t.utc_offset
+		return t = t.to_i * 1000
+	end
+
+	def steps_json
+		JSON.generate(weekly_logs.map{ |e| e.steps })
+	end
+
+	def distance_json
+		JSON.generate(weekly_logs.map{ |e| e.distance })
+	end
+
+	def calories_json
+		JSON.generate(weekly_logs.map{ |e| e.calories })
+	end
+
+	def sleep_json
+		JSON.generate(weekly_logs.map{ |e| e.sleep })
 	end
 
 	def most_active_day
@@ -32,15 +54,15 @@ class MonthlyReportCell < Cell::ViewModel
 	end
 
 	def total_distance
-		weekly_logs.map{ |e| e.distance }.inject(:+)
+		weekly_logs.map{ |e| e.distance }.inject(:+).floor(2)
 	end
 
 	def daily_distance_average
-		total_distance / weekly_logs.length
+		(total_distance / weekly_logs.length).floor(2)
 	end
 
 	def record_distance
-		weekly_logs.max_by(&:distance).distance
+		weekly_logs.max_by(&:distance).distance.floor(2)
 	end
 
 	def total_calories
@@ -66,10 +88,10 @@ class MonthlyReportCell < Cell::ViewModel
 	private
 
 	def weekly_logs
-		model.daily_logs.where("date >= ?", begin_day)
+		model.daily_logs.where("date >= ? AND date <= ?", begin_day, end_day)
 	end
 
 	def sleep_length
-		weekly_logs.map { |e| e.sleep || 0 }.inject(:+) / weekly_logs.length
+		weekly_logs.map { |e| e.sleep || 0 }.inject(:+) / 36000 / weekly_logs.length
 	end
 end

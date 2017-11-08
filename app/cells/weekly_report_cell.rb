@@ -58,15 +58,15 @@ class WeeklyReportCell < Cell::ViewModel
 	end
 
 	def total_distance
-		weekly_logs.map{ |e| e.distance }.inject(:+)
+		weekly_logs.map{ |e| e.distance }.inject(:+).floor(2)
 	end
 
 	def daily_distance_average
-		total_distance / weekly_logs.length
+		(total_distance / weekly_logs.length).floor(2)
 	end
 
 	def record_distance
-		weekly_logs.max_by(&:distance).distance
+		weekly_logs.max_by(&:distance).distance.floor(2)
 	end
 
 	def total_calories
@@ -96,6 +96,6 @@ class WeeklyReportCell < Cell::ViewModel
 	end
 
 	def sleep_length
-		weekly_logs.map { |e| e.sleep || 0 }.inject(:+) / weekly_logs.length
+		weekly_logs.map { |e| e.sleep || 0 }.inject(:+) / 36000 / weekly_logs.length
 	end
 end
