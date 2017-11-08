@@ -29,6 +29,10 @@ class WeeklyReportCell < Cell::ViewModel
 		JSON.generate(weekly_logs.map{ |e| e.calories })
 	end
 
+	def sleep_json
+		JSON.generate(weekly_logs.map{ |e| e.sleep })
+	end
+
 	def end_day
 		Date.today.at_end_of_week - 7.days
 	end

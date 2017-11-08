@@ -136,12 +136,22 @@
 			},
 			labels: {
 				formatter: function () {
-					return this.value / 1000 + 'K cal';
+					var time = this.value;
+					var hours1=parseInt(time/3600000);
+					var mins1=parseInt((parseInt(time%3600000))/60000);
+					return hours1 + 'h ' + mins1 + 'min';
 				}
 			}
 		},
 		tooltip: {
-			pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
+			//pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
+			formatter: function () {
+				var time = this.y;
+				var hours1=parseInt(time/3600000);
+				var mins1=parseInt((parseInt(time%3600000))/60000);
+				var x = hours1 + 'h ' + mins1 + 'min';
+				return x + " spent sleeping";
+			}
 		},
 		plotOptions: {
 			area: {
@@ -150,8 +160,8 @@
 			}
 		},
 		series: [{
-			name: 'sleep',
-			data: <%= calories_json %>,
+			name: 'time spent sleeping',
+			data: <%= sleep_json %>,
 			}]
 		});
 
