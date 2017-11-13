@@ -142,7 +142,7 @@ class ProfilingManager
     communicator.communicate_profiling_finished user
   end
 
-  def save_features_to_csv user
+  def save_features_to_csv(user)
     path = Rails.root.join('csvs', 'features.csv')
     features = user.feature
     CSV.open(path, 'a+') do |csv|
