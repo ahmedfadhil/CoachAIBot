@@ -82,10 +82,13 @@ class LoginManager
      physical: 0,
      coping: 0,
      mental: 0,
-     user_id: @user.id, user_name: @user.last_name, monitoring: 0,
+     user_id: @user.id,
+     user_name: @user.last_name,
+     monitoring: 0,
      notification_hour_morning: nil,
      notification_hour_evening: nil,
      health_features: {
+         age: nil,
          health_personality: nil,
          health_wellbeing_meaning: nil,
          health_nutritional_habits: nil,
@@ -97,7 +100,8 @@ class LoginManager
          sport: nil,
          physical_sport_frequency: nil,
          physical_sport_intensity: nil,
-         physical_goal: nil
+         work_physical_activity: nil,
+         foot_bicycle: nil
      },
      coping_features: {
          coping_stress: nil,

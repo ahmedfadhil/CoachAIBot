@@ -344,10 +344,7 @@ DEPENDENCIES
   chatscript
   coffee-rails (~> 4.2)
   crono
-<<<<<<< HEAD
-=======
   daemons
->>>>>>> coach_notifications
   devise
   haml
   hash_dot

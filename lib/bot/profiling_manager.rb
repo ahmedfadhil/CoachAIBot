@@ -1,5 +1,6 @@
 require 'telegram/bot'
 require 'chatscript'
+require 'csv'
 
 
 class ProfilingManager
@@ -72,6 +73,7 @@ class ProfilingManager
 
     if feature.health == 0 && dot_state.health == 1
       feature.health = 1
+      feature.age = dot_state.health_features.age
       feature.health_personality = dot_state.health_features.health_personality
       feature.health_wellbeing_meaning = dot_state.health_features.health_wellbeing_meaning
       feature.health_nutritional_habits = dot_state.health_features.health_nutritional_habits
@@ -102,7 +104,8 @@ class ProfilingManager
       feature.physical_sport = dot_state.physical_features.sport
       feature.physical_sport_frequency = dot_state.physical_features.physical_sport_frequency
       feature.physical_sport_intensity = dot_state.physical_features.physical_sport_intensity
-      feature.physical_goal = dot_state.physical_features.physical_goal
+      feature.work_physical_activity = dot_state.physical_features.work_physical_activity
+      feature.foot_bicycle = dot_state.physical_features.foot_bicycle
       feature.save
     end
 
@@ -111,6 +114,7 @@ class ProfilingManager
     if flag == 1
       if new_state.monitoring == 1
         communicate_profiling_done! @user
+        save_features_to_csv @user
         custom_keyboard %w(Attivita Feedback Consigli Messaggi)
       else
         custom_keyboard default_responses
@@ -138,5 +142,12 @@ class ProfilingManager
     communicator.communicate_profiling_finished user
   end
 
+  def save_features_to_csv user
+    path = Rails.root.join('csvs', 'features.csv')
+    features = user.feature
+    CSV.open(path, 'a+') do |csv|
+      csv << [user.id, features.age, features.health_personality, features.foot_bicycle, features.work_physical_activity, features.coping_stress]
+    end
+  end
 
 end

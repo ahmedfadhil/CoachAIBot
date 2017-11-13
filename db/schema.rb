@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108083552) do
+ActiveRecord::Schema.define(version: 20171113120343) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20171108083552) do
     t.string "physical_sport"
     t.string "physical_sport_frequency"
     t.string "physical_sport_intensity"
-    t.string "physical_goal"
+    t.string "work_physical_activity"
     t.string "health_personality"
     t.string "health_wellbeing_meaning"
     t.string "health_nutritional_habits"
@@ -118,6 +118,8 @@ ActiveRecord::Schema.define(version: 20171108083552) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "foot_bicycle"
+    t.integer "age"
     t.index ["user_id"], name: "index_features_on_user_id"
   end
 

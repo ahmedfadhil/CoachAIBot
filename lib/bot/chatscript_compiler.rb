@@ -25,6 +25,8 @@ class ChatscriptCompiler
     volley = cs_bot.volley "#{@message}", user: user.telegram_id
     reply = volley.text
 
+    reply = 'no response from chatscript' if reply == ''
+
     # Send Chatscript response to user thought telegram
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
 
