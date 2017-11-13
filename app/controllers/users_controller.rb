@@ -36,8 +36,7 @@ class UsersController < ApplicationController
   end
 
   def features
-    @user = User.find(params[:id])
-    @features = @user.feature
+    @features = User.find(params[:id]).feature
   end
 
   # active users
@@ -137,7 +136,5 @@ class UsersController < ApplicationController
   def generate_features(user)
     Feature.create(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
   end
-
-
 
 end

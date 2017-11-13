@@ -1,0 +1,25 @@
+<div class="card-content">
+  <div class="card-content table-responsive">
+    <table class="table">
+      <thead class="text-primary">
+      <th>Benessere Mentale</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Nervoso negli ultimi 30gg</td>
+        <td><%= remove_first_char(features.mental_nervous) %></td>
+      </tr>
+      <tr>
+        <td>Depresso negli ultimi 30gg</td>
+        <td><%= remove_first_char(features.mental_depressed) %></td>
+      </tr>
+      <tr>
+        <td>Affaticato negli ultimi 30gg</td>
+        <td><%= remove_first_char(features.mental_effort) %></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -265,7 +265,7 @@ _:-ms-input-placeholder, :root .graph {
 }
 
 .profile_content_header{
-  background-color: #37474F;
+  background-color: #ffffff
 }
 
 
@@ -290,4 +290,8 @@ _:-ms-input-placeholder, :root .graph {
 #error-grid{
   text-align: -webkit-center;
   max-width: 80%;
+}
+
+#drawer-btn:hover{
+  background-color: rgb(145, 40, 172);
 }

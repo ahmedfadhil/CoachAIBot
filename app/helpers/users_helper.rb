@@ -71,11 +71,6 @@ module UsersHelper
     end
   end
 
-  def remove_first_char(string)
-    string[0] = ''
-    string.downcase.tr('_', ' ')
-  end
-
   def ita_category(cat)
     case cat
       when '0', 0
