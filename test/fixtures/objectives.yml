@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  references: 
+  scheduler: 1
+  activity: 1
+  steps: 1
+  distance: 1
+  start_date: 2017-11-14
+  end_date: 2017-11-14
+
+two:
+  references: 
+  scheduler: 1
+  activity: 1
+  steps: 1
+  distance: 1
+  start_date: 2017-11-14
+  end_date: 2017-11-14

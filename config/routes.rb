@@ -78,4 +78,9 @@ Rails.application.routes.draw do
 	get 'wearables/fitbit/connect/:token', to: 'wearables#connect', as: 'wearables_fitbit_connect'
 	# oauth2 callback
 	get 'users/auth/fitbit/callback', to: 'wearables#oauth2_callback'
+
+	# User's objectives
+	get 'objectives', to: 'objectives#index', as: 'objectives'
+	get 'objectives/:id', to: 'objectives#index', as: 'user_objectives'
+
 end
