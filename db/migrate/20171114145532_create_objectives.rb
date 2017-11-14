@@ -1,7 +1,7 @@
 class CreateObjectives < ActiveRecord::Migration[5.1]
   def change
     create_table :objectives do |t|
-      t.user :references
+      t.references :user
       t.integer :scheduler
       t.integer :activity
       t.integer :steps
