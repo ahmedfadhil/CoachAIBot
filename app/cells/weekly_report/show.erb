@@ -1,10 +1,5 @@
 <div class="container" style="max-width: 800px">
-	<h1>
-		Weekly report:
-		<%= model.first_name %>
-		<%= " " %>
-		<%= model.last_name %>
-	</h1>
+	<%= cell(:weekly_report, model, tab: :week_repo).(:navigation) %>
 	<p>From <%= begin_day %> to <%= end_day %></p>
 	<div class="row">
 		<div class="col-sm">
@@ -78,10 +73,5 @@
 			</div>
 		</div>
 	</div>
-	<hr>
-	<a href="#">Weekly report</a><br>
-	<a href="#">Montly report</a><br>
-	<a href="#">Weekly graphs</a><br>
-	<a href="#">Montly graphs</a><br>
 	<br><br>
 </div>

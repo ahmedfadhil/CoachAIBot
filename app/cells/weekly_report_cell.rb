@@ -7,6 +7,18 @@ class WeeklyReportCell < Cell::ViewModel
 		render
 	end
 
+	def navigation
+		render
+	end
+
+	def nav_item(str, path, tab)
+		if tab == @options[:tab]
+			link_to str, path, class: "nav-link active"
+		else
+			link_to str, path, class: "nav-link"
+		end
+	end
+
 	def begin_day
 		Date.today.at_beginning_of_week - 7.days
 	end

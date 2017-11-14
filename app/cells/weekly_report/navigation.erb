@@ -1,0 +1,21 @@
+<h1>
+	Wearable Report:
+	<%= model.first_name %>
+	<%= " " %>
+	<%= model.last_name %>
+</h1>
+<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<%= nav_item "Weekly report", show_wearable_path(model), :week_repo %>
+	</li>
+	<li class="nav-item">
+		<%= nav_item "Monthly report", monthly_report_path(model), :month_repo %>
+	</li>
+	<li class="nav-item">
+		<%= nav_item "Weekly graphs", weekly_chart_path(model), :week_chart %>
+	</li>
+	<li class="nav-item">
+		<%= nav_item "Montly graphs", monthly_chart_path(model), :month_chart %>
+	</li>
+</ul>
+<br>

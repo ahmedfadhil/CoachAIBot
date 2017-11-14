@@ -1,10 +1,5 @@
 <div class="container" style="max-width: 800px">
-	<h1>
-		Monthly report:
-		<%= model.first_name %>
-		<%= " " %>
-		<%= model.last_name %>
-	</h1>
+	<%= cell(:weekly_report, model, tab: :month_repo).(:navigation) %>
 	<p>From <%= begin_day %> to <%= end_day %></p>
 	<div class="row">
 		<div class="col-sm">

@@ -1,10 +1,5 @@
 <div class="container" style="max-width: 800px">
-	<h1>
-		Weekly charts:
-		<%= model.first_name %>
-		<%= " " %>
-		<%= model.last_name %>
-	</h1>
+	<%= cell(:weekly_report, model, tab: :week_chart).(:navigation) %>
 	<p>From <%= begin_day %> to <%= end_day %></p>
 	<br><br>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
