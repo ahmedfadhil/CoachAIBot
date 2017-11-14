@@ -1,0 +1,23 @@
+<div class="container" style="max-width: 800px">
+	<h1>
+		Obiettivi:
+		<%= model.first_name %>
+		<%= " " %>
+		<%= model.last_name %>
+	</h1>
+	<p>Obiettivo corrente:</p>
+	<div class="alert alert-warning" role="alert">
+		Non vi è nessuno obiettivo corrente al momento.
+	</div>
+	<hr>
+	<p>Obiettivi programmati:</p>
+	<div class="alert alert-warning" role="alert">
+		Non vi è nessuno obiettivo programmato al momento.
+	</div>
+	<hr>
+	<p>Obiettivo terminati:</p>
+	<div class="alert alert-warning" role="alert">
+		Non vi è nessuno obiettivo terminato al momento. Un obbiettivo sarà terminato nel momento in cui
+		la data di scadenza per quell'obiettivo è superata.
+	</div>
+</div>

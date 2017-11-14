@@ -81,6 +81,6 @@ Rails.application.routes.draw do
 
 	# User's objectives
 	get 'objectives', to: 'objectives#index', as: 'objectives'
-	get 'objectives/:id', to: 'objectives#index', as: 'user_objectives'
+	get 'objectives/:id', to: 'objectives#show', as: 'user_objectives'
 
 end

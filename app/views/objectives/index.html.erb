@@ -1,11 +1,11 @@
-<%= cell(:layout, section: "objectives", title: "All users").() do %>
+<%= cell(:layout, section: "objectives", title: "Tutti gli utenti").() do %>
 	<% capture do %>
 		<div class="container" style="max-width: 1200px">
-			<h1>All users</h1>
+			<h1>Tutti gli utenti</h1>
 			<section class="row text-center placeholders">
 				<% User.all.each do |user| %>
 					<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
-						<%= cell(:wearable, user).(:card) %>
+						<%= cell(:objectives, user).(:card) %>
 					</div>
 				<% end %>
 			</section>

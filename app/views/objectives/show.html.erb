@@ -1,0 +1,5 @@
+<%= cell(:layout, section: "wearables", title: "Weekly report: #{@user.first_name} #{@user.last_name}").() do %>
+	<% capture do %>
+		<%= cell(:objectives, @user).(:show) %>
+	<% end %>
+<% end %>
