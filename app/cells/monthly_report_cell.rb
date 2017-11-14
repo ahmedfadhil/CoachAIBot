@@ -3,6 +3,10 @@ class MonthlyReportCell < Cell::ViewModel
 		render
 	end
 
+	def chart
+		render
+	end
+
 	def begin_day
 		Date.today.beginning_of_month - 1.month
 	end
