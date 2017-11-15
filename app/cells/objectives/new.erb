@@ -38,3 +38,21 @@
 		<%= f.submit "Crea obiettivo", class: 'btn btn-primary' %>
 	<% end %>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+function toggle() {
+	activity = $('#objective_activity').val()
+	if (activity === "steps") {
+		$('#objective_distance').parents('div.form-group').hide()
+		$('#objective_steps').parents('div.form-group').show()
+	} else {
+		$('#objective_steps').parents('div.form-group').hide()
+		$('#objective_distance').parents('div.form-group').show()
+	}
+}
+
+$(toggle)
+$('#objective_activity').change(toggle)
+
+</script>
