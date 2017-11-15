@@ -7,17 +7,19 @@
 	</h1>
 	<p>Obiettivo corrente:</p>
 	<div class="alert alert-warning" role="alert">
-		Non vi è nessuno obiettivo corrente al momento.
+		Non vi è nessuno obiettivo corrente al momento per questo utente.
 	</div>
 	<hr>
 	<p>Obiettivi programmati:</p>
 	<div class="alert alert-warning" role="alert">
-		Non vi è nessuno obiettivo programmato al momento.
+		Non vi è nessuno obiettivo programmato al momento per questo utente.
 	</div>
 	<hr>
 	<p>Obiettivo terminati:</p>
 	<div class="alert alert-warning" role="alert">
-		Non vi è nessuno obiettivo terminato al momento. Un obbiettivo sarà terminato nel momento in cui
+		Non vi è nessuno obiettivo terminato al momento per questo utente. Un obiettivo sarà terminato nel momento in cui
 		la data di scadenza per quell'obiettivo è superata.
 	</div>
+	<hr>
+	<%= link_to "Nuovo obiettivo", new_user_objective_path(model), class: 'btn btn-primary' %>
 </div>

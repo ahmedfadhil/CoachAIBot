@@ -82,5 +82,7 @@ Rails.application.routes.draw do
 	# User's objectives
 	get 'objectives', to: 'objectives#index', as: 'objectives'
 	get 'objectives/:id', to: 'objectives#show', as: 'user_objectives'
+	get 'objectives/:id/new', to: 'objectives#new', as: 'new_user_objective'
+	post 'objectives/:id/create', to: 'objectives#create', as: 'create_user_objective'
 
 end

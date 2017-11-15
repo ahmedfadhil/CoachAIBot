@@ -1,10 +1,34 @@
 class ObjectivesCell < Cell::ViewModel
+	include ActionView::Helpers::FormOptionsHelper
+
 	def show
 		render
 	end
 
 	def card
 		render
+	end
+
+	def new
+		render
+	end
+
+	def objective
+		@options[:objective]
+	end
+
+	def errors_for(model, field)
+		if model.errors.include? field
+			content_tag :div, model.errors[field].first, class: "invalid-feedback", style: "display: block"
+		end
+	end
+
+	def class_for(model, field)
+		if model.errors.include? field
+			"form-control is-invalid"
+		else
+			"form-control"
+		end
 	end
 
 	def title
