@@ -18,6 +18,10 @@ class Cluster
     end
   end
 
+  def group_py
+
+  end
+
   private
 
   def get_therms(delivered_plans)

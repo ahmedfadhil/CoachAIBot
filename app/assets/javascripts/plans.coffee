@@ -1,3 +1,15 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+  from_day = $(".plan_from_day")
+  to_day = $(".plan_to_day")
+
+  from_day.datepicker(
+    format: 'dd/mm/yy'
+  ).on('changeDate', () ->
+    from_day.parent().addClass('is-focused')
+  )
+
+  to_day.datepicker(
+    format: 'dd/mm/yy'
+  ).on('changeDate', () ->
+    to_day.parent().addClass('is-focused')
+  )

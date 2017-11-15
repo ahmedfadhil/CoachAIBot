@@ -1,3 +1,6 @@
 $('document').ready(function() {
     $('#lateral-panel-<%= @plan_id %>').empty().html("<%= escape_javascript(render 'plannings/new') %>")
+
+    $('.mdl-textfield__input').parent().addClass('is-focused');
+    $('.mdl-selectfield__select').parent().addClass('is-focused');
 });

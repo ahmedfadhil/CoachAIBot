@@ -146,7 +146,41 @@ class ProfilingManager
     path = Rails.root.join('csvs', 'features.csv')
     features = user.feature
     CSV.open(path, 'a+') do |csv|
-      csv << [user.id, features.age, features.health_personality, features.foot_bicycle, features.work_physical_activity, features.coping_stress]
+      csv << [user.id, features.age, features.health_personality, decode_work_physical_activity(features.work_physical_activity),
+              decode_foot_bicycle(features.foot_bicycle), decode_stress(features.coping_stress)]
+    end
+  end
+
+  def decode_work_physical_activity(code)
+    case code
+      when 0, '0'
+        'Mostly sitting (Involves movement less than 30 minutes per week)'
+      when 1, '1'
+        'Moderate (involves both sitting and moving)'
+      else #2
+        'Mostly moving (Involves movement more than 3days per week)'
+    end
+  end
+
+  def decode_foot_bicycle(code)
+    case code
+      when 0, '0'
+        '1-2 times a week'
+      when 1, '1'
+        '> 3 times a week'
+      else #2
+        'Most of the time'
+    end
+  end
+
+  def decode_stress(code)
+    case code
+      when 0, '0'
+        'Low'
+      when 1, '1'
+        'Medium'
+      else #2
+        'High'
     end
   end
 

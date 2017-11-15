@@ -56,10 +56,6 @@ class MonitoringManager
     end
   end
 
-  def text
-    @message[:message][:text]
-  end
-
   def process_oob(oob)
     state_received = JSON.parse(oob)
     dot_state = state_received.to_dot
@@ -80,7 +76,7 @@ class MonitoringManager
 
     if flag == 1
       if new_state.monitoring == 1
-        custom_keyboard %w(Attivita Feedback Consigli)
+        custom_keyboard %w(Attivita Feedback Consigli Messaggi)
       else
         custom_keyboard default_responses
       end
@@ -115,9 +111,9 @@ class MonitoringManager
         when 'consapevolezza'
           "\u{1f64c}"+x
         when 'ancora'
-          "\u{1f4aa}"+x
+          "\u{1f4aa} "+x
         when 'basta'
-          "\u{1f3fc}"+x
+          "\u{1f3fc} "+x
         else
           x
       end

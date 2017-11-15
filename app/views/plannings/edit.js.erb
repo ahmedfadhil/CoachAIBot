@@ -9,10 +9,7 @@ $('document').ready(function() {
     });
 
     $('.monthly-schedule-date').datepicker({
-        dateFormat: 'dd/mm/yy',
-        onSelect: function(dateText) {
-            return $(this).parent().addClass("is-dirty");
-        }
+        format: 'dd/mm/yy'
     });
 
     $('.add-hour').click(function(e) {
@@ -20,7 +17,8 @@ $('document').ready(function() {
         return show_hide_hour();
     });
 
-    // adds is dirty class to the label in order to make a floating label
+    // adds is-focused class to the label in order to make a floating label
     $('.mdl-textfield__input').parent().addClass('is-focused');
+    $('.mdl-selectfield__select').parent().addClass('is-focused');
 
 });
