@@ -7,8 +7,8 @@
     <h6 class="category text-gray">Paziente</h6>
     <h4 class="card-title"><%= "#{user.first_name} #{user.last_name}" %></h4>
     <p class="card-content">
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-      <tbody>
+    <table class="table">
+      <tbody class="text-primary">
 
       <tr>
         <td>
@@ -18,6 +18,17 @@
           <%= features.age %>
         </td>
       </tr>
+
+      <% unless features.py_cluster.nil? %>
+          <tr>
+            <td>
+              Il sistema ha classificato il paziente come
+            </td>
+            <td>
+              <%= cluster %>
+            </td>
+          </tr>
+      <% end %>
 
       </tbody>
     </table>

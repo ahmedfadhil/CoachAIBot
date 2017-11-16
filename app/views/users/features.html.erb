@@ -1,8 +1,8 @@
 <div>
-  <%= cell(:user_menu, @features.user) %>
+  <%= cell(:user_menu, @user) %>
 
   <div id="patient">
-    <%= cell(:features, @features) %>
+    <%= cell(:features, @features, user: @user) %>
   </div>
 
 </div>

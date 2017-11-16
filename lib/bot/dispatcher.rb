@@ -8,6 +8,7 @@ require 'bot/api_ai_redirecter'
 require 'bot/login_manager'
 require 'bot/chatscript_compiler'
 require 'bot/messenger'
+require 'bot/tips'
 
 class Dispatcher
   attr_reader :message, :user
@@ -42,12 +43,10 @@ class Dispatcher
 
           when 1, '1'
             ap '--------MENU--------'
-            # dispatch to monitoring
-
-            case text
+                       case text
               when 'attivita', '/attivita', 'Attivita'
-                ap "---------SENDING ACTIVITIES FOR USER: #{@user.id} ----------"
-                ActivityInformer.new(@user, hash_state).inform
+                ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
+                ActivityInformer.new(@user, hash_state).check
 
               when 'feedback', '/feedback', 'Feedback'
                 ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
@@ -57,8 +56,12 @@ class Dispatcher
                 ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
                 Messenger.new(@user, hash_state).inform
 
-              else # 'tips', 'consigli', 'Consigli', '/consigli', '/Consigli',  '/tips', 'Tips'
-                MonitoringManager.new(text, @user, hash_state).manage
+              when '/consigli', 'consigli', 'Consigli', 'Tips'
+                ap "---------PREPARING TIPS FOR USER: #{@user.id}---------"
+                Tips.new(text, @user, hash_state).enter_tips
+
+              else
+                ApiAIRedirector.new(text, @user, hash_state).redirect
 
             end
 
@@ -104,6 +107,20 @@ class Dispatcher
                 general_actions.back_to_menu_with_menu
               else
                 Messenger.new(@user, hash_state).register_patient_response(text)
+            end
+
+          when 4, '4'
+            ap "---------SENDING TIPS TO USER: #{@user.id}---------"
+            Tips.new(text, @user, hash_state).manage
+
+
+          else # when 5, '5'
+            ap "---------INFORMING ABOUT ACTIVITIES USER: #{@user.id}---------"
+            case text
+              when *back_strings
+                GeneralActions.new(@user, hash_state).back_to_menu_with_menu
+              else # when 'Ulteriori Dettagli'
+                ActivityInformer.new(@user, hash_state).send_details
             end
 
 

@@ -117,7 +117,7 @@ class LoginManager
   end
 
   def contact_phone_number
-    @message[:message][:contact][:phone_number]
+    @message[:message][:contact][:phone_number][2,12]
   end
 
   def contact

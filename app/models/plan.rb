@@ -26,5 +26,9 @@ class Plan < ApplicationRecord
   def has_missing_feedback?
     Notification.joins(planning: :plan).where('notifications.done=?  AND plans.id=?', 0, self.id).count > 0
   end
+
+  def has_plannings?
+    !(self.plannings.count == 0)
+  end
 end
 

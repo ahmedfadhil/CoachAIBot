@@ -36,11 +36,22 @@ class FeaturesCell < Cell::ViewModel
   end
 
   def user
-    features.user
+    options[:user]
+  end
+
+  def cluster
+    case features.py_cluster
+      when 'HIGH'
+        'Molto Attivo'
+      when 'MEDIUM'
+        'Mediamente Attivo'
+      else #LOW
+        'Poco Attivo'
+    end
   end
 
   def no_features_collected
-    (features.health == 0) && (features.physical == 0) && (features.coping == 0) && (features.mental == 0)
+    (features.health == 0) || (features.physical == 0) || (features.coping == 0) || (features.mental == 0)
   end
 
   def remove_first_char(string)

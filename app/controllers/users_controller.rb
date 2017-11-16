@@ -36,7 +36,8 @@ class UsersController < ApplicationController
   end
 
   def features
-    @features = User.find(params[:id]).feature
+    @user = User.find(params[:id])
+    @features = @user.feature
   end
 
   # active users

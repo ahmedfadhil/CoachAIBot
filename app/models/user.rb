@@ -30,4 +30,13 @@ class User < ApplicationRecord
     self.bot_command_data = hash.to_json
     save
   end
+
+  def profiled?
+    features = self.feature
+    if features.nil?
+      false
+    else
+      (features.health == 1) && (features.physical == 1) && (features.coping == 1) && (features.mental == 1)
+    end
+  end
 end

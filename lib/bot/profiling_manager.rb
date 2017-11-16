@@ -115,6 +115,7 @@ class ProfilingManager
       if new_state.monitoring == 1
         communicate_profiling_done! @user
         save_features_to_csv @user
+        system 'rake python_clustering &'
         custom_keyboard %w(Attivita Feedback Consigli Messaggi)
       else
         custom_keyboard default_responses

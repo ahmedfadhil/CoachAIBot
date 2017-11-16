@@ -53,13 +53,12 @@ class GeneralActions
   end
 
   def send_plans_details(delivered_plans)
-    send_reply "#{@user.last_name} nel seguente documento ci sono tutti i dettagli relativi alle attivita' che hai da fare. Leggilo con attenzione!"
+    send_reply "#{@user.last_name} ti sto inviando un documento che contiene tutti i dettagli relativi alle attivita' che hai da fare. Leggilo con attenzione!"
     send_chat_action 'upload_document'
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', delivered_plans)
     doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-plans.pdf"
-
 
     pdf = WickedPdf.new.pdf_from_string(
         controller.render_to_string('users/user_plans', layout: 'layouts/pdf.html'),

@@ -1,10 +1,12 @@
 require 'bot/general_actions'
+require 'csv'
 
 # Congregate patients, that is, clusters patients into 3 main clusters <GREEN>, <YELLOW>, <RED>
 class Cluster
   YELLOW_THRESHOLD, RED_THRESHOLD = 0.05, 0.2
   DAILY, WEEKLY, MONTHLY, NO_ANSWER = '0', '1', '2', 'No'
   GREEN, YELLOW, RED = 0, 1, 2
+  PROCESS_EXITED = 1
 
   def init
   end
@@ -19,7 +21,9 @@ class Cluster
   end
 
   def group_py
-
+    pid = Process.spawn('python3 scripts/Adherence.py') # launch another process in order to call python script from shell
+    wait_until_process_exit(pid)
+    process_result
   end
 
   private
@@ -85,7 +89,7 @@ class Cluster
           flag = true
         end
       end
-      undone += 1 if flag == true
+      undone += 1 if flag==true
     end
 
     undone
@@ -112,5 +116,33 @@ class Cluster
       user.cluster = cluster
       user.save
     end
+  end
+
+  def wait_until_process_exit(pid)
+    checker = Process.waitpid(pid, Process::WNOHANG)
+    while checker.nil? # => nil
+      checker = Process.waitpid(pid, Process::WNOHANG)
+    end
+    ap "PROCESS #{checker} FINISHED" if checker==pid
+  end
+
+  def process_result
+    path = "#{Rails.root}/csvs/result.csv"
+    file = File.open(path, 'r')
+    rows = CSV.parse(file, headers: true)
+    rows.each do |row|
+      id = row[1]
+      unless id.nil?
+        prediction = row[7]
+        save_py_prediction(id, prediction)
+      end
+    end
+  end
+
+  def save_py_prediction(id, prediction)
+    user = User.find(id)
+    features = user.feature
+    features.py_cluster = prediction
+    features.save!
   end
 end
