@@ -14,7 +14,7 @@ class Objective < ApplicationRecord
 
 		if start_date >= end_date
 			errors.add(:start_date, "Deve iniziare prima della data di fine")
-			errors.add(:end_date, "Deve iniziare dopo la data di inizio")
+			errors.add(:end_date, "Deve finire dopo la data di inizio")
 			return
 		end
 
@@ -22,15 +22,24 @@ class Objective < ApplicationRecord
 		if weekly? && days < 7
 			errors.add(:start_date, "Se la programmazione è settimanale la attività deve durare almeno 7 giorni")
 			errors.add(:end_date, "Se la programmazione è settimanale la attività deve durare almeno 7 giorni")
-			return
 		end
 		if monthly? && days < 28
 			errors.add(:start_date, "Se la programmazione è mensile la attività deve durare almeno 28 giorni")
 			errors.add(:end_date, "Se la programmazione è mensile la attività deve durare almeno 28 giorni")
-			return
 		end
 
-		
+		user.objectives.each do |objective|
+			next unless objective.persisted?
+
+			formatted_start_date = objective.start_date.strftime("%-d %B %Y")
+			formatted_end_date = objective.end_date.strftime("%-d %B %Y")
+			if start_date >= objective.start_date && start_date <= objective.end_date
+				errors.add(:start_date, "Non può iniziare tra i giorni #{formatted_start_date} e #{formatted_end_date}")
+			end
+			if end_date >= objective.start_date && end_date <= objective.end_date
+				errors.add(:end_date, "Non può terminare tra i giorni #{formatted_start_date} e #{formatted_end_date}")
+			end
+		end
 	end
 
 	validate :activity_must_have_attribute

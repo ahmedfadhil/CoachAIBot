@@ -6,9 +6,13 @@
 		<%= model.last_name %>
 	</h1>
 	<p>Obiettivo corrente:</p>
-	<div class="alert alert-warning" role="alert">
-		Non vi è nessuno obiettivo corrente al momento per questo utente.
-	</div>
+	<% if model.active_objective %>
+		<%= cell(:objective, model.active_objective).(:table) %>
+	<% else %>
+		<div class="alert alert-warning" role="alert">
+			Non vi è nessuno obiettivo corrente al momento per questo utente.
+		</div>
+	<% end %>
 	<hr>
 	<p>Obiettivi programmati:</p>
 	<div class="alert alert-warning" role="alert">

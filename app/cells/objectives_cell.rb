@@ -19,7 +19,8 @@ class ObjectivesCell < Cell::ViewModel
 
 	def errors_for(model, field)
 		if model.errors.include? field
-			content_tag :div, model.errors[field].first, class: "invalid-feedback", style: "display: block"
+			message = model.errors[field].map { |e| e + "<br>"}.join
+			content_tag :div, message, class: "invalid-feedback", style: "display: block"
 		end
 	end
 
@@ -51,19 +52,4 @@ class ObjectivesCell < Cell::ViewModel
 	def show_button
 		link_to "Mostra", user_objectives_path(model), class: 'btn btn-primary'
 	end
-
-	private
-
-	def active_objective?
-		model.objectives.any? do |objective|
-			objective.start_date <= Date.today && Date.today <= objective.end_date
-		end
-	end
-
-	def scheduled_objective?
-		model.objectives.any? do |objective|
-			objective.start_date >= Date.today
-		end
-	end
-
 end

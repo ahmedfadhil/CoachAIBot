@@ -35,4 +35,22 @@ class User < ApplicationRecord
     self.bot_command_data = hash.to_json
     save
   end
+
+	def active_objective
+		objectives.find { |objective|
+			objective.start_date <= Date.today && Date.today <= objective.end_date
+		}
+	end
+
+	def scheduled_objectives
+		objectives.select { |objective|
+			objective.start_date >= Date.today
+		}
+	end
+
+	def terminated_objectives
+		objectives.select { |objective|
+			objective.end_date < Date.today
+		}
+	end
 end

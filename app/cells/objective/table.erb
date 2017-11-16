@@ -1,0 +1,22 @@
+<table class="table table-sm">
+	<thead class="thead-light">
+		<tr>
+			<th>Programmazione</th>
+			<th>Attività</th>
+			<th>Quantità</th>
+			<th>Data inizio</th>
+			<th>Data fine</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><%= scheduler %></td>
+			<td><%= activity %></td>
+			<td><%= quantity %></td>
+			<td><%= formatted_start_date %></td>
+			<td><%= formatted_end_date %></td>
+			<td><%= link_to "Mostra", objective_details_path(model) %></td>
+		</tr>
+	</tbody>
+</table>
