@@ -14,7 +14,8 @@ $ ->
     e.preventDefault()
     showNewCategoryInput(this)
 
-$ ->
   $("input[data-other-category=false]").change (e) ->
     e.preventDefault()
     hideNewCategoryInput(this)
+
+  $("#activities-all").css("backgroundColor", '#757575')

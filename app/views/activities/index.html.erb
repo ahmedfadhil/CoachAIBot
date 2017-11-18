@@ -1,4 +1,4 @@
-<%= render 'activities/header' %>
+<%= render 'activities/menu' %>
 
 <div class="mdl-grid new-activity-grid">
   <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
@@ -10,7 +10,11 @@
 
 
         <div class="mdl-card__supporting-text">
-          <%= render 'activities/all_in_table' %>
+
+          <div id="activities-list">
+            <%= render 'activities/activities' %>
+          </div>
+
           <div class="mdl-layout-spacer"></div>
           <br>
           <%= button_to new_activity_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', method: 'get' do %>

@@ -55,6 +55,25 @@ class ActivitiesController < ApplicationController
     redirect_to activities_path
   end
 
+  def diets
+    @activities = Activity.where(:category => 0)
+  end
+
+  def physicals
+    @activities = Activity.where(:category => 1)
+  end
+
+  def mentals
+    @activities = Activity.where(:category => 2)
+  end
+
+  def medicinals
+    @activities = Activity.where(:category => 3)
+  end
+
+  def others
+    @activities = Activity.where(:category => 4)
+  end
 
   private
 

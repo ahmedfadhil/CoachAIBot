@@ -9,7 +9,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :activities
+  resources :activities do
+    collection do
+      get 'diets', to: 'activities#diets', as: 'diets'
+      get 'physicals', to: 'activities#physicals', as: 'physicals'
+      get 'mentals', to: 'activities#mentals', as: 'mentals'
+      get 'medicinals', to: 'activities#medicinals', as: 'medicinals'
+      get 'others', to: 'activities#others', as: 'others'
+    end
+  end
 
   resources :chats do
     collection do
