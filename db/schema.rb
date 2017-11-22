@@ -194,7 +194,23 @@ ActiveRecord::Schema.define(version: 20171116111613) do
     t.index ["planning_id"], name: "index_schedules_on_planning_id"
   end
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'jsonb' for column 'bot_command_data'
+  create_table "users", force: :cascade do |t|
+    t.string "telegram_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "bot_command_data"
+    t.string "email"
+    t.string "cellphone"
+    t.integer "coach_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "state"
+    t.integer "fitbit_status", default: 0
+    t.string "identity_token"
+    t.integer "identity_token_expires_at"
+    t.string "access_token"
+    t.string "cluster"
+    t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
+  end
 
 end

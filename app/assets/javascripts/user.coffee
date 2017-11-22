@@ -318,7 +318,7 @@
 
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
-  div_plans = document.getElementsByClassName('plans-action')
+  div_plans = document.getElementById('all_plans_users')
   div_features = document.getElementsByClassName('features-page')
   div_index = document.getElementsByClassName('users-index')
   div_chat = document.getElementsByClassName('chat-container')
@@ -327,7 +327,7 @@
   if div_chat[0] != undefined
     document.getElementById('chatting-user').style.background = '#757575'
 
-  if div_plans[0] != undefined
+  if div_plans != null
     document.getElementById('activities-user').style.background = '#757575'
     document.getElementById('all_plans_users').style.background = '#757575'
 

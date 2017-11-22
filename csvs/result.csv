@@ -72,9 +72,9 @@
 70,,31.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW
 71,,33.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Low,LOW
 72,,24.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,MEDIUM
-73,,26.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW
+73,,26.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,MEDIUM
 74,,54.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Less than once a week,Low,LOW
-75,,28.0,3.0,Moderate (involves both sitting and moving),Less than once a week,High,LOW
+75,,28.0,3.0,Moderate (involves both sitting and moving),Less than once a week,High,MEDIUM
 76,,25.0,5.0,Mostly moving (Involves movement more than 3days per week),1-2 times a week,Medium,LOW
 77,,21.0,4.0,Mostly moving (Involves movement more than 3days per week),Almost always,High,LOW
 78,,20.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW
@@ -125,9 +125,5 @@
 123,,20.0,4.0,Moderate (involves both sitting and moving),rarely,Average,MEDIUM
 124,,23.0,4.0,Mostly moving (Involves movement more than 3days per week),Most of the time,Average,MEDIUM
 125,,25.0,4.0,Moderate (involves both sitting and moving),Most of the time,high,MEDIUM
-126,,20.0,3.0,Moderate (involves both sitting and moving),Most of the time,high,MEDIUM
-127,5.0,23.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,MEDIUM
-128,5.0,23.0,3.0,Moderate (involves both sitting and moving),> 3 times a week,Medium,MEDIUM
-129,5.0,23.0,1.0,Moderate (involves both sitting and moving),> 3 times a week,High,MEDIUM
-130,5.0,23.0,2.0,Moderate (involves both sitting and moving),> 3 times a week,High,MEDIUM
-131,8.0,23.0,3.0,Moderate (involves both sitting and moving),> 3 times a week,High,MEDIUM
+126,,20.0,3.0,Moderate (involves both sitting and moving),Most of the time,high\,MEDIUM
+127,4.0,23.0,3.0,Moderate (involves both sitting and moving),> 3 times a week,Medium,MEDIUM
