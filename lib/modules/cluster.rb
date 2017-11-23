@@ -141,7 +141,7 @@ class Cluster
 
   def save_py_prediction(id, prediction)
     users = User.where(id: id)
-    unless users.nil?
+    unless users.empty?
       features = users.first.feature
       features.py_cluster = prediction
       features.save!

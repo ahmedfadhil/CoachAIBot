@@ -4,16 +4,12 @@ from sklearn import preprocessing, cross_validation, neighbors
 import pandas as pd
 
 def main():
-    df = pd.read_csv("ser.csv",usecols=[1, 9, 14])
+    df = pd.read_csv("./csvs/features.csv",usecols=[1, 2, 3])
     df.replace('?', -99999, inplace=True)
     #df.drop([Timestamp], 1, inplace = True)
     df["id"] = df.index + 1
 
-
-    print (df[:5])
     df['Does your work require sitting or moving more ?'] = df['Does your work require sitting or moving more ?'].map({'Mostly moving (Involves movement more than 3days per week)': 3, 'Moderate (involves both sitting and moving)': 2, 'Mostly sitting (Involves movement less than 30 minutes per week)':1})
-
-    print (df[:5])
 
     def f(row):
         if row['Does your work require sitting or moving more ?'] == 3:
@@ -39,7 +35,7 @@ def main():
     prediction = clf.predict(x)
 
     # Pass to CoachAI
-    df2 = df = pd.read_csv("ser.csv")
+    df2 = df = pd.read_csv("./csvs/features.csv")
     df2['prediction'] = prediction
     def g(row):
         if row['prediction'] == 3:
@@ -49,6 +45,7 @@ def main():
         else:
             val = "LOW"
         return val
+    df2['prediction'] = df.apply(g, axis=1)
 
     def h(row):
         if row['Does your work require sitting or moving more ?'] == 3:
@@ -62,7 +59,8 @@ def main():
     df2['Estimation'] = df.apply(g, axis=1)
     print(df2[:100  ])
     print ("Accuracy", accuracy)
-    df2.to_csv("Result.csv", sep='\t')
+
+    df2.to_csv("./csvs/result.csv", sep=',')
 
 
 if __name__ == '__main__':
