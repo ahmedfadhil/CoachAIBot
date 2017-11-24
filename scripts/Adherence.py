@@ -47,6 +47,19 @@ def main():
         return val
     df2['prediction'] = df.apply(g, axis=1)
 
+    def h(row):
+        if row['Does your work require sitting or moving more ?'] == 3:
+            val = "HIGH"
+        elif row['Does your work require sitting or moving more ?'] == 2:
+            val = "MEDIUM"
+        else:
+            val = "LOW"
+        return val
+    df2['prediction'] = df.apply(g, axis=1)
+    df2['Estimation'] = df.apply(g, axis=1)
+    print(df2[:100  ])
+    print ("Accuracy", accuracy)
+
     df2.to_csv("./csvs/result.csv", sep=',')
 
 

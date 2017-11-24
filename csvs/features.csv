@@ -127,3 +127,11 @@ Id,Insert your age,How would you rate your overall health?,Does your work requir
 ,25,4,Moderate (involves both sitting and moving),Most of the time,high
 ,20,3,Moderate (involves both sitting and moving),Most of the time,high
 4,23,3,Moderate (involves both sitting and moving),> 3 times a week,Medium
+12,23,3,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High
+13,23,3,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium
+14,23,3,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium
+11,30,3,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium
+17,23,4,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High
+15,23,3,Mostly moving (Involves movement more than 3days per week),1-2 times a week,Medium
+18,,2,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Medium
+19,23,4,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium

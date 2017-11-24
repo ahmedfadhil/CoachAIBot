@@ -91,4 +91,22 @@ class FeaturesCell < Cell::ViewModel
         'alto'
     end
   end
+
+  def profile_photo_url
+    if user.telegram_id.nil?
+      default_image
+    else
+      begin
+        solver = ImageSolver.new
+        solver.solve(user.telegram_id)
+
+      rescue Exception
+        default_image
+      end
+    end
+  end
+
+  def default_image
+    'user.jpg'
+  end
 end
