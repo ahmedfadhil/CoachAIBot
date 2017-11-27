@@ -131,9 +131,9 @@ class Cluster
     file = File.open(path, 'r')
     rows = CSV.parse(file, headers: true)
     rows.each do |row|
-      id = row[4]
+      id = row[1]
       unless id.nil?
-        prediction = row[6]
+        prediction = row[7]
         save_py_prediction(id, prediction)
       end
     end

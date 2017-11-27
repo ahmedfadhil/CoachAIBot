@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.valid?
-      user.save
+      user.save!
       current_coach_user.users << user
       features = generate_features user
       if features.nil?

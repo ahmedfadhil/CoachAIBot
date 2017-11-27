@@ -1,5 +1,5 @@
 class Plan < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :user
   has_many :plannings, dependent: :destroy
   has_many :activities, :through => :plannings
 

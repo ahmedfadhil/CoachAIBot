@@ -86,10 +86,10 @@ def main():
 
     # Pass to CoachAI
     dfn = pd.read_csv("./csvs/features.csv")
-    dfn['prediction'] = df0.apply(g, axis=1)
+    dfn['prediction'] = df0.apply(h, axis=1)
     dfn['Estimation'] = df0.apply(h, axis=1)
 
-    df0.to_csv("./csvs/result.csv", sep=',')
+    dfn.to_csv("./csvs/result.csv", sep=',')
 
 
 if __name__ == '__main__':
