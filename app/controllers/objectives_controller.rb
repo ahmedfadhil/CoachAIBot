@@ -25,6 +25,10 @@ class ObjectivesController < ApplicationController
 		end
 	end
 
+	def details
+		@objective = Objective.find(params[:id])
+	end
+
 	def objective_params
 		params.require(:objective).permit(:scheduler, :start_date, :end_date, :activity, :steps, :distance)
 	end

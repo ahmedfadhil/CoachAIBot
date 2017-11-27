@@ -1,5 +1,5 @@
 class ObjectiveCell < Cell::ViewModel
-	include ActionView::Helpers::TranslationHelper 
+	include ActionView::Helpers::TranslationHelper
 
 	def table
 		render
@@ -7,6 +7,39 @@ class ObjectiveCell < Cell::ViewModel
 
 	def row
 		render
+	end
+
+	def active?
+		model.start_date <= Date.today && Date.today <= model.end_date
+	end
+
+	def scheduled?
+		model.start_date >= Date.today
+	end
+
+	def terminated?
+		model.end_date < Date.today
+	end
+
+	def daily_steps
+		if model.monthly?
+			model.steps / 28
+		elsif model.weekly?
+			model.steps / 7
+		end
+	end
+
+	def total_steps
+		days = TimeDifference.between(model.start_date, model.end_date).in_days.to_i
+		return daily_steps * days
+	end
+
+	def daily_distance
+		if model.monthly?
+			model.steps / 28
+		elsif model.weekly?
+			model.steps / 7
+		end
 	end
 
 	def scheduler

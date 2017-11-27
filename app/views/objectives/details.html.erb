@@ -1,0 +1,5 @@
+<%= cell(:layout, section: "objectives").() do %>
+	<% capture do %>
+		<%= cell(:objective, @objective).(:show) %>
+	<% end %>
+<% end %>

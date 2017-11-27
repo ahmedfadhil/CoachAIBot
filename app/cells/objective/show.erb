@@ -1,0 +1,72 @@
+<div class="container" style="max-width: 800px">
+	<h1>
+		Obiettivo #<%= model.id %>
+		:
+		<%= model.user.first_name %>
+		<%= " " %>
+		<%= model.user.last_name %>
+	</h1>
+	<% if active? %>
+		<div class="alert alert-primary" role="alert">
+			Stai visualizzando l'obiettivo corrente per questo utente.<br>
+			I dati relativi all'aderenza dell'utente saranno raccolti settimanalmente.
+		</div>
+	<% elsif scheduled? %>
+		<div class="alert alert-warning" role="alert">
+			Questo obiettivo è in programma e sarà attivato una volta raggiunta la data di inizio.
+		</div>
+	<% elsif terminated? %>
+		<div class="alert alert-warning" role="alert">
+			Questo obiettivo è stato terminato.
+		</div>
+	<% end %>
+	<p><b>Impostazioni obiettivo:</b></p>
+	<ul>
+		<li>Tipo programmazione: <%= scheduler %></li>
+		<li>Data inizio: <%= formatted_start_date %></li>
+		<li>Data termine: <%= formatted_end_date %></li>
+		<li>Tipologia obiettivo: <%= activity %></li>
+		<li>Quantità <%= scheduler.downcase %>: <%= quantity %></li>
+	</ul>
+	<hr>
+	<p><b>Aderenza utente:</b></p>
+	<ul>
+		<% if model.activity == "steps" %>
+			<li>Media passi giornaliera programmata: <%= daily_steps %></li>
+			<li>Media passi giornaliera rilevata: <%= daily_steps %></li>
+			<li>Totale passi programmati: <%= total_steps %></li>
+			<li>Totale passi rilevati: <%= total_steps %></li>
+		<% end %>
+		<% if model.activity == "distance" %>
+			<li>Media distanza giornaliera: <%= daily_distance %> Km</li>
+		<% end %>
+	</ul>
+	<hr>
+	<p>Iterazioni:</p>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Username</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Mark</td>
+				<td>Otto</td>
+				<td>@mdo</td>
+			</tr>
+			<tr>
+				<td>Jacob</td>
+				<td>Thornton</td>
+				<td>@fat</td>
+			</tr>
+			<tr>
+				<td>Larry</td>
+				<td>the Bird</td>
+				<td>@twitter</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
