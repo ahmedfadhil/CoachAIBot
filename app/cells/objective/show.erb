@@ -22,23 +22,27 @@
 	<% end %>
 	<p><b>Impostazioni obiettivo:</b></p>
 	<ul>
-		<li>Tipo programmazione: <%= scheduler %></li>
 		<li>Data inizio: <%= formatted_start_date %></li>
 		<li>Data termine: <%= formatted_end_date %></li>
+		<li>Numero giornate: <%= length_in_days %></li>
 		<li>Tipologia obiettivo: <%= activity %></li>
-		<li>Quantità <%= scheduler.downcase %>: <%= quantity %></li>
+		<li>Quantità totale: <%= quantity %></li>
+		<% if model.activity == "steps" %>
+			<li>Media giornaliera: <%= daily_steps %></li>
+		<% end %>
+		<% if model.activity == "distance" %>
+			<li>Media distanza giornaliera: <%= daily_distance %> Km</li>
+		<% end %>
 	</ul>
 	<hr>
 	<p><b>Aderenza utente:</b></p>
 	<ul>
 		<% if model.activity == "steps" %>
-			<li>Media passi giornaliera programmata: <%= daily_steps %></li>
 			<li>Media passi giornaliera rilevata: <%= daily_steps %></li>
-			<li>Totale passi programmati: <%= total_steps %></li>
-			<li>Totale passi rilevati: <%= total_steps %></li>
+			<li>Totale passi rilevati: <%= model.steps %></li>
 		<% end %>
 		<% if model.activity == "distance" %>
-			<li>Media distanza giornaliera: <%= daily_distance %> Km</li>
+			????
 		<% end %>
 	</ul>
 	<hr>

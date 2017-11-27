@@ -30,7 +30,7 @@ class ObjectivesController < ApplicationController
 	end
 
 	def objective_params
-		params.require(:objective).permit(:scheduler, :start_date, :end_date, :activity, :steps, :distance)
+		params.require(:objective).permit(:start_date, :end_date, :activity, :steps, :distance)
 	end
 
 end

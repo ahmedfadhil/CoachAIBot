@@ -9,6 +9,10 @@ class ObjectiveCell < Cell::ViewModel
 		render
 	end
 
+	def length_in_days
+		TimeDifference.between(model.start_date, model.end_date).in_days.to_i
+	end
+
 	def active?
 		model.start_date <= Date.today && Date.today <= model.end_date
 	end
@@ -22,32 +26,13 @@ class ObjectiveCell < Cell::ViewModel
 	end
 
 	def daily_steps
-		if model.monthly?
-			model.steps / 28
-		elsif model.weekly?
-			model.steps / 7
-		end
-	end
-
-	def total_steps
 		days = TimeDifference.between(model.start_date, model.end_date).in_days.to_i
-		return daily_steps * days
+		model.steps / days
 	end
 
 	def daily_distance
-		if model.monthly?
-			model.steps / 28
-		elsif model.weekly?
-			model.steps / 7
-		end
-	end
-
-	def scheduler
-		if model.monthly?
-			"Mensile"
-		elsif model.weekly?
-			"Settimanale"
-		end
+		days = TimeDifference.between(model.start_date, model.end_date).in_days.to_i
+		model.steps / days
 	end
 
 	def activity

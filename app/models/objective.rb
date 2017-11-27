@@ -1,6 +1,5 @@
 class Objective < ApplicationRecord
 	belongs_to :user
-	enum scheduler: { weekly: 0, monthly: 1 }
 	enum activity: { steps: 0, distance: 1 }
 
 	validates :start_date, :end_date, presence: { message: 'Deve essere presente' }
@@ -19,13 +18,9 @@ class Objective < ApplicationRecord
 		end
 
 		days = TimeDifference.between(start_date, end_date).in_days
-		if weekly? && days < 7
-			errors.add(:start_date, "Se la programmazione è settimanale la attività deve durare almeno 7 giorni")
-			errors.add(:end_date, "Se la programmazione è settimanale la attività deve durare almeno 7 giorni")
-		end
-		if monthly? && days < 28
-			errors.add(:start_date, "Se la programmazione è mensile la attività deve durare almeno 28 giorni")
-			errors.add(:end_date, "Se la programmazione è mensile la attività deve durare almeno 28 giorni")
+		if days < 10
+			errors.add(:start_date, "la attività deve durare almeno 10 giorni")
+			errors.add(:end_date, "La attività deve durare almeno 10 giorni")
 		end
 
 		user.objectives.each do |objective|

@@ -7,10 +7,6 @@
 	</h1>
 	<%= form_for objective, url: create_user_objective_path(model), method: 'post' do |f| %>
 		<div class="form-group">
-			<%= f.label "Programmazione" %><br>
-			<%= f.select :scheduler, {"Mensile" => "monthly", "Settimanale" => "weekly"}, {}, class: "custom-select", style: "width: 100%" %>
-		</div>
-		<div class="form-group">
 			<%= f.label "Data inizo" %><br>
 			<%= f.text_field :start_date, type: "date", class: class_for(objective, :start_date) %>
 			<%= errors_for objective, :start_date %>
