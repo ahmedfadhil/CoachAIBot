@@ -39,5 +39,7 @@ module Coach
 
     # Add vendors paths to assets in order to easily include them to application.js or .css
     config.assets.paths << Rails.root.join('vendor')
+
+		config.i18n.default_locale = :it
   end
 end

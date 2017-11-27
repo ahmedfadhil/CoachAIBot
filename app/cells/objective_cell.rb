@@ -1,5 +1,11 @@
 class ObjectiveCell < Cell::ViewModel
+	include ActionView::Helpers::TranslationHelper 
+
 	def table
+		render
+	end
+
+	def row
 		render
 	end
 
@@ -28,10 +34,10 @@ class ObjectiveCell < Cell::ViewModel
 	end
 
 	def formatted_start_date
-		model.start_date.strftime("%-d %B %Y")
+		l(model.start_date, format: "%-d %B %Y")
 	end
 
 	def formatted_end_date
-		model.end_date.strftime("%-d %B %Y")
+		l(model.end_date, format: "%-d %B %Y")
 	end
 end

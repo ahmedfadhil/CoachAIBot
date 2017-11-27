@@ -13,8 +13,16 @@ class ObjectivesCell < Cell::ViewModel
 		render
 	end
 
+	def table
+		render
+	end
+
 	def objective
 		@options[:objective]
+	end
+
+	def objectives
+		@options[:objectives]
 	end
 
 	def errors_for(model, field)

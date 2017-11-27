@@ -15,15 +15,23 @@
 	<% end %>
 	<hr>
 	<p>Obiettivi programmati:</p>
-	<div class="alert alert-warning" role="alert">
-		Non vi è nessuno obiettivo programmato al momento per questo utente.
-	</div>
+	<% if !model.scheduled_objectives.empty? %>
+		<%= cell(:objectives, model, objectives: model.scheduled_objectives).(:table) %>
+	<% else %>
+		<div class="alert alert-warning" role="alert">
+			Non vi è nessuno obiettivo programmato al momento per questo utente.
+		</div>
+	<% end %>
 	<hr>
 	<p>Obiettivo terminati:</p>
-	<div class="alert alert-warning" role="alert">
-		Non vi è nessuno obiettivo terminato al momento per questo utente. Un obiettivo sarà terminato nel momento in cui
-		la data di scadenza per quell'obiettivo è superata.
-	</div>
+	<% if !model.terminated_objectives.empty? %>
+		<%= cell(:objectives, model, objectives: model.terminated_objectives).(:table) %>
+	<% else %>
+		<div class="alert alert-warning" role="alert">
+			Non vi è nessuno obiettivo terminato al momento per questo utente. Un obiettivo sarà terminato nel momento in cui
+			la data di scadenza per quell'obiettivo è superata.
+		</div>
+	<% end %>
 	<hr>
 	<%= link_to "Nuovo obiettivo", new_user_objective_path(model), class: 'btn btn-primary' %>
 </div>
