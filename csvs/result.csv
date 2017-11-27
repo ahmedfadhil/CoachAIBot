@@ -1,137 +1,137 @@
-,Id,Insert your age,How would you rate your overall health?,Does your work require sitting or moving more ?,How often do you get around on foot or by bicycle? ,How would you rate the amount of stress in your life? ,prediction,Estimation
-0,,30.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-1,,34.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Low,LOW,LOW
-2,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-3,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-4,,22.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Medium,LOW,LOW
-5,,49.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-6,,30.0,4.0,Moderate (involves both sitting and moving),Rarely,Medium,LOW,LOW
-7,,26.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-8,,24.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-9,,28.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-10,,28.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-11,,20.0,4.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-12,,21.0,4.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-13,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-14,,27.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW,LOW
-15,,30.0,4.0,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Medium,LOW,LOW
-16,,27.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-17,,30.0,4.0,Moderate (involves both sitting and moving),1-2 times a week,Medium,LOW,LOW
-18,,34.0,4.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-19,,34.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-20,,23.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-21,,24.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-22,,24.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High,LOW,LOW
-23,,31.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Medium,LOW,LOW
-24,,23.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High,LOW,LOW
-25,,19.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Low,LOW,LOW
-26,,24.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-27,,20.0,5.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-28,,23.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-29,,29.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW,LOW
-30,,27.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW,LOW
-31,,34.0,4.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-32,,25.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Medium,LOW,LOW
-33,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-34,,25.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Low,LOW,LOW
-35,,27.0,3.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-36,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-37,,30.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,High,LOW,LOW
-38,,20.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-39,,29.0,4.0,Mostly moving (Involves movement more than 3days per week),Rarely,Low,LOW,LOW
-40,,29.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Medium,LOW,LOW
-41,,37.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-42,,27.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-43,,27.0,4.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-44,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Low,LOW,LOW
-45,,28.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Low,LOW,LOW
-46,,31.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-47,,28.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,High,LOW,LOW
-48,,28.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High,LOW,LOW
-49,,29.0,5.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-50,,24.0,4.0,Moderate (involves both sitting and moving),Most of the time,Medium,LOW,LOW
-51,,23.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-52,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-53,,26.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-54,,27.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Low,LOW,LOW
-55,,30.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW,LOW
-56,,16.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-57,,21.0,5.0,Mostly moving (Involves movement more than 3days per week),Most of the time,Medium,LOW,LOW
-58,,24.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Low,LOW,LOW
-59,,24.0,5.0,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Medium,LOW,LOW
-60,,24.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Low,LOW,LOW
-61,,22.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High,LOW,LOW
-62,,25.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High,LOW,LOW
-63,,23.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Low,LOW,LOW
-64,,28.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,Medium,LOW,LOW
-65,,24.0,4.0,Moderate (involves both sitting and moving),Rarely,High,LOW,LOW
-66,,23.0,5.0,Mostly moving (Involves movement more than 3days per week),Rarely,Medium,LOW,LOW
-67,,35.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,High,LOW,LOW
-68,,26.0,4.0,Moderate (involves both sitting and moving),Almost always,Medium,LOW,LOW
-69,,48.0,2.0,Mostly sitting (Involves movement less than 30 minutes per week),Rarely,High,LOW,LOW
-70,,31.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-71,,33.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Low,LOW,LOW
-72,,24.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-73,,26.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW,LOW
-74,,54.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Less than once a week,Low,LOW,LOW
-75,,28.0,3.0,Moderate (involves both sitting and moving),Less than once a week,High,LOW,LOW
-76,,25.0,5.0,Mostly moving (Involves movement more than 3days per week),1-2 times a week,Medium,LOW,LOW
-77,,21.0,4.0,Mostly moving (Involves movement more than 3days per week),Almost always,High,LOW,LOW
-78,,20.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-79,,29.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-80,,53.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-81,,23.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-82,,31.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,High,LOW,LOW
-83,,56.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,High,LOW,LOW
-84,,32.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Less than once a week,Medium,LOW,LOW
-85,,32.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-86,,31.0,4.0,Moderate (involves both sitting and moving),1-2 times a week,Medium,LOW,LOW
-87,,32.0,4.0,Moderate (involves both sitting and moving),> 3 times a week,Low,LOW,LOW
-88,,32.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Less than once a week,Medium,LOW,LOW
-89,,23.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-90,,53.0,5.0,Mostly moving (Involves movement more than 3days per week),Less than once a week,Medium,LOW,LOW
-91,,23.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,High,LOW,LOW
-92,,23.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-93,,20.0,2.0,Mostly sitting (Involves movement less than 30 minutes per week),Less than once a week,Medium,LOW,LOW
-94,,22.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-95,,19.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,High,LOW,LOW
-96,,20.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-97,,19.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Less than once a week,Low,LOW,LOW
-98,,18.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,High,LOW,LOW
-99,,19.0,5.0,Moderate (involves both sitting and moving),Almost always,Medium,LOW,LOW
-100,,10.0,5.0,Mostly moving (Involves movement more than 3days per week),Almost always,Low,LOW,LOW
-101,,25.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Low,LOW,LOW
-102,,22.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-103,,23.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-104,,20.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Less than once a week,High,LOW,LOW
-105,,19.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-106,,22.0,2.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,High,LOW,LOW
-107,,20.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW,LOW
-108,,21.0,4.0,Moderate (involves both sitting and moving),Almost always,Medium,LOW,LOW
-109,,21.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,High,LOW,LOW
-110,,20.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-111,,22.0,5.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,High,LOW,LOW
-112,,22.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-113,,24.0,4.0,Mostly moving (Involves movement more than 3days per week),Almost always,Medium,LOW,LOW
-114,,23.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-115,,21.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-116,,20.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-117,,20.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Almost always,Medium,LOW,LOW
-118,,20.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW,LOW
-119,,,,,,,LOW,LOW
-120,,30.0,5.0,Moderate (involves both sitting and moving),rarely,Average,LOW,LOW
-121,,34.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),rarely,high,LOW,LOW
-122,,28.0,5.0,Moderate (involves both sitting and moving),Most of the time,Average,LOW,LOW
-123,,20.0,4.0,Moderate (involves both sitting and moving),rarely,Average,LOW,LOW
-124,,23.0,4.0,Mostly moving (Involves movement more than 3days per week),Most of the time,Average,LOW,LOW
-125,,25.0,4.0,Moderate (involves both sitting and moving),Most of the time,high,LOW,LOW
-126,,20.0,3.0,Moderate (involves both sitting and moving),Most of the time,high,LOW,LOW
-127,4.0,23.0,3.0,Moderate (involves both sitting and moving),> 3 times a week,Medium,LOW,LOW
-128,12.0,23.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW,LOW
-129,13.0,23.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-130,14.0,23.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium,LOW,LOW
-131,11.0,30.0,3.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
-132,17.0,23.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High,LOW,LOW
-133,15.0,23.0,3.0,Mostly moving (Involves movement more than 3days per week),1-2 times a week,Medium,LOW,LOW
-134,18.0,,2.0,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Medium,LOW,LOW
-135,19.0,23.0,4.0,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium,LOW,LOW
+,Insert your age,How would you rate your overall health?,Does your work require sitting or moving more ?,id,Adherence,prediction,Estimation
+0,30.0,3.0,1.0,1,1,LOW,LOW
+1,34.0,5.0,1.0,2,1,LOW,LOW
+2,26.0,4.0,1.0,3,1,LOW,LOW
+3,26.0,4.0,1.0,4,1,LOW,LOW
+4,22.0,5.0,1.0,5,1,LOW,LOW
+5,49.0,4.0,1.0,6,1,LOW,LOW
+6,30.0,4.0,2.0,7,2,MEDIUM,MEDIUM
+7,26.0,5.0,1.0,8,1,LOW,LOW
+8,24.0,4.0,1.0,9,1,LOW,LOW
+9,28.0,3.0,1.0,10,1,LOW,LOW
+10,28.0,4.0,1.0,11,1,LOW,LOW
+11,20.0,4.0,2.0,12,2,MEDIUM,MEDIUM
+12,21.0,4.0,2.0,13,2,MEDIUM,MEDIUM
+13,26.0,4.0,1.0,14,1,LOW,LOW
+14,27.0,4.0,1.0,15,1,LOW,LOW
+15,30.0,4.0,3.0,16,3,MEDIUM,HIGH
+16,27.0,4.0,1.0,17,1,LOW,LOW
+17,30.0,4.0,2.0,18,2,MEDIUM,MEDIUM
+18,34.0,4.0,2.0,19,2,MEDIUM,MEDIUM
+19,34.0,4.0,1.0,20,1,MEDIUM,LOW
+20,23.0,4.0,1.0,21,1,LOW,LOW
+21,24.0,4.0,1.0,22,1,MEDIUM,LOW
+22,24.0,3.0,1.0,23,1,LOW,LOW
+23,31.0,4.0,1.0,24,1,LOW,LOW
+24,23.0,5.0,1.0,25,1,LOW,LOW
+25,19.0,5.0,1.0,26,1,LOW,LOW
+26,24.0,4.0,1.0,27,1,LOW,LOW
+27,20.0,5.0,2.0,28,2,MEDIUM,MEDIUM
+28,23.0,5.0,1.0,29,1,LOW,LOW
+29,29.0,4.0,1.0,30,1,LOW,LOW
+30,27.0,4.0,1.0,31,1,LOW,LOW
+31,34.0,4.0,2.0,32,2,MEDIUM,MEDIUM
+32,25.0,4.0,1.0,33,1,LOW,LOW
+33,26.0,4.0,1.0,34,1,LOW,LOW
+34,25.0,4.0,1.0,35,1,LOW,LOW
+35,27.0,3.0,2.0,36,2,MEDIUM,MEDIUM
+36,26.0,4.0,1.0,37,1,MEDIUM,LOW
+37,30.0,4.0,1.0,38,1,MEDIUM,LOW
+38,20.0,5.0,1.0,39,1,MEDIUM,LOW
+39,29.0,4.0,3.0,40,3,HIGH,HIGH
+40,29.0,4.0,1.0,41,1,MEDIUM,LOW
+41,37.0,4.0,1.0,42,1,LOW,LOW
+42,27.0,5.0,1.0,43,1,LOW,LOW
+43,27.0,4.0,2.0,44,2,LOW,MEDIUM
+44,26.0,4.0,1.0,45,1,LOW,LOW
+45,28.0,5.0,1.0,46,1,LOW,LOW
+46,31.0,3.0,1.0,47,1,LOW,LOW
+47,28.0,4.0,1.0,48,1,LOW,LOW
+48,28.0,4.0,1.0,49,1,LOW,LOW
+49,29.0,5.0,2.0,50,2,MEDIUM,MEDIUM
+50,24.0,4.0,2.0,51,2,MEDIUM,MEDIUM
+51,23.0,5.0,1.0,52,1,MEDIUM,LOW
+52,26.0,4.0,1.0,53,1,LOW,LOW
+53,26.0,4.0,1.0,54,1,LOW,LOW
+54,27.0,3.0,1.0,55,1,LOW,LOW
+55,30.0,4.0,1.0,56,1,LOW,LOW
+56,16.0,5.0,1.0,57,1,HIGH,LOW
+57,21.0,5.0,3.0,58,3,HIGH,HIGH
+58,24.0,4.0,1.0,59,1,HIGH,LOW
+59,24.0,5.0,3.0,60,3,HIGH,HIGH
+60,24.0,4.0,1.0,61,1,LOW,LOW
+61,22.0,4.0,1.0,62,1,LOW,LOW
+62,25.0,5.0,1.0,63,1,LOW,LOW
+63,23.0,5.0,1.0,64,1,LOW,LOW
+64,28.0,4.0,1.0,65,1,LOW,LOW
+65,24.0,4.0,2.0,66,2,MEDIUM,MEDIUM
+66,23.0,5.0,3.0,67,3,MEDIUM,HIGH
+67,35.0,4.0,1.0,68,1,LOW,LOW
+68,26.0,4.0,2.0,69,2,MEDIUM,MEDIUM
+69,48.0,2.0,1.0,70,1,LOW,LOW
+70,31.0,3.0,1.0,71,1,LOW,LOW
+71,33.0,5.0,1.0,72,1,LOW,LOW
+72,24.0,3.0,1.0,73,1,LOW,LOW
+73,26.0,3.0,1.0,74,1,LOW,LOW
+74,54.0,5.0,1.0,75,1,LOW,LOW
+75,28.0,3.0,2.0,76,2,MEDIUM,MEDIUM
+76,25.0,5.0,3.0,77,3,HIGH,HIGH
+77,21.0,4.0,3.0,78,3,HIGH,HIGH
+78,20.0,4.0,1.0,79,1,HIGH,LOW
+79,29.0,3.0,1.0,80,1,MEDIUM,LOW
+80,53.0,4.0,1.0,81,1,LOW,LOW
+81,23.0,5.0,1.0,82,1,MEDIUM,LOW
+82,31.0,4.0,1.0,83,1,LOW,LOW
+83,56.0,4.0,1.0,84,1,LOW,LOW
+84,32.0,3.0,1.0,85,1,LOW,LOW
+85,32.0,4.0,1.0,86,1,LOW,LOW
+86,31.0,4.0,2.0,87,2,MEDIUM,MEDIUM
+87,32.0,4.0,2.0,88,2,MEDIUM,MEDIUM
+88,32.0,4.0,1.0,89,1,MEDIUM,LOW
+89,23.0,5.0,1.0,90,1,LOW,LOW
+90,53.0,5.0,3.0,91,3,HIGH,HIGH
+91,23.0,4.0,1.0,92,1,LOW,LOW
+92,23.0,4.0,1.0,93,1,LOW,LOW
+93,20.0,2.0,1.0,94,1,LOW,LOW
+94,22.0,4.0,1.0,95,1,LOW,LOW
+95,19.0,4.0,1.0,96,1,LOW,LOW
+96,20.0,3.0,1.0,97,1,HIGH,LOW
+97,19.0,3.0,1.0,98,1,LOW,LOW
+98,18.0,5.0,1.0,99,1,LOW,LOW
+99,19.0,5.0,2.0,100,2,LOW,MEDIUM
+100,10.0,5.0,3.0,101,3,HIGH,HIGH
+101,25.0,4.0,1.0,102,1,LOW,LOW
+102,22.0,5.0,1.0,103,1,LOW,LOW
+103,23.0,5.0,1.0,104,1,LOW,LOW
+104,20.0,3.0,1.0,105,1,LOW,LOW
+105,19.0,5.0,1.0,106,1,LOW,LOW
+106,22.0,2.0,1.0,107,1,LOW,LOW
+107,20.0,4.0,1.0,108,1,LOW,LOW
+108,21.0,4.0,2.0,109,2,LOW,MEDIUM
+109,21.0,4.0,1.0,110,1,LOW,LOW
+110,20.0,5.0,1.0,111,1,LOW,LOW
+111,22.0,5.0,1.0,112,1,LOW,LOW
+112,22.0,4.0,1.0,113,1,LOW,LOW
+113,24.0,4.0,3.0,114,3,HIGH,HIGH
+114,23.0,4.0,1.0,115,1,LOW,LOW
+115,21.0,4.0,1.0,116,1,LOW,LOW
+116,20.0,4.0,1.0,117,1,LOW,LOW
+117,20.0,4.0,1.0,118,1,LOW,LOW
+118,20.0,4.0,1.0,119,1,LOW,LOW
+119,2.0,2.0,2.0,120,1,LOW,MEDIUM
+120,30.0,5.0,2.0,121,2,MEDIUM,MEDIUM
+121,34.0,4.0,1.0,122,1,LOW,LOW
+122,28.0,5.0,2.0,123,2,MEDIUM,MEDIUM
+123,20.0,4.0,2.0,124,2,MEDIUM,MEDIUM
+124,23.0,4.0,3.0,125,3,HIGH,HIGH
+125,25.0,4.0,2.0,126,2,HIGH,MEDIUM
+126,20.0,3.0,2.0,127,2,MEDIUM,MEDIUM
+127,23.0,3.0,2.0,128,2,LOW,MEDIUM
+128,23.0,3.0,1.0,129,1,LOW,LOW
+129,23.0,3.0,1.0,130,1,LOW,LOW
+130,23.0,3.0,1.0,131,1,LOW,LOW
+131,30.0,3.0,1.0,132,1,LOW,LOW
+132,23.0,4.0,1.0,133,1,LOW,LOW
+133,23.0,3.0,3.0,134,3,LOW,HIGH
+134,2.0,2.0,3.0,135,3,MEDIUM,HIGH
+135,23.0,4.0,1.0,136,1,LOW,LOW
