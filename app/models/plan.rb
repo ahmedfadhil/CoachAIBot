@@ -7,7 +7,7 @@ class Plan < ApplicationRecord
   validates :to_day, presence: { message: 'Inserisci DATA FINE piano.' }
   validates :name, presence: { message: 'Il piano deve avere un nome' }, length: { maximum: 50, message: "Il nome del piano non puo' essere piu' lungo di 50 caratteri" }
   validates_uniqueness_of :name, message: "tutti i piani devono avere nomi diversi. Scegli un'atro nome!"
-  #validate :date_cannot_be_in_the_past, on: :create
+  validate :date_cannot_be_in_the_past, on: :create
 
   def  date_cannot_be_in_the_past
     if self.from_day < Date.today || self.to_day <= self.from_day

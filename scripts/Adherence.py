@@ -79,7 +79,7 @@ def main():
         else:
             val = "LOW"
         return val
-    df0['prediction'] = df0.apply(g, axis=1)
+    df0['prediction'] = df0.apply(h, axis=1)
     df0['Estimation'] = df0.apply(h, axis=1)
     print(df0[:1])
     print ("Accuracy", accuracy)
