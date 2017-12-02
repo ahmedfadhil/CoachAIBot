@@ -9,15 +9,14 @@ class PlansController < ApplicationController
   def create
     plan = Plan.new plan_params
     plan.delivered = 0
-    user = User.find params[:u_id]
+    plan.user_id = params['u_id']
     if plan.save
-      user.plans << plan
       flash[:OK] = 'Il nuovo piano e\' stato salvato con successo!'
     else
       flash[:err] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
       flash[:errors] = plan.errors.messages
     end
-    redirect_to plans_users_path(user)
+    redirect_to plans_users_path(User.find(params['u_id']))
   end
 
   def destroy

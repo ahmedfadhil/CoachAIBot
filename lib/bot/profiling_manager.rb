@@ -152,6 +152,20 @@ class ProfilingManager
     end
   end
 
+  def create_data_set
+    users = User.all
+    users.each do |user|
+      path = Rails.root.join('csvs', 'status_classification_dataset.csv')
+      features = user.feature
+      unless features.py_cluster.nil?
+        CSV.open(path, 'a+') do |csv|
+          csv << [user.id, "#{user.first_name} #{user.last_name}", features.age, features.health_personality, decode_work_physical_activity(features.work_physical_activity),
+                  decode_foot_bicycle(features.foot_bicycle), decode_stress(features.coping_stress), features.py_cluster]
+        end
+      end
+    end
+  end
+
   def decode_work_physical_activity(code)
     case code
       when 0, '0'

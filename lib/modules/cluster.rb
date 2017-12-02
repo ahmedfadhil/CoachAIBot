@@ -22,7 +22,7 @@ class Cluster
 
   def group_py
     pid = Process.spawn('python3 scripts/Adherence.py') # launch another process in order to call python script from shell
-    wait_until_process_exit(pid)
+    wait_until_process_exit(pid) # we can do it without disturbing tha rails server because it will be done during the task processing
     process_result
   end
 
