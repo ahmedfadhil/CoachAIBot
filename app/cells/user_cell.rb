@@ -9,6 +9,14 @@ class UserCell < Cell::ViewModel
     model
   end
 
+  def profile_image
+    if user.profile_img.nil?
+      profile_photo_url
+    else
+      user.profile_img
+    end
+  end
+
   def profile_photo_url
     if user.telegram_id.nil?
       default_image
@@ -16,7 +24,6 @@ class UserCell < Cell::ViewModel
       begin
         solver = ImageSolver.new
         solver.solve(user.telegram_id)
-
       rescue Exception
         default_image
       end

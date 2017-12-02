@@ -1,6 +1,7 @@
 require 'telegram/bot'
 require 'chatscript'
 require 'csv'
+require './lib/bot/image_solver'
 
 
 class ProfilingManager
@@ -115,6 +116,7 @@ class ProfilingManager
       if new_state.monitoring == 1
         communicate_profiling_done! @user
         save_features_to_csv @user
+        save_telegram_profile_img @user
         system 'rake python_clustering &'
         custom_keyboard %w(Attivita Feedback Consigli Messaggi)
       else
@@ -164,6 +166,25 @@ class ProfilingManager
         end
       end
     end
+  end
+
+  def save_telegram_profile_img(user)
+    begin
+      solver = ImageSolver.new
+      uri = solver.solve(user.telegram_id)
+      stream = open(uri)
+      file_name = stream.base_uri.to_s.split('/')[-1]
+      user.profile_img = "profile_images/#{file_name}"
+      path = Rails.root.join('app/assets/images/profile_images', file_name)
+      IO.copy_stream(stream, path)
+    rescue Exception
+      user.profile_img = default_profile_img
+    end
+    user.save
+  end
+
+  def default_profile_img
+    'rsz_user_icon.png'
   end
 
   def decode_work_physical_activity(code)
