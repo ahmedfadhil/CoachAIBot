@@ -5,13 +5,13 @@
 
       <%= link_to users_path,  class: 'mdl-navigation__link' do %>
           <button id="all-users" class="mdl-button mdl-js-button mdl-button--raised">
-            <i class="material-icons">supervisor_account</i> &nbsp Tutti
+            <i class="material-icons">supervisor_account</i> &nbsp Attivi (<%= registered %>)
           </button>
       <% end %>
 
       <%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>
           <button id="archived-users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <%= image_tag 'archive_user_icon.png' %> &nbsp Archiviati
+            <%= image_tag 'archive_user_icon.png' %> &nbsp Archiviati (<%= archived %>)
           </button>
       <% end %>
 

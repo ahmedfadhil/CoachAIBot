@@ -24,15 +24,19 @@ class DashboardCell < Cell::ViewModel
   end
 
   def active
-    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id).count
+    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :state => 'REGISTERED').count
   end
 
   def users_count
-    User.joins(:plans).where(:coach_user_id => model.id).count
+    User.where(:coach_user_id => model.id).count
   end
 
   def plans_count
     Plan.joins(:user).where(:users => {:coach_user_id => model.id}).count
+  end
+
+  def not_archived
+    User.where(:state => 'REGISTERED', :coach_user_id => model.id).count
   end
 
   def activities_count

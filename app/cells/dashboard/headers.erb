@@ -5,7 +5,7 @@
     </div>
     <div class="card-content">
       <p class="category">Attivi</p>
-      <h3 class="title"><%= active %>/<%= users_count %><small>Pazienti</small></h3>
+      <h3 class="title"><%= active %>/<%= not_archived %><small>Pazienti</small></h3>
     </div>
     <div class="card-footer">
       <div class="stats">
@@ -22,7 +22,7 @@
     </div>
     <div class="card-content">
       <p class="category">In attesa di un piano</p>
-      <h3 class="title"><%= users_count - active %>/<%= users_count %><small>Pazienti</small></h3>
+      <h3 class="title"><%= not_archived - active %>/<%= not_archived %><small>Pazienti</small></h3>
     </div>
     <div class="card-footer">
       <div class="stats">
