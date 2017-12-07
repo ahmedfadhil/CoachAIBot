@@ -1,6 +1,6 @@
 @CommunicationsPooler =
   pool: ->
-    setTimeout(@request, 2000)
+    setTimeout(@request, 5000)
 
   request: ->
     after = -1
