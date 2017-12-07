@@ -112,7 +112,7 @@ class ProfilingManager
 
     @user.set_user_state(new_state)
 
-    if flag == 1
+    if flag == 1  #profiling was done
       if new_state.monitoring == 1
         communicate_profiling_done! @user
         save_features_to_csv @user
