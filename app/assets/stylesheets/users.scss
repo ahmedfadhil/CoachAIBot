@@ -1,3 +1,7 @@
+.user_archived{
+  min-height: auto;
+}
+
 .sub_menu{
   background-color: white;
 }
@@ -40,6 +44,7 @@
 .user-card-actions.mdl-card__actions{
   outline: #494d4e solid 1px;
   text-align: -webkit-right;
+  margin-top: 5px;
 }
 
 .user-card-grid{

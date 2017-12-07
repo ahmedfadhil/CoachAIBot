@@ -2,12 +2,13 @@
 class ChartDataBinder
   DIET, PHYSICAL, MENTAL = 0, 1, 2
   YES_ANSWER, NO_ANSWER = 'Si', 'No'
+  ARCHIVED = 'ARCHIVED'
 
   def init
   end
 
   def get_scores(coach)
-    users = coach.users
+    users = coach.users.where('state <> ?', ARCHIVED)
     data = {:users => []}
     data.tap do
       users.find_each do |user|

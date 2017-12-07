@@ -9,6 +9,10 @@ class UserCell < Cell::ViewModel
     model
   end
 
+  def archived?
+    user.archived?
+  end
+
   def profile_image
     if user.profile_img.nil?
       profile_photo_url
@@ -32,6 +36,12 @@ class UserCell < Cell::ViewModel
 
   def default_image
     'rsz_user_icon.png'
+  end
+
+  def archived_css_class
+    if archived?
+      'user_archived'
+    end
   end
 
 end

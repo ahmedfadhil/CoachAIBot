@@ -39,4 +39,8 @@ class User < ApplicationRecord
       (features.health == 1) && (features.physical == 1) && (features.coping == 1) && (features.mental == 1)
     end
   end
+
+  def archived?
+    self.state == 'ARCHIVED'
+  end
 end
