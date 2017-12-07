@@ -7,6 +7,10 @@ class ChatCell < Cell::ViewModel
     render
   end
 
+  def user_not_profiled
+    render
+  end
+
   def user
     options[:user]
   end
