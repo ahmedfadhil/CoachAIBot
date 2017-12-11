@@ -2,7 +2,29 @@ Rails.application.routes.draw do
   # crono jobs route
   mount Crono::Web, at: '/crono'
 
-  resources :activities
+  resources :communications do
+    collection do
+      get 'lasts/:id', to: 'communications#lasts', as: 'lasts'
+      get 'all/:id', to: 'communications#all', as: 'all'
+    end
+  end
+
+  resources :activities do
+    collection do
+      get 'diets', to: 'activities#diets', as: 'diets'
+      get 'physicals', to: 'activities#physicals', as: 'physicals'
+      get 'mentals', to: 'activities#mentals', as: 'mentals'
+      get 'medicinals', to: 'activities#medicinals', as: 'medicinals'
+      get 'others', to: 'activities#others', as: 'others'
+    end
+  end
+
+  resources :chats do
+    collection do
+      get 'chat/:id', to: 'chats#chat', as: 'chat'
+      get 'chats/:id', to: 'chats#chats', as: 'chats'
+    end
+  end
 
   resources :plans do
     collection do

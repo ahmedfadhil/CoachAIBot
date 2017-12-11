@@ -1,0 +1,21 @@
+Id,Name,Insert your age,How would you rate your overall health?,Does your work require sitting or moving more ?,How often do you get around on foot or by bicycle? ,How would you rate the amount of stress in your life?,Prediction
+5,Diaconu Marian,23,5,Mostly moving (Involves movement more than 3days per week),1-2 times a week,Low,HIGH
+6,Salih Ahmed,30,5,Mostly moving (Involves movement more than 3days per week),Most of the time,Low,HIGH
+7,Beti Dario,44,2,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW
+8,Stoffie Damiano,24,5,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Low,LOW
+9,Bassano Anna,26,3,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Low,LOW
+10,Salih Ayad,25,4,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Medium,HIGH
+13,Roccabruna Gabriel,23,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW
+14,Ciaghi Aaron,32,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW
+15,Fleaca Sebastian,23,3,Moderate (involves both sitting and moving),> 3 times a week,Medium,MEDIUM
+16,Mita Valentin,22,4,Moderate (involves both sitting and moving),> 3 times a week,Medium,MEDIUM
+17,Postal Stefano,22,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW
+18,Carlevaris Davide,23,4,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,High,LOW
+19,Mahili Omar,23,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW
+20,Dauriz Alessandro,24,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW
+21,Doriana Doriana,25,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,High,LOW
+22,Cristian Cristian,21,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW
+23,Consoli Andrea,22,3,Mostly moving (Involves movement more than 3days per week),1-2 times a week,High,HIGH
+24,Azham Zihadul,23,4,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Medium,LOW
+25,Gobbi Jacopo,26,4,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,High,LOW
+26,Palazzini Federico,22,4,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Medium,HIGH

@@ -3,4 +3,8 @@ class FooterCell < Cell::ViewModel
     render
   end
 
+  def given_class
+    model
+  end
+
 end

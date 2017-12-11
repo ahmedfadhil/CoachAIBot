@@ -6,11 +6,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'record_tag_helper', '~> 1.0'
+
 # writing and deploying cron jobs.
 # gem 'whenever', :require => false
 
 # another way for cron jobs
 gem 'crono'
+gem 'daemons' #used by crono
 
 # cron jobs web ui
 gem 'haml'

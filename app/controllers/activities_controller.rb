@@ -18,13 +18,13 @@ class ActivitiesController < ApplicationController
     if activity.save
       #automaticaly add COMPLETNESS question
       if completness_question(activity)
-        flash[:info] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
+        flash[:OK] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
       else
-        flash[:notice] = 'C\'e\' stato un problema durante la crezione dell\'attivita\', in particolare durante la creazione dei metodi di verifica/domande completezza automatiche! Contattare l\'amministratore del sistema se il problema persiste!'
+        flash[:err] = 'C\'e\' stato un problema durante la crezione dell\'attivita\', in particolare durante la creazione dei metodi di verifica/domande completezza automatiche! Contattare l\'amministratore del sistema se il problema persiste!'
         flash[:errors] = activity.errors.messages
       end
     else
-      flash[:notice] = "L'Attivita NON E' STATA INSERITA"
+      flash[:err] = "L'Attivita NON E' STATA INSERITA"
       flash[:errors] = activity.errors.messages
     end
     redirect_to activities_path
@@ -36,9 +36,9 @@ class ActivitiesController < ApplicationController
   def update
     activity = Activity.find(params[:id])
     if !activity.update(activity_params)
-      flash[:info] = "L'Attivita e' stata modificata con successo!"
+      flash[:OK] = "L'Attivita e' stata modificata con successo!"
     else
-      flash[:notice] = "C'e' stato un problema durante l'aggiornamento dell'attivita'. La preghiamo di ricontrollare i dati inseriti e riprovare."
+      flash[:err] = "C'e' stato un problema durante l'aggiornamento dell'attivita'. La preghiamo di ricontrollare i dati inseriti e riprovare."
       flash[:errors] = activity.errors.messages
     end
     redirect_to activities_path
@@ -47,14 +47,33 @@ class ActivitiesController < ApplicationController
   def destroy
     activity = Activity.find(params[:id])
     if activity.destroy
-      flash[:info] = 'La tua attivita\' e\' stata eliminata con successo!'
+      flash[:OK] = 'La tua attivita\' e\' stata eliminata con successo!'
     else
-      flash[:notice] = "C'e' stato un problema durante la distruzione dell'attivita'. La preghiamo di riprovare piu' tardi."
+      flash[:err] = "C'e' stato un problema durante la distruzione dell'attivita'. La preghiamo di riprovare piu' tardi."
       flash[:errors] = activity.errors.messages
     end
     redirect_to activities_path
   end
 
+  def diets
+    @activities = Activity.where(:category => 0)
+  end
+
+  def physicals
+    @activities = Activity.where(:category => 1)
+  end
+
+  def mentals
+    @activities = Activity.where(:category => 2)
+  end
+
+  def medicinals
+    @activities = Activity.where(:category => 3)
+  end
+
+  def others
+    @activities = Activity.where(:category => 4)
+  end
 
   private
 

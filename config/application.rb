@@ -15,6 +15,12 @@ module Coach
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    # Setting Application timezone
+    config.time_zone = 'Rome'.freeze
+
+    # Setting ActiveRecord timezone
+    config.active_record.default_timezone = :local
+
     # Changing schema for ActiveRecord
     config.active_record.schema_format = :ruby
 

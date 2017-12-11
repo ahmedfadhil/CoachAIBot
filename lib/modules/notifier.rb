@@ -7,6 +7,17 @@ class Notifier
     puts 'Ready to notify!'
   end
 
+  def notify_plan_finished(plan)
+    message = "Ciao #{plan.user.first_name}, ti informiamo che il piano #{plan.name} e' finito. "
+    send_message(user, message)
+  end
+
+  def notify_plan_missing_feedback(plan)
+    message = "Ciao #{plan.user.first_name}, ti informiamo che il piano #{plan.name} e' finito ma non ho ancora ricevuto tutto il feedback necessario per capire come sono andate le attivita'."
+    send_message(user, message)
+    send_message(user, "Ti consiglio di fornirli al piu' presto.")
+  end
+
   def create_notifications(plan)
     plannings = plan.plannings
     start_date = plan.from_day
@@ -28,6 +39,11 @@ class Notifier
           create_notifications_monthly(planning, start_date, end_date, default_time)
       end
     end
+  end
+
+  def notify_for_new_messages(user)
+    message = "Ciao #{user.first_name}, il coach ti ha inviato dei nuovi messaggi. Vai nella sezione MESSAGGI per visualizzarli e rispondere."
+    send_message(user, message)
   end
 
   def notify_for_new_activities(plan)

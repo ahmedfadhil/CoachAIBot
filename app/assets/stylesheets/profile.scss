@@ -1,3 +1,29 @@
+//footer
+.footer{
+  //position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+.home-footer{
+  //position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+
+.main-container{
+  background-color: #dedada;
+}
+
 /* Bootstrap, only for the dashboard  */
 
 #dashboard-container-fluid{
@@ -265,7 +291,7 @@ _:-ms-input-placeholder, :root .graph {
 }
 
 .profile_content_header{
-  background-color: #37474F;
+  background-color: #ffffff
 }
 
 
@@ -290,4 +316,8 @@ _:-ms-input-placeholder, :root .graph {
 #error-grid{
   text-align: -webkit-center;
   max-width: 80%;
+}
+
+#drawer-btn:hover{
+  background-color: rgb(145, 40, 172);
 }

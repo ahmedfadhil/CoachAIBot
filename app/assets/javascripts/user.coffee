@@ -315,25 +315,34 @@
               i++
 
 
+
 @default_tab = () ->
   div_overview = document.getElementsByClassName('overview-action')
-  div_plans = document.getElementsByClassName('plans-action')
-  div_features = document.getElementsByClassName('users_features')
+  div_plans = document.getElementById('all_plans_users')
+  div_features = document.getElementsByClassName('features-page')
   div_index = document.getElementsByClassName('users-index')
+  div_chat = document.getElementsByClassName('chat-container')
 
-  if div_plans[0] != undefined
-    document.getElementById('activities-user').style.background = '#F0F8FF'
-    # document.getElementById('all_plans_users').style.background = '#F0F8FF'
+
+  if div_chat[0] != undefined
+    document.getElementById('chatting-user').style.background = '#757575'
+
+  if div_plans != null
+    document.getElementById('activities-user').style.background = '#757575'
+    document.getElementById('all_plans_users').style.background = '#757575'
 
   if div_overview[0] != undefined
-    document.getElementById('overview-user').style.background = '#F0F8FF'
+    document.getElementById('overview-user').style.background = '#757575'
     user_charts()
 
   if div_features[0] != undefined
-    document.getElementById('features-user').style.background = '#F0F8FF'
+    document.getElementById('features-user').style.background = '#757575'
 
   if div_index[0] != undefined
+    document.getElementById('all-users').style.background = '#757575'
     getScores()
+
+
 
 @show_hide = (element, type) ->
   if type=='open'

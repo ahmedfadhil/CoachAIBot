@@ -1,13 +1,14 @@
-require 'bot_classes/general_actions'
+require 'bot/general_actions'
+require 'csv'
 
 # Congregate patients, that is, clusters patients into 3 main clusters <GREEN>, <YELLOW>, <RED>
 class Cluster
   YELLOW_THRESHOLD, RED_THRESHOLD = 0.05, 0.2
   DAILY, WEEKLY, MONTHLY, NO_ANSWER = '0', '1', '2', 'No'
   GREEN, YELLOW, RED = 0, 1, 2
+  PROCESS_EXITED = 1
 
   def init
-    puts 'Ready to cluster!'
   end
 
   def group
@@ -18,6 +19,14 @@ class Cluster
       mark(user, therms[:to_do_activities], therms[:undone_activities], therms[:undone_feedback_days])
     end
   end
+
+  def group_py
+    pid = Process.spawn('python3 scripts/Adherence.py') # launch another process in order to call python script from shell
+    wait_until_process_exit(pid) # we can do it without disturbing tha rails server because it will be done during the task processing
+    process_result
+  end
+
+  private
 
   def get_therms(delivered_plans)
     to_do = 0
@@ -67,13 +76,25 @@ class Cluster
 
   def undone_feedback_days(delivered_plans)
     undone = 0
-    (delivered_plans.minimum('from_day')..Date.today).each do |date|
-      unless Feedback.joins(notification: :planning).where(:plannings => {:plan_id => 1}, :notifications => {:date => date}).exists?
-        undone += 1
-      end
+    if delivered_plans.maximum('to_day') < Date.today
+      upper_extremity_date = delivered_plans.maximum('to_day')
+    else
+      upper_extremity_date = Date.today
     end
+
+    (delivered_plans.minimum('from_day')..upper_extremity_date).each do |date|
+      flag = false
+      delivered_plans.each do |plan|
+        unless Feedback.joins(notification: :planning).where(:plannings => {:plan_id => plan.id}, :notifications => {:date => date}).exists?
+          flag = true
+        end
+      end
+      undone += 1 if flag==true
+    end
+
     undone
   end
+
 
   # performs Cluster's main check
   def mark(user, to_do_activities, undone_activities, undone_feedback_days)
@@ -82,12 +103,48 @@ class Cluster
     elsif (undone_activities <= RED_THRESHOLD*to_do_activities) && (undone_feedback_days <= 6 )
       update(user, YELLOW)
     else
+      if user.cluster != RED
+        communicator = Communicator.new
+        communicator.communicate_user_critical(user)
+      end
       update(user, RED)
     end
   end
 
   def update(user, cluster)
-    user.cluster = cluster
-    user.save
+    if user.cluster != cluster
+      user.cluster = cluster
+      user.save
+    end
+  end
+
+  def wait_until_process_exit(pid)
+    checker = Process.waitpid(pid, Process::WNOHANG)
+    while checker.nil? # => nil
+      checker = Process.waitpid(pid, Process::WNOHANG)
+    end
+    ap "PROCESS #{checker} FINISHED" if checker==pid
+  end
+
+  def process_result
+    path = "#{Rails.root}/csvs/result.csv"
+    file = File.open(path, 'r')
+    rows = CSV.parse(file, headers: true)
+    rows.each do |row|
+      id = row[1]
+      unless id.nil?
+        prediction = row[7]
+        save_py_prediction(id, prediction)
+      end
+    end
+  end
+
+  def save_py_prediction(id, prediction)
+    users = User.where(id: id)
+    unless users.empty?
+      features = users.first.feature
+      features.py_cluster = prediction
+      features.save!
+    end
   end
 end

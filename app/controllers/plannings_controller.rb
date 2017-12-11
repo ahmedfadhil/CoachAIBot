@@ -18,9 +18,9 @@ class PlanningsController < ApplicationController
     unless activity.id.nil?
       planning = Planning.new(:activity_id =>activity.id, :plan_id => params[:p_id])
       if planning.save
-        flash[:info] = 'Attivita creata/assegnata con successo!'
+        flash[:OK] = 'Attivita creata/assegnata con successo!'
       else
-        flash[:notice] = 'C\'e\' stato un problema durante l\'assegnamento dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+        flash[:err] = 'C\'e\' stato un problema durante l\'assegnamento dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         flash[:errors] = planning.errors.messages
       end
     end
@@ -35,9 +35,9 @@ class PlanningsController < ApplicationController
   def update
     planning = Planning.find (params[:id])
     if planning.update (allowed_params)
-      flash[:info] = 'Pianificazione inserita con successo!'
+      flash[:OK] = 'Pianificazione inserita con successo!'
     else
-      flash[:notice] = "La pianificazione non e' stata inserita!"
+      flash[:err] = "La pianificazione non e' stata inserita!"
       flash[:errors] = planning.errors.messages
     end
     redirect_to plans_users_path(planning.plan.user)
@@ -46,9 +46,9 @@ class PlanningsController < ApplicationController
   def destroy
     planning = Planning.find(params[:id])
     if planning.destroy
-      flash[:info] = 'La tua attivita\' e\' stata rimossa dal piano con successo!'
+      flash[:OK] = 'La tua attivita\' e\' stata rimossa dal piano con successo!'
     else
-      flash[:notice] = 'C\'e\' stato un problema durante la rimozione dell\'attivit\a\' dal piano.'
+      flash[:err] = 'C\'e\' stato un problema durante la rimozione dell\'attivit\a\' dal piano.'
       flash[:errors] = planning.errors.messages
     end
     redirect_back fallback_location: root_path
@@ -79,11 +79,11 @@ class PlanningsController < ApplicationController
       if activity.save
         # add the default completeness verify method
         unless completeness_question(activity)
-          flash[:notice] = 'C\'e\' stato un problema durante la creazione dei metodi di verifica dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+          flash[:err] = 'C\'e\' stato un problema durante la creazione dei metodi di verifica dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
           flash[:errors] = activity.errors.messages
         end
       else
-        flash[:notice] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+        flash[:err] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         flash[:errors] = activity.errors.messages
       end
       activity

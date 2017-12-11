@@ -1,33 +1,37 @@
-<div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+<div class="col-lg-4 col-xl-3">
   <div class="user-card mdl-card">
     <div class="user-card-grid mdl-grid">
-      <div class="mdl-cell mdl-cell--2-col-desktop">
-        <%= image_tag 'rsz_user_icon.png', alt: 'paziente', class: 'user-img-round' %>
-      </div>
-      <div class="mel-cell mdl-cell--8-col-desktop">
-        <div class="user-card-name">
-          <%= user.first_name %> <%= " #{user.last_name}" %>
+      <div class="row">
+        <div class="col-sm-3">
+          <%= image_tag profile_photo_url, class: 'user-img-round' %>
         </div>
-      </div>
-      <div class="mdl-cell mdl-cell--2-col-desktop">
-        <div class="user-card-n">
-          <i class="n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">notifications_none</i>
+        <div class="col-sm-6">
+          <div class="user-card-name">
+            <%= user.first_name %> <%= " #{user.last_name}" %>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="user-card-n">
+            <a href="<%= chat_chats_path(user) %>">
+              <i class="n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">question_answer</i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="scores-grid mdl-grid">
-      <div class="mdl-cell mdl-cell--4-col-desktop">
+      <div class="col-sm-4">
         <div class="score" id="physical_score_<%= user.id %>">
 
         </div>
       </div>
-      <div class="mel-cell mdl-cell--4-col-desktop">
+      <div class="col-sm-4">
         <div class="score" id="diet_score_<%= user.id %>">
 
         </div>
       </div>
-      <div class="mdl-cell mdl-cell--4-col-desktop">
+      <div class="col-sm-4">
         <div class="score" id="mental_score_<%= user.id %>">
         </div>
       </div>

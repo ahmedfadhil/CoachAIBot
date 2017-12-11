@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 20171127172559) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
+  create_table "chats", force: :cascade do |t|
+    t.integer "coach_user_id"
+    t.integer "user_id"
+    t.string "text"
+    t.boolean "direction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coach_user_id"], name: "index_chats_on_coach_user_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
   create_table "coach_users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -47,6 +58,18 @@ ActiveRecord::Schema.define(version: 20171127172559) do
     t.string "last_sign_in_ip"
     t.index ["email"], name: "index_coach_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_coach_users_on_reset_password_token", unique: true
+  end
+
+  create_table "communications", force: :cascade do |t|
+    t.integer "c_type"
+    t.string "text"
+    t.datetime "read_at"
+    t.integer "user_id"
+    t.integer "coach_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coach_user_id"], name: "index_communications_on_coach_user_id"
+    t.index ["user_id"], name: "index_communications_on_user_id"
   end
 
   create_table "crono_jobs", force: :cascade do |t|
@@ -79,7 +102,7 @@ ActiveRecord::Schema.define(version: 20171127172559) do
     t.string "physical_sport"
     t.string "physical_sport_frequency"
     t.string "physical_sport_intensity"
-    t.string "physical_goal"
+    t.string "work_physical_activity"
     t.string "health_personality"
     t.string "health_wellbeing_meaning"
     t.string "health_nutritional_habits"
@@ -95,6 +118,9 @@ ActiveRecord::Schema.define(version: 20171127172559) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "foot_bicycle"
+    t.integer "age"
+    t.string "py_cluster"
     t.index ["user_id"], name: "index_features_on_user_id"
   end
 
@@ -157,6 +183,7 @@ ActiveRecord::Schema.define(version: 20171127172559) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "delivered"
+    t.boolean "communicated"
     t.index ["user_id"], name: "index_plans_on_user_id"
   end
 

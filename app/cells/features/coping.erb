@@ -1,0 +1,25 @@
+<div class="card-content">
+  <div class="card-content table-responsive">
+    <table class="table">
+      <thead class="text-primary">
+      <th>Coping</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Livello di stress</td>
+        <td><%= decode_stress(features.coping_stress) %></td>
+      </tr>
+      <tr>
+        <td>Ore di Sonno</td>
+        <td><%= remove_first_char(features.coping_sleep_hours) %></td>
+      </tr>
+      <tr>
+        <td>Livello Energia</td>
+        <td><%= remove_first_char(features.coping_energy_level) %></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

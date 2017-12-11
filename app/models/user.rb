@@ -1,11 +1,12 @@
 class User < ApplicationRecord
 	has_many :objectives
 	has_many :daily_logs
+  has_many :communications, dependent: :destroy
+  has_many :chats, dependent: :destroy
+	has_many :daily_logs, dependent: :destroy
   has_many :plans, dependent: :destroy
   has_one :feature, dependent: :destroy
   belongs_to :coach_user, optional: true
-
-  attr_accessor :physical_score,:diet_score,:mental_score
 
   validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email, message: 'Email in uso. Scegli altra email.'
@@ -31,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def reset_user_state
-    hash = { :state => "no_state"}
+    hash = { :state => 'no_state'}
     self.bot_command_data = hash.to_json
     save
   end
@@ -53,4 +54,13 @@ class User < ApplicationRecord
 			objective.end_date < Date.today
 		}
 	end
+
+  def profiled?
+    features = self.feature
+    if features.nil?
+      false
+    else
+      (features.health == 1) && (features.physical == 1) && (features.coping == 1) && (features.mental == 1)
+    end
+  end
 end
