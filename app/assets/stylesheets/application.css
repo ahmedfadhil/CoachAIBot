@@ -22,5 +22,6 @@
  *= require static_pages
  *= require_tree .
  *= require_tree ./third_party
+ *= require_tree ./third_party/tipped
  *= require_self
  */

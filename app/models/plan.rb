@@ -6,12 +6,22 @@ class Plan < ApplicationRecord
   validates :from_day, presence: { message: 'Inserisci DATA INIZIO piano.' }
   validates :to_day, presence: { message: 'Inserisci DATA FINE piano.' }
   validates :name, presence: { message: 'Il piano deve avere un nome' }, length: { maximum: 50, message: "Il nome del piano non puo' essere piu' lungo di 50 caratteri" }
-  validates_uniqueness_of :name, message: "tutti i piani devono avere nomi diversi. Scegli un'atro nome!"
-  validate :date_cannot_be_in_the_past, on: :create
+  validates_uniqueness_of :name, message: "Tutti i piani devono avere nomi diversi. Scegli un'atro nome!"
+  #validate :date_cannot_be_in_the_past, on: :create
+  validate :check_delivering_conditions
 
   def  date_cannot_be_in_the_past
     if self.from_day < Date.today || self.to_day <= self.from_day
       errors.add(:date, "Il piano non puo' iniziare nel passato o finire prima che inizi. Ricontrolla le date!")
+    end
+  end
+
+  def check_delivering_conditions
+    unless self.user.profiled?
+      errors.add(:user, "Il paziente non ha completato la fase di profilazione, riceverai una notifica quando questo accadra'")
+    end
+    if self.user.archived?
+      errors.add(:user, "Il paziente e' archiviato, quindi non puo' ricevere attivita' da fare")
     end
   end
 

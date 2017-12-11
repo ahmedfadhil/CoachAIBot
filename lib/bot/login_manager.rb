@@ -56,9 +56,6 @@ class LoginManager
   end
 
   def valid(phone_number)
-    prefix = phone_number[0,2]
-    # NEED TO CHECK PHONE NUMBER FORMAT
-
     user = User.find_by_cellphone(phone_number)
     if user.nil?
       false

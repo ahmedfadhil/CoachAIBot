@@ -1,10 +1,24 @@
 require 'telegram/bot'
+require './lib/modules/chart_data_binder'
 
 # creates all the notifications for the user, that are reminders
 class Notifier
+  DIET, PHYSICAL, MENTAL = 0, 1, 2
+  REGISTERED = 'REGISTERED'
 
   def init
     puts 'Ready to notify!'
+  end
+
+  def notify_weekly_progress(user)
+    if user.state == REGISTERED and user.has_delivered_plans?
+      binder = ChartDataBinder.new
+      mental_score = binder.score(user, MENTAL)
+      physical_score = binder.score(user, PHYSICAL)
+      diet_score = binder.score(user, DIET)
+      message = "Ciao #{user.first_name}! Ecco a che punto sei arrivato fin'ora fin'ora! \n\n-Attivita' Fisica: #{physical_score} \n-Dieta: #{diet_score} \n-Salute Mentale: #{mental_score} \n\n\t Alcuni scoe potrebbero essere 0% se non hai nessuna attivita' inerente."
+      send_message(user, message)
+    end
   end
 
   def notify_plan_finished(plan)
@@ -54,6 +68,8 @@ class Notifier
 
   def check_and_notify
     puts 'Looking for users to be Notified...'
+    # clear any transaction that the console was holding onto and frees up the database
+    ActiveRecord::Base.connection.execute('BEGIN TRANSACTION; END;')
     users = User.joins(:plans).where(:plans => {:delivered => 1})
     users.each do |user|
       message = need_to_be_notified?(user)

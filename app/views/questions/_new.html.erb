@@ -7,7 +7,7 @@
 
 
     <div class="mdl-card__supporting-text">
-      Inserisci i della domanda!
+      Inserisci i dati della domanda che vuoi che il bot faccia al paziente!
       <%= form_for @question, url: questions_path(@question, :a_id => @activity.id, :u_id => @user.id), method: 'post' do |f| %>
           <%= hidden_field_tag :open_answer_val %>
           <%= hidden_field_tag :scalar_from_val %>

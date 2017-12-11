@@ -43,4 +43,8 @@ class User < ApplicationRecord
   def archived?
     self.state == 'ARCHIVED'
   end
+
+  def has_delivered_plans?
+    self.plans.where(:delivered => 1).count > 0
+  end
 end

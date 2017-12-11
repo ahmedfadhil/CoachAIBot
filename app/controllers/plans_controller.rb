@@ -32,25 +32,20 @@ class PlansController < ApplicationController
 
   def deliver
     plan = Plan.find(params[:p_id])
-    if plan.user.profiled? && plan.has_plannings?
-      plan.delivered = 1
-      if plan.save
-        # create notifications
-        # call_rake :create_notifications, :plan_id => params[:p_id]
-        system "rake --trace create_notifications  PLAN_ID=#{params[:p_id]} &"
-        system "rake --trace notify_for_new_activities  PLAN_ID=#{params[:p_id]} &"
-        # %x(rake --trace create_notifications[#{params[:p_id]}])
+    plan.delivered = 1
 
-        flash[:OK] = 'Consegnando il Piano...'
-      else
-        flash[:err] = 'Piano non consegnato. Forse ce stato un problema, la preghiamo di riprovare piu\' tardi.'
-        flash[:errors] = plan.errors.messages
-      end
+    ap plan.user.profiled?
+    ap plan.has_plannings?
+    ap plan.user.archived?
+    ap plan.valid?
+
+    if plan.save
+      call_tasks params[:p_id]
+      flash[:OK] = 'Consegnando il Piano...'
     else
-      flash[:err] = "PIANO NON CONSEGNATO! Il piano non contiene attivita' oppure il paziente al quale stai cercando di consegnare il piano non ha ancora completato i questionari. Riceverai una notifica non appena questo succedera"
+      flash[:err] = 'Piano NON CONSEGNATO'
+      flash[:errors] = plan.errors.messages
     end
-
-
 
     redirect_to plans_users_path(plan.user.id)
   end
@@ -82,5 +77,13 @@ class PlansController < ApplicationController
   private
     def plan_params
       params.require(:plan).permit(:name, :desc, :from_day, :to_day, :notification_hour_coach_def)
+    end
+
+    def call_tasks(plan_id)
+      # create notifications
+      # call_rake :create_notifications, :plan_id => params[:p_id]
+      system "rake --trace create_notifications  PLAN_ID=#{plan_id} &"
+      system "rake --trace notify_for_new_activities  PLAN_ID=#{plan_id} &"
+      # %x(rake --trace create_notifications[#{params[:p_id]}])
     end
 end

@@ -1,26 +1,31 @@
-<div class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header" data-background-color="purple">
-            <h4 class="title">Informazioni personali</h4>
-            <p class="category">Riguardanti Salute, Attivita' Fisica, Benessere Mentale e le Strategie di Adattamento. </p>
-          </div>
-
-          <%= health %>
-
-          <%= physical %>
-
-          <%= mental %>
-
-          <%= coping %>
-
+<div align="center">
+  <div class="content">
+    <div class="container-fluid">
+      <div class="centered-row row">
+        <div class="centered-col col-md-4">
+          <%= lateral_info %>
         </div>
       </div>
-      <div class="col-md-4">
-        <%= lateral_info %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header" data-background-color="purple">
+              <h4 class="title">Informazioni personali</h4>
+              <p class="category">Riguardanti Salute, Attivita' Fisica, Benessere Mentale e le Strategie di Adattamento. </p>
+            </div>
+
+            <%= health %>
+
+            <%= physical %>
+
+            <%= mental %>
+
+            <%= coping %>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+

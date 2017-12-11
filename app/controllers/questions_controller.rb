@@ -10,8 +10,9 @@ class QuestionsController < ApplicationController
 
   def create
     activity = Activity.find(params[:a_id])
-    question = Question.new(question_params)
     user = User.find(params[:u_id])
+    question = Question.new(question_params)
+    question.activity_id = params[:a_id]
     if !question.save
       flash[:err] = 'Ce stato un problema durante il SALVATAGGIO DELLA DOMANDA! Riprova piu tardi!'
       flash[:errors] = question.errors.messages

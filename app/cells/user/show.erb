@@ -2,7 +2,7 @@
   <div class="user-card mdl-card <%= archived_css_class %>">
     <div class="row">
       <div class="col-sm-3">
-        <%= image_tag default_image, class: 'user-img-round' %>
+        <%= image_tag profile_image, class: 'user-img-round' %>
       </div>
       <div class="col-sm-6">
         <div class="user-card-name">
@@ -15,14 +15,14 @@
             <div class="row">
               <div class="user-card-n">
                 <a href="<%= restore_users_path(user) %>">
-                  <%= image_tag 'restore_user_icon.png' %>
+                  <%= image_tag 'restore_user_icon.png', class: 'restore-user' %>
                 </a>
               </div>
             </div>
             <div class="row">
               <div class="user-card-n">
                 <%= link_to user_path(user), method: :delete, data: {confirm: 'Sei sicuro di voler eliminare l\'utente? Una volta eliminato non potra\' piu\' essere recuperato.'} do%>
-                  <i class="n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>
+                  <i class="delete-user n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>
                 <% end %>
               </div>
             </div>
@@ -30,14 +30,14 @@
             <div class="row">
               <div class="user-card-n">
                 <a href="<%= chat_chats_path(user) %>">
-                  <i class="n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">question_answer</i>
+                  <i class="chat-with-user n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">question_answer</i>
                 </a>
               </div>
             </div>
             <div class="row">
               <div class="user-card-n">
                 <a href="<%= archive_users_path(user) %>">
-                  <%= image_tag 'archive_user_icon.png' %>
+                  <%= image_tag 'archive_user_icon.png', class: 'archive-user'%>
                 </a>
               </div>
             </div>
@@ -66,7 +66,7 @@
     <% end %>
 
     <div class="user-card-actions mdl-card__actions">
-      <%= link_to user_path(user) do %>
+      <%= link_to user_path(user), class: 'btn btn-default' do %>
         Vedi utente
       <% end %>
     </div>

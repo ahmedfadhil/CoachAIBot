@@ -426,7 +426,9 @@
         score(user, 2)
 
 
-
+@addTips = () ->
+  Tipped.create('.chat-with-user', 'Chatta con il Paziente')
+  Tipped.create('.archive-user', 'Archivia il Paziente')
 
 
 $ ->
@@ -443,3 +445,5 @@ $ ->
   $("tr[data-href]").click (e) ->
     e.preventDefault()
     window.location = $(this).data("href");
+
+  addTips()

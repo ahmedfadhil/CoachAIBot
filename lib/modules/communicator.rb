@@ -23,6 +23,8 @@ class Communicator
   end
 
   def check_plans
+    # clear any transaction that the console was holding onto and frees up the database
+    ActiveRecord::Base.connection.execute('BEGIN TRANSACTION; END;')
     plans = Plan.where('delivered = ? AND (communicated is ? OR communicated = ?)', 1, nil, false)
     plans.find_each do |plan|
       if plan.has_period_exceeded? && plan.has_missing_feedback?

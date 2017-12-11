@@ -12,19 +12,35 @@ class DashboardCell < Cell::ViewModel
   end
 
   def greens
-    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 0)
+    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 0).uniq
   end
 
   def yellows
-    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 1)
+    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 1).uniq
   end
 
   def reds
-    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 2)
+    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 2).uniq
   end
 
-  def active
-    User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :state => 'REGISTERED').count
+  def users_with_no_plan
+    i = 0
+    User.where(:coach_user_id => model.id, :state => 'REGISTERED').each do |u|
+      if u.plans.nil?
+        i = i + 1
+      end
+    end
+    i
+  end
+
+  def users_with_plans
+    i = 0
+    User.where(:coach_user_id => model.id, :state => 'REGISTERED').each do |u|
+      unless u.plans.nil?
+        i = i + 1
+      end
+    end
+    i
   end
 
   def users_count
@@ -33,10 +49,6 @@ class DashboardCell < Cell::ViewModel
 
   def plans_count
     Plan.joins(:user).where(:users => {:coach_user_id => model.id}).count
-  end
-
-  def not_archived
-    User.where(:state => 'REGISTERED', :coach_user_id => model.id).count
   end
 
   def activities_count

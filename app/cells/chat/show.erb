@@ -1,6 +1,6 @@
 <%= cell(:user_menu, user) %>
 
-<% if user.profiled? %>
+<% if user.profiled? && !user.archived?%>
   <div class="chat-grid mdl-grid">
     <div class="mdl-cell--12-col-desktop">
       <div class="chat-container">

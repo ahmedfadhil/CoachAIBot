@@ -5,7 +5,7 @@
     </div>
     <div class="card-content">
       <p class="category">Attivi</p>
-      <h3 class="title"><%= active %>/<%= not_archived %><small>Pazienti</small></h3>
+      <h3 class="title"><%= users_with_plans %><small>Pazienti</small></h3>
     </div>
     <div class="card-footer">
       <div class="stats">
@@ -22,11 +22,11 @@
     </div>
     <div class="card-content">
       <p class="category">In attesa di un piano</p>
-      <h3 class="title"><%= not_archived - active %>/<%= not_archived %><small>Pazienti</small></h3>
+      <h3 class="title"><%= users_with_no_plan %><small>Pazienti</small></h3>
     </div>
     <div class="card-footer">
       <div class="stats">
-        <i class="material-icons text-danger">warning</i> <a href="#pablo">Consegna loro un piano</a>
+        <i class="material-icons text-danger">warning</i> <a href="<%= users_path %>">Consegna loro un piano</a>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@
     </div>
     <div class="card-footer">
       <div class="stats">
-        <i class="material-icons">update</i> <a href="#pablo">Gestisci l'archivio delle attivita'</a>
+        <i class="material-icons">update</i> <a href="<%= activities_path %>">Gestisci l'archivio delle attivita'</a>
       </div>
     </div>
   </div>

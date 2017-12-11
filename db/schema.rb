@@ -209,7 +209,7 @@ ActiveRecord::Schema.define(version: 20171202162739) do
     t.string "identity_token"
     t.integer "identity_token_expires_at"
     t.string "access_token"
-    t.string "cluster"
+    t.integer "cluster"
     t.string "profile_img"
     t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
   end

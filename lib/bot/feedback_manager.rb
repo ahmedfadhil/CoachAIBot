@@ -50,7 +50,7 @@ class FeedbackManager
         prepare_state_for_feedback(notification, question, plan_name)
         actuator = GeneralActions.new(@user, @state)
         answers = GeneralActions.answers_from_question question
-        actuator.send_reply_with_keyboard("In data #{notification.date} alle ore #{notification.time.strftime('%H:%M')} \n\n\t #{question.text}?", GeneralActions.custom_keyboard(answers))
+        actuator.send_reply_with_keyboard("In data #{notification.date}, \n\n\t #{question.text}?", GeneralActions.custom_keyboard(answers))
       else
         notification.done = 1
         notification.save
