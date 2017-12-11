@@ -116,7 +116,7 @@ class ProfilingManager
         communicate_profiling_done! @user
         save_features_to_csv @user
         system 'rake python_clustering &'
-        custom_keyboard %w(Attivita Feedback Consigli Messaggi)
+        custom_keyboard %w(Attivita Feedback Consigli Messaggi) # Aggiungo sezione obiettivi!!! XXX
       else
         custom_keyboard default_responses
       end

@@ -9,6 +9,7 @@ require 'bot/login_manager'
 require 'bot/chatscript_compiler'
 require 'bot/messenger'
 require 'bot/tips'
+require 'bot/objectives_manager'
 
 class Dispatcher
   attr_reader :message, :user
@@ -59,7 +60,9 @@ class Dispatcher
               when '/consigli', 'consigli', 'Consigli', 'Tips'
                 ap "---------PREPARING TIPS FOR USER: #{@user.id}---------"
                 Tips.new(text, @user, hash_state).enter_tips
-
+							when 'obiettivi', 'Obiettivi', 'obbiettivi', 'Obbiettivi', '/obbiettivi'
+								ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
+								ObjectivesManager.new(@user, hash_state).dialog
               else
                 ApiAIRedirector.new(text, @user, hash_state).redirect
 

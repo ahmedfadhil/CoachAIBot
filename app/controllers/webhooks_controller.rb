@@ -4,7 +4,13 @@ class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def callback
-    !webhook[:message][:from].nil? ?  Dispatcher.new(webhook, user).process : nil
+		begin
+    	!webhook[:message].nil? ?  Dispatcher.new(webhook, user).process : nil
+		rescue => e
+			puts "EXCEPTION OCCURRED!"
+			puts "Rescuing..."
+			puts e.backtrace
+		end
     render json: nil, status: :ok
   end
 
