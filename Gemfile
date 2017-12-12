@@ -21,6 +21,9 @@ gem 'sinatra', require: nil
 
 gem 'time_difference'
 
+# State Machines adds support for creating state machines for attributes on any Ruby class.
+gem 'state_machines'
+
 # use Trailblazer::Cell
 gem 'cells'
 gem 'cells-rails'
