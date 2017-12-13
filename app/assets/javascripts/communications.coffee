@@ -1,6 +1,6 @@
 @CommunicationsPooler =
   pool: ->
-    setTimeout(@request, 5000)
+    setTimeout(@request, 30000)
 
   request: ->
     after = -1
@@ -10,13 +10,12 @@
     $.get($('#communications').data('url'), after: after)
 
 $ ->
+  CommunicationsPooler.request()
   CommunicationsPooler.pool()
   $('.list-group').paginathing({
-
     perPage: 5,
     # Limites your pagination number -> false or number
     limitPagination: false,
-
     # Pagination controls
     prevNext: true,
     firstLast: true,
