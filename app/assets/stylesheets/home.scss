@@ -1,4 +1,30 @@
 /**
+ * Popup
+ */
+
+#login_pop_up {
+  display: none;
+}
+
+.large-btn-home{
+  width: auto;
+  height: 50px;
+  font-size: xx-large;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +39,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+.login_img{
+  width: 200px;
+  height: auto;
+}
 
 body {
   margin: 0;
@@ -197,14 +228,15 @@ a img{
 }
 
 .android-create-character {
-  font-size: 21px;
-  padding-top: 400px;
+  font-size: 25px;
+  padding-top: 340px;
 }
 
 .android-create-character a {
   text-decoration: none;
-  color: #767777;
+  color: #f3f7f7;
   font-weight: 300;
+  font-size: large;
 }
 
 .android-screen-section {

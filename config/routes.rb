@@ -79,7 +79,7 @@ Rails.application.routes.draw do
   get 'static_pages/help'
   get 'static_pages/about'
 
-  devise_for :coach_users
+  devise_for :coach_users#, :controllers => {sessions: 'sessions'}
   get 'home/index'
   root 'home#index'
 

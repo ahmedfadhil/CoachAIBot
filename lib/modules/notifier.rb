@@ -68,8 +68,6 @@ class Notifier
 
   def check_and_notify
     puts 'Looking for users to be Notified...'
-    # clear any transaction that the console was holding onto and frees up the database
-    ActiveRecord::Base.connection.execute('BEGIN TRANSACTION; END;')
     users = User.joins(:plans).where(:plans => {:delivered => 1})
     users.each do |user|
       message = need_to_be_notified?(user)

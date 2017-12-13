@@ -12,8 +12,6 @@ class Cluster
   end
 
   def group
-    # clear any transaction that the console was holding onto and frees up the database
-    ActiveRecord::Base.connection.execute('BEGIN TRANSACTION; END;')
     users = User.joins(:plans).where(:plans => {:delivered => 1} )
     users.find_each do |user|
       plans = user.plans.where(:delivered => 1)

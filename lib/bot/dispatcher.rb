@@ -43,20 +43,22 @@ class Dispatcher
 
           when 1, '1'
             ap '--------MENU--------'
-                       case text
-              when 'attivita', '/attivita', 'Attivita'
+
+            case text
+              # Activities & Plans
+              when /(\w|\s|.)*(([Aa]+[Tt]+[Ii]+[Vv]+[Ii]*[Tt]+[AaÀà]*)|([Pp]+[Ii]+[Aa]+[Nn]+([Ii]+|[Oo]+)))+(\w|\s|.)*/
                 ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
                 ActivityInformer.new(@user, hash_state).check
-
-              when 'feedback', '/feedback', 'Feedback'
+                # Feedbacks
+              when /(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
                 ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
                 FeedbackManager.new(@user, hash_state).check
-
-              when '/messages', 'messaggi', 'Messaggi'
+                # Messages
+              when /(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
                 ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
                 Messenger.new(@user, hash_state).inform
-
-              when '/consigli', 'consigli', 'Consigli', 'Tips'
+                # Hints
+              when /(\w|\s|.)*(([Cc]+[Oo]+[Nn]*[Ss]+[Ii]+[Gg]+[Ll]+[Ii]*)|([Ss]+[Uu]+[Gg]+[Ee]*[Rr]+[Ii]*[Mm]+[Ee]*[Nn]+[Tt]+[Ii]+))+(\w|\s|.)*/
                 ap "---------PREPARING TIPS FOR USER: #{@user.id}---------"
                 Tips.new(text, @user, hash_state).enter_tips
 

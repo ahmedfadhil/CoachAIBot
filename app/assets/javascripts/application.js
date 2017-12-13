@@ -19,6 +19,7 @@
 //= require mdl-selectfield
 //= require rails-ujs
 //= require_tree ./third_party
+//= require_tree ./third_party/bpopup
 //= require_tree ./third_party/tipped
 //= require_tree ./my_modules
 //= require_tree .

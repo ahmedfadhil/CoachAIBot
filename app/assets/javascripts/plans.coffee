@@ -13,3 +13,8 @@ $ ->
   ).on('changeDate', () ->
     to_day.parent().addClass('is-focused')
   )
+
+  $( ".accordion" ).accordion(
+    active: false,
+    collapsible: true
+  )

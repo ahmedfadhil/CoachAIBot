@@ -277,4 +277,8 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
 
+  # Enable devise to respond with JSON
+  config.http_authenticatable_on_xhr = false
+  config.navigational_formats = ['*/*', :html, :json]
+
 end

@@ -3,9 +3,49 @@
   <div class="logo-font android-slogan">Coach AI</div>
   <div class="logo-font android-sub-slogan">Piattaforma E-Coaching per stile di vita sano, assistita da un Agente Conversazionale</div>
   <div class="logo-font android-create-character">
-    <%= link_to coach_user_session_path do %>
-       <%= image_tag 'log_in.png' %> Log In
+    <% if coach_user_signed_in? %>
+        <%= button_to(profile_index_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect large-btn-home') do %>
+           DASHBOARD
+        <% end %>
+    <% else %>
+        <!-- Button that triggers the login popup -->
+        <button id="btn_login_1" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect large-btn-home">
+          LOGIN
+        </button>
+        <!-- Element to pop up -->
+        <div id="login_pop_up">
+          <%= render 'home/login_form' %>
+        </div>
     <% end %>
+  </div>
+
+</div>
+
+
+<div id="modal" class="modal modal__bg">
+  <div class="modal__dialog">
+    <div class="modal__content">
+      <div class="modal__header">
+        <div class="modal__title">
+          <h2 class="modal__title-text">Modal</h2>
+        </div>
+
+        <span class="mdl-button mdl-button--icon mdl-js-button  material-icons  modal__close"></span>
+      </div>
+
+
+      <div class="modal__text">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis laboriosam accusantium facere suscipit, alias accusamus corrupti consequatur at porro, voluptates commodi sed omnis voluptatem, ex officiis illum, architecto fugiat id?
+        </p>
+      </div>
+
+      <div class="modal__footer">
+        <a class="mdl-button mdl-button--colored mdl-js-button  modal__close">
+          Close
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 

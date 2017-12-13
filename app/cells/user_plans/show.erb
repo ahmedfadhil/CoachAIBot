@@ -41,8 +41,23 @@
             <i>Non sono presenti attivita' per questo piano al momento.</i>
         <% end %>
 
-        <% plan.plannings.each do |planning| %>
+        <div class="plan-activities-container">
+          <div class="accordion">
+            <% plan.plannings.each do |planning| %>
+                <h3 data-position="id_<%= planning.id %>"><%= planning.activity.name %></h3>
+                <div>
+                  <%= cell(:planning_description, planning) %>
+                  <%= cell(:schedules, planning) %>
+                  <%= cell(:questions, planning) %>
+                  <% if plan.delivered != 1 && plan.delivered != 3 %>
+                      <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
+                                  method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+                      <%= link_to 'Destituisci Attivita', planning_path(planning) ,
+                                  method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+                  <% end %>
+                </div>
 
+                <!--
             <div id="activity-expandible" class="mdl-card__actions mdl-card--border">
               <div class="activities-container">
                 <details class="activity-expander mdl-expansion">
@@ -51,24 +66,28 @@
                   </summary>
                   <div class="mdl-expansion__content">
 
-                    <%= cell(:planning_description, planning) %>
-                    <%= cell(:schedules, planning) %>
-                    <%= cell(:questions, planning) %>
+                    <%#= cell(:planning_description, planning) %>
+                    <%#= cell(:schedules, planning) %>
+                    <%#= cell(:questions, planning) %>
 
                   </div>
                   <div class="mdl-expansion__actions">
-                    <% if plan.delivered != 1 && plan.delivered != 3 %>
-                        <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
+                    <#% if plan.delivered != 1 && plan.delivered != 3 %>
+                        <#%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
                                     method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-                        <%= link_to 'Destituisci Attivita', planning_path(planning) ,
+                        <#%= link_to 'Destituisci Attivita', planning_path(planning) ,
                                     method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
-                    <% end %>
+                    <#% end %>
                   </div>
                 </details>
               </div>
             </div>
+            -->
 
-        <% end %>
+            <% end %>
+          </div>
+        </div>
+
 
         <% if plan.delivered == 0 %>
             <%= link_to 'Assegna un\'attivita',
@@ -106,14 +125,13 @@
 
     </div>
 
-    <div class="mdl-cell--5-col">
-      <div id="lateral-panel-<%= plan.id %>">
+    <div id="lateral-panel-<%= plan.id %>" class="lateral-panel mdl-cell--5-col">
 
-      </div>
     </div>
   <% end %>
 
-  <%= button_to new_plans_path(:u_id => user.id), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', method: 'post' do %>
+  <%= button_to new_plans_path(:u_id => user.id), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored',
+                method: 'post' do %>
       Aggiungi un nuovo piano
   <% end %>
 
