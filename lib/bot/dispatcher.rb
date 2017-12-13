@@ -10,6 +10,7 @@ require 'bot/chatscript_compiler'
 require 'bot/messenger'
 require 'bot/tips'
 require 'bot/objectives_manager'
+require 'finite_state_machine/objectives_fsm'
 
 class Dispatcher
   attr_reader :message, :user
@@ -37,12 +38,12 @@ class Dispatcher
       else
         case state
 
-          when 0, '0'
-            ap '--------PROFILING--------'
+          #when 0, '0'
+            #ap '--------PROFILING--------'
             # dispatch to profiling
-            ProfilingManager.new(text, @user, hash_state).manage
+            #ProfilingManager.new(text, @user, hash_state).manage
 
-          when 1, '1'
+          when 1, '1', 0, '0'
             ap '--------MENU--------'
                        case text
               when 'attivita', '/attivita', 'Attivita'
@@ -62,7 +63,16 @@ class Dispatcher
                 Tips.new(text, @user, hash_state).enter_tips
 							when 'obiettivi', 'Obiettivi', 'obbiettivi', 'Obbiettivi', '/obbiettivi'
 								ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
-								ObjectivesManager.new(@user, hash_state).dialog
+								fsm = FSM::ObjectivesFSM.new @user
+								actuator = GeneralActions.new(@user, hash_state)
+								response = fsm.dialog
+								fsm.continue_dialog
+								if fsm.status != "terminated"
+									hash_state[:state] = 'objectives'
+									@user.set_user_state(hash_state)
+									@user.save!
+								end
+								actuator.send_reply_with_keyboard response[:text], response[:keyboard]
               else
                 ApiAIRedirector.new(text, @user, hash_state).redirect
 
@@ -115,7 +125,22 @@ class Dispatcher
           when 4, '4'
             ap "---------SENDING TIPS TO USER: #{@user.id}---------"
             Tips.new(text, @user, hash_state).manage
-
+					when 'objectives'
+						ap "--- objectives ---"
+						fsm = FSM::ObjectivesFSM.from_model(@user, hash_state)
+						actuator = GeneralActions.new(@user, hash_state)
+						response = fsm.dialog(text)
+						fsm.continue_dialog
+						if fsm.status != "terminated"
+							fsm.update_model(hash_state)
+							@user.set_user_state(hash_state)
+							@user.save!
+						else
+							hash_state[:state] = 0
+							@user.set_user_state(hash_state)
+							@user.save!
+						end
+						actuator.send_reply_with_keyboard response[:text], response[:keyboard]
 
           else # when 5, '5'
             ap "---------INFORMING ABOUT ACTIVITIES USER: #{@user.id}---------"
