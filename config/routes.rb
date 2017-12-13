@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+	mount Fitchatbot::Engine => "/fitchatbot"
+
   # crono jobs route
   mount Crono::Web, at: '/crono'
 

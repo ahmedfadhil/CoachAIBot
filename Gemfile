@@ -6,6 +6,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'fitchatbot', path: '~/fitchatbot'
+
 gem 'record_tag_helper', '~> 1.0'
 
 # writing and deploying cron jobs.
