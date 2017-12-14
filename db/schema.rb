@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127172559) do
+ActiveRecord::Schema.define(version: 20171214155509) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -148,6 +148,15 @@ ActiveRecord::Schema.define(version: 20171127172559) do
     t.index ["planning_id"], name: "index_notifications_on_planning_id"
   end
 
+  create_table "objective_logs", force: :cascade do |t|
+    t.integer "steps"
+    t.integer "distance"
+    t.integer "objective_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["objective_id"], name: "index_objective_logs_on_objective_id"
+  end
+
   create_table "objectives", force: :cascade do |t|
     t.integer "user_id"
     t.integer "activity"
@@ -223,17 +232,6 @@ ActiveRecord::Schema.define(version: 20171127172559) do
     t.string "access_token"
     t.string "cluster"
     t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
-  end
-
-  create_table "weekly_logs", force: :cascade do |t|
-    t.date "start_date"
-    t.date "end_date"
-    t.integer "steps"
-    t.integer "distance"
-    t.integer "objective_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["objective_id"], name: "index_weekly_logs_on_objective_id"
   end
 
 end

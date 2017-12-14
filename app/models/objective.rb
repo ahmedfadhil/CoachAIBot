@@ -1,6 +1,6 @@
 class Objective < ApplicationRecord
 	belongs_to :user
-	has_many :weekly_logs
+	has_many :objective_logs
 	enum activity: { steps: 0, distance: 1 }
 
 	validates :start_date, :end_date, presence: { message: 'Deve essere presente' }
