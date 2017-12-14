@@ -102,16 +102,29 @@ module FSM
 		end
 
 		def motd_for_current_objective(response)
+			objective = user.scheduled_objectives.first
+			start_date = l(objective.start_date, format: "%-d %B %Y")
+			end_date = l(objective.end_date, format: "%-d %B %Y")
 			if current_objective_is_steps?
 				objective = user.active_objective
-				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' totalizzare #{objective.steps} passi."
+				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' totalizzare #{objective.steps} passi, "
 			elsif current_objective_is_distance?
-				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' percorrere #{objective.distance} km a piedi."
+				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' percorrere #{objective.distance} km a piedi, "
+			end
+			response[:text] << "entro il giorno #{end_date}. "
+			if objective.steps?
+				response[:text] << "Dovrai totalizzare #{objective.steps} passi in #{objective.days} giorni, "
+				response[:text] << "la media giornaliera di passi da compiere sara' #{objective.daily_steps}. "
+			else
+				response[:text] << "Dovrai totalizzare #{objective.distance} km a piedi, "
+				response[:text] << "la media giornaliera di km da percorrere sara' #{objective.daily_distance}. "
 			end
 
 			if user.fitbit_disabled?
 				response[:keyboard] << 'Annulla'
 			else
+				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
+				response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile."
 				response[:keyboard] += ['Attivita', 'Feedback','Consigli','Messaggi','Obiettivi']
 			end
 		end
