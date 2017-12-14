@@ -1,3 +1,5 @@
+require 'action_view'
+
 module FSM
 	class ObjectivesFSM
 		# The guy chatting with the finite state automa
@@ -22,10 +24,10 @@ module FSM
 			state :message_of_the_day do
 				def dialog(_ = nil)
 					dialog = DialogMessageOfTheDay.new(user)
-					if dialog.current_objective_is_steps?
+					if dialog.current_objective_is_steps? && user.fitbit_disabled?
 						@go_to_terminated = false
 						@go_to_confirm_steps = true
-					elsif dialog.current_objective_is_steps?
+					elsif dialog.current_objective_is_steps? && user.fitbit_disabled?
 						@go_to_terminated = false
 						@go_to_confirm_steps = false
 						@go_to_confirm_distance = true
@@ -83,31 +85,72 @@ module FSM
 	end
 
 	class DialogMessageOfTheDay
+		include ActionView::Helpers::TranslationHelper
+
 		attr_reader :user
 
 		def message_of_the_day
 			response = {}
 			response[:text] = ""
 			response[:keyboard] = []
-			if current_objective_is_steps?
-				response[:text] = "Benvenuto utente, i tuoi obbiettivi sono PASSI"
-				response[:keyboard] << 'Annulla'
-			elsif current_objective_is_distance?
-				response[:text] = "Benvenuto utente, i tuoi obbiettivi sono DISTANZA"
-				response[:keyboard] << 'Annulla'
+			if user.active_objective
+				motd_for_current_objective(response)
 			else
-				response[:text] = "Al momento non ci sono obbiettivi, riprova più tardi!"
-				response[:keyboard] += ['Attivita', 'Feedback','Consigli','Messaggi','Obiettivi']
+				motd_for_future_objectives(response)
 			end
 			return response
 		end
 
+		def motd_for_current_objective(response)
+			if current_objective_is_steps?
+				objective = user.active_objective
+				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' totalizzare #{objective.steps} passi."
+			elsif current_objective_is_distance?
+				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' percorrere #{objective.distance} km a piedi."
+			end
+
+			if user.fitbit_disabled?
+				response[:keyboard] << 'Annulla'
+			else
+				response[:keyboard] += ['Attivita', 'Feedback','Consigli','Messaggi','Obiettivi']
+			end
+		end
+
+		def motd_for_future_objectives(response)
+			response[:text] << "Al momento non ci sono obiettivi attivi. "
+			if user.scheduled_objectives.any?
+				scheduled_objective = user.scheduled_objectives.first
+				start_date = l(scheduled_objective.start_date, format: "%-d %B %Y")
+				end_date = l(scheduled_objective.end_date, format: "%-d %B %Y")
+				response[:text] << "Il prossimo obiettivo in programma per te avra' inizio il giorno #{start_date} "
+				response[:text] << "e avra' termine il giorno #{end_date}. "
+				if scheduled_objective.steps?
+					response[:text] << "Dovrai totalizzare #{scheduled_objective.steps} passi in #{scheduled_objective.days} giorni, "
+					response[:text] << "la media giornaliera di passi da compiere sara' #{scheduled_objective.daily_steps}. "
+				else
+					response[:text] << "Dovrai totalizzare #{scheduled_objective.distance} km a piedi, "
+					response[:text] << "la media giornaliera di km da percorrere sara' #{scheduled_objective.daily_distance}. "
+				end
+				if user.fitbit_disabled?
+					response[:text] << "Potrai registrare i tuoi progressi accedendo a questo stesso menu, "
+					response[:text] << "per tenere traccia dei tuoi progressi utilizza un dispositivo contapassi!"
+				else
+					response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
+					response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile."
+				end
+				response[:text] << "A presto!"
+			else
+				response[:text] << "Ripassa piu' tardi!"
+			end
+			response[:keyboard] += ['Attivita', 'Feedback','Consigli','Messaggi','Obiettivi']
+		end
+
 		def current_objective_is_distance?
-			false
+			user.active_objective && user.active_objective.distance?
 		end
 
 		def current_objective_is_steps?
-			false
+			user.active_objective && user.active_objective.steps?
 		end
 
 		def initialize(user)

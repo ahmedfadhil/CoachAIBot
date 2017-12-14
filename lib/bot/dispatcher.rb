@@ -67,7 +67,7 @@ class Dispatcher
 								actuator = GeneralActions.new(@user, hash_state)
 								response = fsm.dialog
 								fsm.continue_dialog
-								if fsm.status != "terminated"
+								if fsm.state != "terminated"
 									hash_state[:state] = 'objectives'
 									@user.set_user_state(hash_state)
 									@user.save!
@@ -131,7 +131,7 @@ class Dispatcher
 						actuator = GeneralActions.new(@user, hash_state)
 						response = fsm.dialog(text)
 						fsm.continue_dialog
-						if fsm.status != "terminated"
+						if fsm.state != "terminated"
 							fsm.update_model(hash_state)
 							@user.set_user_state(hash_state)
 							@user.save!

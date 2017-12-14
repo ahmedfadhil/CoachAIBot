@@ -46,4 +46,18 @@ class Objective < ApplicationRecord
 			errors.add(:distance, "Deve essere un numero intero positivo")
 		end
 	end
+
+	def days
+		TimeDifference.between(start_date, end_date).in_days.to_i
+	end
+
+	def daily_steps
+		days = TimeDifference.between(start_date, end_date).in_days.to_i
+		return steps / days
+	end
+
+	def daily_distance
+		days = TimeDifference.between(start_date, end_date).in_days.to_i
+		return model.steps / days
+	end
 end

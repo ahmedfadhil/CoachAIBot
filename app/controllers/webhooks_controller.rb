@@ -9,6 +9,7 @@ class WebhooksController < ApplicationController
 		rescue => e
 			puts "EXCEPTION OCCURRED!"
 			puts "Rescuing..."
+			puts e.message
 			puts e.backtrace
 		end
     render json: nil, status: :ok
