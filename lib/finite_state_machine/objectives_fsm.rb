@@ -27,7 +27,7 @@ module FSM
 					if dialog.current_objective_is_steps? && user.fitbit_disabled?
 						@go_to_terminated = false
 						@go_to_confirm_steps = true
-					elsif dialog.current_objective_is_steps? && user.fitbit_disabled?
+					elsif dialog.current_objective_is_distance? && user.fitbit_disabled?
 						@go_to_terminated = false
 						@go_to_confirm_steps = false
 						@go_to_confirm_distance = true
@@ -40,24 +40,34 @@ module FSM
 
 			state :confirm_steps do
 				def dialog(text)
-					dialog_transaction = DialogTransaction.new(text, type: :steps)
-					if dialog_transaction.valid?
-						dialog_transaction.run!
+					dialog = DialogConfirmActivity.new(user: user, text: text, activity: :steps)
+					if dialog.valid?
+						dialog.commit!
 						@go_to_terminated = true
-						return dialog_transaction.text_response
+						return dialog.response
+					elsif dialog.abort?
+						@go_to_terminated = true
+						return dialog.response
 					else
 						@go_to_terminated = false
-						return dialog_transaction.text_response
+						return dialog.response
 					end
 				end
 			end
 
 			state :confirm_distance do
 				def dialog(text)
-					@go_to_terminated = false
-					# Not executed if validations fails
-					DialogHelpers.validate_distance(text) do
+					dialog = DialogConfirmActivity.new(user: user, text: text, activity: :distance)
+					if dialog.valid?
+						dialog.commit!
 						@go_to_terminated = true
+						return dialog.response
+					elsif dialog.abort?
+						@go_to_terminated = true
+						return dialog.response
+					else
+						@go_to_terminated = false
+						return dialog.response
 					end
 				end
 			end
@@ -102,7 +112,7 @@ module FSM
 		end
 
 		def motd_for_current_objective(response)
-			objective = user.scheduled_objectives.first
+			objective = user.active_objective
 			start_date = l(objective.start_date, format: "%-d %B %Y")
 			end_date = l(objective.end_date, format: "%-d %B %Y")
 			if current_objective_is_steps?
@@ -168,19 +178,6 @@ module FSM
 
 		def initialize(user)
 			@user = user
-		end
-	end
-
-	class DialogConfirmInput
-		attr_reader :user, :type
-
-		def dialog
-			"bla.."
-		end
-
-		def initialize(hash)
-			@user = hash[:user]
-			@type = hash[:type]
 		end
 	end
 end
