@@ -60,4 +60,44 @@ class Objective < ApplicationRecord
 		days = TimeDifference.between(start_date, end_date).in_days.to_i
 		return model.steps / days
 	end
+
+	def steps_progress
+		if fitbit_enabled
+			steps_progress_fitbit
+		else
+			steps_progress_log
+		end
+	end
+
+	def distance_progress
+		if fitbit_enabled
+			distance_progress_fitbit
+		else
+			distance_progress_log
+		end
+	end
+
+	def steps_progress_fitbit
+		logs = user.daily_logs.find { |log|
+			log.date <= end_date && start_date <= log.date
+		}
+		return logs.map{ |e| e.steps }.inject(:+)
+	end
+
+	def distance_progress_fitbit
+		logs = user.daily_logs.find { |log|
+			log.date <= end_date && start_date <= log.date
+		}
+		return logs.map{ |e| e.distance }.inject(:+).floor(2)
+	end
+
+	def distance_progress_log
+		logs = user.objective_logs
+		return logs.map{ |e| e.distance }.inject(:+).floor(2)
+	end
+
+	def steps_progress_log
+		logs = user.objective_logs
+		return logs.map{ |e| e.steps }.inject(:+)
+	end
 end
