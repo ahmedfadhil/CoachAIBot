@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/bot_v2/messenger2"
+
 class User < ApplicationRecord
   has_many :communications, dependent: :destroy
   has_many :chats, dependent: :destroy
@@ -47,4 +49,31 @@ class User < ApplicationRecord
   def has_delivered_plans?
     self.plans.where(:delivered => 1).count > 0
   end
+
+  include AASM
+
+  # default column: aasm_state
+  # no direct assignment to aasm_state
+  # return false instead of exceptions
+  aasm :no_direct_assignment => true, :whiny_transitions => false do
+    state :idle, :initial => true
+    state :messages, :after_enter => :send_messages
+
+    event :get_messages do
+      transitions :from => :idle, :to => :messages
+    end
+
+    event :cancel do
+      transitions :from => :messages, :to => :idle
+    end
+
+    event :respond do
+      transitions :from => :messages, :to => :idle
+    end
+  end
+
+  def send_messages
+    Messenger2.new(self).inform
+  end
+
 end

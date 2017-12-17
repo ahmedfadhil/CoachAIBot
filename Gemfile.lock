@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
+    aasm (4.12.3)
+      concurrent-ruby (~> 1.0)
     actioncable (5.1.4)
       actionpack (= 5.1.4)
       nio4r (~> 2.0)
@@ -156,7 +158,7 @@ GEM
       multi_json (>= 1.2)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    libv8 (3.16.14.19-x86_64-darwin-16)
+    libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -284,6 +286,7 @@ GEM
     sshkit (1.15.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    state_machines (0.5.0)
     telegram-bot-ruby (0.8.4)
       faraday
       inflecto
@@ -330,6 +333,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm (~> 4.12, >= 4.12.3)
   api-ai-ruby
   awesome_print
   byebug
@@ -371,6 +375,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
+  state_machines
   telegram-bot-ruby
   therubyracer
   time_difference
