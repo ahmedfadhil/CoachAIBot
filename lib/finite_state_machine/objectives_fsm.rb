@@ -80,12 +80,13 @@ module FSM
 		end
 
 		def update_model!(model)
-			model[:objectives_state] = state
+			model['objectives_state'] = state
 		end
 
 		def self.from_model(user, model)
 			obj = new(user)
-			obj.state = model[:objectives_state]
+			obj.state = model['objectives_state']
+			return obj
 		end
 
 		def initialize(user)
@@ -131,11 +132,11 @@ module FSM
 			end
 
 			if user.fitbit_disabled?
-				response[:keyboard] << 'Annulla'
+				response[:keyboard] << ['Annulla']
 			else
 				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
 				response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile."
-				response[:keyboard] += ['Attivita', 'Feedback','Consigli','Messaggi','Obiettivi']
+				response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
 			end
 		end
 
@@ -165,7 +166,7 @@ module FSM
 			else
 				response[:text] << "Ripassa piu' tardi!"
 			end
-			response[:keyboard] += ['Attivita', 'Feedback','Consigli','Messaggi','Obiettivi']
+			response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
 		end
 
 		def current_objective_is_distance?

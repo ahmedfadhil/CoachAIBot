@@ -39,9 +39,10 @@ class GeneralActions
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
   end
 
-  def send_reply_with_keyboard(reply, keyboard)
-    @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: keyboard)
-  end
+	def send_reply_with_keyboard(reply, keyboard)
+		answer = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: keyboard, one_time_keyboard: true)
+		@api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: answer)
+	end
 
   def set_plan_name(plan_name)
     @state['plan_name'] = plan_name

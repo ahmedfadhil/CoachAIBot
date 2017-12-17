@@ -68,7 +68,8 @@ class Dispatcher
 								response = fsm.dialog
 								fsm.continue_dialog
 								if fsm.state != "terminated"
-									hash_state[:state] = 'objectives'
+									hash_state['state'] = 'objectives'
+									fsm.update_model!(hash_state)
 									@user.set_user_state(hash_state)
 									@user.save!
 								end
@@ -132,11 +133,11 @@ class Dispatcher
 						response = fsm.dialog(text)
 						fsm.continue_dialog
 						if fsm.state != "terminated"
-							fsm.update_model(hash_state)
+							fsm.update_model!(hash_state)
 							@user.set_user_state(hash_state)
 							@user.save!
 						else
-							hash_state[:state] = 0
+							hash_state['state'] = 0
 							@user.set_user_state(hash_state)
 							@user.save!
 						end
