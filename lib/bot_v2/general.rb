@@ -10,28 +10,10 @@ class GeneralActions
     @state = state
   end
 
-  def back_to_menu
-    @state['state'] = 1
-    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
-  end
-
   def back_to_menu_with_menu
-    back_to_menu
     keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli', 'Messaggi']
     @api.call('sendMessage', chat_id: @user.telegram_id,
               text: 'Scegli con cosa vuoi continuare.', reply_markup: keyboard)
-  end
-
-  def clean_state
-    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
-    @user.save
-    @user
-  end
-
-  def set_state(state)
-    @state['state'] = state
-    @user.set_bot_command_data @state
-    @user
   end
 
   def send_reply(reply)
@@ -53,7 +35,7 @@ class GeneralActions
   end
 
   def send_plans_details(delivered_plans)
-    send_reply "#{@user.last_name} ti sto inviando un documento che contiene tutti i dettagli relativi alle attivita' che hai da fare. Leggilo con attenzione!"
+    send_reply "#{@user.last_name} ti sto inviando un documento che contiene tutti i dettagli relativi alle attivita' che hai da fare."
     send_chat_action 'upload_document'
 
     controller = UsersController.new
@@ -73,6 +55,7 @@ class GeneralActions
     end
 
     send_doc "pdfs/#{doc_name}"
+    send_reply_with_keyboard 'Leggilo con attenzione!', (GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli', 'Messaggi'])
   end
 
   def send_feedback_details(plans)

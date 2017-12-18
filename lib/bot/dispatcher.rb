@@ -27,7 +27,7 @@ class Dispatcher
     else
 
       # dispatch in function of user state
-      hash_state = JSON.parse(user.get_user_state)
+      hash_state = JSON.parse(user.get_bot_command_data)
       dot_state = hash_state.to_dot
       state = dot_state.state
 

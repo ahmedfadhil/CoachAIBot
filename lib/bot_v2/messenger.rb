@@ -1,20 +1,17 @@
-require 'bot/general_actions'
+require 'bot_v2/general'
 require './lib/modules/communicator'
 
-class Messenger2
+class Messenger
   attr_reader :user
 
-  def initialize(user)
+  def initialize(user, state)
     @user = user
+    @state = state
   end
 
   def inform
     messages = latest_coach_messages
-    if messages.empty?
-      no_messages
-    else
-      forward messages # that is, forward to the coach
-    end
+    forward messages # that is, forward to the coach
   end
 
   def register_patient_response(response)
@@ -22,15 +19,26 @@ class Messenger2
     communicator = Communicator.new
     communicator.communicate_new_message(@user)
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply 'Il tuo messaggio e\' stato inviato al coach. Ti notificheremo se ci dovessero essere nuovi messaggi per te.'
-    actuator.back_to_menu_with_menu
+    actuator.send_reply_with_keyboard('Il tuo messaggio e\' stato inviato al coach. Ti notificheremo se ci dovessero essere nuovi messaggi per te.',
+                                      GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+  end
+
+  def messages_present?
+    messages = latest_coach_messages
+    messages.empty? ? false : true
+  end
+
+  def inform_no_messages
+    actuator = GeneralActions.new(@user, @state)
+    actuator.send_reply_with_keyboard('Non hai nessun messaggio in attesa di essere letto.', GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+  end
+
+  def send_menu
+    actuator = GeneralActions.new(@user, @state)
+    actuator.send_reply_with_keyboard('Va bene puoi rispondere in un altro momento se vuoi.', GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
   end
 
   private
-  def last_user_msg_date
-    last_user_msg = Chat.where(:user_id => @user.id, :direction => true).last
-    last_user_msg.nil? ? nil : last_user_msg.created_at
-  end
 
   def latest_coach_messages
     date = last_user_msg_date
@@ -41,15 +49,13 @@ class Messenger2
     end
   end
 
-  def no_messages
-    actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply 'Non hai nessun messaggio in attesa di essere letto.'
-    actuator.back_to_menu_with_menu
+  def last_user_msg_date
+    last_user_msg = Chat.where(:user_id => @user.id, :direction => true).last
+    last_user_msg.nil? ? nil : last_user_msg.created_at
   end
 
   def forward messages
     actuator = GeneralActions.new(@user, @state)
-    actuator.set_state 3
     actuator.send_reply 'Il medico che ti segue ti ha inviato i seguenti messaggi:'
 
     messages.find_each do |message|
