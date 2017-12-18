@@ -4,36 +4,42 @@ module FSM
 	class ObjectivesFSM
 		# The guy chatting with the finite state automa
 		attr_reader :user
-
-		attr_reader :go_to_terminated, :go_to_confirm_steps, :go_to_confirm_distance
+		attr_reader :input
 
 		# read the ruby state_machine docs
-		state_machine :state, initial: :message_of_the_day do
+		state_machine :dialog_state, initial: :message_of_the_day do
 			event :continue_dialog do
-				transition message_of_the_day: :terminated, if: :go_to_terminated
-				transition message_of_the_day: :confirm_steps, if: :go_to_confirm_steps
-				transition message_of_the_day: :confirm_distance, if: :go_to_confirm_distance
+				transition message_of_the_day: :read_input
+				transition read_input: :confirm_input
+				transition confirm_input: :terminated
+			end
 
-				transition confirm_steps: :terminated, if: :go_to_terminated
-				transition confirm_steps: same # don't go anywere
+			event :repeat_dialog do
+				transition read_input: same
+				transition confirm_input: same
+			end
 
-				transition confirm_distance: :terminated, if: :go_to_terminated
-				transition confirm_distance: same
+			event :undo_dialog do
+				transition confirm_input: :read_input
+			end
+
+			event :terminate_dialog do
+				transition any => :terminated
 			end
 
 			state :message_of_the_day do
-				def dialog(_ = nil)
+				def response(_ = nil)
 					dialog = DialogMessageOfTheDay.new(user)
-					if dialog.current_objective_is_steps? && user.fitbit_disabled?
-						@go_to_terminated = false
-						@go_to_confirm_steps = true
-					elsif dialog.current_objective_is_distance? && user.fitbit_disabled?
-						@go_to_terminated = false
-						@go_to_confirm_steps = false
-						@go_to_confirm_distance = true
-					else
-						@go_to_terminated = true
-					end
+					#if dialog.current_objective_is_steps? && user.fitbit_disabled?
+					#	@go_to_terminated = false
+					#	@go_to_confirm_steps = true
+					#elsif dialog.current_objective_is_distance? && user.fitbit_disabled?
+					#	@go_to_terminated = false
+					#	@go_to_confirm_steps = false
+					#	@go_to_confirm_distance = true
+					#else
+					#	@go_to_terminated = true
+					#end
 					return dialog.message_of_the_day
 				end
 			end
@@ -179,6 +185,38 @@ module FSM
 
 		def initialize(user)
 			@user = user
+		end
+	end
+
+	class DialogConfirmActivity
+		attr_reader :user, :text, :activity
+
+		def abort?
+			!!(/annulla/i =~ text)
+		end
+
+		def valid?
+			if abort?
+				false
+			else
+				if activity == :steps
+					!!(/^(\d+)\s*(?:passi)?$/ =~ text)
+				elsif activity == :distance
+					!!(/^(\d+(?:(?:,|.)\d+)?)\s*(?:km)?$/ =~ text)
+				end
+			end
+		end
+
+		def valid_float?(string)
+			# The double negation turns this into an actual boolean true - if you're
+			# okay with "truthy" values (like 0.0), you can remove it.
+			!!Float(string) rescue false
+		end
+
+		def initialize(hash)
+			@user = hash[:user]
+			@text = hash[:text]
+			@activity = hash[:activity]
 		end
 	end
 end
