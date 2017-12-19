@@ -1,6 +1,6 @@
 require 'telegram/bot'
 require 'chatscript'
-require 'bot/general_actions'
+require 'bot/general'
 
 class Tips
   attr_reader :message, :user, :api, :cs_bot, :user_state

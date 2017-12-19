@@ -13,6 +13,7 @@ class GeneralActions
   def back_to_menu
     @state['state'] = 1
     @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
+    @user.save
   end
 
   def back_to_menu_with_menu

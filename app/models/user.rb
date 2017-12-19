@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/bot_v2/messenger"
 require "#{Rails.root}/lib/bot_v2/activity_informer"
+require "#{Rails.root}/lib/bot_v2/feedback_manager"
 
 class User < ApplicationRecord
   has_many :communications, dependent: :destroy
@@ -36,11 +37,7 @@ class User < ApplicationRecord
 
   def profiled?
     features = self.feature
-    if features.nil?
-      false
-    else
-      (features.health == 1) && (features.physical == 1) && (features.coping == 1) && (features.mental == 1)
-    end
+    features.nil? ? false : ((features.health == 1) && (features.physical == 1) && (features.coping == 1) && (features.mental == 1))
   end
 
   def archived?
@@ -58,29 +55,39 @@ class User < ApplicationRecord
   # return false instead of exceptions
   aasm :no_direct_assignment => true, :whiny_transitions => false do
     state :idle, :initial => true
-    state :messages, :after_enter => :send_messages
-    state :activities, :after_enter => :send_activities
-    state :feedbacks, :after_enter => :send_undone_feedbacks
+    state :messages, :activities, :feedbacks, :feedbacking, :experiment
+
+    event :feedback do
+      transitions :from => :feedbacking, :to => :feedbacking, :after => Proc.new {|*args| register_feedback(*args) }
+    end
+
+    event :start_feedbacking do
+      transitions :from => :feedbacks, :to => :feedbacking, :after => Proc.new {|*args| ask_oldest_feedback(*args) }, :guard => :plan_needs_feedback?
+    end
 
     event :show_undone_feedbacks do
-      transitions :from => :idle, :to => :feedbacks
+      transitions :from => :idle, :to => :feedbacks, :after => :send_undone_feedbacks, :guard => :undone_feedbacks?
+      transitions :from => :idle, :to => :idle, :after => :inform_no_feedbacks
     end
 
     event :get_activities do
-      transitions :from => :idle, :to => :activities, :guard => :activities_present?
+      transitions :from => :idle, :to => :activities, :after => :send_activities, :guard => :activities_present?
       transitions :from => :idle, :to => :idle, :after => :inform_no_activities
     end
 
-    event :cancel_activities do
+    event :cancel do
       transitions :from => :activities, :to => :idle, :after => :send_menu_from_activities
+      transitions :from => :feedbacks, :to => :idle, :after => :send_menu_from_feedbacks
+      transitions :from => :feedbacking, :to => :feedback, :after => :send_undone_feedbacks, :guard => :undone_feedbacks?
     end
 
-    event :get_activities_details do
+    event :get_details do
       transitions :from => :activities, :to => :idle, :after => :send_activities_details
+      transitions :from => :feedbacks, :to => :feedbacks, :after => :send_feedbacks_details
     end
 
     event :get_messages do
-      transitions :from => :idle, :to => :messages, :guard => :messages_present?
+      transitions :from => :idle, :to => :messages, :after => :send_messages, :guard => :messages_present?
       transitions :from => :idle, :to => :idle, :after => :inform_no_messages
     end
 
@@ -96,8 +103,42 @@ class User < ApplicationRecord
 
   private
 
-  def send_undone_feedbacks
 
+  def register_feedback(feedback)
+
+  end
+
+  def plan_needs_feedback?
+    plan_name = JSON.parse(self.get_bot_command_data)['plan_name']
+    if plan_name.nil?
+      true
+    else
+      FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).needs_feedback?(plan_name)
+    end
+  end
+
+  def ask_oldest_feedback(plan_name)
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).ask_oldest_feedback(plan_name)
+  end
+
+  def send_feedbacks_details
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).send_details
+  end
+
+  def send_menu_from_feedbacks
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).send_menu
+  end
+
+  def inform_no_feedbacks
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).inform_no_feedbacks
+  end
+
+  def send_undone_feedbacks
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).send_undone_feedbacks
+  end
+
+  def undone_feedbacks?
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).undone_feedbacks?
   end
 
   def send_activities_details

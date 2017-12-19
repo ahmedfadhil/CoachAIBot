@@ -2,7 +2,7 @@ require 'bot/activity_informer'
 require 'bot/feedback_manager'
 require 'bot/profiling_manager'
 require 'bot/monitoring_manager'
-require 'bot/general_actions'
+require 'bot/general'
 require 'bot/answer_checker'
 require 'bot/api_ai_redirecter'
 require 'bot/login_manager'
@@ -74,6 +74,9 @@ class Dispatcher
             feedback_manager = FeedbackManager.new(@user, hash_state)
             names = GeneralActions.plans_names(general_actions.plans_needing_feedback)
 
+            ap "text=#{text}"
+            ap "bot_command_data="
+            ap hash_state
             if hash_state['plan_name'].nil?
               case text
                 when *tell_me_more_strings
@@ -90,6 +93,8 @@ class Dispatcher
                 else
                   feedback_manager.please_choose(names)
               end
+              ap "bot_command_data="
+              ap JSON.parse(user.get_bot_command_data)
             else
               case text
                 when *back_strings

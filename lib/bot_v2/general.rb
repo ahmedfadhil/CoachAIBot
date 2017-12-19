@@ -10,6 +10,12 @@ class GeneralActions
     @state = state
   end
 
+  def clean_state
+    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
+    @user.save
+    @user
+  end
+
   def back_to_menu_with_menu
     keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli', 'Messaggi']
     @api.call('sendMessage', chat_id: @user.telegram_id,
