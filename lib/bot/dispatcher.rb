@@ -65,8 +65,8 @@ class Dispatcher
 								ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
 								fsm = FSM::ObjectivesFSM.new @user
 								actuator = GeneralActions.new(@user, hash_state)
-								response = fsm.dialog
-								fsm.continue_dialog
+								response = fsm.talk
+								fsm.advance_state
 								if fsm.state != "terminated"
 									hash_state['state'] = 'objectives'
 									fsm.update_model!(hash_state)
@@ -130,8 +130,8 @@ class Dispatcher
 						ap "--- objectives ---"
 						fsm = FSM::ObjectivesFSM.from_model(@user, hash_state)
 						actuator = GeneralActions.new(@user, hash_state)
-						response = fsm.dialog(text)
-						fsm.continue_dialog
+						response = fsm.talk(text)
+						fsm.advance_state
 						if fsm.state != "terminated"
 							fsm.update_model!(hash_state)
 							@user.set_user_state(hash_state)

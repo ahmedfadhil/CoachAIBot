@@ -2,12 +2,10 @@ require 'action_view'
 
 module FSM
 	class ObjectivesFSM
-		# The guy chatting with the finite state automa
 		attr_reader :user
-		attr_reader :input
+		attr_accessor :input
 
-		# read the ruby state_machine docs
-		state_machine :dialog_state, initial: :message_of_the_day do
+		state_machine :state, initial: :message_of_the_day do
 			event :continue_dialog do
 				transition message_of_the_day: :read_input
 				transition read_input: :confirm_input
@@ -28,70 +26,70 @@ module FSM
 			end
 
 			state :message_of_the_day do
-				def response(_ = nil)
+				def talk(_ = nil)
 					dialog = DialogMessageOfTheDay.new(user)
-					#if dialog.current_objective_is_steps? && user.fitbit_disabled?
-					#	@go_to_terminated = false
-					#	@go_to_confirm_steps = true
-					#elsif dialog.current_objective_is_distance? && user.fitbit_disabled?
-					#	@go_to_terminated = false
-					#	@go_to_confirm_steps = false
-					#	@go_to_confirm_distance = true
-					#else
-					#	@go_to_terminated = true
-					#end
 					return dialog.message_of_the_day
 				end
-			end
 
-			state :confirm_steps do
-				def dialog(text)
-					dialog = DialogConfirmActivity.new(user: user, text: text, activity: :steps)
-					if dialog.valid?
-						dialog.commit!
-						@go_to_terminated = true
-						return dialog.response
-					elsif dialog.abort?
-						@go_to_terminated = true
-						return dialog.response
+				def advance_state
+					dialog = DialogMessageOfTheDay.new(user)
+					if dialog.current_objective_is_steps? && user.fitbit_disabled?
+						continue_dialog
+					elsif dialog.current_objective_is_distance? && user.fitbit_disabled?
+						continue_dialog
 					else
-						@go_to_terminated = false
-						return dialog.response
+						terminate_dialog
 					end
 				end
 			end
 
-			state :confirm_distance do
-				def dialog(text)
-					dialog = DialogConfirmActivity.new(user: user, text: text, activity: :distance)
+			state :read_input do
+				def talk(text)
+					@input = text
+					dialog = DialogReadInput.new(user, text)
+					return dialog.talk
+				end
+
+				def advance_state
+					dialog = DialogReadInput.new(user, input)
 					if dialog.valid?
-						dialog.commit!
-						@go_to_terminated = true
-						return dialog.response
+						continue_dialog
 					elsif dialog.abort?
-						@go_to_terminated = true
-						return dialog.response
+						terminate_dialog
 					else
-						@go_to_terminated = false
-						return dialog.response
+						repeat_dialog
 					end
 				end
 			end
 
-			state :terminated do
-				def dialog(text)
-					raise StandardError.new("Dialog is terminated")
+			state :confirm_input do
+				def talk(text)
+					dialog = DialogConfirmInput.new(user, input, text)
+					return dialog.talk
+				end
+
+				def advance_state
+					if dialog.yes?
+						dialog.commit!
+						terminate_dialog
+					elsif dialog.no?
+						undo_dialog
+					else
+						repeat_dialog
+					end
 				end
 			end
 		end
 
 		def update_model!(model)
 			model['objectives_state'] = state
+			model['objectives_input'] = input
 		end
 
 		def self.from_model(user, model)
 			obj = new(user)
 			obj.state = model['objectives_state']
+			obj.input = model['objectives_input']
 			return obj
 		end
 
@@ -138,6 +136,7 @@ module FSM
 			end
 
 			if user.fitbit_disabled?
+				response[:text] << "Se desideri puoi comunicarmi adesso i tuoi progressi, oppure usa il bottone ANNULLA per tornare al menu' principale"
 				response[:keyboard] << ['Annulla']
 			else
 				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
@@ -188,35 +187,107 @@ module FSM
 		end
 	end
 
-	class DialogConfirmActivity
-		attr_reader :user, :text, :activity
+	class DialogReadInput
+		attr_reader :user, :text
 
 		def abort?
 			!!(/annulla/i =~ text)
 		end
 
 		def valid?
-			if abort?
-				false
-			else
-				if activity == :steps
-					!!(/^(\d+)\s*(?:passi)?$/ =~ text)
-				elsif activity == :distance
-					!!(/^(\d+(?:(?:,|.)\d+)?)\s*(?:km)?$/ =~ text)
-				end
+			activity = user.active_objective.activity
+			if activity == "steps"
+				!!(/^(\d+)\s*(?:passi)?$/i =~ text)
+			elsif activity == "distance"
+				!!(/^(\d+(?:(?:,|.)\d+)?)\s*(?:km)?$/i =~ text)
 			end
 		end
 
-		def valid_float?(string)
-			# The double negation turns this into an actual boolean true - if you're
-			# okay with "truthy" values (like 0.0), you can remove it.
-			!!Float(string) rescue false
+		def talk
+			response = {}
+			response[:text] = ""
+			response[:keyboard] = []
+			if valid?
+				response_valid(response)
+			elsif abort?
+				response_abort(response)
+			else
+				response_malformed(response)
+			end
+			return response
 		end
 
-		def initialize(hash)
-			@user = hash[:user]
-			@text = hash[:text]
-			@activity = hash[:activity]
+		def response_valid(response)
+			response[:text] << "OK. Perfavore ricontrolla il dato che hai inserito e verifica che sia corretto"
+			response[:keyboard] << ['Si'] << ['No']
+		end
+
+		def response_abort
+			response[:text] << "OK. Ripassa quando vuoi"
+			response[:keyboard] << [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
+		end
+
+		def response_malformed
+			response[:text] << "Non ho capito, potresti ripetere perfavore?"
+			response[:keyboard] << ['Annulla']
+		end
+
+		def initialize(user, text)
+			@user = user
+			@text = text
+		end
+	end
+
+	class DialogConfirmInput
+		attr_reader :user, :text, :input
+
+		def yes?
+			!!(/si/i =~ text)
+		end
+
+		def no?
+			!!(/no/i =~ text)
+		end
+
+		def commit!
+			# nothign to do yet!
+		end
+
+		def talk
+			response = {}
+			response[:text] = ""
+			response[:keyboard] = []
+
+			if yes?
+				response_yes(response)
+			elsif no?
+				response_no(response)
+			else
+				response_malformed(response)
+			end
+
+			return response
+		end
+
+		def response_yes(response)
+			response[:text] << "Molto bene. Il dato che hai inserito e' stato salvato"
+			response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
+		end
+
+		def response_no(response)
+			response[:text] << "OK. Digita il dato che desideri salvare"
+			response[:keyboard] << ['Annulla']
+		end
+
+		def response_malformed(response)
+			response[:text] << "Non ho capito, vuoi registrare il dato che hai inserito?"
+			response[:keyboard] << ['Si'] << ['No']
+		end
+
+		def initialize(user, input, text)
+			@user = user
+			@input = input
+			@text = text
 		end
 	end
 end
