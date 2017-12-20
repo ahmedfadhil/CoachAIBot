@@ -4,6 +4,7 @@ module FSM
 	class ObjectivesFSM
 		attr_reader :user
 		attr_accessor :input
+		attr_reader :text
 
 		state_machine :state, initial: :message_of_the_day do
 			event :continue_dialog do
@@ -64,11 +65,13 @@ module FSM
 
 			state :confirm_input do
 				def talk(text)
+					@text = text
 					dialog = DialogConfirmInput.new(user, input, text)
 					return dialog.talk
 				end
 
 				def advance_state
+					dialog = DialogConfirmInput.new(user, input, text)
 					if dialog.yes?
 						dialog.commit!
 						terminate_dialog
@@ -222,12 +225,12 @@ module FSM
 			response[:keyboard] << ['Si'] << ['No']
 		end
 
-		def response_abort
+		def response_abort(response)
 			response[:text] << "OK. Ripassa quando vuoi"
-			response[:keyboard] << [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
+			response[:keyboard] << ['Attivita', 'Feedback'] << ['Consigli','Messaggi'] << ['Obiettivi']
 		end
 
-		def response_malformed
+		def response_malformed(response)
 			response[:text] << "Non ho capito, potresti ripetere perfavore?"
 			response[:keyboard] << ['Annulla']
 		end
