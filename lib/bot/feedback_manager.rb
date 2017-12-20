@@ -60,7 +60,7 @@ class FeedbackManager
     end
   end
 
-  def please_choose(plans)
+  def please_choose_plan(plans)
     actuator = GeneralActions.new(@user, @state)
     if plans.size==0
       actuator.back_to_menu
@@ -85,4 +85,7 @@ class FeedbackManager
     @user.set_user_state @state
   end
 
+  def send_reply(reply)
+    @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
+  end
 end

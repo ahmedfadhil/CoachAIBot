@@ -53,16 +53,18 @@ class User < ApplicationRecord
   # default column: aasm_state
   # no direct assignment to aasm_state
   # return false instead of exceptions
-  aasm :no_direct_assignment => true, :whiny_transitions => false do
+  aasm  :whiny_transitions => false do
     state :idle, :initial => true
     state :messages, :activities, :feedbacks, :feedbacking, :experiment
 
     event :feedback do
-      transitions :from => :feedbacking, :to => :feedbacking, :after => Proc.new {|*args| register_feedback(*args) }
+      transitions :from => :feedbacking, :to => :feedbacks, :after => Proc.new {|*args| register_answer(*args)}, :guard => Proc.new {|*args| is_answer?(*args) }
+      transitions :from => :feedbacking, :to => :feedbacking, :after => :wrong_answer
     end
 
     event :start_feedbacking do
-      transitions :from => :feedbacks, :to => :feedbacking, :after => Proc.new {|*args| ask_oldest_feedback(*args) }, :guard => :plan_needs_feedback?
+      transitions :from => :feedbacks, :to => :feedbacking, :after => Proc.new {|*args| ask_oldest_feedback(*args)}, :guard => Proc.new {|*args| needs_feedback?(*args) }
+      transitions :from => :feedbacks, :to => :feedbacks, :after => Proc.new {|*args| maybe_wrong(*args) }
     end
 
     event :show_undone_feedbacks do
@@ -78,7 +80,8 @@ class User < ApplicationRecord
     event :cancel do
       transitions :from => :activities, :to => :idle, :after => :send_menu_from_activities
       transitions :from => :feedbacks, :to => :idle, :after => :send_menu_from_feedbacks
-      transitions :from => :feedbacking, :to => :feedback, :after => :send_undone_feedbacks, :guard => :undone_feedbacks?
+      transitions :from => :feedbacking, :to => :idle, :after => :send_menu_from_feedbacking
+      transitions :from => :messages, :to => :idle, :after => :send_menu_from_messages
     end
 
     event :get_details do
@@ -91,10 +94,6 @@ class User < ApplicationRecord
       transitions :from => :idle, :to => :idle, :after => :inform_no_messages
     end
 
-    event :cancel_messages do
-      transitions :from => :messages, :to => :idle, :after => :send_menu_from_messages
-    end
-
     event :respond do
       transitions :from => :messages, :to => :idle, :after => Proc.new {|*args| register_patient_response(*args) }
     end
@@ -103,18 +102,37 @@ class User < ApplicationRecord
 
   private
 
+  # manages <feedbacks and feedbacking> states
 
-  def register_feedback(feedback)
+  def wrong_answer(text)
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).wrong_answer
+  end
 
+  def is_answer?(text)
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).is_answer(text)
+  end
+
+  def needs_feedback?(plan_name)
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).needs_feedback?(plan_name)
+  end
+
+  def send_menu_from_feedbacking
+    # ToDo -> Change
+    send_menu_from_feedbacks
+  end
+
+  def maybe_wrong(text) # we ignore the input because the guard has to have an input parameter
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data))
+        .please_choose_plan(GeneralActions.plans_names(GeneralActions.new(self, JSON.parse(self.get_bot_command_data)).plans_needing_feedback))
+  end
+
+  def register_answer(answer)
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).register_answer(answer)
   end
 
   def plan_needs_feedback?
     plan_name = JSON.parse(self.get_bot_command_data)['plan_name']
-    if plan_name.nil?
-      true
-    else
-      FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).needs_feedback?(plan_name)
-    end
+    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).needs_feedback?(plan_name)
   end
 
   def ask_oldest_feedback(plan_name)
@@ -141,6 +159,8 @@ class User < ApplicationRecord
     FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).undone_feedbacks?
   end
 
+  # manages <activities> state
+
   def send_activities_details
     ActivityInformer.new(self, JSON.parse(self.get_bot_command_data)).send_details
   end
@@ -160,6 +180,8 @@ class User < ApplicationRecord
   def activities_present?
     ActivityInformer.new(self, JSON.parse(self.get_bot_command_data)).activities_present?
   end
+
+  # manages <messages> state
 
   def send_messages
     Messenger.new(self, JSON.parse(self.get_bot_command_data)).inform

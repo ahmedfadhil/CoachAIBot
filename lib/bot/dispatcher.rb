@@ -74,8 +74,6 @@ class Dispatcher
             feedback_manager = FeedbackManager.new(@user, hash_state)
             names = GeneralActions.plans_names(general_actions.plans_needing_feedback)
 
-            ap "text=#{text}"
-            ap "bot_command_data="
             ap hash_state
             if hash_state['plan_name'].nil?
               case text
@@ -91,7 +89,7 @@ class Dispatcher
                   feedback_manager.ask(plan_name)
 
                 else
-                  feedback_manager.please_choose(names)
+                  feedback_manager.please_choose_plan(names)
               end
               ap "bot_command_data="
               ap JSON.parse(user.get_bot_command_data)

@@ -114,7 +114,9 @@ class GeneralActions
 
   def self.custom_keyboard(keyboard_values)
     kb = GeneralActions.slice_keyboard keyboard_values
-    Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
+    k = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
+    ap k
+    k
   end
 
   def self.slice_keyboard(values)

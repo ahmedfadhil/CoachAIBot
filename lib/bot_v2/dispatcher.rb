@@ -1,16 +1,8 @@
 # da cambiare tutti i require
 
-require 'bot/activity_informer'
-require 'bot/feedback_manager'
-require 'bot/profiling_manager'
-require 'bot/monitoring_manager'
-require 'bot/general_actions'
-require 'bot/answer_checker'
 require 'bot/api_ai_redirecter'
 require 'bot/login_manager'
-require 'bot/chatscript_compiler'
-require 'bot/messenger'
-require 'bot/tips'
+
 
 class Dispatcher
   attr_reader :message, :user
@@ -28,18 +20,24 @@ class Dispatcher
       LoginManager.new(@message, @user).manage
     else
 
-      # dispatch in function of user state
-      hash_state = JSON.parse(user.get_bot_command_data)
-      aasm_state = hash_state['aasm_state']
-
+      # dispatch in function of user state and text input
+      aasm_state = @user.aasm_state
+      ap "CURRENT USER: #{@user.id} STATE: #{aasm_state}"
       case aasm_state
         when 'idle'
           manage_idle_state(text)
 
+        when 'activities'
+          manage_activities_state(text)
+
         when 'messages'
           manage_messages_state(text)
 
-        else
+        when 'feedbacks'
+          manage_feedbacks_state(text)
+
+        else # 'feedbacking'
+          manage_feedbacking_state(text)
 
       end
 
@@ -68,6 +66,7 @@ class Dispatcher
       # Feedbacks
       when /(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
         ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
+        @user.show_undone_feedbacks!
 
       # Messages
       when /(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
@@ -75,8 +74,20 @@ class Dispatcher
         @user.get_messages!
 
       else
+        hash_state = JSON.parse(@user.bot_command_data)
         ApiAIRedirector.new(text, @user, hash_state).redirect
 
+    end
+  end
+
+  def manage_activities_state(text)
+    ap "---------INFORMING ABOUT ACTIVITIES USER: #{@user.id}---------"
+    case text
+      when *back_strings
+        @user.cancel!
+
+      else # when 'Ulteriori Dettagli'
+        @user.get_details!
     end
   end
 
@@ -85,11 +96,34 @@ class Dispatcher
       # Respond Later
       when *back_strings
         ap "---------USER #{@user.id} CANCELLED MESSAGES RESPONDING ACTION---------"
-        @user.cancel_messages!
+        @user.cancel!
 
       else
         ap "---------RECEIVING RESPONSE FOR COACH MESSAGE BY USER: #{@user.id}---------"
         @user.register_patient_response!(text)
+    end
+  end
+
+  def manage_feedbacks_state(text)
+    case text
+      when *tell_me_more_strings
+        @user.get_details!
+
+      when *back_strings
+        @user.cancel!
+
+      else
+        @user.start_feedbacking!(text)
+
+    end
+  end
+
+  def manage_feedbacking_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+      else
+        @user.feedback!(text)
     end
   end
 
