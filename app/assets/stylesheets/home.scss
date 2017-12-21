@@ -1,3 +1,21 @@
+/* banner */
+
+
+.banner {
+  position: relative;
+  background: #ffffff url('CoachAI Graphics/banner.png') no-repeat center;
+  height: 800px;
+  width: auto;
+  text-align: -webkit-center;
+}
+
+.btn-banner{
+  text-align: -webkit-center;
+  /* margin-bottom: 22px; */
+  margin-top: -55px;
+}
+
+
 /**
  * Popup
  */
@@ -93,10 +111,9 @@ a img{
 
 
 .android-logo-image {
-  height: 28px;
-  width: 140px;
+  height: 50px;
+  width: 60px;
 }
-
 
 .android-header {
   overflow: visible;
@@ -206,7 +223,8 @@ a img{
   height: 800px;
   width: auto;
   background-color: #f3f3f3;
-  background: url('slide01.jpg') center 30% no-repeat;
+  //background: url('slide01.jpg') center 30% no-repeat;
+  background: url('CoachAI Graphics/banner.png') center 30% no-repeat;
   background-size: cover;
 }
 

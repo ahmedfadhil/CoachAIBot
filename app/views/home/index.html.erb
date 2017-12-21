@@ -1,23 +1,24 @@
 <% provide(:title, 'Home') %>
-<div class="android-be-together-section mdl-typography--text-center">
-  <div class="logo-font android-slogan">Coach AI</div>
-  <div class="logo-font android-sub-slogan">Piattaforma E-Coaching per stile di vita sano, assistita da un Agente Conversazionale</div>
-  <div class="logo-font android-create-character">
-    <% if coach_user_signed_in? %>
-        <%= link_to profile_index_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect large-btn-home' do %>
-           DASHBOARD
-        <% end %>
-    <% else %>
-        <!-- Button that triggers the login popup -->
-        <button id="btn_login_1" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect large-btn-home">
-          LOGIN
-        </button>
-        <!-- Element to pop up -->
-        <div id="login_pop_up">
-          <%= render 'home/login_form' %>
-        </div>
-    <% end %>
-  </div>
+
+<div class="banner">
+
+</div>
+
+<div class="btn-banner">
+  <% if coach_user_signed_in? %>
+      <%= link_to profile_index_path, class: 'banner-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect large-btn-home' do %>
+          DASHBOARD
+      <% end %>
+  <% else %>
+      <!-- Button that triggers the login popup -->
+      <button id="btn_login_1" class="banner-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect large-btn-home">
+        LOGIN
+      </button>
+      <!-- Element to pop up -->
+      <div id="login_pop_up">
+        <%= render 'home/login_form' %>
+      </div>
+  <% end %>
 </div>
 
 <div class="android-more-section">

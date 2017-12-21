@@ -6,8 +6,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# use svg files in views
+#gem 'inline_svg'
+
 # finite state machine for user <-> bot interaction
-gem 'state_machines'
+# gem 'state_machines'
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 
 gem 'record_tag_helper', '~> 1.0'
