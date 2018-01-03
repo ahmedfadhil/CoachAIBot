@@ -100,7 +100,7 @@ gem 'chatscript'
 gem 'hash_dot'
 
 # oauth2 client
-gem 'oauth2'
+gem 'oauth2', '1.4.0'
 
 ####
 gem 'rails-assets-eq.js'

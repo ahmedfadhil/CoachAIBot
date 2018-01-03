@@ -1,6 +1,7 @@
 require 'oauth2'
 require 'base64'
 require 'fitbit/client'
+require 'bot/general_actions'
 
 class WearablesController < ApplicationController
 	before_action :authenticate_coach_user!, only: [:index, :show, :invite]
@@ -91,7 +92,7 @@ class WearablesController < ApplicationController
 			raise "Missing auth cookie, can't authenticate user"
 		end
 
-		Thread.new {
+		#Thread.new {
 			user = User.find(user_id)
 			user.fitbit_enabled!
 
@@ -112,8 +113,8 @@ class WearablesController < ApplicationController
 			user.access_token = access_token.to_hash
 			user.save!
 
-			Fitbit::Client.pull_data("1m")
-		}
+			#Fitbit::Client.pull_data("1m")
+		#}
 	end
 
 	private
