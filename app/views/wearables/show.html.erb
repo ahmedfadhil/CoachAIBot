@@ -1,4 +1,4 @@
-<%= cell(:layout, section: "Dispositivi Indossabili", title: "Weekly report: #{@user.first_name} #{@user.last_name}").() do %>
+<%= cell(:layout, section: "Dispositivi Indossabili", title: "Rapporto settimanale: #{@user.first_name} #{@user.last_name}").() do %>
 	<% capture do %>
 		<%= cell(:weekly_report, @user).() %>
 	<% end %>

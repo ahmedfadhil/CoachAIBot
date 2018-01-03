@@ -1,6 +1,6 @@
 <div class="container" style="max-width: 800px">
 	<%= cell(:weekly_report, model, tab: :week_chart).(:navigation) %>
-	<p>From <%= begin_day %> to <%= end_day %></p>
+	<p>Dal <%= l(begin_day) %> al <%= l(end_day) %></p>
 	<br><br>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -40,7 +40,7 @@
 			}
 		},
 		series: [{
-			name: 'steps',
+			name: 'passi',
 			data: <%= steps_json %>,
 			}]
 		});
@@ -75,7 +75,7 @@
 			}
 		},
 		series: [{
-			name: 'distance',
+			name: 'distanza',
 			data: <%= distance_json %>,
 			}]
 		});
@@ -110,7 +110,7 @@
 			}
 		},
 		series: [{
-			name: 'calories',
+			name: 'calorie',
 			data: <%= calories_json %>,
 			}]
 		});
@@ -155,7 +155,7 @@
 			}
 		},
 		series: [{
-			name: 'time spent sleeping',
+			name: 'durata del sonno',
 			data: <%= sleep_json %>,
 			}]
 		});

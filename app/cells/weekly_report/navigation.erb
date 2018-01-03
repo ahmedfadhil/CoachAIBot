@@ -1,21 +1,21 @@
 <h1>
-	Wearable Report:
+	Rapporto:
 	<%= model.first_name %>
 	<%= " " %>
 	<%= model.last_name %>
 </h1>
 <ul class="nav nav-tabs">
 	<li class="nav-item">
-		<%= nav_item "Weekly report", show_wearable_path(model), :week_repo %>
+		<%= nav_item "Rapporto settimanale", show_wearable_path(model), :week_repo %>
 	</li>
 	<li class="nav-item">
-		<%= nav_item "Monthly report", monthly_report_path(model), :month_repo %>
+		<%= nav_item "Rapporto settimanale", monthly_report_path(model), :month_repo %>
 	</li>
 	<li class="nav-item">
-		<%= nav_item "Weekly graphs", weekly_chart_path(model), :week_chart %>
+		<%= nav_item "Grafici settimanali", weekly_chart_path(model), :week_chart %>
 	</li>
 	<li class="nav-item">
-		<%= nav_item "Montly graphs", monthly_chart_path(model), :month_chart %>
+		<%= nav_item "Grafici mensili", monthly_chart_path(model), :month_chart %>
 	</li>
 </ul>
 <br>

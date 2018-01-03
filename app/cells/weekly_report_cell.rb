@@ -1,4 +1,6 @@
 class WeeklyReportCell < Cell::ViewModel
+	include ActionView::Helpers::TranslationHelper
+
 	def show
 		render
 	end
@@ -50,11 +52,11 @@ class WeeklyReportCell < Cell::ViewModel
 	end
 
 	def most_active_day
-		weekly_logs.max_by(&:calories).date.strftime("%A %d %B")
+		l(weekly_logs.max_by(&:calories).date,  format: "%A %d %B")
 	end
 
 	def least_active_day
-		weekly_logs.min_by(&:calories).date.strftime("%A %d %B")
+		l(weekly_logs.min_by(&:calories).date, format: "%A %d %B")
 	end
 
 	def total_steps
