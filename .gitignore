@@ -24,6 +24,7 @@ telegram_webhook_req
 /spring/*.pid
 
 /.idea
+Gemfile.lock
 
 example.pdf
 erd.pdf
