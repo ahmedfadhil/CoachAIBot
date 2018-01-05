@@ -2,6 +2,7 @@ class Objective < ApplicationRecord
 	belongs_to :user
 	has_many :objective_logs
 	enum activity: { steps: 0, distance: 1 }
+	enum fitbit_integration: { fitbit_disabled: 0, fitbit_enabled: 1 }
 
 	validates :start_date, :end_date, presence: { message: 'Deve essere presente' }
 	validate :start_and_end_date_must_be_consistent
@@ -61,8 +62,22 @@ class Objective < ApplicationRecord
 		return distance / days
 	end
 
+	def daily_steps_progress
+		days_obj = TimeDifference.between(start_date, end_date).in_days.to_i
+		days_now = TimeDifference.between(start_date, Time.now).in_days.to_i
+		days = [days_obj, days_now].min
+		return steps_progress / days
+	end
+
+	def daily_distance_progress
+		days_obj = TimeDifference.between(start_date, end_date).in_days.to_i
+		days_now = TimeDifference.between(start_date, Time.now).in_days.to_i
+		days = [days_obj, days_now].min
+		return steps_progress / days
+	end
+
 	def steps_progress
-		if fitbit_enabled
+		if fitbit_enabled?
 			steps_progress_fitbit
 		else
 			steps_progress_log
@@ -70,7 +85,7 @@ class Objective < ApplicationRecord
 	end
 
 	def distance_progress
-		if fitbit_enabled
+		if fitbit_enabled?
 			distance_progress_fitbit
 		else
 			distance_progress_log
@@ -81,23 +96,23 @@ class Objective < ApplicationRecord
 		logs = user.daily_logs.find { |log|
 			log.date <= end_date && start_date <= log.date
 		}
-		return logs.map{ |e| e.steps }.inject(:+)
+		return logs.map{ |e| e.steps }.inject(:+) || 0
 	end
 
 	def distance_progress_fitbit
 		logs = user.daily_logs.find { |log|
 			log.date <= end_date && start_date <= log.date
 		}
-		return logs.map{ |e| e.distance }.inject(:+).floor(2)
+		return logs.map{ |e| e.distance }.inject(:+).floor(2) || 0
 	end
 
 	def distance_progress_log
-		logs = user.objective_logs
-		return logs.map{ |e| e.distance }.inject(:+).floor(2)
+		logs = objective_logs
+		return logs.map{ |e| e.distance }.inject(:+).floor(2) || 0
 	end
 
 	def steps_progress_log
-		logs = user.objective_logs
-		return logs.map{ |e| e.steps }.inject(:+)
+		logs = objective_logs
+		return logs.map{ |e| e.steps }.inject(:+) || 0
 	end
 end

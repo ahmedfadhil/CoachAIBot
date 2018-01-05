@@ -9,7 +9,6 @@
 	<% if active? %>
 		<div class="alert alert-primary" role="alert">
 			Stai visualizzando l'allenamento corrente per questo utente.<br>
-			I dati relativi all'aderenza dell'utente saranno raccolti settimanalmente.
 		</div>
 	<% elsif scheduled? %>
 		<div class="alert alert-warning" role="alert">
@@ -38,39 +37,45 @@
 	<p><b>Aderenza utente:</b></p>
 	<ul>
 		<% if model.activity == "steps" %>
-			<li>Media passi giornaliera rilevata: <%= daily_steps %></li>
-			<li>Totale passi rilevati: <%= model.steps %></li>
+			<li>Media passi giornaliera rilevata: <%= model.daily_steps_progress %></li>
+			<li>Totale passi rilevati: <%= model.steps_progress %></li>
 		<% end %>
 		<% if model.activity == "distance" %>
-			????
+			<li>Media distanza giornaliera rilevata: <%= model.daily_distance_progress %></li>
+			<li>Totale distanza rilevata: <%= model.distance_progress %></li>
 		<% end %>
 	</ul>
 	<hr>
-	<p>Iterazioni:</p>
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">First Name</th>
-				<th scope="col">Last Name</th>
-				<th scope="col">Username</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<td>Jacob</td>
-				<td>Thornton</td>
-				<td>@fat</td>
-			</tr>
-			<tr>
-				<td>Larry</td>
-				<td>the Bird</td>
-				<td>@twitter</td>
-			</tr>
-		</tbody>
-	</table>
+	<p><b>Attivita':</b></p>
+	<% if model.fitbit_enabled? %>
+		I progressi dell'utente rispetto agli obiettivi di questo allenamento vengono registrati tramite il dispositivo indossabile dell'utente.<br><br>
+		<%= link_to "Visualizza rapporto", show_wearable_path(model.user), class: 'btn btn-success' %>
+	<% else %>
+		<% if model.objective_logs.empty? %>
+			Non e' registrata nessuna attivita'
+		<% else %>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Data e ora</th>
+						<th scope="col">Quantita'</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% model.objective_logs.each do |log| %>
+					<tr>
+						<td><%= l(log.created_at, format: :long) %></td>
+						<td>
+							<% if model.steps? %>
+								<%= log.steps %>
+							<% else %>
+								<%= log.distance %>
+							<% end %>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
+	<% end %>
 </div>
