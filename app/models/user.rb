@@ -55,47 +55,69 @@ class User < ApplicationRecord
   # return false instead of exceptions
   aasm  :whiny_transitions => false do
     state :idle, :initial => true
-    state :messages, :activities, :feedbacks, :feedbacking, :experiment
+    state :messages, :activities, :feedbacks, :feedbacking, :experiment, :questionnaires, :responding
 
     event :feedback do
-      transitions :from => :feedbacking, :to => :feedbacks, :after => Proc.new {|*args| register_answer(*args)}, :guard => Proc.new {|*args| is_answer?(*args) }
-      transitions :from => :feedbacking, :to => :feedbacking, :after => :wrong_answer
+      transitions :from => :feedbacking, :to => :feedbacks,
+                  :after => Proc.new {|*args| register_answer(*args)},
+                  :guard => Proc.new {|*args| is_answer?(*args) }
+      transitions :from => :feedbacking, :to => :feedbacking,
+                  :after => :wrong_answer
     end
 
     event :start_feedbacking do
-      transitions :from => :feedbacks, :to => :feedbacking, :after => Proc.new {|*args| ask_oldest_feedback(*args)}, :guard => Proc.new {|*args| needs_feedback?(*args) }
-      transitions :from => :feedbacks, :to => :feedbacks, :after => Proc.new {|*args| maybe_wrong(*args) }
+      transitions :from => :feedbacks, :to => :feedbacking,
+                  :after => Proc.new {|*args| ask_oldest_feedback(*args)},
+                  :guard => Proc.new {|*args| needs_feedback?(*args) }
+      transitions :from => :feedbacks, :to => :feedbacks,
+                  :after => Proc.new {|*args| maybe_wrong(*args) }
     end
 
     event :show_undone_feedbacks do
-      transitions :from => :idle, :to => :feedbacks, :after => :send_undone_feedbacks, :guard => :undone_feedbacks?
-      transitions :from => :idle, :to => :idle, :after => :inform_no_feedbacks
+      transitions :from => :idle, :to => :feedbacks,
+                  :after => :send_undone_feedbacks,
+                  :guard => :undone_feedbacks?
+      transitions :from => :idle, :to => :idle,
+                  :after => :inform_no_feedbacks
     end
 
     event :get_activities do
-      transitions :from => :idle, :to => :activities, :after => :send_activities, :guard => :activities_present?
-      transitions :from => :idle, :to => :idle, :after => :inform_no_activities
+      transitions :from => :idle, :to => :activities,
+                  :after => :send_activities,
+                  :guard => :activities_present?
+      transitions :from => :idle, :to => :idle,
+                  :after => :inform_no_activities
     end
 
     event :cancel do
-      transitions :from => :activities, :to => :idle, :after => :send_menu_from_activities
-      transitions :from => :feedbacks, :to => :idle, :after => :send_menu_from_feedbacks
-      transitions :from => :feedbacking, :to => :idle, :after => :send_menu_from_feedbacking
-      transitions :from => :messages, :to => :idle, :after => :send_menu_from_messages
+      transitions :from => :activities, :to => :idle,
+                  :after => :send_menu_from_activities
+      transitions :from => :feedbacks, :to => :idle,
+                  :after => :send_menu_from_feedbacks
+      transitions :from => :feedbacking, :to => :idle,
+                  :after => :send_menu_from_feedbacking
+      transitions :from => :messages, :to => :idle,
+                  :after => :send_menu_from_messages
     end
 
     event :get_details do
-      transitions :from => :activities, :to => :idle, :after => :send_activities_details
-      transitions :from => :feedbacks, :to => :feedbacks, :after => :send_feedbacks_details
+      transitions :from => :activities, :to => :idle,
+                  :after => :send_activities_details
+      transitions :from => :feedbacks, :to => :feedbacks,
+                  :after => :send_feedbacks_details
     end
 
     event :get_messages do
-      transitions :from => :idle, :to => :messages, :after => :send_messages, :guard => :messages_present?
-      transitions :from => :idle, :to => :idle, :after => :inform_no_messages
+      transitions :from => :idle, :to => :messages,
+                  :after => :send_messages,
+                  :guard => :messages_present?
+      transitions :from => :idle, :to => :idle,
+                  :after => :inform_no_messages
     end
 
     event :respond do
-      transitions :from => :messages, :to => :idle, :after => Proc.new {|*args| register_patient_response(*args) }
+      transitions :from => :messages, :to => :idle,
+                  :after => Proc.new {|*args| register_patient_response(*args) }
     end
 
   end

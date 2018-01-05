@@ -1,4 +1,4 @@
-require 'bot/general_actions'
+require 'bot/general'
 require 'csv'
 
 # Congregate patients, that is, clusters patients into 3 main clusters <GREEN>, <YELLOW>, <RED>

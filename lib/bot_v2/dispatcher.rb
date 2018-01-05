@@ -100,7 +100,7 @@ class Dispatcher
 
       else
         ap "---------RECEIVING RESPONSE FOR COACH MESSAGE BY USER: #{@user.id}---------"
-        @user.register_patient_response!(text)
+        @user.respond!(text)
     end
   end
 

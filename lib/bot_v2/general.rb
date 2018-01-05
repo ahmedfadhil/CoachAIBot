@@ -27,6 +27,8 @@ class GeneralActions
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
   end
 
+  104119130
+
   def send_reply_with_keyboard(reply, keyboard)
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: keyboard)
   end
