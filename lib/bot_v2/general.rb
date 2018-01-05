@@ -1,4 +1,5 @@
 require 'telegram/bot'
+require 'JSON'
 
 class GeneralActions
   attr_reader :user, :state, :api
@@ -26,8 +27,6 @@ class GeneralActions
     send_chat_action 'typing'
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
   end
-
-  104119130
 
   def send_reply_with_keyboard(reply, keyboard)
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: keyboard)
@@ -63,7 +62,7 @@ class GeneralActions
     end
 
     send_doc "pdfs/#{doc_name}"
-    send_reply_with_keyboard 'Leggilo con attenzione!', (GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli', 'Messaggi'])
+    send_reply_with_keyboard 'Leggilo con attenzione!', (GeneralActions.custom_keyboard (GeneralActions.menu_buttons))
   end
 
   def send_feedback_details(plans)
@@ -100,10 +99,104 @@ class GeneralActions
               document: Faraday::UploadIO.new(file_path, 'pdf'))
   end
 
+  ######################
+  # FOR QUESTIONNAIRES #
+  ######################
+
+  def inform_no_questionnaires
+    send_chat_action 'typing'
+    keyboard = GeneralActions.custom_keyboard ['Ho da fare dei Questionari?']
+    reply = "Non hai Questionari da completare oggi! Torna piu' tardi per ricontrollare."
+
+    @api.call('sendMessage', chat_id: @patient.telegram_id,
+              text: reply, reply_markup: keyboard)
+  end
+
+  def inform_no_action_received
+    reply = 'Per favore usa i bottoni per interagire con il sistema.'
+    send_reply_with_keyboard reply,
+                             GeneralActions.custom_keyboard([menu_button_text])
+  end
+
+
+  def error(chat_id)
+    send_chat_action 'typing'
+    @api.call('sendMessage', chat_id: chat_id,
+              text: 'Errore Server, ci scusiamo per il disagio. La preghiamo di riprovare dopo.')
+  end
+
+  def send_questionnaires(questionnaires)
+    # first lets save questionnaire list in bot command_data
+    list = questionnaires.map(&:title)
+    bot_command_data = {'questionnaires' => list}
+    save_bot_command_data(bot_command_data)
+
+    reply1 = "I questionari che hai da fare sono: \n\t-#{list.join("\n\t-")}"
+    reply2 = 'Scegli un questionario per rispondere alle domande.'
+
+    # then send bot's answer to patient
+    send_reply reply1
+    send_reply_with_keyboard reply2,
+                             GeneralActions.custom_keyboard(list.push(back_button_text))
+  end
+
+  def inform_wrong_questionnaire(text)
+    bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
+
+    reply1 = "Oups! '#{text}' non e' il titolo di nessun questionario che hai da fare."
+    reply2 = "I questionari che hai da fare sono: \n\t-#{bot_command_data['questionnaires'].join("\n\t-")} \n Scegli uno dei questionari indicati per rispondere alle domande."
+
+    send_reply reply1
+    send_reply_with_keyboard reply2,
+                             GeneralActions.custom_keyboard(bot_command_data['questionnaires'].push(back_button_text))
+  end
+
+  def ask_question(question, invitation)
+    # first lets save question data invitation on bot_command_data
+    bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
+    questionnaire = question.questionnaire
+    bot_command_data['responding'] = {'question_id' => question.id,
+                                      'invitation_id' => invitation.id,
+                                      'questionnaire_id' => questionnaire.id}
+    save_bot_command_data(bot_command_data)
+    options = question.options.map(&:text)
+    reply = question.text
+
+    send_reply_with_keyboard reply, GeneralActions.custom_keyboard(options.push(back_button_text))
+  end
+
+  def inform_wrong_response
+    reply = 'Hai scelto un opzione non disponibile per questa domanda. Per favore scegli una delle opzioni disponibili.'
+    send_reply reply
+  end
+
+  def send_response_saved
+    send_reply 'Risposta Salvata!'
+  end
+
+  def send_questionnaire_finished
+    bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
+    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
+    reply = "Hai finito il questionario '#{questionnaire.title}'. Per controllare se ci sono altri questionari chiedimi se hai altri questionari da fare."
+    send_reply_with_keyboard reply,
+                             GeneralActions.custom_keyboard(GeneralActions.menu_buttons)
+  end
+
+  # data.class has to be Hash
+  def save_bot_command_data(data)
+    BotCommand.create(user_id: @user.id, data: data.to_json)
+  end
+
+  def back_button_text
+    'Rispondi piu\' tardi/Torna al Menu'
+  end
+
+  #######################
+
   # static methods
 
   def self.menu_buttons
-    %w[Attivita Feedback Consigli Messaggi]
+    %w[Attivita Feedback Questionari Messaggi]
   end
 
   def self.answers_from_question(question)

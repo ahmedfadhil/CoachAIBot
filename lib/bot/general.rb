@@ -18,9 +18,8 @@ class GeneralActions
 
   def back_to_menu_with_menu
     back_to_menu
-    keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli', 'Messaggi']
     @api.call('sendMessage', chat_id: @user.telegram_id,
-              text: 'Scegli con cosa vuoi continuare.', reply_markup: keyboard)
+              text: 'Scegli con cosa vuoi continuare.', reply_markup: GeneralActions.menu_keyboard)
   end
 
   def clean_state
@@ -107,7 +106,7 @@ class GeneralActions
 
   def send_doc(file_path)
     @api.call('sendDocument', chat_id: @user.telegram_id,
-              document: Faraday::UploadIO.new(file_path, 'pdf'))
+              document: Faraday::UploadIO.new(file_path, 'pdf'), reply_markup: GeneralActions.menu_keyboard)
   end
 
   # static methods

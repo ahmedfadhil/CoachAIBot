@@ -75,7 +75,7 @@ class Dispatcher
 
       else
         hash_state = JSON.parse(@user.bot_command_data)
-        ApiAIRedirector.new(text, @user, hash_state).redirect
+        #ApiAIRedirector.new(text, @user, hash_state).redirect
 
     end
   end

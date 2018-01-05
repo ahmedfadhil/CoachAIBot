@@ -1,6 +1,8 @@
 require "#{Rails.root}/lib/bot_v2/messenger"
 require "#{Rails.root}/lib/bot_v2/activity_informer"
 require "#{Rails.root}/lib/bot_v2/feedback_manager"
+require "#{Rails.root}/lib/bot_v2/questionnaire_manager"
+require "#{Rails.root}/lib/bot_v2/general"
 
 class User < ApplicationRecord
   has_many :communications, dependent: :destroy
@@ -99,6 +101,10 @@ class User < ApplicationRecord
                   :after => :send_menu_from_feedbacking
       transitions :from => :messages, :to => :idle,
                   :after => :send_menu_from_messages
+      transitions :from => :questionnaires, :to => :idle,
+                  :after => :back_to_menu
+      transitions :from => :responding, :to => :idle,
+                  :after => :back_to_menu
     end
 
     event :get_details do
@@ -121,6 +127,43 @@ class User < ApplicationRecord
                   :after => Proc.new {|*args| register_patient_response(*args) }
     end
 
+    #questionnaires
+    event :start_questionnaires do
+      transitions :from => :idle, :to => :questionnaires,
+                  :after => :show_questionnaires,
+                  :guard => :has_questionnaires?
+      transitions :from => :idle, :to => :idle,
+                  :after => :inform_no_questionnaires
+    end
+
+    event :start_responding do
+      transitions :from => :questionnaires, :to => :responding,
+                  :after => Proc.new {|*args| ask_question(*args)},
+                  :guard => Proc.new {|*args| questionnaire_is_not_finished?(*args)}
+      transitions :from => :questionnaires, :to => :questionnaires,
+                  :after => Proc.new {|*args| inform_wrong_questionnaire(*args)}
+    end
+
+    event :respond_questionnaire do
+      transitions :from => :responding, :to => :idle,
+                  :after => Proc.new {|*args| register_last_response(*args)},
+                  :guard => Proc.new {|*args| is_last_question_and_is_response?(*args)}
+      transitions :from => :responding, :to => :responding,
+                  :after => Proc.new {|*args| register_response(*args)},
+                  :guard => Proc.new {|*args| is_response?(*args)}
+      transitions :from => :responding, :to => :responding,
+                  :after => :ask_last_question_again
+    end
+
+    event :no_action do
+      transitions :from => :idle, :to => :idle,
+                  :after => :send_no_action_received
+    end
+
+  end
+
+  def f
+    GeneralActions.new(self, nil)
   end
 
   private
@@ -225,6 +268,79 @@ class User < ApplicationRecord
   def register_patient_response(response)
     Messenger.new(self, JSON.parse(self.get_bot_command_data)).register_patient_response(response)
   end
+  
+  ################## 
+  # Questionnaires Management
+
+  def register_last_response(response)
+    QuestionnaireManager.new(self).register_response(response)
+    GeneralActions(self, nil).send_questionnaire_finished
+  end
+
+  def is_last_question_and_is_response?(response)
+    if is_response?(response) && QuestionnaireManager.new(self).is_last_question?
+      true
+    else
+      false
+    end
+  end
+
+  def ask_next_question
+    bot_command_data = JSON.parse(BotCommand.where(user: self).last.bot_command_data)
+    QuestionnaireManager.new(self).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title)
+  end
+
+  def ask_last_question_again
+    QuestionnaireManager.new(self).ask_last_question_again
+  end
+
+  def register_response(response)
+    QuestionnaireManager.new(self).register_response(response)
+    ask_next_question
+  end
+
+  def is_response?(response)
+    QuestionnaireManager.new(self).is_response?(response)
+  end
+
+  def inform_wrong_questionnaire(text)
+    GeneralActions.new(self, nil).inform_wrong_questionnaire(text)
+  end
+
+  def ask_question(questionnaire)
+    QuestionnaireManager.new(self).ask_question(questionnaire)
+  end
+
+  def questionnaire_is_not_finished?(questionnaire)
+    QuestionnaireManager.new(self).questionnaire_is_not_finished?(questionnaire)
+  end
+
+  def show_questionnaires
+    QuestionnaireManager.new(self).show_questionnaires
+  end
+
+  def has_questionnaires?
+    QuestionnaireManager.new(self).has_questionnaires?
+  end
+
+  def send_no_action_received
+    GeneralActions.new(self, nil).inform_no_action_received
+  end
+
+  def back_to_menu
+    GeneralActions.new(self, nil).back_to_menu_with_menu
+  end
+
+  def inform_no_questionnaires
+    GeneralActions.new(self, nil).inform_no_questionnaires
+  end
+
+  def no_action_received
+    GeneralActions.new(self, nil).inform_no_action_received
+  end
+  
+  ##################
+  
 
   # will be called if any event fails
   def aasm_event_failed(event_name, old_state_name)

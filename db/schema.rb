@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105105741) do
+ActiveRecord::Schema.define(version: 20180105161402) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20180105105741) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "bot_commands", force: :cascade do |t|
+    t.string "data"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_bot_commands_on_user_id"
   end
 
   create_table "chats", force: :cascade do |t|
@@ -159,10 +165,10 @@ ActiveRecord::Schema.define(version: 20180105105741) do
 
   create_table "options", force: :cascade do |t|
     t.string "text"
-    t.integer "questionnaire_id"
+    t.integer "questionnaire_question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["questionnaire_id"], name: "index_options_on_questionnaire_id"
+    t.index ["questionnaire_question_id"], name: "index_options_on_questionnaire_question_id"
   end
 
   create_table "plannings", force: :cascade do |t|
@@ -192,13 +198,6 @@ ActiveRecord::Schema.define(version: 20180105105741) do
     t.index ["user_id"], name: "index_plans_on_user_id"
   end
 
-  create_table "quesionnaires", force: :cascade do |t|
-    t.string "title"
-    t.string "desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "questionnaire_answers", force: :cascade do |t|
     t.string "text"
     t.integer "invitation_id"
@@ -223,6 +222,7 @@ ActiveRecord::Schema.define(version: 20180105105741) do
     t.string "desc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "initial"
   end
 
   create_table "questions", force: :cascade do |t|
