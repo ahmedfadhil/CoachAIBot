@@ -1,37 +1,37 @@
 <div class="container" style="max-width: 800px">
 	<h1>
-		Obiettivi:
+		Allenamenti:
 		<%= model.first_name %>
 		<%= " " %>
 		<%= model.last_name %>
 	</h1>
-	<p>Obiettivo corrente:</p>
+	<p>Allenamento corrente:</p>
 	<% if model.active_objective %>
 		<%= cell(:objective, model.active_objective).(:table) %>
 	<% else %>
 		<div class="alert alert-warning" role="alert">
-			Non vi è nessuno obiettivo corrente al momento per questo utente.
+			Non vi è nessuno allenamento corrente al momento per questo utente.
 		</div>
 	<% end %>
 	<hr>
-	<p>Obiettivi programmati:</p>
+	<p>Allenamento programmati:</p>
 	<% if !model.scheduled_objectives.empty? %>
 		<%= cell(:objectives, model, objectives: model.scheduled_objectives).(:table) %>
 	<% else %>
 		<div class="alert alert-warning" role="alert">
-			Non vi è nessuno obiettivo programmato al momento per questo utente.
+			Non vi è nessuno allenamento programmato al momento per questo utente.
 		</div>
 	<% end %>
 	<hr>
-	<p>Obiettivo terminati:</p>
+	<p>Allenamento terminati:</p>
 	<% if !model.terminated_objectives.empty? %>
 		<%= cell(:objectives, model, objectives: model.terminated_objectives).(:table) %>
 	<% else %>
 		<div class="alert alert-warning" role="alert">
-			Non vi è nessuno obiettivo terminato al momento per questo utente. Un obiettivo sarà terminato nel momento in cui
+			Non vi è nessuno allenamento terminato al momento per questo utente. Un obiettivo sarà terminato nel momento in cui
 			la data di scadenza per quell'obiettivo è superata.
 		</div>
 	<% end %>
 	<hr>
-	<%= link_to "Nuovo obiettivo", new_user_objective_path(model), class: 'btn btn-primary' %>
+	<%= link_to "Nuovo allenamento", new_user_objective_path(model), class: 'btn btn-primary' %>
 </div>

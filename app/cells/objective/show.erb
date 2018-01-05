@@ -1,6 +1,6 @@
 <div class="container" style="max-width: 800px">
 	<h1>
-		Obiettivo #<%= model.id %>
+		Allenamento #<%= model.id %>
 		:
 		<%= model.user.first_name %>
 		<%= " " %>
@@ -8,19 +8,19 @@
 	</h1>
 	<% if active? %>
 		<div class="alert alert-primary" role="alert">
-			Stai visualizzando l'obiettivo corrente per questo utente.<br>
+			Stai visualizzando l'allenamento corrente per questo utente.<br>
 			I dati relativi all'aderenza dell'utente saranno raccolti settimanalmente.
 		</div>
 	<% elsif scheduled? %>
 		<div class="alert alert-warning" role="alert">
-			Questo obiettivo è in programma e sarà attivato una volta raggiunta la data di inizio.
+			Questo allenamento è in programma e sarà attivato una volta raggiunta la data di inizio.
 		</div>
 	<% elsif terminated? %>
 		<div class="alert alert-warning" role="alert">
-			Questo obiettivo è stato terminato.
+			Questo allenamento è stato terminato.
 		</div>
 	<% end %>
-	<p><b>Impostazioni obiettivo:</b></p>
+	<p><b>Impostazioni allenamento:</b></p>
 	<ul>
 		<li>Data inizio: <%= formatted_start_date %></li>
 		<li>Data termine: <%= formatted_end_date %></li>
