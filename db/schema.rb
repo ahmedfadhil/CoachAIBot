@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171217165209) do
+ActiveRecord::Schema.define(version: 20180105105741) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -135,6 +135,15 @@ ActiveRecord::Schema.define(version: 20171217165209) do
     t.index ["question_id"], name: "index_feedbacks_on_question_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "questionnaire_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_id"], name: "index_invitations_on_questionnaire_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.boolean "default"
     t.date "date"
@@ -146,6 +155,14 @@ ActiveRecord::Schema.define(version: 20171217165209) do
     t.string "n_type"
     t.integer "done"
     t.index ["planning_id"], name: "index_notifications_on_planning_id"
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.string "text"
+    t.integer "questionnaire_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_id"], name: "index_options_on_questionnaire_id"
   end
 
   create_table "plannings", force: :cascade do |t|
@@ -173,6 +190,39 @@ ActiveRecord::Schema.define(version: 20171217165209) do
     t.integer "delivered"
     t.boolean "communicated"
     t.index ["user_id"], name: "index_plans_on_user_id"
+  end
+
+  create_table "quesionnaires", force: :cascade do |t|
+    t.string "title"
+    t.string "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questionnaire_answers", force: :cascade do |t|
+    t.string "text"
+    t.integer "invitation_id"
+    t.integer "questionnaire_question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invitation_id"], name: "index_questionnaire_answers_on_invitation_id"
+    t.index ["questionnaire_question_id"], name: "index_questionnaire_answers_on_questionnaire_question_id"
+  end
+
+  create_table "questionnaire_questions", force: :cascade do |t|
+    t.integer "q_type"
+    t.string "text"
+    t.integer "questionnaire_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_id"], name: "index_questionnaire_questions_on_questionnaire_id"
+  end
+
+  create_table "questionnaires", force: :cascade do |t|
+    t.string "title"
+    t.string "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "questions", force: :cascade do |t|

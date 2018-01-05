@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :plans, dependent: :destroy
   has_one :feature, dependent: :destroy
   belongs_to :coach_user, optional: true
+  has_many :invitations
 
   validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email, message: 'Email in uso. Scegli altra email.'
