@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/bot_v2/activity_informer"
 require "#{Rails.root}/lib/bot_v2/feedback_manager"
 require "#{Rails.root}/lib/bot_v2/questionnaire_manager"
 require "#{Rails.root}/lib/bot_v2/general"
+require "#{Rails.root}/lib/modules/features_manager"
 
 class User < ApplicationRecord
   has_many :communications, dependent: :destroy
@@ -19,9 +20,17 @@ class User < ApplicationRecord
   validates :first_name, presence: { message: 'Inserisci nome.' }, length: { maximum: 50 }
   validates :last_name, presence: { message: 'Inserisci cognome.' }, length: { maximum: 50 }
   validates :cellphone, presence: { message: 'Inserisci numero cellulare.' }, length: { maximum: 25, message: 'Numero Cellulare troppo lungo. Max 25.' }
+  validates :age, presence: { message: 'Inserisci eta\'.' }
+  validate :age_has_to_be_positive
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: { message: "Email non puo' essere vuota." }, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX, message: "Formato dell'email non valido. Usare email della forma esempio@myemail.org" }
+
+  def age_has_to_be_positive
+    if self.age < 0
+      errors.add(:user, "L'eta' del paziente non puo' essere negativa!")
+    end
+  end
 
   def set_bot_command_data(state)
     self.bot_command_data = state.to_json
@@ -39,8 +48,12 @@ class User < ApplicationRecord
   end
 
   def profiled?
-    features = self.feature
-    features.nil? ? false : ((features.health == 1) && (features.physical == 1) && (features.coping == 1) && (features.mental == 1))
+    Invitation.joins(:questionnaire).where('questionnaires.initial = ? and invitations.user_id = ?', true, self.id).each do |invitation|
+      unless invitation.questionnaire_answers.count == invitation.questionnaire.questionnaire_questions.count
+        return false
+      end
+    end
+    true
   end
 
   def archived?
@@ -162,10 +175,6 @@ class User < ApplicationRecord
 
   end
 
-  def f
-    GeneralActions.new(self, nil)
-  end
-
   private
 
   # manages <feedbacks and feedbacking> states
@@ -274,7 +283,14 @@ class User < ApplicationRecord
 
   def register_last_response(response)
     QuestionnaireManager.new(self).register_response(response)
-    GeneralActions(self, nil).send_questionnaire_finished
+    GeneralActions.new(self, nil).send_questionnaire_finished
+    if self.profiled?
+      features_manager = FeaturesManager.new
+      features_manager.communicate_profiling_done! self
+      features_manager.save_features_to_csv self
+      features_manager.save_telegram_profile_img self
+      system 'rake python_clustering &'
+    end
   end
 
   def is_last_question_and_is_response?(response)
@@ -286,7 +302,7 @@ class User < ApplicationRecord
   end
 
   def ask_next_question
-    bot_command_data = JSON.parse(BotCommand.where(user: self).last.bot_command_data)
+    bot_command_data = JSON.parse(BotCommand.where(user: self).last.data)
     QuestionnaireManager.new(self).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title)
   end
 

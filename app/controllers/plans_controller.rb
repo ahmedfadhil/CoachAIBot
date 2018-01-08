@@ -34,11 +34,6 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:p_id])
     plan.delivered = 1
 
-    ap plan.user.profiled?
-    ap plan.has_plannings?
-    ap plan.user.archived?
-    ap plan.valid?
-
     if plan.save
       call_tasks params[:p_id]
       flash[:OK] = 'Consegnando il Piano...'

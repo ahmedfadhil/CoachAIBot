@@ -20,7 +20,7 @@ class Messenger
     communicator.communicate_new_message(@user)
     actuator = GeneralActions.new(@user, @state)
     actuator.send_reply_with_keyboard('Il tuo messaggio e\' stato inviato al coach. Ti notificheremo se ci dovessero essere nuovi messaggi per te.',
-                                      GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+                                      GeneralActions.menu_keyboard)
   end
 
   def messages_present?
@@ -30,12 +30,12 @@ class Messenger
 
   def inform_no_messages
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard('Non hai nessun messaggio in attesa di essere letto.', GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+    actuator.send_reply_with_keyboard('Non hai nessun messaggio in attesa di essere letto.', GeneralActions.menu_keyboard)
   end
 
   def send_menu
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard('Va bene puoi rispondere in un altro momento se vuoi.', GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+    actuator.send_reply_with_keyboard('Va bene puoi rispondere in un altro momento se vuoi.', GeneralActions.menu_keyboard)
   end
 
   private

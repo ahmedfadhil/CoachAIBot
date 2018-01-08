@@ -1,7 +1,6 @@
 # da cambiare tutti i require
-
-require 'bot/api_ai_redirecter'
-require 'bot/login_manager'
+require 'bot_v2/api_ai_redirecter'
+require 'bot_v2/login_manager'
 
 
 class Dispatcher
@@ -36,8 +35,15 @@ class Dispatcher
         when 'feedbacks'
           manage_feedbacks_state(text)
 
-        else # 'feedbacking'
+        when 'feedbacking'
           manage_feedbacking_state(text)
+
+        when 'questionnaires'
+          manage_questionnaires_state(text)
+
+        else # 'responding'
+          manage_responding_state(text)
+
 
       end
 
@@ -72,6 +78,11 @@ class Dispatcher
       when /(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
         ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
         @user.get_messages!
+
+      # Questionnaires
+      when /(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
+        ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
+        @user.start_questionnaires!
 
       else
         hash_state = JSON.parse(@user.bot_command_data)
@@ -124,6 +135,24 @@ class Dispatcher
         @user.cancel!
       else
         @user.feedback!(text)
+    end
+  end
+
+  def manage_questionnaires_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+      else
+        @user.start_responding!(text)
+    end
+  end
+
+  def manage_responding_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+      else
+        @user.respond_questionnaire!(text)
     end
   end
 

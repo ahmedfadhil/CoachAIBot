@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if user.valid?
       user.save!
       current_coach_user.users << user
-      features = generate_features user
+      features = assign_questionnaires user
       if features.nil?
         flash[:err] = "C'e' stato un problema interno e l'utente non e' stato inserito, riprova piu' tardi!"
       else
@@ -144,11 +144,13 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
+    params.require(:user).permit(:first_name, :last_name, :email, :cellphone, :age)
   end
 
-  def generate_features(user)
-    Feature.create(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
+  def assign_questionnaires(user)
+    Questionnaire.where(initial: true).each do |questionnaire|
+      Invitation.create(user: user, questionnaire: questionnaire)
+    end
   end
 
 end

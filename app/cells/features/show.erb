@@ -4,9 +4,9 @@
   <h5>Informazioni raccolte attraverso il sistema</h5>
 </div><br><br>
 
-<% if  no_features_collected  %>
-  <%= no_features_card %>
+<% if  user.profiled?  %>
+    <%= features_card %>
 <% else %>
-  <%= features_card %>
+    <%= no_features_card %>
 <% end %>
 

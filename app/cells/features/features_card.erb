@@ -14,13 +14,29 @@
               <p class="category">Riguardanti Salute, Attivita' Fisica, Benessere Mentale e le Strategie di Adattamento. </p>
             </div>
 
-            <%= health %>
+            <% user.invitations.each do |invitation| %>
+                <div class="card-content">
+                  <div class="card-content table-responsive">
+                    <table class="table">
+                      <thead class="text-primary">
+                      <th><%= invitation.questionnaire.title %></th>
+                      <th></th>
+                      </thead>
+                      <tbody>
 
-            <%= physical %>
+                        <% invitation.questionnaire.questionnaire_questions.each do |question| %>
+                          <tr>
+                            <td><%= question.text %></td>
+                            <td><%= invitation.questionnaire_answers.where(questionnaire_question: question).first.text %></td>
+                          </tr>
+                        <% end %>
 
-            <%= mental %>
+                      </tbody>
+                    </table>
 
-            <%= coping %>
+                  </div>
+                </div>
+            <% end %>
 
           </div>
         </div>

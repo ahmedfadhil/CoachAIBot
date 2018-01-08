@@ -25,7 +25,7 @@ class ActivityInformer
     actuator = GeneralActions.new(@user,@state)
     actuator.send_chat_action 'typing'
     reply = 'Momentaneamente non ci sono attivita\' da fare. Ricontrolla piu\' tardi.'
-    actuator.send_reply_with_keyboard(reply, GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+    actuator.send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
 
   def send_details

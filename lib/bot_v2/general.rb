@@ -18,9 +18,8 @@ class GeneralActions
   end
 
   def back_to_menu_with_menu
-    keyboard = GeneralActions.custom_keyboard ['Attivita', 'Feedback', 'Consigli', 'Messaggi']
     @api.call('sendMessage', chat_id: @user.telegram_id,
-              text: 'Scegli con cosa vuoi continuare.', reply_markup: keyboard)
+              text: 'Scegli con cosa vuoi continuare.', reply_markup: GeneralActions.menu_keyboard)
   end
 
   def send_reply(reply)
@@ -62,7 +61,7 @@ class GeneralActions
     end
 
     send_doc "pdfs/#{doc_name}"
-    send_reply_with_keyboard 'Leggilo con attenzione!', (GeneralActions.custom_keyboard (GeneralActions.menu_buttons))
+    send_reply_with_keyboard 'Leggilo con attenzione!', GeneralActions.menu_keyboard
   end
 
   def send_feedback_details(plans)
@@ -95,8 +94,7 @@ class GeneralActions
 
 
   def send_doc(file_path)
-    @api.call('sendDocument', chat_id: @user.telegram_id,
-              document: Faraday::UploadIO.new(file_path, 'pdf'))
+    @api.call('sendDocument', chat_id: @user.telegram_id, document: Faraday::UploadIO.new(file_path, 'pdf'))
   end
 
   ######################
@@ -105,17 +103,14 @@ class GeneralActions
 
   def inform_no_questionnaires
     send_chat_action 'typing'
-    keyboard = GeneralActions.custom_keyboard ['Ho da fare dei Questionari?']
     reply = "Non hai Questionari da completare oggi! Torna piu' tardi per ricontrollare."
 
-    @api.call('sendMessage', chat_id: @patient.telegram_id,
-              text: reply, reply_markup: keyboard)
+    @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: GeneralActions.menu_keyboard)
   end
 
   def inform_no_action_received
     reply = 'Per favore usa i bottoni per interagire con il sistema.'
-    send_reply_with_keyboard reply,
-                             GeneralActions.custom_keyboard([menu_button_text])
+    send_reply_with_keyboard reply, GeneralActions.menu_keyboard
   end
 
 
@@ -219,7 +214,7 @@ class GeneralActions
   end
 
   def self.menu_keyboard
-    custom_keyboard menu_buttons
+    custom_keyboard GeneralActions.menu_buttons
   end
 
 end

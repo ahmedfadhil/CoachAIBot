@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105161402) do
+ActiveRecord::Schema.define(version: 20180108130648) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -262,6 +262,8 @@ ActiveRecord::Schema.define(version: 20180105161402) do
     t.integer "cluster"
     t.string "profile_img"
     t.string "aasm_state"
+    t.integer "age"
+    t.string "py_cluster"
     t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
   end
 

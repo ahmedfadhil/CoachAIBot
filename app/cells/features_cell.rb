@@ -31,16 +31,13 @@ class FeaturesCell < Cell::ViewModel
     render
   end
 
-  def features
+  def user
     model
   end
 
-  def user
-    options[:user]
-  end
 
   def cluster
-    case features.py_cluster
+    case user.py_cluster
       when 'HIGH'
         'Molto Attivo'
       when 'MEDIUM'
@@ -50,47 +47,6 @@ class FeaturesCell < Cell::ViewModel
     end
   end
 
-  def no_features_collected
-    (features.health == 0) || (features.physical == 0) || (features.coping == 0) || (features.mental == 0)
-  end
-
-  def remove_first_char(string)
-    string[0] = ''
-    string.downcase.tr('_', ' ')
-  end
-
-  def decode_work_physical_activity(code)
-    case code
-      when 0, '0'
-        'quasi sempre seduto'
-      when 1, '1'
-        'moderato, sta sia seduto che in movimento'
-      else #2
-        'quasi sempre in movimento'
-    end
-  end
-
-  def decode_foot_bicycle(code)
-    case code
-      when 0, '0'
-        'quasi mai'
-      when 1, '1'
-        'a volte'
-      else #2
-        'quasi sempre'
-    end
-  end
-
-  def decode_stress(code)
-    case code
-      when 0, '0'
-        'basso'
-      when 1, '1'
-        'medio'
-      else #2
-        'alto'
-    end
-  end
 
   def profile_photo_url
     if user.telegram_id.nil?

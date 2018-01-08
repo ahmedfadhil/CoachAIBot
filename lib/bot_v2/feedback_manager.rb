@@ -36,7 +36,7 @@ class FeedbackManager
 
   def send_menu
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard("Quando avrai piu' tempo torna in questa sezione per fornire il tuo feedback sulle attivita' che avevi da fare.", GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+    actuator.send_reply_with_keyboard("Quando avrai piu' tempo torna in questa sezione per fornire il tuo feedback sulle attivita' che avevi da fare.", GeneralActions.menu_keyboard)
   end
 
   def needs_feedback?(plan_name)
