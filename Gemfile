@@ -146,7 +146,7 @@ end
 
 group :production do
   # Heroku requests postgres for deploy
-  gem 'pg'
+  gem 'pg','0.18'
   # Used by heroku to serve static assets and css stylesheets
   #gem 'rails_12factor', '0.0.2'
 end
