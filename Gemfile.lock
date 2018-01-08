@@ -193,7 +193,7 @@ GEM
     orm_adapter (0.5.0)
     pdf-core (0.7.0)
     percentage (1.0.0)
-    pg (0.18.0)
+    pg (0.20.0)
     polling (0.1.5)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
@@ -364,11 +364,7 @@ DEPENDENCIES
   material_design_lite-rails (~> 1.3)
   oauth2
   percentage
-<<<<<<< HEAD
-  pg (~> 0.18)
-=======
-  pg (= 0.17.1)
->>>>>>> development
+  pg (= 0.20.0)
   polling
   prawn (~> 2.2, >= 2.2.2)
   puma (~> 3.7)
