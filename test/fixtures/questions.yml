@@ -2,12 +2,8 @@
 
 one:
   text: MyText
-  open: false
-  completness: false
-  range: 1
+  q_type: MyString
 
 two:
   text: MyText
-  open: false
-  completness: false
-  range: 1
+  q_type: MyString

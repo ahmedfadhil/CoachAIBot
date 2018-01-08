@@ -1,0 +1,46 @@
+<%= cell(:user_menu, user) %>
+
+<% if user.profiled? && !user.archived?%>
+  <div class="chat-grid mdl-grid">
+    <div class="mdl-cell--12-col-desktop">
+      <div class="chat-container">
+        <div class="mdl-cell--12-col-desktop">
+          <%= user_status %>
+          <ol id="chats" class="chat" data-url="<%= chats_chats_path(user) %>">
+
+            <div class="day">Oggi</div>
+
+            <% chats.each do |message| %>
+                <%= cell(:chats_message, message) %>
+            <% end %>
+
+          </ol>
+
+          <%= form_for new_chat, url: chats_path, method: 'post', remote: true do |f| %>
+              <%= f.hidden_field :user_id%>
+              <%= f.hidden_field :coach_user_id%>
+              <%= f.hidden_field :direction%>
+
+              <div class="mdl-grid">
+                <div class="mdl-cell--10-col-desktop">
+                  <%= f.text_field :text, id: 'message-box', class: 'textarea', type: 'text',  placeholder: 'Scrivi qui il messaggio!' %>
+                </div>
+
+                <div class="mdl-cell--2-col-desktop">
+                  <%= content_tag :div,  class: 'mdl-navigation__link' do %>
+                      <button class="mdl-button mdl-js-button mdl-button--raised" type="submit">
+                        <i class="material-icons">send</i> &nbsp Invia
+                      </button>
+                  <% end %>
+                </div>
+              </div>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <%= user_not_profiled %>
+<% end %>

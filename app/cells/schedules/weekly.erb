@@ -1,0 +1,21 @@
+<table >
+  <thead>
+  <tr>
+    <th>Giorno</th>
+    <% unless planning.schedules.first.time.nil? %>
+        <th>Ora</th>
+    <% end %>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% planning.schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.day_of_week(schedule.day) %></td>
+        <% unless schedule.time.nil? %>
+            <td><%= schedule.time.strftime('%H:%M') %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

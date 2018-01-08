@@ -1,0 +1,67 @@
+<div class="col-lg-3 col-md-12 col-sm-12">
+  <div id="bootstrap-material-card" class="card card-stats">
+    <div class="card-header" data-background-color="green">
+      <i class="material-icons">verified_user</i>
+    </div>
+    <div class="card-content">
+      <p class="category">Attivi</p>
+      <h3 class="title"><%= users_with_plans %><small>Pazienti</small></h3>
+    </div>
+    <div class="card-footer">
+      <div class="stats">
+        <i class="material-icons">date_range</i> Numero totale di pazienti che stanno seguendo un piano
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-3 col-md-12 col-sm-12">
+  <div id="bootstrap-material-card" class="card card-stats">
+    <div class="card-header" data-background-color="orange">
+      <i class="material-icons">pause_circle_outline</i>
+    </div>
+    <div class="card-content">
+      <p class="category">In attesa di un piano</p>
+      <h3 class="title"><%= users_with_no_plan %><small>Pazienti</small></h3>
+    </div>
+    <div class="card-footer">
+      <div class="stats">
+        <i class="material-icons text-danger">warning</i> <a href="<%= users_path %>">Consegna loro un piano</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-3 col-md-12 col-sm-12">
+  <div id="bootstrap-material-card" class="card card-stats">
+    <div class="card-header" data-background-color="purple">
+      <i class="material-icons">assignment_turned_in</i>
+    </div>
+    <div class="card-content">
+      <p class="category">Piani</p>
+      <h3 class="title"><%= plans_count %></h3>
+    </div>
+    <div class="card-footer">
+      <div class="stats">
+        <i class="material-icons">local_offer</i> Numero di piani presenti nel sistema, sia consegnati che non
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-3 col-md-12 col-sm-12">
+  <div id="bootstrap-material-card" class="card card-stats">
+    <div class="card-header" data-background-color="blue">
+      <i class="material-icons">today</i>
+    </div>
+    <div class="card-content">
+      <p class="category">Attivita'</p>
+      <h3 class="title"><%= activities_count %></h3>
+    </div>
+    <div class="card-footer">
+      <div class="stats">
+        <i class="material-icons">update</i> <a href="<%= activities_path %>">Gestisci l'archivio delle attivita'</a>
+      </div>
+    </div>
+  </div>
+</div>

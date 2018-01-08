@@ -1,0 +1,12 @@
+$('document').ready(function() {
+    $('#patients').empty().html("<%= escape_javascript(render 'users/archived') %>")
+
+    $('#all-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#archived-users').css('background', '#757575')
+
+    $('#new_assign-user-notice').html('Utente ARCHIVIATO con successo!')
+
+
+    Tipped.create('.delete-user', 'Cancella il Paziente per sempre');
+    Tipped.create('.restore-user', 'Riattiva il Paziente');
+});

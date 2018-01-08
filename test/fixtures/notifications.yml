@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2017-08-03
+  time: 2017-08-03 15:38:18
+  sent: false
+  planning: one
+
+two:
+  date: 2017-08-03
+  time: 2017-08-03 15:38:18
+  sent: false
+  planning: two

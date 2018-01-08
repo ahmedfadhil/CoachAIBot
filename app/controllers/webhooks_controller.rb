@@ -1,11 +1,15 @@
-require 'BotMessage_Dispatcher'
+require 'bot_v2/dispatcher'
 
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def callback
-    BotMessageDispatcher.new(webhook, user).process
+    !webhook[:message].nil? ?  Dispatcher.new(webhook, user).process : nil
     render json: nil, status: :ok
+  end
+
+  def user
+    @user = User.find_by(telegram_id: from[:id])
   end
 
   def webhook
@@ -16,18 +20,13 @@ class WebhooksController < ApplicationController
     webhook[:message][:from]
   end
 
-  def user
-    @user ||= User.find_by(telegram_id: from[:id]) || register_user
+  def user_id
+    webhook[:user_id]
   end
 
-  def register_user
-    @user = User.find_or_initialize_by(telegram_id: from[:id])
-    @user.update_attributes!(first_name: from[:first_name], last_name: from[:last_name])
-    @user
+  private
+  def all_params
+    params.require(:webhook).permit!
   end
 
-  def update_user_state
-    puts "RECEIVED POST #{params}"
-    render json: nil, status: :ok
-  end
 end

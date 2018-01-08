@@ -1,0 +1,60 @@
+<% if model[:notice] %>
+    <div id="error-grid" class="mdl-grid">
+      <div class="mdl-cell--12-col-desktop">
+
+        <div class="alert alert-success">
+          <button type="button" aria-hidden="true" class="close">×</button>
+          <span><b> OK - </b> <%= model[:notice] %> </span>
+        </div>
+
+      </div>
+    </div>
+<% end %>
+
+<% if model[:OK] %>
+    <div id="error-grid" class="mdl-grid">
+      <div class="mdl-cell--12-col-desktop">
+
+        <div class="alert alert-success">
+          <button type="button" aria-hidden="true" class="close">×</button>
+          <span><b> OK - </b> <%= model[:OK] %></span>
+        </div>
+
+      </div>
+    </div>
+<% end %>
+
+<% if model[:err] %>
+    <div id="error-grid" class="mdl-grid">
+      <div class="mdl-cell--12-col-desktop">
+
+        <div class="alert alert-danger">
+          <button type="button" aria-hidden="true" class="close">×</button>
+          <span><b> ERRORE - </b> <%= model[:err] %></span>
+        </div>
+
+      </div>
+    </div>
+<% end %>
+
+<% if model[:errors] %>
+    <div class="notice">
+      <% if model[:errors].class == Hash %>
+          <div id="error-grid" class="mdl-grid">
+            <% model[:errors].each do |key, values| %>
+                <% values.each do |value| %>
+                    <div class="mdl-cell--12-col-desktop">
+
+                      <div class="alert alert-warning">
+                        <button type="button" aria-hidden="true" class="close">×</button>
+                        <span><b> MESSAGGIO - </b> <%= value %></span>
+                      </div>
+
+                    </div>
+                <% end %>
+
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+<% end %>

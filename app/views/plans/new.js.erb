@@ -1,0 +1,20 @@
+$('document').ready(function() {
+    var new_plan_form = $('#new_plan_popup');
+    new_plan_form.empty().html("<%= escape_javascript(render 'plans/new') %>");
+    new_plan_form.bPopup({
+      speed: 650,
+      transition: 'slideIn',
+      transitionClose: 'slideBack',
+      onClose: function(){
+          $('.plan_from_day').datepicker('destroy');
+          $('.plan_to_day').datepicker('destroy');
+          alert('destroyed')
+      }
+    },
+      function() {
+          $('.mdl-textfield__input').parent().addClass('is-focused');
+          $('.mdl-selectfield__select').parent().addClass('is-focused');
+      }
+    );
+
+});

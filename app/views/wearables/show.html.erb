@@ -1,0 +1,23 @@
+<% provide(:sub_title, 'Patients') %>
+<div>
+	<%= render 'users/edit_header' %>
+	<div id="patient">
+		<div class="line-separator"></div>
+		<h1>Dispositivi indossabili</h1>
+		<p>
+			<% if @user.fitbit_disabled? %>
+				L'integrazione con fitbit per questo utente non e' ancora abilitata.<br>
+				Se desideri, puoi abilitarla ora usando il seguente bottone:
+				<%= form_for(@user, url: wearables_invite_url(@user), method: 'POST') do |f| %>
+					<%= f.submit 'Invita' %>
+				<% end %>
+			<% end %>
+			<% if @user.fitbit_invited? %>
+				L'invito a effettuare il collegamento con fitbit e' stato inoltrato
+			<% end %>
+			<% if @user.fitbit_enabled? %>
+				L'integrazione con fitbit per questo utente e' stata abilitata
+			<% end %>
+		</p>
+	</div>
+</div>

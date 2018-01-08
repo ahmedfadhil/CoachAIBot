@@ -5,7 +5,9 @@ class CreatePlans < ActiveRecord::Migration[5.1]
       t.string :desc
       t.date :from_day
       t.date :to_day
-      t.references :coach_user, foreign_key: true
+      t.time :notification_hour_coach_def
+      t.time :notification_hour_user_def
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

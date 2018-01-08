@@ -1,0 +1,27 @@
+<%= render 'activities/menu' %>
+
+<div class="mdl-grid new-activity-grid">
+  <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <div class="all-activities-card">
+      <div id="activity-insert-card-wide" class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Qui sotto ci sono tutte le attivita presenti nel sistema</h2>
+        </div>
+
+
+        <div class="mdl-card__supporting-text">
+
+          <div id="activities-list">
+            <%= render 'activities/activities' %>
+          </div>
+
+          <div class="mdl-layout-spacer"></div>
+          <br>
+          <%= button_to new_activity_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', method: 'get' do %>
+              Aggiungi una nuova attivita
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

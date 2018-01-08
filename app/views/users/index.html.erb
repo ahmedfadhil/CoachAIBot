@@ -1,0 +1,26 @@
+<% provide(:sub_title, 'Patients') %>
+
+<div>
+  <%= cell(:users_index_menu, current_coach_user) %>
+
+  <div id="patients">
+    <div class="users-index"></div>
+
+    <% if @users.empty? %>
+        <div class="mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+          <h2>
+            Non e' presente nessun paziente per il momento.
+            Inserisci un nuovo paziente attraverso il bottone in alto a destra.
+          </h2>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <% @users.each do |user|  %>
+          <%= cell(:user, user) %>
+      <% end %>
+    </div>
+
+  </div>
+
+</div>

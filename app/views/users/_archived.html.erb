@@ -1,0 +1,13 @@
+<% if @users.empty? %>
+    <div class="mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-card mdl-shadow--2dp">
+      <h2>
+        Non hai ancora ARCHIVIATO nessun paziente. I pazienti si possono archiviare cliccando sull'icona cestino.
+      </h2>
+    </div>
+<% end %>
+
+<div class="row">
+  <% @users.each do |user|  %>
+      <%= cell(:user, user) %>
+  <% end %>
+</div>

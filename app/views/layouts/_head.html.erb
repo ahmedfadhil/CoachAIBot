@@ -1,0 +1,16 @@
+<head>
+  <title><%= yield(:title) %> | CoachAI</title>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en', type: 'text/css' %>
+  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons', type: 'text/css' %>
+
+  <%= javascript_include_tag 'application'%>
+  <%= csrf_meta_tags %>
+
+  <!-- include HTML5 sjavascriptsript code to accept old browser -->
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+  <![endif]-->
+
+</head>

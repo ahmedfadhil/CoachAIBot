@@ -1,0 +1,93 @@
+.plan-activities-container{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.lateral-panel{
+  margin-left: 5px;
+}
+
+.new_plan_popup{
+  display: none;
+}
+
+.new-plan-grid{
+  max-width: 750px;
+}
+
+.new-plan-card.mdl-card {
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+  /* margin-bottom: 20px; */
+  padding: 10px;
+}
+
+.plan-desc{
+  width: 500px;
+}
+
+.plan-desc.mdl-textfield__input{
+  height: 70px;
+}
+
+.mdl-card__actions {
+  outline: skyblue solid 5px;
+  z-index: 4;
+}
+
+#my-plan-card {
+  height: auto;
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  // outline: red solid 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+#name {
+  display:flex;
+  margin-top: 10px;
+  justify-content: left;
+}
+
+#contact{
+  diplay: flex;
+
+}
+
+
+.mdl-button {
+  // outline: red solid 5px; 
+  margin-left: 10px ;
+
+}
+
+.new-plan-card > .mdl-card__title {
+  color: #fff;
+  height: 64px;
+  background-color: #4caf50;
+}
+
+.mdl-card__title-text {
+  position: relative;
+  top: 6px;
+
+}
+
+.new-plan-card > .mdl-card__menu {
+  color: #fff;
+}
+
+
+
+
+.mdl-textfield {
+  width: 250px;
+  margin-right: 10px;
+}
+
+.notification_hour{
+  width: 500px;
+}

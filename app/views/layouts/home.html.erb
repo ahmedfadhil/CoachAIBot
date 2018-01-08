@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'layouts/head' %>
+
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <%= cell(:home_header, coach_user_signed_in?) %>
+
+      <div class="mdl-layout__content">
+
+        <%= yield %>
+
+      </div>
+
+      <%= cell(:footer, 'home-footer') %>
+
+    </div>
+  </body>
+</html>

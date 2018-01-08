@@ -1,0 +1,32 @@
+<header class="profile_content_header mdl-layout__header">
+
+  <div class="mdl-layout__header-row sub_menu">
+    <nav class="mdl-navigation" >
+
+      <%= link_to user_path(user), class: 'mdl-navigation__link', method: 'get' do %>
+          <button id="overview-user" class="mdl-button mdl-js-button mdl-button--raised ">
+            <i class="material-icons">assessment</i> &nbsp Panoramica
+          </button>
+      <% end %>
+
+      <%= link_to plans_users_path(user), class: 'mdl-navigation__link', method: 'get' do %>
+          <button id="activities-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">featured_play_list</i> &nbsp Attivita' e Piani
+          </button>
+      <% end %>
+
+      <%= link_to features_users_path(user), class: 'mdl-navigation__link' do %>
+          <button id="features-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">insert_drive_file</i> &nbsp Informazioni Raccolte
+          </button>
+      <% end %>
+
+      <%= link_to chat_chats_path(user), class: 'mdl-navigation__link' do %>
+          <button id="chatting-user" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">question_answer</i> &nbsp Chat
+          </button>
+      <% end %>
+
+    </nav>
+  </div>
+</header>

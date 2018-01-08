@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'layouts/head' %>
+  <body>
+    <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+      <!-- Cell Profile Header -->
+      <%= cell(:profile_header, current_coach_user) %>
+
+
+      <!-- Cell Profile Left Drawer -->
+      <%= cell(:drawer, current_coach_user) %>
+
+      <main id="main-container" class="main-container mdl-layout__content">
+
+        <!-- Cell with Messages like Error/Success/Info -->
+        <%= cell(:messages, flash) %>
+
+        <div class="patients-content" id="sub-container">
+          <%= yield %>
+        </div>
+
+        <!-- Cell Footer -->
+        <%= cell(:footer, 'footer') %>
+      </main>
+
+    </div>
+  </body>
+</html>

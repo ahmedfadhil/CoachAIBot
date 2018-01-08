@@ -1,0 +1,18 @@
+<table>
+
+  <% schedules = planning.schedules %>
+  <% (0..schedules.size-1).step(7).each do |i| %>
+
+      <tr>
+        <td>Ore</td>
+        <% (i..i+7).each do |j| %>
+            <% if j<schedules.size %>
+                <td><%= schedules[j].time.strftime('%H:%m') %></td>
+            <% end %>
+
+        <% end %>
+      </tr>
+
+  <% end %>
+
+</table>

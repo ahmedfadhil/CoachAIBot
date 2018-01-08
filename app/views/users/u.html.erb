@@ -1,0 +1,26 @@
+<% @users.each do |user|  %>
+    <div class="active-patient-card patient-card mdl-cell--3-col-desktop mdl-card">
+      <div id="user-card-img-container" class="mdl-card__media">
+        <%= image_tag 'patient-conn.jpg', alt: 'paziente', id: 'user-card-img' %>
+      </div>
+      <div id="user-card-title" class="mdl-card__title">
+        <h2 class="mdl-card__title-text"> <%= user.first_name %> <%= user.last_name %> </h2>
+      </div>
+      <div id="user-card-supporting-text" class="mdl-card__supporting-text">
+        Dati sul Utente
+      </div>
+      <div id="user-card-actions" class="mdl-card__actions mdl-card--border">
+        <%= link_to 'Vedi Pagina Utente', user_path(user), id: 'user-card-page-btn', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+      </div>
+
+    </div>
+<% end %>
+
+<% case planning.activity.a_type %>
+<% when '0' %>
+    <%= daily %>
+<% when '1' %>
+    <%= weekly %>
+<% else %>
+    <%= monthly %>
+<% end %>

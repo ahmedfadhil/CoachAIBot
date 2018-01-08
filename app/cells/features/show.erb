@@ -1,0 +1,12 @@
+<div class="line-separator"></div>
+<div class="features-page"></div>
+<div id="overview-title">
+  <h5>Informazioni raccolte attraverso il sistema</h5>
+</div><br><br>
+
+<% if  user.profiled?  %>
+    <%= features_card %>
+<% else %>
+    <%= no_features_card %>
+<% end %>
+

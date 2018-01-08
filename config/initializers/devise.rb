@@ -2,11 +2,12 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
-  # random tokens. Changing this key will render invalid all existing
+  # random tokens. Changing this key will render invalid index existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '67cc20b295d3cdacc293921dff640f8c4f6bedb79f5fb9af816985d8050286a48122fb7be91abe03476740274c7e08193b95107b90aa40c76034f2e84a6af893'
+  # config.secret_key = '772699c9b03d972275c9a92432552f31b07b28511e72e40347d79c705dba64b59f68f61280891ff59e853a7a0f51375eca4c450a9993d1e2b70925f472448394'
+	config.secret_key = '720b4f22285b13a8ff7fc199dab390cf65f85e0c225b9aa64089e8543e6887f14306ae148fc0ae46d5427c2cd96543fae27b8e8d4b22e995030a396476115211'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -79,7 +80,7 @@ Devise.setup do |config|
 
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.
-  # Notice that if you are skipping storage for all authentication paths, you
+  # Notice that if you are skipping storage for index authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
   config.skip_session_storage = [:http_auth]
@@ -108,7 +109,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '86b508b649593c99c3e1ededddb761c4e27f72f85268d6c0e62dc1446af5e24c5dee6945f153a38474a050563ddfee08b062dd90140c9f6b1c59f5f31a984361'
+  # config.pepper = 'a0dfbe331b4c80d1f2e9017b16f2ae2af75533ec413072355d50347ed6fb1b76d0c2c1448daf7eebcfddee279427cc94697f9203d51d9d8a1ea53d0d047df52e'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -145,7 +146,7 @@ Devise.setup do |config|
   # The time the user will be remembered without asking for credentials again.
   # config.remember_for = 2.weeks
 
-  # Invalidates all the remember me tokens when the user signs out.
+  # Invalidates index the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
@@ -230,7 +231,7 @@ Devise.setup do |config|
   # config.default_scope = :user
 
   # Set this configuration to false if you want /users/sign_out to sign out
-  # only the current scope. By default, Devise signs out all scopes.
+  # only the current scope. By default, Devise signs out index scopes.
   # config.sign_out_all_scopes = true
 
   # ==> Navigation configuration
@@ -274,4 +275,10 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+
+  # Enable devise to respond with JSON
+  config.http_authenticatable_on_xhr = false
+  config.navigational_formats = ['*/*', :html, :json]
+
 end
