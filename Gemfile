@@ -1,3 +1,5 @@
+ruby '2.4.0'
+
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
@@ -144,9 +146,7 @@ end
 
 group :production do
   # Heroku requests postgres for deploy
-  #gem 'pg','0.17.1'
+  gem 'pg','0.17.1'
   # Used by heroku to serve static assets and css stylesheets
   #gem 'rails_12factor', '0.0.2'
 end
-
-ruby "2.4.0"
