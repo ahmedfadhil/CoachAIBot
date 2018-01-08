@@ -1,5 +1,3 @@
-ruby '2.4.0'
-
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
@@ -150,3 +148,5 @@ group :production do
   # Used by heroku to serve static assets and css stylesheets
   #gem 'rails_12factor', '0.0.2'
 end
+
+ruby "2.4.0"
