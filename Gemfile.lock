@@ -193,7 +193,7 @@ GEM
     orm_adapter (0.5.0)
     pdf-core (0.7.0)
     percentage (1.0.0)
-    pg (0.17.1)
+    pg (0.18.0)
     polling (0.1.5)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
@@ -233,6 +233,11 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.1.4)
       actionpack (= 5.1.4)
       activesupport (= 5.1.4)
@@ -359,7 +364,7 @@ DEPENDENCIES
   material_design_lite-rails (~> 1.3)
   oauth2
   percentage
-  pg
+  pg (~> 0.18)
   polling
   prawn (~> 2.2, >= 2.2.2)
   puma (~> 3.7)
@@ -369,6 +374,7 @@ DEPENDENCIES
   rails-assets-mdl-selectfield
   rails-assets-polyfills
   rails-erd
+  rails_12factor (= 0.0.2)
   record_tag_helper (~> 1.0)
   sass-rails (~> 5.0)
   selenium-webdriver
@@ -379,6 +385,7 @@ DEPENDENCIES
   telegram-bot-ruby
   therubyracer
   time_difference
+  tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   wicked_pdf
