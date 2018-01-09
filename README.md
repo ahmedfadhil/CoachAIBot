@@ -59,6 +59,23 @@ This will tell to TelegramAPI to send the user interactions with the bot `@Coach
 {"ok":true,"result":true,"description":"Webhook is set"}
 ```
 
+* Install dependencies (we assume you already have [bundler](http://bundler.io/) gem)
+```
+bundle install
+```
+
+* Run migrations and seed the DB
+```
+bundle exec rake db:migrate
+bundle exec rake db:seed
+```
+
+* Lets start [crono](https://github.com/plashchynski/crono) time-based background job scheduler daemon for Ruby on Rails.
+We use it for periodically tasks like sending Notifications 
+```
+bundle exec crono start RAILS_ENV=development
+```
+
 * Now you can start your Rails server.
 ```
 rails s
