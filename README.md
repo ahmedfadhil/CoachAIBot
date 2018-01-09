@@ -22,7 +22,7 @@ git checkout development
 * Start ngrok. Ngrok will bind your localhost:3000 to a public address
 
 ```
-cd ngrok
+cd CoachAIBot/ngrok
 ./ngrok http 3000
 ```
 
