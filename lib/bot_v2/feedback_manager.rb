@@ -14,8 +14,13 @@ class FeedbackManager
   end
 
   def inform_no_feedbacks
+    if @user.profiled?
+      reply = "Per ora non c'e' feedback da dare. Per poter dare feedback devi avere delle attivita' da fare."
+    else
+      reply = "Per ora non c'e' feedback da dare. Completa prima i questionari presenti nella sezione QUESTIONARI."
+    end
     GeneralActions.new(@user, @state)
-        .send_reply_with_keyboard("Per ora non c'e' feedback da dare. Per poter dare feedback devi avere delle attivita' da fare.", GeneralActions.menu_keyboard)
+        .send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
 
   def send_undone_feedbacks

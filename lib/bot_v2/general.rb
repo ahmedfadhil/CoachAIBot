@@ -19,7 +19,7 @@ class GeneralActions
 
   def back_to_menu_with_menu
     @api.call('sendMessage', chat_id: @user.telegram_id,
-              text: 'Scegli con cosa vuoi continuare.', reply_markup: GeneralActions.menu_keyboard)
+              text: "Va bene #{@user.last_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup: GeneralActions.menu_keyboard)
   end
 
   def send_reply(reply)
@@ -172,7 +172,7 @@ class GeneralActions
   def send_questionnaire_finished
     bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
     questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    reply = "Hai finito il questionario '#{questionnaire.title}'. Per controllare se ci sono altri questionari chiedimi se hai altri questionari da fare."
+    reply = "Hai finito il questionario '#{questionnaire.title}'. Per controllare se ci sono altri questionari vai alla sezione QUESTIONARI."
     send_reply_with_keyboard reply,
                              GeneralActions.custom_keyboard(GeneralActions.menu_buttons)
   end
