@@ -24,7 +24,11 @@ class ActivityInformer
   def inform_no_activities
     actuator = GeneralActions.new(@user,@state)
     actuator.send_chat_action 'typing'
-    reply = 'Momentaneamente non ci sono attivita\' da fare. Ricontrolla piu\' tardi.'
+    if @user.profiled?
+      reply = 'Momentaneamente non ci sono attivita\' da fare. Ricontrolla piu\' tardi.'
+    else
+      reply = 'Momentaneamente non ci sono attivita\' da fare. Completa prima i questionari presenti nella sezione QUESTIONARI.'
+    end
     actuator.send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
 

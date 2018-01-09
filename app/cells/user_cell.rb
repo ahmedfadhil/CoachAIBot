@@ -1,4 +1,4 @@
-require './lib/bot/image_solver'
+require './lib/bot_v2/image_solver'
 
 class UserCell < Cell::ViewModel
   def show

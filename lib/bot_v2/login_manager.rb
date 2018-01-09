@@ -18,21 +18,20 @@ class LoginManager
       when /\A\/start/
         welcome
       else
-        contact.nil? ? phone_number = text : phone_number = contact_phone_number
+        contact.nil? ? phone_number = nil : phone_number = contact_phone_number
         if valid(phone_number)
           init_user
         else
           not_allowed
         end
     end
-
   end
 
   def welcome
     @api.call('sendMessage', chat_id: chat_id,
               text: 'Benvenuto in CoachAI!')
     @api.call('sendMessage', chat_id: chat_id,
-              text: 'Fornisci il tuo nr di telefono, per continuare.',
+              text: 'Fornisci il tuo nr di telefono attraverso il bottone per continuare.',
               reply_markup: contact_request_markup)
   end
 
@@ -43,8 +42,16 @@ class LoginManager
     user.set_bot_command_data(state)
     Feature.create(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
     if user.save
+      reply = "Ciao #{user.last_name}! Io sono CoachAI, il bot che ti tiene in contatto con il tuo coach. Attraverso me potravi fare le seguenti cose:\n" +
+          "\n-Ricevere e visualizzare le attivita' che ti vengono assegnate dal coach #{@user.coach_user.first_name} #{@user.coach_user.last_name}" +
+          "\n-Fornire feedback sulle attivita' che avevi da fare mano a mano che le fai, per fare in modo che il tuo coach sappia i tuoi progressi" +
+          "\n-Ricevere meessaggi diretti dal tuo coach e rispondergli con facilita'"
       @api.call('sendMessage', chat_id: chat_id,
-                text: "Ciao #{user.last_name}! Io sono CoachAI", reply_markup: GeneralActions.menu_keyboard)
+                text: reply)
+      reply = "Prima di poter utilizzarmi in questo modo pero' devi completare i questionari presenti nella sezione QUESTIONARI. Non dimenticartelo!\n\n" +
+            "Questa cosa e' fondamentale per capire bene qual'e' il tuo stato attuale."
+      @api.call('sendMessage', chat_id: chat_id,
+                text: reply, reply_markup: GeneralActions.menu_keyboard)
     end
   end
 
@@ -52,7 +59,7 @@ class LoginManager
     @api.call('sendMessage', chat_id: chat_id,
               text: 'Numero di telefono non abilitato.')
     @api.call('sendMessage', chat_id: chat_id,
-              text: 'Reinserisci il numero di telefono.',
+              text: 'Fornisci il tuo nr di telefono attraverso il bottone per continuare.',
               reply_markup: contact_request_markup)
   end
 
@@ -115,6 +122,7 @@ class LoginManager
   end
 
   def contact_phone_number
+    # phone number without prefix
     @message[:message][:contact][:phone_number][2,12]
   end
 
