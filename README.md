@@ -81,5 +81,10 @@ bundle exec crono start RAILS_ENV=development
 rails s
 ```
 
-* Access `http://localhost:3000/` for the Web Platform
+* Access `http://localhost:3000/` for the Web Platform 
+* Credentials for LOG IN
+```
+email:      user@example.com
+password:   12345678
+```
 * Search `@CoachAIBot` on [Telegram](https://web.telegram.org/#/login)
