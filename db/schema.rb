@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216154802) do
+ActiveRecord::Schema.define(version: 20180117114946) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20171216154802) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "fitbit_integration"
+    t.integer "fitbit_integration"
     t.index ["user_id"], name: "index_objectives_on_user_id"
   end
 

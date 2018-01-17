@@ -18,6 +18,7 @@ class ObjectivesController < ApplicationController
 	def create
 		@user = User.find(params[:id])
 		@objective = @user.objectives.build(objective_params)
+		@objective.fitbit_enabled! if @user.fitbit_enabled?
 		if @objective.save
 			redirect_to(user_objectives_url(@user), notice: "Obiettivo creato con successo!")
 		else

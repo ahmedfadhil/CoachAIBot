@@ -45,10 +45,10 @@ class ObjectivesCell < Cell::ViewModel
 	end
 
 	def status
-		if model.objectives.any?
+		if !model.active_objective.nil?
 			css_class = "list-group-item list-group-item-success"
 			content_tag :li, "Allenamento avviato", class: css_class
-		elsif model.objectives.any?
+		elsif model.scheduled_objectives.any?
 			css_class = "list-group-item list-group-item-warning"
 			content_tag :li, "Allenamento programmato", class: css_class
 		else

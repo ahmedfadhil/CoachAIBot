@@ -27,6 +27,7 @@ class Objective < ApplicationRecord
 
 		user.objectives.each do |objective|
 			next unless objective.persisted?
+			next unless objective.id != id
 
 			formatted_start_date = objective.start_date.strftime("%-d %B %Y")
 			formatted_end_date = objective.end_date.strftime("%-d %B %Y")
@@ -66,6 +67,7 @@ class Objective < ApplicationRecord
 		days_obj = TimeDifference.between(start_date, end_date).in_days.to_i
 		days_now = TimeDifference.between(start_date, Time.now).in_days.to_i
 		days = [days_obj, days_now].min
+		days = [days, 1].max
 		return steps_progress / days
 	end
 
@@ -93,14 +95,14 @@ class Objective < ApplicationRecord
 	end
 
 	def steps_progress_fitbit
-		logs = user.daily_logs.find { |log|
+		logs = user.daily_logs.select { |log|
 			log.date <= end_date && start_date <= log.date
 		}
 		return logs.map{ |e| e.steps }.inject(:+) || 0
 	end
 
 	def distance_progress_fitbit
-		logs = user.daily_logs.find { |log|
+		logs = user.daily_logs.select { |log|
 			log.date <= end_date && start_date <= log.date
 		}
 		return logs.map{ |e| e.distance }.inject(:+).floor(2) || 0

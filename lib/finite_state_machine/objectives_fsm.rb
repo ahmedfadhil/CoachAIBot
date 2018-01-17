@@ -126,16 +126,18 @@ module FSM
 			if current_objective_is_steps?
 				objective = user.active_objective
 				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' totalizzare #{objective.steps} passi, "
+				response[:text] << "entro il giorno #{end_date}. "
 			elsif current_objective_is_distance?
 				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' percorrere #{objective.distance} km a piedi, "
+				response[:text] << "entro il giorno #{end_date}. "
 			end
-			response[:text] << "entro il giorno #{end_date}. "
+
 			if objective.steps?
-				response[:text] << "Dovrai totalizzare #{objective.steps} passi in #{objective.days} giorni, "
-				response[:text] << "la media giornaliera di passi da compiere sara' #{objective.daily_steps}. "
+				response[:text] << "La media giornaliera di passi da compiere sara' #{objective.daily_steps}. "
+				response[:text] << "Al momento hai totalizzato #{objective.steps_progress} passi."
 			else
-				response[:text] << "Dovrai totalizzare #{objective.distance} km a piedi, "
-				response[:text] << "la media giornaliera di km da percorrere sara' #{objective.daily_distance}. "
+				response[:text] << "La media giornaliera di km da percorrere sara' #{objective.daily_distance}. "
+				response[:text] << "La distanza che hai totalizzato fino a questo momento e' di #{objective.distance_progress} km."
 			end
 
 			if !objective.fitbit_enabled?

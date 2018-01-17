@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
 	def scheduled_objectives
 		objectives.select { |objective|
-			objective.start_date >= Date.today
+			objective.start_date > Date.today
 		}
 	end
 
