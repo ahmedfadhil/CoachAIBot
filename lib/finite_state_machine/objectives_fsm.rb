@@ -34,9 +34,9 @@ module FSM
 
 				def advance_state
 					dialog = DialogMessageOfTheDay.new(user)
-					if dialog.current_objective_is_steps? && user.fitbit_disabled?
+					if dialog.current_objective_is_steps? && !user.active_objective.fitbit_enabled?
 						continue_dialog
-					elsif dialog.current_objective_is_distance? && user.fitbit_disabled?
+					elsif dialog.current_objective_is_distance? && !user.active_objective.fitbit_enabled?
 						continue_dialog
 					else
 						terminate_dialog
@@ -138,7 +138,7 @@ module FSM
 				response[:text] << "la media giornaliera di km da percorrere sara' #{objective.daily_distance}. "
 			end
 
-			if user.fitbit_disabled?
+			if !objective.fitbit_enabled?
 				response[:text] << "Se desideri puoi comunicarmi adesso i tuoi progressi, oppure usa il bottone ANNULLA per tornare al menu' principale"
 				response[:keyboard] << ['Annulla']
 			else

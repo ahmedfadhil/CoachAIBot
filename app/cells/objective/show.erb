@@ -21,6 +21,14 @@
 	<% end %>
 	<p><b>Impostazioni allenamento:</b></p>
 	<ul>
+		<li>
+			Metodo rilevazione progressi:
+			<% if model.fitbit_enabled? %>
+				Dispositivo indossabile
+			<% else %>
+				autonoma, tramite bot
+			<% end %>
+		</li>
 		<li>Data inizio: <%= formatted_start_date %></li>
 		<li>Data termine: <%= formatted_end_date %></li>
 		<li>Numero giornate: <%= length_in_days %></li>

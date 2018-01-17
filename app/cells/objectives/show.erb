@@ -14,7 +14,7 @@
 		</div>
 	<% end %>
 	<hr>
-	<p>Allenamento programmati:</p>
+	<p>Allenamenti programmati:</p>
 	<% if !model.scheduled_objectives.empty? %>
 		<%= cell(:objectives, model, objectives: model.scheduled_objectives).(:table) %>
 	<% else %>
@@ -28,8 +28,8 @@
 		<%= cell(:objectives, model, objectives: model.terminated_objectives).(:table) %>
 	<% else %>
 		<div class="alert alert-warning" role="alert">
-			Non vi è nessuno allenamento terminato al momento per questo utente. Un obiettivo sarà terminato nel momento in cui
-			la data di scadenza per quell'obiettivo è superata.
+			Non vi è nessuno allenamento terminato al momento per questo utente. Un allenamento sarà terminato nel momento in cui
+			la data di scadenza per quell'allenamento è superata.
 		</div>
 	<% end %>
 	<hr>

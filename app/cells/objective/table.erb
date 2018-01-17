@@ -3,6 +3,7 @@
 		<tr>
 			<th>Attività</th>
 			<th>Quantità</th>
+			<th>Progresso</th>
 			<th>Data inizio</th>
 			<th>Data fine</th>
 			<th></th>
@@ -12,6 +13,13 @@
 		<tr>
 			<td><%= activity %></td>
 			<td><%= quantity %></td>
+			<td>
+				<% if model.steps? %>
+					<%= model.steps_progress %>
+				<% else %>
+					<%= model.distance_progress %>
+				<% end %>
+			</td>
 			<td><%= formatted_start_date %></td>
 			<td><%= formatted_end_date %></td>
 			<td><%= link_to "Mostra", objective_details_path(model) %></td>
