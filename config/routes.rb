@@ -68,7 +68,7 @@ Rails.application.routes.draw do
 
   resources :questions do
     collection do
-      get 'new/a_id', to: 'questions#new', as: 'new'
+      get 'new/planning_id', to: 'questions#new', as: 'new'
     end
   end
 

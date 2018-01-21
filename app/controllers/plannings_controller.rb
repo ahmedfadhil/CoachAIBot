@@ -15,10 +15,15 @@ class PlanningsController < ApplicationController
 
   def create
     activity = get_or_create_activity params
+    planning = Planning.new(:activity_id =>activity.id, :plan_id => params[:p_id])
     unless activity.id.nil?
-      planning = Planning.new(:activity_id =>activity.id, :plan_id => params[:p_id])
       if planning.save
-        flash[:OK] = 'Attivita creata/assegnata con successo!'
+        if completeness_question(planning)
+          flash[:OK] = 'Attivita creata/assegnata con successo!'
+        else
+          flash[:err] = 'C\'e\' stato un problema durante la creazione delle domande di verifica. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+          flash[:errors] = planning.errors.messages
+        end
       else
         flash[:err] = 'C\'e\' stato un problema durante l\'assegnamento dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         flash[:errors] = planning.errors.messages
@@ -76,13 +81,7 @@ class PlanningsController < ApplicationController
       Activity.find(params['a_id'])
     else
       activity = Activity.new(params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times))
-      if activity.save
-        # add the default completeness verify method
-        unless completeness_question(activity)
-          flash[:err] = 'C\'e\' stato un problema durante la creazione dei metodi di verifica dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
-          flash[:errors] = activity.errors.messages
-        end
-      else
+      unless activity.save
         flash[:err] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         flash[:errors] = activity.errors.messages
       end
@@ -90,9 +89,9 @@ class PlanningsController < ApplicationController
     end
   end
 
-  def completeness_question(activity)
-    question = Question.new text: "Hai portato a termine l'attivita'  ''#{activity.name}'' ?", q_type: 'completeness'
-    question.activity = activity
+  def completeness_question(planning)
+    question = Question.new text: "Hai portato a termine l'attivita'  ''#{planning.activity.name}'' ?", q_type: 'completeness'
+    question.planning = planning
     if question.save
       answer1 = Answer.new text: 'Si'
       answer2 = Answer.new text: 'No'

@@ -10,7 +10,7 @@
       <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
         <div id="no-info-card" class="mdl-card mdl-shadow--4dp">
           <div class="mdl-card__title mdl-card--expand">
-            <h2 class="mdl-card__title-text"> Nessuna Piano Presente </h2>
+            <h2 class="mdl-card__title-text"> Nessun Piano Presente </h2>
           </div>
           <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
 
@@ -28,9 +28,9 @@
             <div id="overview-plan-card" class="mdl-card mdl-shadow--4dp">
               <div class="mdl-card__title mdl-card--expand">
                 <% if plan.delivered == 1 %>
-                    <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-IN CORSO</h2>
+                    <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;IN CORSO</h2>
                 <% else %>
-                    <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-PORTATO A TERMINE </h2>
+                    <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;PORTATO A TERMINE </h2>
                 <% end %>
 
               </div>
@@ -43,7 +43,7 @@
 
                         <div id="overview-activity-card" class="mdl-card mdl-shadow--4dp">
                           <div class="mdl-card__title mdl-card--expand">
-                            <h3 class="mdl-card__title-text"> <b><%= planning.activity.name %></b> </h3>
+                            <h3 class="mdl-card__title-text">Attivita':&nbsp;&nbsp;<b><%= planning.activity.name %></b> </h3>
                           </div>
                           <div class="mdl-card__supporting-text">
                             <%= cell(:planning_description, planning) %>
@@ -55,7 +55,7 @@
                                 </div>
                               </div>
 
-                              <% scalar_adherences = planning.activity.questions.where(:q_type => 'scalar').size %>
+                              <% scalar_adherences = planning.questions.where(:q_type => 'scalar').size %>
                               <% if scalar_adherences > 0 %>
                                   <% (0..scalar_adherences-1).each do |i| %>
                                       <div class="mdl-cell mdl-cell--6-col-desktop">
@@ -66,11 +66,22 @@
                                   <% end %>
                               <% end %>
 
-                              <% open_questions = planning.activity.questions.where(:q_type => 'open').size %>
+                              <% open_questions = planning.questions.where(:q_type => 'open').size %>
                               <% if open_questions > 0 %>
                                   <% (0..open_questions-1).each do |i| %>
                                       <div class="mdl-cell mdl-cell--6-col-desktop">
                                         <div id="open-question-<%= i %>-<%= planning.id %>">
+
+                                        </div>
+                                      </div>
+                                  <% end %>
+                              <% end %>
+
+                              <% yes_no_questions = planning.questions.where(:q_type => 'yes_no').size %>
+                              <% if yes_no_questions > 0 %>
+                                  <% (0..yes_no_questions-1).each do |i| %>
+                                      <div class="mdl-cell mdl-cell--6-col-desktop">
+                                        <div id="yes-no-question-<%= i %>-<%= planning.id %>">
 
                                         </div>
                                       </div>

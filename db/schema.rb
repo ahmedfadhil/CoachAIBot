@@ -198,10 +198,10 @@ ActiveRecord::Schema.define(version: 20180108130648) do
   create_table "questions", force: :cascade do |t|
     t.text "text"
     t.string "q_type"
-    t.integer "activity_id"
+    t.integer "planning_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_questions_on_activity_id"
+    t.index ["planning_id"], name: "index_questions_on_planning_id"
   end
 
   create_table "schedules", force: :cascade do |t|

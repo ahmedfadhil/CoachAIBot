@@ -14,7 +14,7 @@ class FeedbackManager
 
   def register_last_answer(answer)
     bot_command_data = command_data
-    activity = Activity.where(name: bot_command_data['in_feedback_activities']['activity_chosen']).first
+    planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
     plan = Plan.where(name: bot_command_data['in_feedback_plans']['plan_chosen']).first
     notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
     notification.done = 1
@@ -24,18 +24,18 @@ class FeedbackManager
                     question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
     actuator = GeneralActions.new(@user, nil)
     actuator.send_reply('Risposta Salvata!')
-    actuator.send_reply("Molto bene #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{activity.name}' del piano '#{plan.name}'")
+    actuator.send_reply("Molto bene #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{planning.activity.name}' del piano '#{plan.name}'")
     actuator.send_reply_with_keyboard("Per fornire feedback su altre attivita' entra nuovamente nella sezione FEEDBACK.", GeneralActions.menu_keyboard)
   end
 
   def is_last_question?
     bot_command_data = command_data
-    activity = Activity.where(name: bot_command_data['in_feedback_activities']['activity_chosen']).first
+    planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
     plan = Plan.where(name: bot_command_data['in_feedback_plans']['plan_chosen']).first
-    notifications = Notification.joins(:planning).where('plannings.plan_id = ? AND plannings.activity_id = ? AND notifications.date <= ?', plan.id, activity.id, Date.today)
+    notifications = Notification.joins(:planning).where('plannings.plan_id = ? AND plannings.activity_id = ? AND notifications.date <= ?', plan.id, planning.activity.id, Date.today)
     current_notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
     last_notification = notifications.last
-    if current_notification.id == last_notification.id && current_notification.feedbacks.count == activity.questions.count-1
+    if current_notification.id == last_notification.id && current_notification.feedbacks.count == planning.questions.count-1
       return true
     end
     false
@@ -43,12 +43,12 @@ class FeedbackManager
 
   def register_answer_and_continue(answer)
     bot_command_data = command_data
-    activity = Activity.where(name: bot_command_data['in_feedback_activities']['activity_chosen']).first
+    planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
     notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
     question = Question.find(bot_command_data['in_feedback_activities']['question_id'])
     Feedback.create(answer: answer, date: Date.today, notification: notification, question: question)
     GeneralActions.new(@user, nil).send_reply('Risposta Salvata!')
-    if activity.questions.count == notification.feedbacks.count
+    if planning.questions.count == notification.feedbacks.count
       notification.done = 1
       notification.save
     end
@@ -68,8 +68,9 @@ class FeedbackManager
     plan = Plan.where(:name => bot_command_data['in_feedback_plans']['plan_chosen']).first
     activity = Activity.where(:name => activity_name).first
     notification = Notification.joins(:planning).where('plannings.plan_id = ? AND plannings.activity_id =? and notifications.date <= ? AND notifications.done = ?', plan.id, activity.id, Date.today, 0).first
-    question = activity.questions[notification.feedbacks.count]
-    bot_command_data['in_feedback_activities'] = {'activity_chosen' => activity_name, 'notification_id' => notification.id, 'question_id' => question.id, 'answers' => question.answers.map(&:text)}
+    planning = notification.planning
+    question = planning.questions[notification.feedbacks.count]
+    bot_command_data['in_feedback_activities'] = {'activity_chosen' => activity_name, 'notification_id' => notification.id, 'question_id' => question.id, 'planning_id' => planning.id, 'answers' => question.answers.map(&:text)}
     BotCommand.create(user: @user, data: bot_command_data.to_json)
     reply = "#{question_header(notification)}: \n\n\t#{question.text}"
     GeneralActions.new(@user, nil).send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(question.answers.map(&:text).push('Rispondi piu\' tardi/Torna al Menu')))

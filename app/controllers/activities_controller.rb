@@ -16,13 +16,7 @@ class ActivitiesController < ApplicationController
   def create
     activity = Activity.new activity_params
     if activity.save
-      #automaticaly add COMPLETNESS question
-      if completness_question(activity)
-        flash[:OK] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
-      else
-        flash[:err] = 'C\'e\' stato un problema durante la crezione dell\'attivita\', in particolare durante la creazione dei metodi di verifica/domande completezza automatiche! Contattare l\'amministratore del sistema se il problema persiste!'
-        flash[:errors] = activity.errors.messages
-      end
+      flash[:OK] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
     else
       flash[:err] = "L'Attivita NON E' STATA INSERITA"
       flash[:errors] = activity.errors.messages
@@ -79,18 +73,6 @@ class ActivitiesController < ApplicationController
 
     def activity_params
       params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times)
-    end
-
-    def completness_question(activity)
-      question = Question.new text: "Hai portato a termine l'attivita' #{activity.name}?", q_type: 'completeness'
-      question.activity = activity
-      if question.save
-        answer1 = Answer.new text: 'Si'
-        answer2 = Answer.new text: 'No'
-        answer1.question = question
-        answer2.question = question
-        answer1.save && answer2.save ? true : false
-      end
     end
 
 end

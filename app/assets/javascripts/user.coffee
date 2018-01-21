@@ -210,6 +210,7 @@
     dataType: 'json'
     json: true
     success: (data, textStatus, jqXHR) ->
+      console.log data
       for plan in data.plans
         for activity in plan.activities
           options = {
@@ -283,6 +284,72 @@
               ]
             }]
           });
+
+          i = 0
+          for yes_no_question in activity.yes_no_data
+            div_yes_no_id = "yes-no-question-#{i}-#{activity.planning_id}"
+            if yes_no_question.data.length > 0
+              Highcharts.chart(div_yes_no_id, {
+                chart: {
+                  plotBackgroundColor: null,
+                  plotBorderWidth: 0,
+                  plotShadow: false,
+                  # Edit chart spacing
+                  spacingBottom: 10,
+                  spacingTop: 2,
+                  spacingLeft: 2,
+                  spacingRight: 2,
+
+                  # Explicitly tell the width and height of a chart
+                  width: null,
+                  height: null
+                },
+                colors: ['#6ab344', '#bd0e3d', '#ff861b'],
+                title: {
+                  text: yes_no_question.text,
+                  align: 'center',
+                  verticalAlign: 'bottom',
+                  x: 0,
+                  y: -75,
+                  floating: true
+                },
+                tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                  pie: {
+                    dataLabels: {
+                      enabled: true,
+                      distance: -50,
+                      style: {
+                        fontWeight: 'bold',
+                        color: 'white'
+                      }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%']
+                  }
+                },
+                series: [{
+                  type: 'pie',
+                  name: yes_no_question.text,
+                  innerSize: '50%',
+                  data: [
+                    yes_no_question.data[0],
+                    yes_no_question.data[1],
+                    {
+                      name: 'Proprietary or Undetectable',
+                      y: 0.2,
+                      dataLabels: {
+                        enabled: false
+                      }
+                    }
+                  ]
+                }]
+              });
+
+
           i = 0
           for scalar_adherence in activity.scalar_data
             div_scalar_id = "scalar-adherence-#{i}-#{activity.planning_id}"

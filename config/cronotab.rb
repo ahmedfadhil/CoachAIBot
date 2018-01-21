@@ -4,9 +4,10 @@ require 'rake'
 
 Rails.app_class.load_tasks
 
-Crono.perform(ClusterJob).every 30.minutes
-Crono.perform(NotifierJob).every 30.minutes
-Crono.perform(PlansCheckerJob).every 30.minutes
+Crono.perform(ClusterJob).every 5.minutes
+Crono.perform(NotifierJob).every 5.minutes
+Crono.perform(PlansCheckerJob).every 5.minutes
+Crono.perform(WeeklyProgressJob).every 1.week, on: :sunday, at: '08:30'
 
 
 # in order to start crono as a daemon

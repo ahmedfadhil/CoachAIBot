@@ -8,7 +8,7 @@
       <div class="col-sm-6">
         <div class="user-card-name">
           <div class="row">
-            <img src="<%= profile_photo_url %>" class="user-img-round">
+            <%= image_tag profile_photo_url, class: 'user-img-round' %>
           </div>
           <div class="row">
             <%= user.first_name %> <%= " #{user.last_name}" %>

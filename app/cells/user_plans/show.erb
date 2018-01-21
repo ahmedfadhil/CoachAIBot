@@ -32,11 +32,11 @@
       <div class="plan-card-wide mdl-card mdl-shadow--2dp">
         <div class="<%= is_delivered?(plan) %>">
           <% if plan.delivered == 1 %>
-              <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-IN CORSO</h2>
+              <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;IN CORSO</h2>
           <% elsif plan.delivered == 0 %>
-              <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-NUOVO</h2>
+              <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;NUOVO</h2>
           <% else %>
-              <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-PORTATO A TERMINE </h2>
+              <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;PORTATO A TERMINE </h2>
           <% end %>
         </div>
         <div id="plan-supporting-text" class="mdl-card__supporting-text">
@@ -50,13 +50,13 @@
         <div class="plan-activities-container">
           <div class="accordion">
             <% plan.plannings.each do |planning| %>
-                <h3 data-position="id_<%= planning.id %>"><%= planning.activity.name %></h3>
+                <h3 data-position="id_<%= planning.id %>">Attivita':&nbsp;&nbsp;<b><%= planning.activity.name %></b></h3>
                 <div>
                   <%= cell(:planning_description, planning) %>
                   <%= cell(:schedules, planning) %>
                   <%= cell(:questions, planning) %>
                   <% if plan.delivered != 1 && plan.delivered != 4 %>
-                      <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
+                      <%= link_to 'Aggiungi Domanda', new_questions_path(:planning_id => planning.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
                                   method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
                       <%= link_to 'Destituisci Attivita', planning_path(planning) ,
                                   method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>

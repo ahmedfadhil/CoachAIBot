@@ -2,13 +2,13 @@
 
   <div class="new-plan-card mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Nuova Domanda per l'attivita' <%= "#{@activity.name}" %></h2>
+      <h2 class="mdl-card__title-text">Nuova Domanda per l'attivita' <%= "#{@planning.activity.name}" %></h2>
     </div>
 
 
     <div class="mdl-card__supporting-text">
       Inserisci i dati della domanda che vuoi che il bot faccia al paziente!
-      <%= form_for @question, url: questions_path(@question, :a_id => @activity.id, :u_id => @user.id), method: 'post' do |f| %>
+      <%= form_for @question, url: questions_path(@question, :planning_id => @planning.id, :u_id => @user.id), method: 'post' do |f| %>
           <%= hidden_field_tag :open_answer_val %>
           <%= hidden_field_tag :scalar_from_val %>
           <%= hidden_field_tag :scalar_to_val %>

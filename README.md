@@ -6,7 +6,17 @@ git clone git@github.com:ahmedfadhil/CoachAIBot.git
 cd CoachAiBot
 ```
 
-* Or if you already cloned the repo pull the changes
+* If you never used the system, remember to install all the dependencies and then run all migrations and seed the database.
+```
+bundle install              #installs dependencies
+
+bundle exec rake db:drop    #drops any pld version of the db
+bundle exec rake db:create  #creates a new db
+bundle exec rake db:migrate #runs migrations
+bundle exec rake db:seed    #seeds the db
+```
+
+* If you already cloned the repo pull the changes
 
 ```
 cd CoachAiBot
@@ -57,17 +67,6 @@ This will tell to TelegramAPI to send the user interactions with the bot `@Coach
 * If everything went well, you will receive a JSON response like this
 ```
 {"ok":true,"result":true,"description":"Webhook is set"}
-```
-
-* Install dependencies (we assume you already have [bundler](http://bundler.io/) gem)
-```
-bundle install
-```
-
-* Run migrations and seed the DB
-```
-bundle exec rake db:migrate
-bundle exec rake db:seed
 ```
 
 * Lets start [crono](https://github.com/plashchynski/crono) time-based background job scheduler daemon for Ruby on Rails.

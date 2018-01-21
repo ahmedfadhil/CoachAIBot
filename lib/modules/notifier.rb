@@ -16,41 +16,41 @@ class Notifier
       mental_score = binder.score(user, MENTAL)
       physical_score = binder.score(user, PHYSICAL)
       diet_score = binder.score(user, DIET)
-      message = "Ciao #{user.first_name}! Ecco a che punto sei arrivato fin'ora fin'ora! \n\n-Attivita' Fisica: #{physical_score} \n-Dieta: #{diet_score} \n-Salute Mentale: #{mental_score} \n\n\t Alcuni scoe potrebbero essere 0% se non hai nessuna attivita' inerente."
+      message = "Ciao #{user.last_name}! Ecco a che punto sei arrivato fin'ora fin'ora! \n\n-Attivita' Fisica: #{physical_score}% \n-Dieta: #{diet_score}% \n-Salute Mentale: #{mental_score}% \n\n\t Alcuni score potrebbero essere 0% se non hai nessuna attivita' inerente."
       send_message(user, message)
     end
   end
 
   def notify_deleted_plan(plan_name, user)
-    message = "Ciao #{user.first_name}, ti informo che il coach ha ELIMINATO il piano #{plan_name}. Rimani in attesa per altri piani!"
+    message = "Ciao #{user.last_name}, ti informo che il coach ha ELIMINATO il piano #{plan_name}. Rimani in attesa per altri piani!"
     send_message(user, message)
   end
 
   def notify_plan_finished(plan)
-    message = "Ciao #{plan.user.first_name}, ti informiamo che il piano #{plan.name} e' finito. "
+    message = "Molto bene #{plan.user.last_name}! Hai portato a termine il piano #{plan.name} e hai anche fornito tutto il feedback necessario! Complimenti! "
     send_message(plan.user, message)
   end
 
   def notify_plan_missing_feedback(plan)
-    message = "Ciao #{plan.user.first_name}, ti informiamo che il piano #{plan.name} e' finito ma non ho ancora ricevuto tutto il feedback necessario per capire come sono andate le attivita'."
+    message = "Il piano #{plan.name} e' stato portato a termine ma non ho ancora ricevuto tutto il feedback necessario per capire come sono andate le attivita'."
     send_message(plan.user, message)
     send_message(plan.user, "Ti consiglio di fornirli al piu' presto.")
   end
 
   def notify_for_new_messages(user)
-    message = "Ciao #{user.first_name}, il coach ti ha inviato dei nuovi messaggi. Vai nella sezione MESSAGGI per visualizzarli e rispondere."
+    message = "Ciao #{user.last_name}, il coach ti ha inviato dei nuovi messaggi. Vai nella sezione MESSAGGI per visualizzarli e rispondere."
     send_message(user, message)
   end
 
   def notify_for_new_activities(plan)
     user = plan.user
-    message = "Nuove Attivita' sono state definite per te #{user.first_name}. Vai nella sezione ATTIVITA' per avere ulteriori dettagli."
+    message = "Nuove Attivita' sono state definite per te #{user.last_name}. Vai nella sezione ATTIVITA' per avere ulteriori dettagli."
     send_message(user, message)
   end
 
   def check_and_notify
     puts 'Looking for users to be Notified...'
-    users = User.joins(:plans).where(:plans => {:delivered => 1})
+    users = User.joins(:plans).where(:plans => {:delivered => 1}).uniq
     users.each do |user|
       message = need_to_be_notified?(user)
       unless message.nil?
@@ -60,7 +60,7 @@ class Notifier
   end
 
   def need_to_be_notified?(user)
-    message = "Ciao #{user.last_name}! Ti ricordo che hai le seguenti attivita' programmate per oggi \n"
+    message = "Ciao #{user.last_name}! Ti ricordo che hai le seguenti attivita' programmate per oggi \n\n"
     flag = false
     plans = user.plans.where(:delivered => 1)
     plans.each do |plan|
@@ -68,13 +68,13 @@ class Notifier
         notifications = planning.notifications.where('date = ? AND sent = ? AND n_type = ? AND ( (? - time) < ? )', Date.today, false, 'ACTIVITY_NOTIFICATION', Time.now, 60.minutes)
         notifications.find_each do |notification|
           notification.sent = true
-          notification.save!
-          message += " -#{planning.activity.name}, alle ore #{notification.time.strftime('%H:%M')} \n"
+          notification.save
+          message += " \t-#{planning.activity.name}\n"
           flag = true
         end
       end
-
     end
+    message += "\nNon dimenticarti di portarle a termine e poi fornire feedback!"
     flag ? message : nil
   end
 

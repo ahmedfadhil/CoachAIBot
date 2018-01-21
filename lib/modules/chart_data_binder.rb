@@ -48,7 +48,7 @@ class ChartDataBinder
         text = 'PROGRESSO'
         notifications = planning.notifications
         feedbacks_completeness = Feedback.where('question_id = (?) AND  notification_id in (?)',
-                                                planning.activity.questions.where(:q_type => 'completeness').select(:id).uniq,
+                                                planning.questions.where(:q_type => 'completeness').select(:id).uniq,
                                                 notifications.where(:done => 1).select(:id))
         tot = notifications.size
         done = feedbacks_completeness.where(:answer => 'Si').size
@@ -64,11 +64,33 @@ class ChartDataBinder
                                                                             ["Da Fare #{to_do_perc.to_i}%", to_do_perc.to_i]],
                                            },
                                            :open_data => [],
-                                           :scalar_data => []
+                                           :scalar_data => [],
+                                           :yes_no_data => []
                                           })
 
+        yes_no_questions = planning.questions.where(:q_type => 'yes_no').select(:id).uniq
+        yes_no_questions.each do |q|
+          feedbacks_yes_no = Feedback.where('question_id = (?) AND  notification_id in (?)',
+                                            q.id,
+                                            notifications.where(:done => 1).select(:id))
+          tot = feedbacks_yes_no.size
+          yes = Feedback.where('question_id = (?) AND  notification_id in (?) and answer = ?',
+                               q.id,
+                               notifications.where(:done => 1).select(:id), 'si').size
+          no = Feedback.where('question_id = (?) AND  notification_id in (?) and answer = ?',
+                              q.id,
+                              notifications.where(:done => 1).select(:id), 'no').size
+          yes_perc = yes.as_percentage_of(tot)
+          no_perc = no.as_percentage_of(tot)
+          data[:plans][i][:activities][j][:yes_no_data].push({:text => Question.find(q.id).text,
+                                                              :data => [["Si #{yes_perc.to_i}%", yes_perc.to_i],
+                                                                        ["No #{no_perc.to_i}%", no_perc.to_i]]
+                                                             })
 
-        open_questions = planning.activity.questions.where(:q_type => 'open').select(:id).uniq
+        end
+
+
+        open_questions = planning.questions.where(:q_type => 'open').select(:id).uniq
         h = 0
         open_questions.each do |q|
           feedbacks_open = Feedback.where('question_id = (?) AND  notification_id in (?)',
@@ -87,7 +109,7 @@ class ChartDataBinder
         end
 
 
-        scalar_questions = planning.activity.questions.where(:q_type => 'scalar').select(:id).uniq
+        scalar_questions = planning.questions.where(:q_type => 'scalar').select(:id).uniq
         h=0
         scalar_questions.each do |q|
           feedbacks_scalars = Feedback.where('question_id = (?) AND  notification_id in (?)',
@@ -112,6 +134,7 @@ class ChartDataBinder
       end
       i = i + 1
     end
+    ap data
     data
   end
 end
