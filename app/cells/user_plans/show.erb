@@ -31,7 +31,13 @@
       <div class="plans-action"></div>
       <div class="plan-card-wide mdl-card mdl-shadow--2dp">
         <div class="<%= is_delivered?(plan) %>">
-          <h2 class="mdl-card__title-text"> <%= plan.name %> </h2>
+          <% if plan.delivered == 1 %>
+              <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-IN CORSO</h2>
+          <% elsif plan.delivered == 0 %>
+              <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-NUOVO</h2>
+          <% else %>
+              <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-PORTATO A TERMINE </h2>
+          <% end %>
         </div>
         <div id="plan-supporting-text" class="mdl-card__supporting-text">
           <%= cell(:plan_description, plan) %>
@@ -49,7 +55,7 @@
                   <%= cell(:planning_description, planning) %>
                   <%= cell(:schedules, planning) %>
                   <%= cell(:questions, planning) %>
-                  <% if plan.delivered != 1 && plan.delivered != 3 %>
+                  <% if plan.delivered != 1 && plan.delivered != 4 %>
                       <%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
                                   method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
                       <%= link_to 'Destituisci Attivita', planning_path(planning) ,
@@ -98,23 +104,6 @@
                           deliver_plans_path(:p_id => plan.id), method: 'post',
                           class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'%>
 
-        <% elsif plan.delivered == 1 %>
-            <%= link_to 'Sospendi',
-                          suspend_plans_path(:p_id => plan.id), method: 'post',
-                          class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'%>
-            <%= link_to 'Interrompi',
-                          stop_plans_path(:p_id => plan.id), method: 'post',
-                          class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'%>
-
-        <% else %>
-            <%= link_to 'Assegna un\'attivita',
-                        assign_plannings_path(:p_id => plan.id, :u_id => plan.user.id), remote: true, method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-            <%= link_to 'Aggiungi un\'attivita',
-                        new_plannings_path(:p_id => plan.id, :u_id => plan.user.id), remote: true, method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-            <%= link_to 'Riconsegna',
-                          deliver_plans_path(:p_id => plan.id), method: 'post',
-                          class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'%>
-
         <% end %>
         <%= link_to 'Elimina',
                       plan_path(:p_id => plan.id, :u_id => plan.user.id), method: 'delete',
@@ -130,10 +119,11 @@
     </div>
   <% end %>
 
-  <%= button_to new_plans_path(:u_id => user.id), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored',
+</div>
+
+<div class="row right-align-btn">
+  <%= button_to new_plans_path(:u_id => user.id), class: 'new-btn mdl-button mdl-js-button',
                 method: 'post' do %>
       Aggiungi un nuovo piano
   <% end %>
-
-
 </div>

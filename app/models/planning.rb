@@ -7,4 +7,6 @@ class Planning < ApplicationRecord
   accepts_nested_attributes_for :schedules,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
+
+  validates :activity, uniqueness: { scope: :plan, message: 'Un piano non puo\' contenere la stessa attivita\' due volte.' }
   end

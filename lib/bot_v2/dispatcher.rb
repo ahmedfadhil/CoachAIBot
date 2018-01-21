@@ -32,8 +32,11 @@ class Dispatcher
         when 'messages'
           manage_messages_state(text)
 
-        when 'feedbacks'
-          manage_feedbacks_state(text)
+        when 'feedback_plans'
+          manage_feedback_plans_state(text)
+
+        when 'feedback_activities'
+          manage_feedback_activities_state(text)
 
         when 'feedbacking'
           manage_feedbacking_state(text)
@@ -72,7 +75,7 @@ class Dispatcher
       # Feedbacks
       when /(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
         ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
-        @user.show_undone_feedbacks!
+        @user.show_plans_to_feedback!
 
       # Messages
       when /(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
@@ -85,8 +88,7 @@ class Dispatcher
         @user.start_questionnaires!
 
       else
-        hash_state = JSON.parse(@user.bot_command_data)
-        #ApiAIRedirector.new(text, @user, hash_state).redirect
+        ApiAIRedirector.new(text, @user).redirect
 
     end
   end
@@ -115,7 +117,8 @@ class Dispatcher
     end
   end
 
-  def manage_feedbacks_state(text)
+
+  def manage_feedback_plans_state(text)
     case text
       when *tell_me_more_strings
         @user.get_details!
@@ -124,8 +127,17 @@ class Dispatcher
         @user.cancel!
 
       else
-        @user.start_feedbacking!(text)
+        @user.show_activities_to_feedback!(text)
+    end
+  end
 
+  def manage_feedback_activities_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+
+      else
+        @user.start_feedbacking!(text)
     end
   end
 
@@ -133,10 +145,12 @@ class Dispatcher
     case text
       when *back_strings
         @user.cancel!
+
       else
         @user.feedback!(text)
     end
   end
+
 
   def manage_questionnaires_state(text)
     case text

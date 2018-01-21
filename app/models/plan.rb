@@ -40,5 +40,9 @@ class Plan < ApplicationRecord
   def has_plannings?
     !(self.plannings.count == 0)
   end
+
+  def is_finished?
+    Notification.joins(planning: :plan).where('plans.id = ? AND notifications.done = ?', self.id, 0).empty?
+  end
 end
 

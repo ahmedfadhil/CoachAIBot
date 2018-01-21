@@ -14,7 +14,7 @@ class QuestionsCell < Cell::ViewModel
   end
 
   def is_not_active(plan)
-    plan.delivered != 1 && plan.delivered != 3
+    plan.delivered != 1 && plan.delivered != 4
   end
 
 end

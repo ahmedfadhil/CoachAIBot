@@ -11,12 +11,6 @@ class GeneralActions
     @state = state
   end
 
-  def clean_state
-    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
-    @user.save
-    @user
-  end
-
   def back_to_menu_with_menu
     @api.call('sendMessage', chat_id: @user.telegram_id,
               text: "Va bene #{@user.last_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup: GeneralActions.menu_keyboard)
@@ -31,10 +25,6 @@ class GeneralActions
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: keyboard)
   end
 
-  def set_plan_name(plan_name)
-    @state['plan_name'] = plan_name
-    @user.set_bot_command_data @state
-  end
 
   def send_chat_action(action)
     @api.call('sendChatAction', chat_id: @user.telegram_id, action: action)
@@ -205,7 +195,6 @@ class GeneralActions
   def self.custom_keyboard(keyboard_values)
     kb = GeneralActions.slice_keyboard keyboard_values
     k = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
-    ap k
     k
   end
 

@@ -1,3 +1,13 @@
+.right-align-btn{
+  text-align: -webkit-right;
+}
+
+.new-btn{
+  background: green;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
 .centered-row{
   display: grid;
 }
@@ -37,12 +47,12 @@
 }
 
 .user-card-n{
-  margin-left: 20px;
-  margin-top: 20px;
+  margin-left: 56px;
+  margin-top: 5px;
 }
 
 .user-card-name{
-  margin-top: 25px;
+  margin-top: 0px;
   font-family: sans-serif;
   font-size: 20px;
   text-align: -webkit-center;

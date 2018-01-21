@@ -4,7 +4,7 @@
 <div class="overview-action"></div>
 
 
-<% delivered_plans = user.plans.where(:delivered => 1) %>
+<% delivered_plans = user.plans.where('delivered = ? OR delivered = ?', 1, 4) %>
 <% if delivered_plans.size == 0 %>
     <div id="no-info-grid" class="mdl-grid">
       <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
@@ -27,7 +27,12 @@
           <div class="mdl-cell mdl-cell--12-col-desktop">
             <div id="overview-plan-card" class="mdl-card mdl-shadow--4dp">
               <div class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text"><b><%= plan.name %></b> </h2>
+                <% if plan.delivered == 1 %>
+                    <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-IN CORSO</h2>
+                <% else %>
+                    <h2 class="mdl-card__title-text"><b><%= plan.name %></b>-PORTATO A TERMINE </h2>
+                <% end %>
+
               </div>
               <div class="mdl-card__supporting-text">
                 <%= cell(:plan_description, plan, activities_count: true) %>
@@ -51,20 +56,26 @@
                               </div>
 
                               <% scalar_adherences = planning.activity.questions.where(:q_type => 'scalar').size %>
-                              <% (0..scalar_adherences).each do |i| %>
-                                  <div class="mdl-cell mdl-cell--6-col-desktop">
-                                    <div id="scalar-adherence-<%= i %>-<%= planning.id %>">
+                              <% if scalar_adherences > 0 %>
+                                  <% (0..scalar_adherences-1).each do |i| %>
+                                      <div class="mdl-cell mdl-cell--6-col-desktop">
+                                        <div id="scalar-adherence-<%= i %>-<%= planning.id %>">
 
-                                    </div>
-                                  </div>
+                                        </div>
+                                      </div>
+                                  <% end %>
                               <% end %>
 
+                              <% open_questions = planning.activity.questions.where(:q_type => 'open').size %>
+                              <% if open_questions > 0 %>
+                                  <% (0..open_questions-1).each do |i| %>
+                                      <div class="mdl-cell mdl-cell--6-col-desktop">
+                                        <div id="open-question-<%= i %>-<%= planning.id %>">
 
-                              <div class="mdl-cell mdl-cell--6-col-desktop">
-                                <div id="container1">
-
-                                </div>
-                              </div>
+                                        </div>
+                                      </div>
+                                  <% end %>
+                              <% end %>
 
                             </div>
 

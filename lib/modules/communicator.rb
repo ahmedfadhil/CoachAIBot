@@ -1,4 +1,5 @@
 # communicates relevant information to the coach and when needed also to the patient
+require "#{Rails.root}/lib/modules/notifier"
 
 class Communicator
   #Communication types const
@@ -28,7 +29,12 @@ class Communicator
       if plan.has_period_exceeded? && plan.has_missing_feedback?
         communicate_missing_feedback plan
         Notifier.new.notify_plan_missing_feedback(plan)
-      elsif plan.has_period_exceeded?
+      #elsif plan.has_period_exceeded?
+        #communicate_plan_finished plan
+        #Notifier.new.notify_plan_finished(plan)
+      elsif plan.is_finished?
+        plan.delivered = 4
+        plan.save!
         communicate_plan_finished plan
         Notifier.new.notify_plan_finished(plan)
       end

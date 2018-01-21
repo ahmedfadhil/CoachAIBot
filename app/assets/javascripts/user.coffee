@@ -314,6 +314,51 @@
               });
               i++
 
+          i=0
+          for open_question in activity.open_data
+            div_open_id = "open-question-#{i}-#{activity.planning_id}"
+            console.log open_question.data
+            if open_question.data.length > 0
+              Highcharts.chart(div_open_id, {
+                chart: {
+                  type: 'column'
+                },
+                title: {
+                  text: open_question.text
+                },
+                subtitle: {
+                  text: 'Questo graffico illustra la distribuzione in percentuale delle risposte date fino ad oggi alla domanda scritta sopra'
+                },
+                xAxis: {
+                  categories: [
+                    'Risposte alla Domanda'
+                  ],
+                  crosshair: true
+                },
+                yAxis: {
+                  min: 0,
+                  title: {
+                    text: open_question.text
+                  }
+                },
+                tooltip: {
+                  headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                  pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+                  footerFormat: '</table>',
+                  shared: true,
+                  useHTML: true
+                },
+                plotOptions: {
+                  column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                  }
+                },
+                series: open_question.data
+              });
+
+
 
 
 @default_tab = () ->
@@ -376,9 +421,9 @@
 @get_labels_name = (type) ->
   switch type
     when 0
-      ['Attivita\' Fisica', 'physical']
-    when 1
       ['Dieta', 'diet']
+    when 1
+      ['Attivita\' Fisica', 'physical']
     else
       ['Mentale', 'mental']
 
@@ -420,7 +465,6 @@
     json: true
     success: (data, textStatus, jqXHR) ->
       for user in data.users
-        console.log user
         score(user, 0)
         score(user, 1)
         score(user, 2)

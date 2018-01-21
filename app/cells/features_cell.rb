@@ -55,7 +55,6 @@ class FeaturesCell < Cell::ViewModel
       begin
         solver = ImageSolver.new
         solver.solve(user.telegram_id)
-
       rescue Exception
         default_image
       end

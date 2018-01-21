@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/bot_v2/activity_informer"
 require "#{Rails.root}/lib/bot_v2/feedback_manager"
 require "#{Rails.root}/lib/bot_v2/questionnaire_manager"
 require "#{Rails.root}/lib/bot_v2/general"
+require "#{Rails.root}/lib/bot_v2/feedback_manager"
 require "#{Rails.root}/lib/modules/features_manager"
 
 class User < ApplicationRecord
@@ -10,9 +11,8 @@ class User < ApplicationRecord
   has_many :chats, dependent: :destroy
 	has_many :daily_logs, dependent: :destroy
   has_many :plans, dependent: :destroy
-  has_one :feature, dependent: :destroy
   belongs_to :coach_user, optional: true
-  has_many :invitations
+  has_many :invitations, dependent: :destroy
 
   validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email, message: 'Email in uso. Scegli altra email.'
@@ -30,21 +30,6 @@ class User < ApplicationRecord
     if self.age < 0
       errors.add(:user, "L'eta' del paziente non puo' essere negativa!")
     end
-  end
-
-  def set_bot_command_data(state)
-    self.bot_command_data = state.to_json
-    save
-  end
-
-  def get_bot_command_data
-    self.bot_command_data
-  end
-
-  def reset_user_state
-    hash = { :state => 'no_state'}
-    self.bot_command_data = hash.to_json
-    save
   end
 
   def profiled?
@@ -71,32 +56,45 @@ class User < ApplicationRecord
   # return false instead of exceptions
   aasm  :whiny_transitions => false do
     state :idle, :initial => true
-    state :messages, :activities, :feedbacks, :feedbacking, :experiment, :questionnaires, :responding
+    state :messages, :activities, :questionnaires, :responding, :feedback_plans, :feedback_activities, :feedbacking
 
-    event :feedback do
-      transitions :from => :feedbacking, :to => :feedbacks,
-                  :after => Proc.new {|*args| register_answer(*args)},
-                  :guard => Proc.new {|*args| is_answer?(*args) }
-      transitions :from => :feedbacking, :to => :feedbacking,
-                  :after => :wrong_answer
+    ########## Feedback ############
+    event :show_plans_to_feedback do
+      transitions :from => :idle, :to => :feedback_plans,
+                  :after => :send_plans_to_feedback,
+                  :guard => :has_plans_to_feedback?
+      transitions :from => :idle, :to => :idle,
+                  :after => :inform_no_plans_to_feedback
+    end
+
+    event :show_activities_to_feedback do
+      transitions :from => :feedback_plans, :to => :feedback_activities,
+                  :after => Proc.new {|*args| send_activities_that_need_feedback(*args)},
+                  :guard => Proc.new {|*args| valid_plan_name?(*args)}
+      transitions :from => :feedback_plans, :to => :feedback_plans,
+                  :after => :inform_wrong_plan_name
     end
 
     event :start_feedbacking do
-      transitions :from => :feedbacks, :to => :feedbacking,
-                  :after => Proc.new {|*args| ask_oldest_feedback(*args)},
-                  :guard => Proc.new {|*args| needs_feedback?(*args) }
-      transitions :from => :feedbacks, :to => :feedbacks,
-                  :after => Proc.new {|*args| maybe_wrong(*args) }
+      transitions :from => :feedback_activities, :to => :feedbacking,
+                  :after => Proc.new {|*args| start_asking(*args)},
+                  :guard => Proc.new {|*args| valid_activity_name?(*args)}
+      transitions :from => :feedback_activities, :to => :feedback_activities,
+                  :after => :inform_wrong_activity_name
     end
 
-    event :show_undone_feedbacks do
-      transitions :from => :idle, :to => :feedbacks,
-                  :after => :send_undone_feedbacks,
-                  :guard => :undone_feedbacks?
-      transitions :from => :idle, :to => :idle,
-                  :after => :inform_no_feedbacks
+    event :feedback do
+      transitions :from => :feedbacking, :to => :idle,
+                  :after => Proc.new {|*args| register_last_answer(*args)},
+                  :guard => Proc.new {|*args| is_last_question_and_is_answer?(*args)}
+      transitions :from => :feedbacking, :to => :feedbacking,
+                  :after => Proc.new {|*args| register_answer_and_continue(*args)},
+                  :guard => Proc.new {|*args| is_answer?(*args)}
+      transitions :from => :feedbacking, :to => :feedbacking,
+                  :after => :inform_wrong_answer
     end
 
+    ########## Activities ############
     event :get_activities do
       transitions :from => :idle, :to => :activities,
                   :after => :send_activities,
@@ -105,28 +103,7 @@ class User < ApplicationRecord
                   :after => :inform_no_activities
     end
 
-    event :cancel do
-      transitions :from => :activities, :to => :idle,
-                  :after => :send_menu_from_activities
-      transitions :from => :feedbacks, :to => :idle,
-                  :after => :send_menu_from_feedbacks
-      transitions :from => :feedbacking, :to => :idle,
-                  :after => :send_menu_from_feedbacking
-      transitions :from => :messages, :to => :idle,
-                  :after => :send_menu_from_messages
-      transitions :from => :questionnaires, :to => :idle,
-                  :after => :back_to_menu
-      transitions :from => :responding, :to => :idle,
-                  :after => :back_to_menu
-    end
-
-    event :get_details do
-      transitions :from => :activities, :to => :idle,
-                  :after => :send_activities_details
-      transitions :from => :feedbacks, :to => :feedbacks,
-                  :after => :send_feedbacks_details
-    end
-
+    ########## Messages ############
     event :get_messages do
       transitions :from => :idle, :to => :messages,
                   :after => :send_messages,
@@ -140,7 +117,7 @@ class User < ApplicationRecord
                   :after => Proc.new {|*args| register_patient_response(*args) }
     end
 
-    #questionnaires
+    ########## Questionnaires ############
     event :start_questionnaires do
       transitions :from => :idle, :to => :questionnaires,
                   :after => :show_questionnaires,
@@ -168,119 +145,158 @@ class User < ApplicationRecord
                   :after => :ask_last_question_again
     end
 
+    ########## Cancel from each state to idle ############
+    event :cancel do
+      transitions :from => :activities, :to => :idle,
+                  :after => :send_menu_from_activities
+      transitions :from => :messages, :to => :idle,
+                  :after => :send_menu_from_messages
+      transitions :from => :questionnaires, :to => :idle,
+                  :after => :back_to_menu
+      transitions :from => :responding, :to => :idle,
+                  :after => :back_to_menu
+      transitions :from => :feedback_plans, :to => :idle,
+                  :after => :send_menu_from_feedbacks
+      transitions :from => :feedback_activities, :to => :idle,
+                  :after => :send_menu_from_feedbacks
+      transitions :from => :feedbacking, :to => :idle,
+                  :after => :send_menu_from_feedbacks
+    end
+
+    ########## Send Details for Activities and Feedbacks ############
+    event :get_details do
+      transitions :from => :activities, :to => :idle,
+                  :after => :send_activities_details
+      transitions :from => :feedback_plans, :to => :idle,
+                  :after => :send_feedbacks_details
+    end
+
     event :no_action do
       transitions :from => :idle, :to => :idle,
                   :after => :send_no_action_received
     end
-
   end
 
   private
 
-  # manages <feedbacks and feedbacking> states
-
-  def wrong_answer(text)
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).wrong_answer
+  ########## Feedback Methods ############
+  def inform_wrong_answer
+    FeedbackManager.new(self).inform_wrong_answer
   end
 
-  def is_answer?(text)
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).is_answer(text)
+  def register_last_answer(answer)
+    FeedbackManager.new(self).register_last_answer(answer)
   end
 
-  def needs_feedback?(plan_name)
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).needs_feedback?(plan_name)
+  def is_last_question_and_is_answer?(answer)
+    if FeedbackManager.new(self).is_answer?(answer) && FeedbackManager.new(self).is_last_question?
+      true
+    else
+      false
+    end
   end
 
-  def send_menu_from_feedbacking
-    # ToDo -> Change
-    send_menu_from_feedbacks
+  def register_answer_and_continue(answer)
+    FeedbackManager.new(self).register_answer_and_continue(answer)
   end
 
-  def maybe_wrong(text) # we ignore the input because the guard has to have an input parameter
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data))
-        .please_choose_plan(GeneralActions.plans_names(GeneralActions.new(self, JSON.parse(self.get_bot_command_data)).plans_needing_feedback))
+  def is_answer?(answer)
+    FeedbackManager.new(self).is_answer?(answer)
   end
 
-  def register_answer(answer)
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).register_answer(answer)
+  def inform_wrong_activity_name
+    FeedbackManager.new(self).inform_wrong_activity
   end
 
-  def plan_needs_feedback?
-    plan_name = JSON.parse(self.get_bot_command_data)['plan_name']
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).needs_feedback?(plan_name)
+  def start_asking(activity_name)
+    FeedbackManager.new(self).ask(activity_name)
   end
 
-  def ask_oldest_feedback(plan_name)
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).ask_oldest_feedback(plan_name)
+  def valid_activity_name?(activity_name)
+    FeedbackManager.new(self).valid_activity_name?(activity_name)
+  end
+
+  def inform_wrong_plan_name
+    FeedbackManager.new(self).inform_wrong_plan
+  end
+
+  def send_activities_that_need_feedback(plan_name)
+    FeedbackManager.new(self).send_activities_that_need_feedback(plan_name)
+  end
+
+  def valid_plan_name?(plan_name)
+    FeedbackManager.new(self).valid_plan_name?(plan_name)
+  end
+
+  def inform_no_plans_to_feedback
+    FeedbackManager.new(self).inform_no_plans_to_feedback
+  end
+
+  def send_plans_to_feedback
+    FeedbackManager.new(self).send_plans_to_feedback
+  end
+
+  def has_plans_to_feedback?
+    FeedbackManager.new(self).has_plans_to_feedback?
   end
 
   def send_feedbacks_details
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).send_details
+    feedback_manager = FeedbackManager.new(self)
+    GeneralActions.new(self, nil).send_feedback_details(feedback_manager.plans_to_feedback)
+    feedback_manager.send_plans_to_feedback
   end
 
   def send_menu_from_feedbacks
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).send_menu
+    GeneralActions.new(self, nil).back_to_menu_with_menu
   end
 
-  def inform_no_feedbacks
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).inform_no_feedbacks
-  end
+  #######################################################
 
-  def send_undone_feedbacks
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).send_undone_feedbacks
-  end
-
-  def undone_feedbacks?
-    FeedbackManager.new(self, JSON.parse(self.get_bot_command_data)).undone_feedbacks?
-  end
-
-  # manages <activities> state
-
+  ############### Activities Methods ####################
   def send_activities_details
-    ActivityInformer.new(self, JSON.parse(self.get_bot_command_data)).send_details
+    ActivityInformer.new(self, nil).send_details
   end
 
   def send_activities
-    ActivityInformer.new(self, JSON.parse(self.get_bot_command_data)).send_activities
+    ActivityInformer.new(self, nil).send_activities
   end
 
   def inform_no_activities
-    ActivityInformer.new(self, JSON.parse(self.get_bot_command_data)).inform_no_activities
+    ActivityInformer.new(self, nil).inform_no_activities
   end
 
   def send_menu_from_activities
-    ActivityInformer.new(self, JSON.parse(self.get_bot_command_data)).send_menu
+    ActivityInformer.new(self, nil).send_menu
   end
 
   def activities_present?
-    ActivityInformer.new(self, JSON.parse(self.get_bot_command_data)).activities_present?
+    ActivityInformer.new(self, nil).activities_present?
   end
+  #######################################################
 
-  # manages <messages> state
-
+  ############### Messages Methods ####################
   def send_messages
-    Messenger.new(self, JSON.parse(self.get_bot_command_data)).inform
+    Messenger.new(self, nil).inform
   end
 
   def messages_present?
-    Messenger.new(self, JSON.parse(self.get_bot_command_data)).messages_present?
+    Messenger.new(self, nil).messages_present?
   end
 
   def inform_no_messages
-    Messenger.new(self, JSON.parse(self.get_bot_command_data)).inform_no_messages
+    Messenger.new(self, nil).inform_no_messages
   end
 
   def send_menu_from_messages
-    Messenger.new(self, JSON.parse(self.get_bot_command_data)).send_menu
+    Messenger.new(self, nil).send_menu
   end
 
   def register_patient_response(response)
-    Messenger.new(self, JSON.parse(self.get_bot_command_data)).register_patient_response(response)
+    Messenger.new(self, nil).register_patient_response(response)
   end
-  
-  ################## 
-  # Questionnaires Management
+  ######################################################
 
+  ############### Questionnaires Methods ####################
   def register_last_response(response)
     QuestionnaireManager.new(self).register_response(response)
     GeneralActions.new(self, nil).send_questionnaire_finished
@@ -342,6 +358,7 @@ class User < ApplicationRecord
   def send_no_action_received
     GeneralActions.new(self, nil).inform_no_action_received
   end
+  ##################################################################
 
   def back_to_menu
     GeneralActions.new(self, nil).back_to_menu_with_menu
@@ -354,8 +371,6 @@ class User < ApplicationRecord
   def no_action_received
     GeneralActions.new(self, nil).inform_no_action_received
   end
-  
-  ##################
   
 
   # will be called if any event fails

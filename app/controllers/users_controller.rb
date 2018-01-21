@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def features
     @user = User.find(params[:id])
-    @features = @user.feature
+
   end
 
   #archived users

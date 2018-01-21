@@ -43,7 +43,11 @@ class QuestionsController < ApplicationController
           end
         else
           open_answers = params[:open_answer_val]
-          open_answers.split(',').each do |i|
+          answers = open_answers.gsub(/, /, ',')
+          answers = answers.gsub(/ ,/, ',')
+          answers = answers.lstrip
+          answers = answers.rstrip
+          answers.split(',').each do |i|
             answer = Answer.new(text: i)
             if answer.save
               question.answers << answer

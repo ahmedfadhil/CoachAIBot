@@ -20,14 +20,15 @@ class FeaturesManager
     end
   end
 
+  # not used because an asset needs to be recompiled
   def save_telegram_profile_img(user)
     begin
       solver = ImageSolver.new
       uri = solver.solve(user.telegram_id)
       stream = open(uri)
       file_name = stream.base_uri.to_s.split('/')[-1]
-      user.profile_img = "profile_images/#{file_name}"
-      path = Rails.root.join('app/assets/images/profile_images', file_name)
+      user.profile_img = "public/assets/user_profile_img/#{user.id}_#{file_name}"
+      path = Rails.root.join('public/assets/user_profile_img', "#{user.id}_#{file_name}")
       IO.copy_stream(stream, path)
     rescue Exception
       user.profile_img = default_profile_img

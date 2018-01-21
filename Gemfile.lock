@@ -205,6 +205,7 @@ GEM
       rack
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
+    railroady (1.5.3)
     rails (5.1.4)
       actioncable (= 5.1.4)
       actionmailer (= 5.1.4)
@@ -368,6 +369,7 @@ DEPENDENCIES
   polling
   prawn (~> 2.2, >= 2.2.2)
   puma (~> 3.7)
+  railroady
   rails (~> 5.1.1)
   rails-assets-eq.js
   rails-assets-jquery
