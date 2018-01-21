@@ -49,7 +49,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 curl https://api.telegram.org/bot294560170:AAFaB9cQ-hCzQEfYNr6z30gD2K7FeDZ1gVQ/setWebhook?url=${https_public_address}/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
 ```
 
-But replace `${https_public_address}` with your actual public address. <br/>
+But replace `${https_public_address}` with your actual https public address. <br/>
 In the example is `https://d9e5ba0e.ngrok.io`. 
 
 This will tell to TelegramAPI to send the user interactions with the bot `@CoachAIBot` to the Rails server.
