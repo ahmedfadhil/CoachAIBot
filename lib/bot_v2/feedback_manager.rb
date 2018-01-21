@@ -56,8 +56,6 @@ class FeedbackManager
   end
 
   def is_answer?(answer)
-    ap command_data['in_feedback_activities']['answers']
-    ap answer
     command_data['in_feedback_activities']['answers'].include?(answer)
   end
 
@@ -73,7 +71,7 @@ class FeedbackManager
     question = activity.questions[notification.feedbacks.count]
     bot_command_data['in_feedback_activities'] = {'activity_chosen' => activity_name, 'notification_id' => notification.id, 'question_id' => question.id, 'answers' => question.answers.map(&:text)}
     BotCommand.create(user: @user, data: bot_command_data.to_json)
-    reply = "In data #{notification.date.strftime('%d-%m-%Y')}: \n\n\t#{question.text}"
+    reply = "#{question_header(notification)}: \n\n\t#{question.text}"
     GeneralActions.new(@user, nil).send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(question.answers.map(&:text).push('Rispondi piu\' tardi/Torna al Menu')))
   end
 
@@ -136,5 +134,50 @@ class FeedbackManager
   def send_menu
     actuator = GeneralActions.new(@user, nil)
     actuator.send_reply_with_keyboard("Va bene! Quando vorrai sapere di piu' sul feedback che devi fornire, torna alla sezione FEEDBACK.", GeneralActions.menu_keyboard)
+  end
+
+  def question_header(notification)
+    planning = notification.planning
+    activity = planning.activity
+    case activity.a_type
+      when '0'
+        "Il giorno #{notification.date.strftime('%d.%m.%Y')}"
+      when '1'
+        week, turn = week_and_order('week', planning.plan, planning, notification)
+        "Per la #{turn} volta durante la #{week} settimana"
+      else
+        month, turn = week_and_order('month', planning.plan, planning, notification)
+        "Per la #{turn} volta durante il #{month} mese"
+    end
+  end
+
+  def week_and_order(by, plan, planning, notification)
+    # looping through months
+    date = notification.date
+    from = plan.from_day
+    to = plan.to_day
+    interval = by
+    start = from
+    week_number = 1
+    while start < to
+      stop  = start.send("end_of_#{interval}")
+      if stop > to
+        stop = to
+      end
+
+      interval_start = Date.parse(start.inspect)
+      interval_end = Date.parse(stop.inspect)
+      if interval_start<=date && interval_end>=date
+        return week_number, Notification.where('planning_id = (?) AND date >= (?) AND date <= (?)', planning.id, interval_start, interval_end).index(notification)+1
+      end
+
+      start = stop.send("beginning_of_#{interval}")
+      start += 1.send(interval)
+      week_number = week_number + 1
+    end
+  end
+
+  def time_format(datetime)
+    datetime.strftime('%H:%M') unless datetime.blank?
   end
 end
