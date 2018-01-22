@@ -210,6 +210,7 @@
     dataType: 'json'
     json: true
     success: (data, textStatus, jqXHR) ->
+      console.log data
       for plan in data.plans
         for activity in plan.activities
           options = {
@@ -283,6 +284,72 @@
               ]
             }]
           });
+
+          i = 0
+          for yes_no_question in activity.yes_no_data
+            div_yes_no_id = "yes-no-question-#{i}-#{activity.planning_id}"
+            if yes_no_question.data.length > 0
+              Highcharts.chart(div_yes_no_id, {
+                chart: {
+                  plotBackgroundColor: null,
+                  plotBorderWidth: 0,
+                  plotShadow: false,
+                  # Edit chart spacing
+                  spacingBottom: 10,
+                  spacingTop: 2,
+                  spacingLeft: 2,
+                  spacingRight: 2,
+
+                  # Explicitly tell the width and height of a chart
+                  width: null,
+                  height: null
+                },
+                colors: ['#6ab344', '#bd0e3d', '#ff861b'],
+                title: {
+                  text: yes_no_question.text,
+                  align: 'center',
+                  verticalAlign: 'bottom',
+                  x: 0,
+                  y: -75,
+                  floating: true
+                },
+                tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                  pie: {
+                    dataLabels: {
+                      enabled: true,
+                      distance: -50,
+                      style: {
+                        fontWeight: 'bold',
+                        color: 'white'
+                      }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%']
+                  }
+                },
+                series: [{
+                  type: 'pie',
+                  name: yes_no_question.text,
+                  innerSize: '50%',
+                  data: [
+                    yes_no_question.data[0],
+                    yes_no_question.data[1],
+                    {
+                      name: 'Proprietary or Undetectable',
+                      y: 0.2,
+                      dataLabels: {
+                        enabled: false
+                      }
+                    }
+                  ]
+                }]
+              });
+
+
           i = 0
           for scalar_adherence in activity.scalar_data
             div_scalar_id = "scalar-adherence-#{i}-#{activity.planning_id}"
@@ -313,6 +380,51 @@
                 }]
               });
               i++
+
+          i=0
+          for open_question in activity.open_data
+            div_open_id = "open-question-#{i}-#{activity.planning_id}"
+            console.log open_question.data
+            if open_question.data.length > 0
+              Highcharts.chart(div_open_id, {
+                chart: {
+                  type: 'column'
+                },
+                title: {
+                  text: open_question.text
+                },
+                subtitle: {
+                  text: 'Questo graffico illustra la distribuzione in percentuale delle risposte date fino ad oggi alla domanda scritta sopra'
+                },
+                xAxis: {
+                  categories: [
+                    'Risposte alla Domanda'
+                  ],
+                  crosshair: true
+                },
+                yAxis: {
+                  min: 0,
+                  title: {
+                    text: open_question.text
+                  }
+                },
+                tooltip: {
+                  headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                  pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+                  footerFormat: '</table>',
+                  shared: true,
+                  useHTML: true
+                },
+                plotOptions: {
+                  column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                  }
+                },
+                series: open_question.data
+              });
+
 
 
 
@@ -376,9 +488,9 @@
 @get_labels_name = (type) ->
   switch type
     when 0
-      ['Attivita\' Fisica', 'physical']
-    when 1
       ['Dieta', 'diet']
+    when 1
+      ['Attivita\' Fisica', 'physical']
     else
       ['Mentale', 'mental']
 
@@ -420,13 +532,14 @@
     json: true
     success: (data, textStatus, jqXHR) ->
       for user in data.users
-        console.log user
         score(user, 0)
         score(user, 1)
         score(user, 2)
 
 
-
+@addTips = () ->
+  Tipped.create('.chat-with-user', 'Chatta con il Paziente')
+  Tipped.create('.archive-user', 'Archivia il Paziente')
 
 
 $ ->
@@ -443,3 +556,5 @@ $ ->
   $("tr[data-href]").click (e) ->
     e.preventDefault()
     window.location = $(this).data("href");
+
+  addTips()

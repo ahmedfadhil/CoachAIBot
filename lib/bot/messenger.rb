@@ -1,4 +1,4 @@
-require 'bot/general_actions'
+require 'bot/general'
 require './lib/modules/communicator'
 
 class Messenger

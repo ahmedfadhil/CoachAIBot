@@ -3,21 +3,22 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @activity = Activity.find(params[:a_id])
+    @planning = Planning.find(params[:planning_id])
     @user = User.find(params[:u_id])
     @plan_id = params[:p_id]
   end
 
   def create
-    activity = Activity.find(params[:a_id])
-    question = Question.new(question_params)
+    planning = Planning.find(params[:planning_id])
     user = User.find(params[:u_id])
+    question = Question.new(question_params)
+    question.planning_id = params[:planning_id]
     if !question.save
       flash[:err] = 'Ce stato un problema durante il SALVATAGGIO DELLA DOMANDA! Riprova piu tardi!'
       flash[:errors] = question.errors.messages
     else
       flash[:OK] = 'Domanda salvata con successo!'
-      activity.questions << question
+      planning.questions << question
       case question.q_type
         when 'yes_no'
           answer1 = Answer.new(text: 'si')
@@ -42,7 +43,11 @@ class QuestionsController < ApplicationController
           end
         else
           open_answers = params[:open_answer_val]
-          open_answers.split(',').each do |i|
+          answers = open_answers.gsub(/, /, ',')
+          answers = answers.gsub(/ ,/, ',')
+          answers = answers.lstrip
+          answers = answers.rstrip
+          answers.split(',').each do |i|
             answer = Answer.new(text: i)
             if answer.save
               question.answers << answer

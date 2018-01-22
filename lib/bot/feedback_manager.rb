@@ -1,5 +1,5 @@
 require 'telegram/bot'
-require 'bot/general_actions'
+require 'bot/general'
 
 class FeedbackManager
   attr_reader :user, :state, :api
@@ -50,7 +50,7 @@ class FeedbackManager
         prepare_state_for_feedback(notification, question, plan_name)
         actuator = GeneralActions.new(@user, @state)
         answers = GeneralActions.answers_from_question question
-        actuator.send_reply_with_keyboard("In data #{notification.date} alle ore #{notification.time.strftime('%H:%M')} \n\n\t #{question.text}?", GeneralActions.custom_keyboard(answers))
+        actuator.send_reply_with_keyboard("In data #{notification.date}, \n\n\t #{question.text}?", GeneralActions.custom_keyboard(answers))
       else
         notification.done = 1
         notification.save
@@ -60,7 +60,7 @@ class FeedbackManager
     end
   end
 
-  def please_choose(plans)
+  def please_choose_plan(plans)
     actuator = GeneralActions.new(@user, @state)
     if plans.size==0
       actuator.back_to_menu
@@ -85,4 +85,7 @@ class FeedbackManager
     @user.set_user_state @state
   end
 
+  def send_reply(reply)
+    @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
+  end
 end

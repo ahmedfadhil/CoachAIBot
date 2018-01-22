@@ -1,4 +1,4 @@
-require './lib/bot/image_solver'
+require './lib/bot_v2/image_solver'
 
 class UserCell < Cell::ViewModel
   def show
@@ -9,6 +9,20 @@ class UserCell < Cell::ViewModel
     model
   end
 
+  def archived?
+    user.archived?
+  end
+
+  def default_image
+    'rsz_user_icon.png'
+  end
+
+  def archived_css_class
+    if archived?
+      'user_archived'
+    end
+  end
+
   def profile_photo_url
     if user.telegram_id.nil?
       default_image
@@ -16,15 +30,10 @@ class UserCell < Cell::ViewModel
       begin
         solver = ImageSolver.new
         solver.solve(user.telegram_id)
-
       rescue Exception
         default_image
       end
     end
-  end
-
-  def default_image
-    'rsz_user_icon.png'
   end
 
 end

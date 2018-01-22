@@ -1,3 +1,7 @@
+.patients-contebt{
+  min-height: 800px;
+}
+
 //footer
 .footer{
   //position: absolute;
@@ -11,17 +15,24 @@
 
 .home-footer{
   //position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background-color: #efefef;
-  text-align: center;
+  background: #ffffff url('CoachAI Graphics/footer.png') no-repeat center;
+  background-size: cover;
+  /* right: 0; */
+  /* bottom: 0; */
+  /* left: 0; */
+  padding: 3%;
+  /* background-color: #efefef; */
+  text-align: -webkit-right;
+  color: black;
 }
 
 
 .main-container{
   background-color: #dedada;
+}
+
+#sub-container{
+  min-height: 700px;
 }
 
 /* Bootstrap, only for the dashboard  */

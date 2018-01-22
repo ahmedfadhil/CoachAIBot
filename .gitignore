@@ -11,16 +11,20 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
-# Ignore all logfiles and tempfiles.
+# Ignore all log files and tempfiles.
 /log/*
 !/log/.keep
 /tmp
 /pdfs
+/csvs
+
+telegram_webhook_req
 
 # Ignore Spring files.
 /spring/*.pid
 
 /.idea
+Gemfile.lock
 
 example.pdf
 erd.pdf

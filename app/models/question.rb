@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :feedbacks
-  belongs_to :activity
+  belongs_to :planning
 end

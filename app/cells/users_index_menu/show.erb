@@ -5,7 +5,13 @@
 
       <%= link_to users_path,  class: 'mdl-navigation__link' do %>
           <button id="all-users" class="mdl-button mdl-js-button mdl-button--raised">
-            <i class="material-icons">supervisor_account</i> &nbsp Tutti
+            <i class="material-icons">supervisor_account</i> &nbsp Attivi (<%= registered %>)
+          </button>
+      <% end %>
+
+      <%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>
+          <button id="archived-users" class="mdl-button mdl-js-button mdl-button--raised" >
+            <%= image_tag 'archive_user_icon.png' %> &nbsp Archiviati (<%= archived %>)
           </button>
       <% end %>
 
@@ -21,19 +27,7 @@
             <i class="material-icons">block</i> &nbsp Sospesi
           </button>
       <%# end %>
-
-      <%#= link_to archived_users_path, class: 'mdl-navigation__link' do %>
-          <button id="archived-users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">check_circle</i> &nbsp Archiviati
-          </button>
-      <%# end %>
       -->
-
-      <%= link_to new_user_path, class: 'mdl-navigation__link' do %>
-          <button id="new-users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">fiber_new</i> &nbsp Nuovo Utente
-          </button>
-      <% end %>
 
 
     </nav>

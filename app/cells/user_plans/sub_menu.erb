@@ -15,18 +15,6 @@
           </button>
       <% end %>
 
-      <%= link_to suspended_plans_users_path(user), class: 'mdl-navigation__link', remote: true do %>
-          <button id="suspended_plans_users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">pause_circle_outline</i> &nbsp Sospesi
-          </button>
-      <% end %>
-
-      <%= link_to interrupted_plans_users_path(user), class: 'mdl-navigation__link', remote: true do %>
-          <button id="interrupted_plans_users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">stop</i> &nbsp Interrotti
-          </button>
-      <% end %>
-
       <%= link_to finished_plans_users_path(user), class: 'mdl-navigation__link', remote: true do %>
           <button id="finished_plans_users" class="mdl-button mdl-js-button mdl-button--raised" >
             <i class="material-icons">done_all</i> &nbsp Portati a termine

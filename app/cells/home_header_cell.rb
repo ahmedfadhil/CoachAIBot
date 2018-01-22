@@ -3,4 +3,8 @@ class HomeHeaderCell < Cell::ViewModel
     render
   end
 
+  def coach_user_signed_in?
+    model
+  end
+
 end

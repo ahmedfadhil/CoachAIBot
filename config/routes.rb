@@ -50,6 +50,8 @@ Rails.application.routes.draw do
       get ':id/get_feedbacks_to_do_pdf.pdf', to: 'users#get_feedbacks_to_do_pdf', as: 'get_feedbacks_to_do_pdf'
       get ':id/get_charts_data', to: 'users#get_charts_data', as: 'get_charts_data'
       get 'get_scores', to: 'users#get_scores', as: 'get_scores'
+      get 'archive/:id', to: 'users#archive', as: 'archive'
+      get 'restore/:id', to: 'users#restore', as: 'restore'
     end
   end
 
@@ -66,7 +68,7 @@ Rails.application.routes.draw do
 
   resources :questions do
     collection do
-      get 'new/a_id', to: 'questions#new', as: 'new'
+      get 'new/planning_id', to: 'questions#new', as: 'new'
     end
   end
 
@@ -77,13 +79,12 @@ Rails.application.routes.draw do
   get 'static_pages/help'
   get 'static_pages/about'
 
-  devise_for :coach_users
+  devise_for :coach_users#, :controllers => {sessions: 'sessions'}
   get 'home/index'
   root 'home#index'
 
   # Webhooks
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
-  post '/webhooks/chatscript_vbc43edbf1614a075954dvd4bfab34l1/upload_health_features' => 'webhooks#upload_health_features'
 
 	# Wearable devices
 	# Actions reserved for the coach:

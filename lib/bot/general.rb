@@ -12,7 +12,8 @@ class GeneralActions
 
   def back_to_menu
     @state['state'] = 1
-    @user.set_user_state (@state.except 'plan_name', 'notification_id', 'question_id')
+    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
+    @user.save
   end
 
   def back_to_menu_with_menu
@@ -23,14 +24,14 @@ class GeneralActions
   end
 
   def clean_state
-    @user.set_user_state (@state.except 'plan_name', 'notification_id', 'question_id')
+    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
     @user.save
     @user
   end
 
   def set_state(state)
     @state['state'] = state
-    @user.set_user_state @state
+    @user.set_bot_command_data @state
     @user
   end
 
@@ -46,7 +47,7 @@ class GeneralActions
 
   def set_plan_name(plan_name)
     @state['plan_name'] = plan_name
-    @user.set_user_state @state
+    @user.set_bot_command_data @state
   end
 
   def send_chat_action(action)
@@ -107,7 +108,7 @@ class GeneralActions
 
   def send_doc(file_path)
     @api.call('sendDocument', chat_id: @user.telegram_id,
-              document: Faraday::UploadIO.new(file_path, 'pdf'))
+              document: Faraday::UploadIO.new(file_path, 'pdf'), reply_markup: GeneralActions.menu_keyboard)
   end
 
   # static methods

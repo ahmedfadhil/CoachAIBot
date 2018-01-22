@@ -1,7 +1,7 @@
 <% provide(:sub_title, 'Patients') %>
 
 <div>
-  <%= cell(:users_index_menu, nil) %>
+  <%= cell(:users_index_menu, current_coach_user) %>
 
   <div id="patients">
     <div class="users-index"></div>
@@ -18,6 +18,14 @@
     <div class="row">
       <% @users.each do |user|  %>
           <%= cell(:user, user) %>
+      <% end %>
+    </div>
+
+    <div class="row right-align-btn">
+      <%= link_to new_user_path, class: 'mdl-navigation__link' do %>
+          <button id="new-users" class="new-btn mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">fiber_new</i> &nbsp Nuovo Utente
+          </button>
       <% end %>
     </div>
 

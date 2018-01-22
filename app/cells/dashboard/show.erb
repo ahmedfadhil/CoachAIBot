@@ -19,7 +19,7 @@
             </tr></thead>
             <tbody>
 
-            <% reds.find_each do |red_user| %>
+            <% reds.each do |red_user| %>
                 <tr>
                   <td><%= user_id_link(red_user) %></td>
                   <td><%= user_name_link(red_user) %></td>
@@ -35,7 +35,7 @@
     <div class="col-lg-4 col-md-12">
       <div class="card">
         <div class="card-header" data-background-color="orange">
-          <h4 class="title">Pazienti CHE INIZIAMO A MANCARE LE SCADENZE</h4>
+          <h4 class="title">Pazienti CHE MANCANO LE SCADENZE</h4>
           <p class="category">Significa che stanno iniziando a mancare le scadenze dei feedback oppure hanno tra il 5% ed il 20% di attivita' non portate a termine. </p>
         </div>
         <div class="card-content table-responsive">
@@ -45,7 +45,7 @@
               <th>Nome</th>
             </tr></thead>
             <tbody>
-            <% yellows.find_each do |yellow_user| %>
+            <% yellows.each do |yellow_user| %>
                 <tr>
                   <td><%= user_id_link(yellow_user) %></td>
                   <td><%= user_name_link(yellow_user) %></td>
@@ -70,7 +70,7 @@
               <th>Name</th>
             </tr></thead>
             <tbody>
-            <% greens.find_each do |green_user| %>
+            <% greens.each do |green_user| %>
                 <tr>
                   <td><%= user_id_link(green_user) %></td>
                   <td><%= user_name_link(green_user) %></td>

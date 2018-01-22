@@ -26,10 +26,8 @@ class UserPlansCell < Cell::ViewModel
         'mdl-card__titleNew'
       when 1
         'mdl-card__titleDelivered'
-      when 2
-        'mdl-card__titleSuspended'
       else
-        'mdl-card__titleStopped' # or finished
+        'mdl-card__titleSuspended'
     end
   end
 

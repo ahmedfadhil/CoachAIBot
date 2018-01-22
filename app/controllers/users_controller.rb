@@ -4,9 +4,11 @@ class UsersController < ApplicationController
   before_action :authenticate_coach_user!
   respond_to :html, :js
   layout 'profile'
+  ARCHIVED = 'ARCHIVED'
+  REGISTERED = 'REGISTERED'
 
   def index
-    @users = User.where(coach_user_id: current_coach_user.id)
+    @users = User.where('coach_user_id = ? AND state <> ?', current_coach_user.id, ARCHIVED)
   end
 
   def new
@@ -15,10 +17,11 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    user.state = REGISTERED
     if user.valid?
       user.save!
       current_coach_user.users << user
-      features = generate_features user
+      features = assign_questionnaires user
       if features.nil?
         flash[:err] = "C'e' stato un problema interno e l'utente non e' stato inserito, riprova piu' tardi!"
       else
@@ -37,22 +40,12 @@ class UsersController < ApplicationController
 
   def features
     @user = User.find(params[:id])
-    @features = @user.feature
-  end
 
-  # active users
-  def active
-    @users = User.all.limit 1
-  end
-
-  #suspended users
-  def suspended
-    @users = User.all.limit 10
   end
 
   #archived users
   def archived
-    @users = User.all.limit 4
+    @users = User.where(:state => ARCHIVED)
   end
 
   def plans
@@ -124,15 +117,40 @@ class UsersController < ApplicationController
     render json: data, status: :ok
   end
 
+  def archive
+    user = User.find(params[:id])
+    user.state = ARCHIVED
+    user.save!
+    flash[:OK] = 'Utente ARCHIVIATO con successo!'
+    redirect_to users_path
+  end
+
+  def restore #from archived
+    user = User.find(params[:id])
+    user.state = REGISTERED
+    user.save!
+    flash[:OK] = 'Utente RIATTIVATO con successo!'
+    redirect_to users_path
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    flash[:OK] = 'Utente ELIMINATO con successo!'
+    redirect_to users_path
+  end
+
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :cellphone)
+    params.require(:user).permit(:first_name, :last_name, :email, :cellphone, :age)
   end
 
-  def generate_features(user)
-    Feature.create(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
+  def assign_questionnaires(user)
+    Questionnaire.where(initial: true).each do |questionnaire|
+      Invitation.create(user: user, questionnaire: questionnaire)
+    end
   end
 
 end

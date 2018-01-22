@@ -19,7 +19,7 @@ module UsersHelper
         end
       else
         if planning.schedules.empty?
-          month, turn = week_and_order('month', plan, planning, n)
+          month, turn = week_and_order('month', planning.plan, planning, notification)
           "Per la #{turn} volta durante il #{month} mese."
         else
           "Il giorno #{notification.date.strftime('%d.%m.%Y')} alle ore #{notification.time.strftime('%H:%M')}."

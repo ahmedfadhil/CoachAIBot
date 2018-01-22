@@ -1,3 +1,25 @@
+.right-align-btn{
+  text-align: -webkit-right;
+}
+
+.new-btn{
+  background: green;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+.centered-row{
+  display: grid;
+}
+
+.centered-col{
+  margin: auto;
+}
+
+.user_archived{
+  min-height: auto;
+}
+
 .sub_menu{
   background-color: white;
 }
@@ -25,12 +47,12 @@
 }
 
 .user-card-n{
-  margin-left: 20px;
-  margin-top: 20px;
+  margin-left: 56px;
+  margin-top: 5px;
 }
 
 .user-card-name{
-  margin-top: 25px;
+  margin-top: 0px;
   font-family: sans-serif;
   font-size: 20px;
   text-align: -webkit-center;
@@ -40,6 +62,7 @@
 .user-card-actions.mdl-card__actions{
   outline: #494d4e solid 1px;
   text-align: -webkit-right;
+  margin-top: 5px;
 }
 
 .user-card-grid{
@@ -220,7 +243,7 @@ nwe-patient-card > .mdl-card__title {
 
 .patient-insert-card-wide.mdl-card {
   width: 640px;
-  height: 360px;
+  height: 420px;
 
 }
 

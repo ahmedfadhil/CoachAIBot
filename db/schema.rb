@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20180117114946) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
+  create_table "bot_commands", force: :cascade do |t|
+    t.string "data"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_bot_commands_on_user_id"
+  end
+
   create_table "chats", force: :cascade do |t|
     t.integer "coach_user_id"
     t.integer "user_id"
@@ -94,36 +100,6 @@ ActiveRecord::Schema.define(version: 20180117114946) do
     t.index ["user_id"], name: "index_daily_logs_on_user_id"
   end
 
-  create_table "features", force: :cascade do |t|
-    t.integer "physical"
-    t.integer "health"
-    t.integer "mental"
-    t.integer "coping"
-    t.string "physical_sport"
-    t.string "physical_sport_frequency"
-    t.string "physical_sport_intensity"
-    t.string "work_physical_activity"
-    t.string "health_personality"
-    t.string "health_wellbeing_meaning"
-    t.string "health_nutritional_habits"
-    t.string "health_drinking_water"
-    t.string "health_vegetables_eaten"
-    t.string "health_energy_level"
-    t.string "coping_stress"
-    t.string "coping_sleep_hours"
-    t.string "coping_energy_level"
-    t.string "mental_nervous"
-    t.string "mental_depressed"
-    t.string "mental_effort"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "foot_bicycle"
-    t.integer "age"
-    t.string "py_cluster"
-    t.index ["user_id"], name: "index_features_on_user_id"
-  end
-
   create_table "feedbacks", force: :cascade do |t|
     t.text "answer"
     t.date "date"
@@ -133,6 +109,15 @@ ActiveRecord::Schema.define(version: 20180117114946) do
     t.datetime "updated_at", null: false
     t.index ["notification_id"], name: "index_feedbacks_on_notification_id"
     t.index ["question_id"], name: "index_feedbacks_on_question_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "questionnaire_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_id"], name: "index_invitations_on_questionnaire_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -168,6 +153,13 @@ ActiveRecord::Schema.define(version: 20180117114946) do
     t.datetime "updated_at", null: false
     t.integer "fitbit_integration"
     t.index ["user_id"], name: "index_objectives_on_user_id"
+	end
+  create_table "options", force: :cascade do |t|
+    t.string "text"
+    t.integer "questionnaire_question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_question_id"], name: "index_options_on_questionnaire_question_id"
   end
 
   create_table "plannings", force: :cascade do |t|
@@ -197,13 +189,40 @@ ActiveRecord::Schema.define(version: 20180117114946) do
     t.index ["user_id"], name: "index_plans_on_user_id"
   end
 
+  create_table "questionnaire_answers", force: :cascade do |t|
+    t.string "text"
+    t.integer "invitation_id"
+    t.integer "questionnaire_question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invitation_id"], name: "index_questionnaire_answers_on_invitation_id"
+    t.index ["questionnaire_question_id"], name: "index_questionnaire_answers_on_questionnaire_question_id"
+  end
+
+  create_table "questionnaire_questions", force: :cascade do |t|
+    t.integer "q_type"
+    t.string "text"
+    t.integer "questionnaire_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_id"], name: "index_questionnaire_questions_on_questionnaire_id"
+  end
+
+  create_table "questionnaires", force: :cascade do |t|
+    t.string "title"
+    t.string "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "initial"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.text "text"
     t.string "q_type"
-    t.integer "activity_id"
+    t.integer "planning_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_questions_on_activity_id"
+    t.index ["planning_id"], name: "index_questions_on_planning_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -231,7 +250,11 @@ ActiveRecord::Schema.define(version: 20180117114946) do
     t.string "identity_token"
     t.integer "identity_token_expires_at"
     t.string "access_token"
-    t.string "cluster"
+    t.integer "cluster"
+    t.string "profile_img"
+    t.string "aasm_state"
+    t.integer "age"
+    t.string "py_cluster"
     t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
   end
 

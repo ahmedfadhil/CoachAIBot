@@ -1,4 +1,4 @@
-require 'bot/general_actions'
+require 'bot/general'
 require 'csv'
 
 # Congregate patients, that is, clusters patients into 3 main clusters <GREEN>, <YELLOW>, <RED>
@@ -12,8 +12,8 @@ class Cluster
   end
 
   def group
-    users = User.joins(:plans).where(:plans => {:delivered => 1} )
-    users.find_each do |user|
+    users = User.joins(:plans).where(:plans => {:delivered => 1} ).uniq
+    users.each do |user|
       plans = user.plans.where(:delivered => 1)
       therms = get_therms(plans)
       mark(user, therms[:to_do_activities], therms[:undone_activities], therms[:undone_feedback_days])
@@ -67,7 +67,7 @@ class Cluster
 
   def count_undone_activities(planning)
     undone = 0
-    question_id = planning.activity.questions.where(:q_type => 'completeness').first.id
+    question_id = planning.questions.where(:q_type => 'completeness').first.id
     planning.notifications.where('date < ?', Date.today).find_each do |notification|
       undone += notification.feedbacks.where(:question_id => question_id, :answer => NO_ANSWER).count
     end
@@ -100,10 +100,10 @@ class Cluster
   def mark(user, to_do_activities, undone_activities, undone_feedback_days)
     if (undone_activities <= YELLOW_THRESHOLD*to_do_activities) && (undone_feedback_days <= 3 )
       update(user, GREEN)
-    elsif (undone_activities <= RED_THRESHOLD*to_do_activities) && (undone_feedback_days <= 6 )
+    elsif (undone_activities <= RED_THRESHOLD*to_do_activities) && (undone_feedback_days <= 6 ) && (undone_feedback_days > 3 )
       update(user, YELLOW)
     else
-      if user.cluster != RED
+      if user.cluster != 2 #we use a string because
         communicator = Communicator.new
         communicator.communicate_user_critical(user)
       end
@@ -142,9 +142,9 @@ class Cluster
   def save_py_prediction(id, prediction)
     users = User.where(id: id)
     unless users.empty?
-      features = users.first.feature
-      features.py_cluster = prediction
-      features.save!
+      user = users.first
+      user.py_cluster = prediction
+      user.save!
     end
   end
 end

@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
+    aasm (4.12.3)
+      concurrent-ruby (~> 1.0)
     actioncable (5.1.4)
       actionpack (= 5.1.4)
       nio4r (~> 2.0)
@@ -134,7 +136,7 @@ GEM
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
-    hash_dot (2.2.0)
+    hash_dot (2.3.0)
     highstock-rails (5.0.11)
       railties (>= 3.1)
     http (2.2.2)
@@ -172,7 +174,7 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.1)
-    multi_json (1.12.2)
+    multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     mustermann (1.0.1)
@@ -191,17 +193,19 @@ GEM
     orm_adapter (0.5.0)
     pdf-core (0.7.0)
     percentage (1.0.0)
+    pg (0.20.0)
     polling (0.1.5)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
     public_suffix (3.0.1)
-    puma (3.11.0)
+    puma (3.11.2)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
+    railroady (1.5.3)
     rails (5.1.4)
       actioncable (= 5.1.4)
       actionmailer (= 5.1.4)
@@ -215,7 +219,7 @@ GEM
       railties (= 5.1.4)
       sprockets-rails (>= 2.0.0)
     rails-assets-eq.js (1.9.0)
-    rails-assets-jquery (3.2.1)
+    rails-assets-jquery (3.3.1)
     rails-assets-material-design-lite (1.1.3)
     rails-assets-mdl-selectfield (1.0.4)
       rails-assets-material-design-lite (~> 1.1.3)
@@ -230,6 +234,11 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.1.4)
       actionpack (= 5.1.4)
       activesupport (= 5.1.4)
@@ -249,7 +258,7 @@ GEM
     ruby-graphviz (1.2.3)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
-    sass (3.5.4)
+    sass (3.5.5)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -302,7 +311,7 @@ GEM
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.2)
+    uglifier (4.1.3)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -331,6 +340,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm (~> 4.12, >= 4.12.3)
   api-ai-ruby
   awesome_print
   byebug
@@ -356,15 +366,18 @@ DEPENDENCIES
   material_design_lite-rails (~> 1.3)
   oauth2 (= 1.4.0)
   percentage
+  pg (= 0.20.0)
   polling
   prawn (~> 2.2, >= 2.2.2)
   puma (~> 3.7)
+  railroady
   rails (~> 5.1.1)
   rails-assets-eq.js
   rails-assets-jquery
   rails-assets-mdl-selectfield
   rails-assets-polyfills
   rails-erd
+  rails_12factor (= 0.0.2)
   record_tag_helper (~> 1.0)
   sass-rails (~> 5.0)
   selenium-webdriver
@@ -376,10 +389,14 @@ DEPENDENCIES
   telegram-bot-ruby
   therubyracer
   time_difference
+  tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   wicked_pdf
   wkhtmltopdf-binary-edge
 
+RUBY VERSION
+   ruby 2.4.0p0
+
 BUNDLED WITH
-   1.16.0.pre.3
+   1.15.4

@@ -1,3 +1,47 @@
+/* banner */
+
+
+.banner {
+  position: relative;
+  background: #ffffff url('CoachAI Graphics/banner.png') no-repeat center;
+  height: 800px;
+  width: auto;
+  text-align: -webkit-center;
+}
+
+.btn-banner{
+  text-align: -webkit-center;
+  /* margin-bottom: 22px; */
+  margin-top: -55px;
+}
+
+
+/**
+ * Popup
+ */
+
+#login_pop_up {
+  display: none;
+}
+
+.large-btn-home{
+  width: auto;
+  height: 50px;
+  font-size: xx-large;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -13,6 +57,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+.login_img{
+  width: 200px;
+  height: auto;
+}
 
 body {
   margin: 0;
@@ -62,10 +111,9 @@ a img{
 
 
 .android-logo-image {
-  height: 28px;
-  width: 140px;
+  height: 50px;
+  width: 60px;
 }
-
 
 .android-header {
   overflow: visible;
@@ -175,7 +223,8 @@ a img{
   height: 800px;
   width: auto;
   background-color: #f3f3f3;
-  background: url('slide01.jpg') center 30% no-repeat;
+  //background: url('slide01.jpg') center 30% no-repeat;
+  background: url('CoachAI Graphics/banner.png') center 30% no-repeat;
   background-size: cover;
 }
 
@@ -197,14 +246,16 @@ a img{
 }
 
 .android-create-character {
-  font-size: 21px;
-  padding-top: 400px;
+  font-size: 25px;
+  padding-top: 340px;
 }
 
 .android-create-character a {
   text-decoration: none;
-  color: #767777;
+  color: #4b5252;
   font-weight: 300;
+  font-size: larger;
+  height: inherit;
 }
 
 .android-screen-section {

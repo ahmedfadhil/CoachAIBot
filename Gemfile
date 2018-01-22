@@ -1,3 +1,5 @@
+ruby '2.4.0'
+
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
@@ -5,6 +7,13 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
+
+# use svg files in views
+#gem 'inline_svg'
+
+# finite state machine for user <-> bot interaction
+# gem 'state_machines'
+gem 'aasm', '~> 4.12', '>= 4.12.3'
 
 gem 'record_tag_helper', '~> 1.0'
 
@@ -110,16 +119,15 @@ gem 'material_design_lite-rails', '~> 1.3'
 gem 'rails-assets-mdl-selectfield'
 gem 'rails-assets-polyfills'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'selenium-webdriver'
-
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+  gem 'railroady'
 end
 
 group :development do
@@ -140,7 +148,9 @@ end
 
 group :production do
   # Heroku requests postgres for deploy
-  #gem 'pg','0.17.1'
+  gem 'pg', '0.20.0'
   # Used by heroku to serve static assets and css stylesheets
-  #gem 'rails_12factor', '0.0.2'
+  gem 'rails_12factor', '0.0.2'
 end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

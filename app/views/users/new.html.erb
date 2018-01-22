@@ -25,6 +25,14 @@
           </div>
 
           <div id ="contact">
+
+            <div id="age">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.number_field :age, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', placeholder: 'Eta\'' %>
+                <span class="mdl-textfield__error">Deve essere formato da numeri e non lettere!</span>
+              </div>
+            </div>
+
             <div id="phone">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <%= f.text_field :cellphone, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', placeholder: 'Numero cell (solo numeri)' %>

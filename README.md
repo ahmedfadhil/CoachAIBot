@@ -1,27 +1,89 @@
 # Running in development
 
-Get a copy of chatscript-bot and start it using:
+* Clone the repository and access the cloned folder
+```
+git clone git@github.com:ahmedfadhil/CoachAIBot.git
+cd CoachAiBot
+```
+
+* If you never used the system, remember to install all the dependencies and then run all migrations and seed the database.
+```
+bundle install              #installs dependencies
+
+bundle exec rake db:drop    #drops any pld version of the db
+bundle exec rake db:create  #creates a new db
+bundle exec rake db:migrate #runs migrations
+bundle exec rake db:seed    #seeds the db
+```
+
+* If you already cloned the repo pull the changes
 
 ```
-./BINARIES/LinuxChatScript64 port=1024 language=italian
+cd CoachAiBot
+git pull
 ```
 
-Start ngrock:
+* Switch to development branch
 
 ```
+git checkout development
+```
+
+* Start ngrok. Ngrok will bind your localhost:3000 to a public address
+
+```
+cd CoachAIBot/ngrok
 ./ngrok http 3000
 ```
 
-Copy your https public address, it should look like this: `https://8750c73e.ngrok.io`
-
-Now visit
+* Now you should see something like this:
 
 ```
-https://api.telegram.org/bot434866375:AAF2FXmS2K598jsonxeilsnnxyOwAd83vHs/setWebhook?url=https://8750c73e.ngrok.io/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
+ngrok by @inconshreveable                                       (Ctrl+C to quit)
+                                                                                
+Session Status                online                                            
+Account                       Marian Diaconu (Plan: Free)                       
+Version                       2.2.8                                             
+Region                        United States (us)                                
+Web Interface                 http://127.0.0.1:4040                             
+Forwarding                    http://d9e5ba0e.ngrok.io -> localhost:3000        
+Forwarding                    https://d9e5ba0e.ngrok.io -> localhost:3000       
+                                                                                
+Connections                   ttl     opn     rt1     rt5     p50     p90       
+                              0       0       0.00    0.00    0.00    0.00 
 ```
 
-But replace `https://8750c73e.ngrok.io` with your actual public address. You should see the message "Webhook was set"
+* Set Telegram Bot Webhook by making a GET request like this:
 
-## Developing your own bot
+```
+curl https://api.telegram.org/bot294560170:AAFaB9cQ-hCzQEfYNr6z30gD2K7FeDZ1gVQ/setWebhook?url=${https_public_address}/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
+```
 
-You should do this if you are willing to develop your own bot. Contact Marian because he knows what to do!
+But replace `${https_public_address}` with your actual https public address. <br/>
+In the example is `https://d9e5ba0e.ngrok.io`. 
+
+This will tell to TelegramAPI to send the user interactions with the bot `@CoachAIBot` to the Rails server.
+
+* If everything went well, you will receive a JSON response like this
+```
+{"ok":true,"result":true,"description":"Webhook is set"}
+```
+
+* Lets start [crono](https://github.com/plashchynski/crono) time-based background job scheduler daemon for Ruby on Rails.
+We use it for periodically tasks like sending Notifications 
+```
+bundle exec crono start RAILS_ENV=development
+```
+
+* Now you can start your Rails server.
+```
+rails s
+```
+
+* Access `http://localhost:3000/` for the Web Platform 
+* Credentials for LOG IN
+```
+email:      user@example.com
+password:   12345678
+```
+* Search `@CoachAIBot` on [Telegram](https://web.telegram.org/#/login)

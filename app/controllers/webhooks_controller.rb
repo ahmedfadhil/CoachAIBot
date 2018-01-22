@@ -1,4 +1,4 @@
-require 'bot/dispatcher'
+require 'bot_v2/dispatcher'
 
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token

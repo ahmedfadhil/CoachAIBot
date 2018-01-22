@@ -3,7 +3,7 @@
 
     <span class="android-title mdl-layout-title">
       <%= link_to home_index_path do %>
-        <%= image_tag 'coachAI.jpg', class: 'android-logo-image' %>
+        <%= image_tag 'CoachAI Graphics/CoachAI_logo.png', class: 'android-logo-image' %>
       <% end %>
     </span>
 
@@ -19,9 +19,18 @@
         <%= link_to static_pages_help_path, class: 'mdl-navigation__link mdl-typography--text-uppercase' do %>
             Aiuto
         <% end %>
-        <%= link_to coach_user_session_path, class: 'mdl-navigation__link mdl-typography--text-uppercase' do %>
-            Login
+
+
+        <% if coach_user_signed_in? %>
+            <%= link_to profile_index_path, class: 'mdl-navigation__link mdl-typography--text-uppercase' do %>
+                Dashboard
+            <% end %>
+        <% else %>
+            <%= link_to '', id: 'btn_login_2', class: 'mdl-navigation__link mdl-typography--text-uppercase' do %>
+                Login
+            <% end %>
         <% end %>
+
       </nav>
     </div>
   </div>

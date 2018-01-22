@@ -1,5 +1,6 @@
 require 'telegram/bot'
 require 'chatscript'
+require "#{Rails.root}/lib/bot_v2/general"
 
 class LoginManager
   attr_reader :message, :user, :api, :cs_bot
@@ -39,11 +40,11 @@ class LoginManager
     user.telegram_id = chat_id
     user.reset_user_state
     state = new_state
-    user.set_user_state(state)
-    user.feature = Feature.new(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
+    user.set_bot_command_data(state)
+    Feature.create(physical: 0, health: 0, mental: 0, coping: 0, user_id: user.id)
     if user.save
       @api.call('sendMessage', chat_id: chat_id,
-                text: "Ciao #{user.last_name}! Io sono CoachAI")
+                text: "Ciao #{user.last_name}! Io sono CoachAI", reply_markup: GeneralActions.menu_keyboard)
     end
   end
 
@@ -56,9 +57,6 @@ class LoginManager
   end
 
   def valid(phone_number)
-    prefix = phone_number[0,2]
-    # NEED TO CHECK PHONE NUMBER FORMAT
-
     user = User.find_by_cellphone(phone_number)
     if user.nil?
       false
