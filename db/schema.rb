@@ -153,7 +153,8 @@ ActiveRecord::Schema.define(version: 20180117114946) do
     t.datetime "updated_at", null: false
     t.integer "fitbit_integration"
     t.index ["user_id"], name: "index_objectives_on_user_id"
-	end
+  end
+
   create_table "options", force: :cascade do |t|
     t.string "text"
     t.integer "questionnaire_question_id"

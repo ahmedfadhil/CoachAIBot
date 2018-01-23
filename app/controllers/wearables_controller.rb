@@ -1,7 +1,7 @@
 require 'oauth2'
 require 'base64'
 require 'fitbit/client'
-require 'bot/general_actions'
+require 'bot/general'
 
 class WearablesController < ApplicationController
 	before_action :authenticate_coach_user!, only: [:index, :show, :invite]

@@ -1,5 +1,4 @@
 require 'telegram/bot'
-require 'JSON'
 
 class GeneralActions
   attr_reader :user, :state, :api

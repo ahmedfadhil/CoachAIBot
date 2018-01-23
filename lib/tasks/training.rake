@@ -1,4 +1,4 @@
-require 'bot/general_actions'
+require 'bot/general'
 
 def notify_new
 	User.all.each do |user|
