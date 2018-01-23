@@ -1,3 +1,15 @@
+.category{
+  font-size: 15px;
+}
+
+.drawer-link-text-size{
+  font-size: 19px;
+}
+
+#counter-label-size{
+  font-size: 15px;
+}
+
 .patients-contebt{
   min-height: 800px;
 }
@@ -44,8 +56,13 @@
 
 /* Material  */
 
-.mdl-button--icon{
-  height: 43px;
+#admin-name{
+  font-size: large;
+}
+
+#notification-btn{
+  height: 100%;
+  width: 50px;
 }
 
 .material-icons.icon,
@@ -187,7 +204,7 @@ html, body {
 .navigation .mdl-navigation__link .material-icons {
   font-size: 24px;
   color: rgba(255, 255, 255, 0.56);
-  margin-right: 32px;
+  margin-right: 10px;
 }
 
 .content {

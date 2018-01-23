@@ -24,23 +24,11 @@ class DashboardCell < Cell::ViewModel
   end
 
   def users_with_no_plan
-    i = 0
-    User.where(:coach_user_id => model.id, :state => 'REGISTERED').each do |u|
-      if u.plans.nil?
-        i = i + 1
-      end
-    end
-    i
+    User.all.count-User.joins(:plans).where(coach_user: coach).count
   end
 
   def users_with_plans
-    i = 0
-    User.where(:coach_user_id => model.id, :state => 'REGISTERED').each do |u|
-      unless u.plans.nil?
-        i = i + 1
-      end
-    end
-    i
+    User.joins(:plans).where(coach_user: coach).count
   end
 
   def users_count

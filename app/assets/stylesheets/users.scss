@@ -1,5 +1,17 @@
+.description{
+  color: black;
+  font-size: 17px;
+}
+
 .right-align-btn{
   text-align: -webkit-right;
+}
+
+.right-align-accordion-title{
+  text-align: -webkit-right;
+  margin-top: -20px;
+  font-size: 10px;
+  color: grey;
 }
 
 .new-btn{
@@ -175,6 +187,7 @@
   height: 100%;
   padding: 54px 0;
   padding-top: 5px;
+  font-size: large;
 }
 
 #feature-table-card{
