@@ -110,7 +110,7 @@ class Objective < ApplicationRecord
 
 	def distance_progress_log
 		logs = objective_logs
-		return logs.map{ |e| e.distance }.inject(:+).floor(2) || 0
+		return (logs.map{ |e| e.distance }.inject(:+) || 0).floor(2)
 	end
 
 	def steps_progress_log

@@ -1,6 +1,7 @@
 # da cambiare tutti i require
 require 'bot_v2/api_ai_redirecter'
 require 'bot_v2/login_manager'
+require 'finite_state_machine/objectives_fsm'
 
 
 class Dispatcher
@@ -24,7 +25,7 @@ class Dispatcher
       ap "CURRENT USER: #{@user.id} STATE: #{aasm_state}"
       case aasm_state
         when 'idle'
-          manage_idle_state(text)
+          manage_idle_state_ext(text)
 
         when 'activities'
           manage_activities_state(text)
@@ -65,6 +66,32 @@ class Dispatcher
     ['Dimmi di piu', 'ulteriori dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
   end
 
+	def manage_idle_state_ext(text)
+		hash_state = JSON.parse(BotCommand.where(user: @user).last.data)
+		ap hash_state
+		if hash_state['state'] == 'objectives'
+			ap "--- objectives ---"
+			fsm = FSM::ObjectivesFSM.from_model(@user, hash_state)
+			actuator = GeneralActions.new(@user, nil)
+			response = fsm.talk(text)
+			fsm.advance_state
+			if fsm.state != "terminated"
+				fsm.update_model!(hash_state)
+				#@user.set_user_state(hash_state)
+				#@user.save!
+				BotCommand.create(user: @user, data: hash_state.to_json)
+			else
+				hash_state['state'] = 0
+				#@user.set_user_state(hash_state)
+				#@user.save!
+				BotCommand.create(user: @user, data: hash_state.to_json)
+			end
+			actuator.send_reply_with_keyboard response[:text], response[:keyboard]
+		else
+			manage_idle_state(text)
+		end
+	end
+
   def manage_idle_state(text)
     case text
       # Activities & Plans
@@ -86,6 +113,23 @@ class Dispatcher
       when /(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
+			when 'obiettivi', 'Obiettivi', 'obbiettivi', 'Obbiettivi', '/obbiettivi'
+				ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
+				fsm = FSM::ObjectivesFSM.new @user
+
+				actuator = GeneralActions.new(@user, nil)
+				response = fsm.talk
+				fsm.advance_state
+				if fsm.state != "terminated"
+					#hash_state['state'] = 'objectives'
+					#hash_state = JSON.parse(BotCommand.where(user: @user).last.data)
+					hash_state = {'state' => 'objectives'}
+					fsm.update_model!(hash_state)
+					BotCommand.create(user: @user, data: hash_state.to_json)
+					#@user.set_user_state(hash_state)
+					#@user.save!
+				end
+				actuator.send_reply_with_keyboard response[:text], response[:keyboard]
 
       else
         ApiAIRedirector.new(text, @user).redirect

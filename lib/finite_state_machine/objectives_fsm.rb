@@ -233,7 +233,7 @@ module FSM
 		end
 
 		def response_malformed(response)
-			response[:text] << "Non ho capito, potresti ripetere perfavore?"
+			response[:text] << "Non ho capito, potresti ripetere per favore?"
 			response[:keyboard] << ['Annulla']
 		end
 
