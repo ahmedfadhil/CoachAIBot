@@ -59,6 +59,29 @@ class Notifier
     end
   end
 
+  def notify_for_feedback
+    ap 'Looking for users to be Notified for Feedback...'
+    users = User.joins(:plans).where(:plans => {:delivered => 1}).uniq
+    users.each do |user|
+      message = "Ciao #{user.last_name}! Non hai ancora fornito feedback per le seguenti attivita':\n\n"
+      plans = user.plans.where(:delivered => 1)
+      plans.each do |plan|
+        plan.plannings.each do |planning|
+          notifications = planning.notifications.where('date = ? AND sent = ? AND n_type = ? AND ( (? - time) < ? )', Date.today, false, 'ACTIVITY_NOTIFICATION', Time.now, 60.minutes)
+          notifications.find_each do |notification|
+            notification.sent = true
+            notification.save
+            message += " \t-#{planning.activity.name}\n"
+          end
+        end
+      end
+      message += "\nFornisci feedback Appena puoi!"
+      unless message == "Ciao #{user.last_name}! Non hai ancora fornito feedback per le seguenti attivita':\n\n"
+        send_message(user, message)
+      end
+    end
+  end
+
   def need_to_be_notified?(user)
     message = "Ciao #{user.last_name}! Ti ricordo che hai le seguenti attivita' programmate per oggi \n\n"
     flag = false
