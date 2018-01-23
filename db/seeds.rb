@@ -7,7 +7,7 @@ title = %Q(Attivita' Fisica)
 question_hash = {
     %Q(Qual'e' la tua attivita' preferita di sport tra quelle indicate?) => ["ciclismo","nuoto","corsa", "yoga", "danza", "sport di squadra", "camminata", "altro", "non ho uno sport preferito"],
     %Q(Quanto spesso ti eserciti?) => ["Quasi mai","3 o piu' volte in settimana","1/2 volte in settimana"],
-    %Q(Con che intensita' ti eserciti?) => ["tranquilla","media", "ci vado vesante", "non mi esercito"],
+    %Q(Con che intensita' ti eserciti?) => ["tranquilla","media", "ci vado pesante", "non mi esercito"],
     %Q(Il tuo lavoro richiede stare seduti o essere in movimento?) => ["muoversi", "stare seduti", "entrambe"],
     %Q(Quanto spesso vai in bici o a piedi?) => ["A volte","Raramente","Spesso"]
 }

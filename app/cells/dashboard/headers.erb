@@ -8,7 +8,7 @@
       <h3 class="title"><%= users_with_plans %><small>Pazienti</small></h3>
     </div>
     <div class="card-footer">
-      <div class="stats">
+      <div id="counter-label-size" class="stats">
         <i class="material-icons">date_range</i> Numero totale di pazienti che stanno seguendo un piano
       </div>
     </div>
@@ -25,7 +25,7 @@
       <h3 class="title"><%= users_with_no_plan %><small>Pazienti</small></h3>
     </div>
     <div class="card-footer">
-      <div class="stats">
+      <div id="counter-label-size" class="stats">
         <i class="material-icons text-danger">warning</i> <a href="<%= users_path %>">Consegna loro un piano</a>
       </div>
     </div>
@@ -42,7 +42,7 @@
       <h3 class="title"><%= plans_count %></h3>
     </div>
     <div class="card-footer">
-      <div class="stats">
+      <div id="counter-label-size" class="stats">
         <i class="material-icons">local_offer</i> Numero di piani presenti nel sistema, sia consegnati che non
       </div>
     </div>
@@ -59,7 +59,7 @@
       <h3 class="title"><%= activities_count %></h3>
     </div>
     <div class="card-footer">
-      <div class="stats">
+      <div id="counter-label-size" class="stats">
         <i class="material-icons">update</i> <a href="<%= activities_path %>">Gestisci l'archivio delle attivita'</a>
       </div>
     </div>

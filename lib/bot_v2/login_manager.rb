@@ -38,10 +38,10 @@ class LoginManager
   def init_user
     user.telegram_id = chat_id
     if user.save
-      reply = "Ciao #{user.last_name}! Io sono CoachAI, il bot che ti tiene in contatto con il tuo coach. Attraverso me potravi fare le seguenti cose:\n" +
+      reply = "Ciao #{user.last_name}! Io sono CoachAI, il bot che ti tiene in contatto con il tuo coach. Attraverso me potrai fare le seguenti cose:\n" +
           "\n-Ricevere e visualizzare le attivita' che ti vengono assegnate dal coach #{@user.coach_user.first_name} #{@user.coach_user.last_name}" +
           "\n-Fornire feedback sulle attivita' che avevi da fare mano a mano che le fai, per fare in modo che il tuo coach sappia i tuoi progressi" +
-          "\n-Ricevere meessaggi diretti dal tuo coach e rispondergli con facilita'"
+          "\n-Ricevere messaggi diretti dal tuo coach e rispondergli con facilita'"
       @api.call('sendMessage', chat_id: chat_id,
                 text: reply)
       reply = "Prima di poter utilizzarmi in questo modo pero' devi completare i questionari presenti nella sezione QUESTIONARI. Non dimenticartelo!\n\n" +
@@ -76,7 +76,7 @@ class LoginManager
 
   def contact_phone_number
     # phone number without prefix
-    @message[:message][:contact][:phone_number][2,12]
+    @message[:message][:contact][:phone_number].chars.last(10).join
   end
 
   def contact

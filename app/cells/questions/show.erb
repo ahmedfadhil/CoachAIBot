@@ -20,15 +20,15 @@
           <%= short_answers(question) %>
         </td>
 
-        <td>
+
           <% if is_not_active(planning.plan) %>
+            <td>
               <%= link_to 'Elimina ', question_path(question), method: 'delete',
                           data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
                           class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
-          <% else %>
-              <i>Un piano Attivo non puo' essere eliminato </i>
+            </td>
           <% end %>
-        </td>
+
       </tr>
   <% end %>
 

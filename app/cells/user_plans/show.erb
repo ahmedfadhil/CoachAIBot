@@ -1,11 +1,6 @@
 <!-- Submenu for the plans list of a specified patient -->
 <%= sub_menu %>
 
-<div id="myTitle">
-  <h5>Elenco PIANI di <%= user.last_name %> <%= user.first_name %></h5>
-</div>
-
-
 <div>
   <% if plans.size == 0 %>
       <div id="no-info-grid" class="mdl-grid">
@@ -17,6 +12,8 @@
             <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
 
               All'utente <%= user.last_name %> <%= user.first_name %> non e' stato ancora definito un piano da seguire. Aggiungi un nuovo piano per iniziare!
+              <br>
+              Se ancora non puoi vedere il bottone AGGIUNGI UN NUOVO PIANO significa che il paziente non ha ancora completato la fase di profilazione.
 
             </div>
           </div>
@@ -50,7 +47,7 @@
         <div class="plan-activities-container">
           <div class="accordion">
             <% plan.plannings.each do |planning| %>
-                <h3 data-position="id_<%= planning.id %>">Attivita':&nbsp;&nbsp;<b><%= planning.activity.name %></b></h3>
+                <h3 data-position="id_<%= planning.id %>">Attivita':&nbsp;&nbsp;<b><%= planning.activity.name %></b> <div class="right-align-accordion-title">Click per espandere</div></h3>
                 <div>
                   <%= cell(:planning_description, planning) %>
                   <%= cell(:schedules, planning) %>
@@ -122,8 +119,10 @@
 </div>
 
 <div class="row right-align-btn">
-  <%= button_to new_plans_path(:u_id => user.id), class: 'new-btn mdl-button mdl-js-button',
-                method: 'post' do %>
-      Aggiungi un nuovo piano
+  <% if user.profiled? %>
+    <%= button_to new_plans_path(:u_id => user.id), class: 'new-btn mdl-button mdl-js-button',
+                  method: 'post' do %>
+        Aggiungi un nuovo piano
+    <% end %>
   <% end %>
 </div>
