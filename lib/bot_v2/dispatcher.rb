@@ -86,7 +86,7 @@ class Dispatcher
 				#@user.save!
 				BotCommand.create(user: @user, data: hash_state.to_json)
 			end
-			actuator.send_reply_with_keyboard response[:text], response[:keyboard]
+			actuator.send_reply_with_keyboard_hash response[:text], response[:keyboard]
 		else
 			manage_idle_state(text)
 		end
@@ -129,7 +129,7 @@ class Dispatcher
 					#@user.set_user_state(hash_state)
 					#@user.save!
 				end
-				actuator.send_reply_with_keyboard response[:text], response[:keyboard]
+				actuator.send_reply_with_keyboard_hash response[:text], response[:keyboard]
 
       else
         ApiAIRedirector.new(text, @user).redirect
