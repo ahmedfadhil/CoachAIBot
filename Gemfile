@@ -141,6 +141,14 @@ group :development do
 	gem 'capistrano-rails'
   gem 'capistrano-rbenv'
 	gem 'capistrano-passenger'
+
+  gem 'rack-mini-profiler', require: false
+  # For memory profiling (requires Ruby MRI 2.1+)
+  gem 'memory_profiler'
+
+  # For call-stack profiling flamegraphs (requires Ruby MRI 2.0.0+)
+  gem 'flamegraph'
+  gem 'stackprof'     # For Ruby MRI 2.1+
 end
 
 group :production do

@@ -12,24 +12,18 @@ class CommunicationsController < ApplicationController
     communication = Communication.find(params[:id])
     communication.read_at = Time.now
     communication.save!
-    redirect_to compute_destination(communication)
+    patient = communication.user
+    case communication.c_type
+      when 0, 2
+        redirect_to user_path(patient)
+      when 1
+        redirect_to features_users_path(patient)
+      else
+        redirect_to chat_chats_path(patient)
+    end
   end
 
   def all
     @communications = Communication.where(:coach_user_id => params[:id])
-  end
-
-  private
-
-  def compute_destination(communication)
-    patient = communication.user
-    case communication.c_type
-      when 0, 2
-        user_path(patient)
-      when 1
-        features_users_path(patient)
-      else
-        chat_chats_path(patient)
-    end
   end
 end
