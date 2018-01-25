@@ -123,7 +123,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'selenium-webdriver'
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  #gem 'sqlite3'
   gem 'railroady'
 end
 
@@ -149,6 +149,7 @@ group :development do
   # For call-stack profiling flamegraphs (requires Ruby MRI 2.0.0+)
   gem 'flamegraph'
   gem 'stackprof'     # For Ruby MRI 2.1+
+  gem 'pg', '0.20.0'
 end
 
 group :production do
