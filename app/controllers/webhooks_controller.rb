@@ -9,6 +9,7 @@ class WebhooksController < ApplicationController
     rescue Exception => e
       ap 'Rescued from:'
       ap e
+      ap e.backtrace
     end
     render json: nil, status: :ok
   end

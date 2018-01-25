@@ -16,7 +16,8 @@ end
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 
 gem 'record_tag_helper', '~> 1.0'
-
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.1.4'
 # writing and deploying cron jobs.
 # gem 'whenever', :require => false
 
@@ -64,11 +65,10 @@ gem 'awesome_print'
 # Authentication solution
 gem 'devise'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.1'
+
 
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.10.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
