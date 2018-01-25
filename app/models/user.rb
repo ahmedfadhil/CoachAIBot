@@ -3,7 +3,6 @@ require "#{Rails.root}/lib/bot_v2/activity_informer"
 require "#{Rails.root}/lib/bot_v2/feedback_manager"
 require "#{Rails.root}/lib/bot_v2/questionnaire_manager"
 require "#{Rails.root}/lib/bot_v2/general"
-require "#{Rails.root}/lib/bot_v2/feedback_manager"
 require "#{Rails.root}/lib/modules/features_manager"
 
 class User < ApplicationRecord
@@ -306,7 +305,7 @@ class User < ApplicationRecord
       features_manager = FeaturesManager.new
       features_manager.communicate_profiling_done! self
       features_manager.save_features_to_csv self
-      features_manager.save_telegram_profile_img self
+      #features_manager.save_telegram_profile_img self
       system 'rake python_clustering &'
     end
   end
