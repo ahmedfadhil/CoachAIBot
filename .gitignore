@@ -14,9 +14,9 @@
 # Ignore all log files and tempfiles.
 /log/*
 !/log/.keep
-/tmp
-/pdfs
-/csvs
+/tmp/*
+/pdfs/*
+/csvs/*
 
 telegram_webhook_req
 
