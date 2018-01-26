@@ -22,6 +22,7 @@ class Dispatcher
       # dispatch in function of user state and text input
       aasm_state = @user.aasm_state
       ap "CURRENT USER: #{@user.id} STATE: #{aasm_state}"
+
       case aasm_state
         when 'idle'
           manage_idle_state(text)
@@ -44,51 +45,41 @@ class Dispatcher
         when 'questionnaires'
           manage_questionnaires_state(text)
 
-        else # 'responding'
+        when 'responding'
           manage_responding_state(text)
 
-
+        else
+          GeneralActions.new(@user,nil).send_reply 'Penso di non aver capito, potresti ripetere per favore?'
       end
 
     end
   end
 
-  def text
-    @message[:message][:text]
-  end
-
-  def back_strings
-    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu', 'Rispondi piu\' tardi/Torna al Menu']
-  end
-
-  def tell_me_more_strings
-    ['Dimmi di piu', 'ulteriori dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
-  end
-
   def manage_idle_state(text)
     case text
       # Activities & Plans
-      when /(\w|\s|.)*(([Aa]+[Tt]+[Ii]+[Vv]+[Ii]*[Tt]+[AaÀà]*)|([Pp]+[Ii]+[Aa]+[Nn]+([Ii]+|[Oo]+)))+(\w|\s|.)*/
+      when *activities_strings #/(\w|\s|.)*(([Aa]+[Tt]+[Ii]+[Vv]+[Ii]*[Tt]+[AaÀà]*)|([Pp]+[Ii]+[Aa]+[Nn]+([Ii]+|[Oo]+)))+(\w|\s|.)*/
         ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
         @user.get_activities!
 
       # Feedbacks
-      when /(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
+      when *feedback_strings #/(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
         ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
         @user.show_plans_to_feedback!
 
       # Messages
-      when /(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
+      when *messages_strings #/(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
         ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
         @user.get_messages!
 
       # Questionnaires
-      when /(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
+      when *questionnaires_strings #/(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
 
       else
         ApiAIRedirector.new(text, @user).redirect
+        #GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
 
     end
   end
@@ -168,6 +159,34 @@ class Dispatcher
       else
         @user.respond_questionnaire!(text)
     end
+  end
+
+  def text
+    @message[:message][:text]
+  end
+
+  def back_strings
+    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu', 'Rispondi piu\' tardi/Torna al Menu']
+  end
+
+  def tell_me_more_strings
+    ['Dimmi di piu', 'ulteriori dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
+  end
+
+  def activities_strings
+    ['attivita', 'Attivita', 'attività', 'Attività']
+  end
+
+  def questionnaires_strings
+    ['questionari', 'Questionari']
+  end
+
+  def messages_strings
+    ['messaggi', 'Messaggi']
+  end
+
+  def feedback_strings
+    ['feedback', 'Feedback']
   end
 
 end

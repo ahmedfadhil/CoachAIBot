@@ -9,6 +9,8 @@ class WebhooksController < ApplicationController
     rescue Exception => e
       ap 'Rescued from:'
       ap e
+      ap e.backtrace
+      GeneralActions.new(@user,nil).send_reply 'Forse non ho capito bene cosa intendevi, potresti ripetere per favore?'
     end
     render json: nil, status: :ok
   end

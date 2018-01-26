@@ -34,12 +34,7 @@ class User < ApplicationRecord
   end
 
   def profiled?
-    Invitation.joins(:questionnaire).where('questionnaires.initial = ? and invitations.user_id = ?', true, self.id).each do |invitation|
-      unless invitation.questionnaire_answers.count == invitation.questionnaire.questionnaire_questions.count
-        return false
-      end
-    end
-    true
+    Questionnaire.joins(:invitations).where('questionnaires.completed = ? AND invitations.user_id = ?', false, self.id).empty?
   end
 
   def archived?
@@ -56,10 +51,14 @@ class User < ApplicationRecord
   # no direct assignment to aasm_state
   # return false instead of exceptions
   aasm  :whiny_transitions => false do
+
+    ########## States ##############################################
     state :idle, :initial => true
     state :messages, :activities, :questionnaires, :responding, :feedback_plans, :feedback_activities, :feedbacking
+    ###################################################################
 
-    ########## Feedback ############
+
+    ########## Feedback Events ##############################################
     event :show_plans_to_feedback do
       transitions :from => :idle, :to => :feedback_plans,
                   :after => :send_plans_to_feedback,
@@ -94,8 +93,11 @@ class User < ApplicationRecord
       transitions :from => :feedbacking, :to => :feedbacking,
                   :after => :inform_wrong_answer
     end
+    ###################################################################
 
-    ########## Activities ############
+
+
+    ########## Activities Events ###########################################
     event :get_activities do
       transitions :from => :idle, :to => :activities,
                   :after => :send_activities,
@@ -103,8 +105,11 @@ class User < ApplicationRecord
       transitions :from => :idle, :to => :idle,
                   :after => :inform_no_activities
     end
+    ###################################################################
 
-    ########## Messages ############
+
+
+    ########## Messages Events #############################################
     event :get_messages do
       transitions :from => :idle, :to => :messages,
                   :after => :send_messages,
@@ -117,8 +122,11 @@ class User < ApplicationRecord
       transitions :from => :messages, :to => :idle,
                   :after => Proc.new {|*args| register_patient_response(*args) }
     end
+    ###################################################################
 
-    ########## Questionnaires ############
+
+
+    ########## Questionnaires Events ####################################
     event :start_questionnaires do
       transitions :from => :idle, :to => :questionnaires,
                   :after => :show_questionnaires,
@@ -145,8 +153,11 @@ class User < ApplicationRecord
       transitions :from => :responding, :to => :responding,
                   :after => :ask_last_question_again
     end
+    ###################################################################
 
-    ########## Cancel from each state to idle ############
+
+
+    ########## Cancel from each state to idle ########################
     event :cancel do
       transitions :from => :activities, :to => :idle,
                   :after => :send_menu_from_activities
@@ -163,12 +174,15 @@ class User < ApplicationRecord
       transitions :from => :feedbacking, :to => :idle,
                   :after => :send_menu_from_feedbacks
     end
+    ###################################################################
+
+
 
     ########## Send Details for Activities and Feedbacks ############
     event :get_details do
       transitions :from => :activities, :to => :idle,
                   :after => :send_activities_details
-      transitions :from => :feedback_plans, :to => :idle,
+      transitions :from => :feedback_plans, :to => :feedback_plans,
                   :after => :send_feedbacks_details
     end
 
@@ -176,11 +190,16 @@ class User < ApplicationRecord
       transitions :from => :idle, :to => :idle,
                   :after => :send_no_action_received
     end
+    ###################################################################
+
   end
+
+
+
 
   private
 
-  ########## Feedback Methods ############
+  ########## Feedback Methods ##################################################################################
   def inform_wrong_answer
     FeedbackManager.new(self).inform_wrong_answer
   end
@@ -243,7 +262,7 @@ class User < ApplicationRecord
 
   def send_feedbacks_details
     feedback_manager = FeedbackManager.new(self)
-    GeneralActions.new(self, nil).send_feedback_details(feedback_manager.plans_to_feedback)
+    feedback_manager.send_feedback_details(feedback_manager.plans_to_feedback)
     feedback_manager.send_plans_to_feedback
   end
 
@@ -251,9 +270,13 @@ class User < ApplicationRecord
     GeneralActions.new(self, nil).back_to_menu_with_menu
   end
 
-  #######################################################
+  #############################################################################################################################
 
-  ############### Activities Methods ####################
+
+
+
+
+  ############### Activities Methods ##########################################################################################
   def send_activities_details
     ActivityInformer.new(self, nil).send_details
   end
@@ -273,9 +296,12 @@ class User < ApplicationRecord
   def activities_present?
     ActivityInformer.new(self, nil).activities_present?
   end
-  #######################################################
+  ###########################################################################################################################
 
-  ############### Messages Methods ####################
+
+
+
+  ############### Messages Methods ##########################################################################################
   def send_messages
     Messenger.new(self, nil).inform
   end
@@ -295,12 +321,20 @@ class User < ApplicationRecord
   def register_patient_response(response)
     Messenger.new(self, nil).register_patient_response(response)
   end
-  ######################################################
+  #############################################################################################################################
 
-  ############### Questionnaires Methods ####################
+
+
+
+  ############### Questionnaires Methods ######################################################################################
   def register_last_response(response)
-    QuestionnaireManager.new(self).register_response(response)
-    GeneralActions.new(self, nil).send_questionnaire_finished
+    bot_command_data = command_data
+    manager = QuestionnaireManager.new(self, bot_command_data)
+    manager.register_response(response)
+    manager.send_questionnaire_finished
+    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
+    questionnaire.completed = true
+    questionnaire.save!
     if self.profiled?
       features_manager = FeaturesManager.new
       features_manager.communicate_profiling_done! self
@@ -311,7 +345,7 @@ class User < ApplicationRecord
   end
 
   def is_last_question_and_is_response?(response)
-    if is_response?(response) && QuestionnaireManager.new(self).is_last_question?
+    if is_response?(response) && QuestionnaireManager.new(self, command_data).is_last_question?
       true
     else
       false
@@ -319,58 +353,55 @@ class User < ApplicationRecord
   end
 
   def ask_next_question
-    bot_command_data = JSON.parse(BotCommand.where(user: self).last.data)
-    QuestionnaireManager.new(self).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title)
+    bot_command_data = command_data
+    QuestionnaireManager.new(self, bot_command_data).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title)
   end
 
   def ask_last_question_again
-    QuestionnaireManager.new(self).ask_last_question_again
+    QuestionnaireManager.new(self, command_data).ask_last_question_again
   end
 
   def register_response(response)
-    QuestionnaireManager.new(self).register_response(response)
+    QuestionnaireManager.new(self, command_data).register_response(response)
     ask_next_question
   end
 
   def is_response?(response)
-    QuestionnaireManager.new(self).is_response?(response)
+    QuestionnaireManager.new(self, command_data).is_response?(response)
   end
 
   def inform_wrong_questionnaire(text)
-    GeneralActions.new(self, nil).inform_wrong_questionnaire(text)
+    QuestionnaireManager.new(self, nil).inform_wrong_questionnaire(text)
   end
 
   def ask_question(questionnaire)
-    QuestionnaireManager.new(self).ask_question(questionnaire)
+    QuestionnaireManager.new(self, command_data).ask_question(questionnaire)
   end
 
   def questionnaire_is_not_finished?(questionnaire)
-    QuestionnaireManager.new(self).questionnaire_is_not_finished?(questionnaire)
+    QuestionnaireManager.new(self, command_data).questionnaire_is_not_finished?(questionnaire)
   end
 
   def show_questionnaires
-    QuestionnaireManager.new(self).show_questionnaires
+    QuestionnaireManager.new(self, command_data).show_questionnaires
   end
 
   def has_questionnaires?
-    QuestionnaireManager.new(self).has_questionnaires?
+    QuestionnaireManager.new(self, command_data).has_questionnaires?
   end
 
   def send_no_action_received
-    GeneralActions.new(self, nil).inform_no_action_received
-  end
-  ##################################################################
-
-  def back_to_menu
-    GeneralActions.new(self, nil).back_to_menu_with_menu
+    QuestionnaireManager.new(self, command_data).inform_no_action_received
   end
 
   def inform_no_questionnaires
-    GeneralActions.new(self, nil).inform_no_questionnaires
+    QuestionnaireManager.new(self, command_data).inform_no_questionnaires
   end
 
-  def no_action_received
-    GeneralActions.new(self, nil).inform_no_action_received
+  ####################################################################################################################################
+
+  def back_to_menu
+    GeneralActions.new(self, nil).back_to_menu_with_menu
   end
   
 
@@ -379,4 +410,7 @@ class User < ApplicationRecord
     # use custom exception/messages, report metrics, etc
   end
 
+  def command_data
+    JSON.parse(BotCommand.where(user: self).last.data)
+  end
 end

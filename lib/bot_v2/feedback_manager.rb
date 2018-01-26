@@ -181,4 +181,32 @@ class FeedbackManager
   def time_format(datetime)
     datetime.strftime('%H:%M') unless datetime.blank?
   end
+
+  def send_feedback_details(plans)
+    actuator = GeneralActions.new(@user, @state)
+    actuator.send_reply "#{@user.last_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi!"
+    actuator.send_chat_action 'upload_document'
+
+    controller = UsersController.new
+    controller.instance_variable_set(:'@plans', plans)
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdf"
+
+
+    pdf = WickedPdf.new.pdf_from_string(
+        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdf.html'),
+        dpi: '250',
+        # orientation: 'Landscape',
+        viewport: '1280x1024',
+        footer: { right: '[page] of [topage]'}
+    )
+    save_path = Rails.root.join('pdfs',doc_name)
+    File.open(save_path, 'wb') do |file|
+      file << pdf
+    end
+
+    file_path = "pdfs/#{doc_name}"
+    actuator.send_doc file_path
+    actuator.send_reply_with_keyboard 'Leggilo con attenzione!', GeneralActions.menu_keyboard
+    File.delete(file_path) if File.exist?(file_path)
+  end
 end

@@ -33,9 +33,8 @@ class ActivityInformer
   end
 
   def send_details
-    actuator = GeneralActions.new(@user, @state)
     delivered_plans = @user.plans.where(:delivered => 1)
-    actuator.send_plans_details(delivered_plans)
+    send_plans_details(delivered_plans)
   end
 
   def activities_present?
@@ -46,6 +45,33 @@ class ActivityInformer
   def send_menu
     actuator = GeneralActions.new(@user, @state)
     actuator.send_reply_with_keyboard("Se hai bisogno di ulteriori dettagli torna nella sezione attivita'", GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+  end
+
+  def send_plans_details(delivered_plans)
+    actuator = GeneralActions.new(@user, @state)
+    actuator.send_reply "#{@user.last_name} ti sto inviando un documento che contiene tutti i dettagli relativi alle attivita' che hai da fare."
+    actuator.send_chat_action 'upload_document'
+
+    controller = UsersController.new
+    controller.instance_variable_set(:'@plans', delivered_plans)
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-plans.pdf"
+
+    pdf = WickedPdf.new.pdf_from_string(
+        controller.render_to_string('users/user_plans', layout: 'layouts/pdf.html'),
+        dpi: '250',
+        # orientation: 'Landscape',
+        viewport: '1280x1024',
+        footer: { right: '[page] of [topage]'}
+    )
+    save_path = Rails.root.join('pdfs',doc_name)
+    File.open(save_path, 'wb') do |file|
+      file << pdf
+    end
+
+    file_path = "pdfs/#{doc_name}"
+    actuator.send_doc file_path
+    actuator.send_reply_with_keyboard 'Leggilo con attenzione!', GeneralActions.menu_keyboard
+    File.delete(file_path) if File.exist?(file_path)
   end
 
 end

@@ -15,6 +15,7 @@ class ApiAIRedirector
 
   def redirect
     response = @api_ai_client.text_request @text
+    ap response
     @telegram_api.call('sendMessage', chat_id: @user.telegram_id, text: response[:result][:fulfillment][:speech].to_s)
   end
 end
