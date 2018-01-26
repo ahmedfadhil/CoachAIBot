@@ -35,22 +35,22 @@ class QuestionnaireManager
   end
 
   def ask_question(q_name)
-    invitation = Invitation.joins(:questionnaire).where('questionnaires.title = ? AND questionnaires.completed = ? AND invitations.user_id = ?', q_name, false, @user.id).first
+    invitation = Invitation.joins(:questionnaire).where('questionnaires.title = ? AND invitations.completed = ? AND invitations.user_id = ?', q_name, false, @user.id).first
     questionnaire = invitation.questionnaire
     question = questionnaire.questionnaire_questions[invitation.questionnaire_answers.count]
     ask(question, invitation)
   end
 
   def questionnaire_is_not_finished?(q_name)
-    Questionnaire.joins(:invitations).where('questionnaires.title = ? AND questionnaires.completed = ? AND invitations.user_id = ?', q_name, true, @user.id).empty?
+    Questionnaire.joins(:invitations).where('questionnaires.title = ? AND invitations.completed = ? AND invitations.user_id = ?', q_name, true, @user.id).empty?
   end
 
   def has_questionnaires?
-    !Questionnaire.joins(:invitations).where('questionnaires.completed = ? AND invitations.user_id = ?', false, @user.id).empty?
+    !Invitation.where(user: @user, completed: false).empty?
   end
 
   def show_questionnaires
-    questionnaires = Questionnaire.joins(:invitations).where('questionnaires.completed = ? AND invitations.user_id = ?', false, @user.id)
+    questionnaires = Questionnaire.joins(:invitations).where('invitations.completed = ? AND invitations.user_id = ?', false, @user.id)
     send_questionnaires(questionnaires)
   end
 

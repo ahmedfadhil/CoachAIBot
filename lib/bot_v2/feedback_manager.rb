@@ -23,8 +23,7 @@ class FeedbackManager
                     notification: Notification.find(bot_command_data['in_feedback_activities']['notification_id']),
                     question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply('Risposta Salvata!')
-    actuator.send_reply("Molto bene #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{planning.activity.name}' del piano '#{plan.name}'")
+    actuator.send_reply("OK #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{planning.activity.name}' del piano '#{plan.name}'")
     actuator.send_reply_with_keyboard("Per fornire feedback su altre attivita' entra nuovamente nella sezione FEEDBACK.", GeneralActions.menu_keyboard)
   end
 
@@ -47,7 +46,7 @@ class FeedbackManager
     notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
     question = Question.find(bot_command_data['in_feedback_activities']['question_id'])
     Feedback.create(answer: answer, date: Date.today, notification: notification, question: question)
-    GeneralActions.new(@user, nil).send_reply('Risposta Salvata!')
+    GeneralActions.new(@user, nil).send_reply('OK!')
     if planning.questions.count == notification.feedbacks.count
       notification.done = 1
       notification.save
@@ -85,7 +84,7 @@ class FeedbackManager
   end
 
   def send_activities_that_need_feedback(plan_name)
-    plan = Plan.where(:user => User.first, :name => plan_name).first
+    plan = Plan.where(:user => @user.id, :name => plan_name).first
     activities_names = Activity.joins(plannings: :notifications).where('plannings.plan_id = ? AND notifications.date<=? AND notifications.done=?', plan.id, Date.today, 0).uniq.map(&:name)
     bot_command_data = command_data
     bot_command_data['in_feedback_plans'] = {'plan_chosen' => plan_name, 'activities_that_need_feedback' => activities_names}

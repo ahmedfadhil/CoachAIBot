@@ -80,7 +80,7 @@ class PlansController < ApplicationController
     end
 
     def call_task_notify_deleted_plan(plan_name, user_id)
-      system "rake --trace notify_deleted_plan  PLAN_NAME=#{plan_name} USER_ID=#{user_id} &"
+      system "rake --trace notify_deleted_plan  PLAN_NAME='#{plan_name}' USER_ID=#{user_id} &"
     end
 
     def call_tasks(plan_id)

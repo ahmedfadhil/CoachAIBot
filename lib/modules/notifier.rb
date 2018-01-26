@@ -67,7 +67,7 @@ class Notifier
       plans = user.plans.where(:delivered => 1)
       plans.each do |plan|
         plan.plannings.each do |planning|
-          notifications = planning.notifications.where('date = ? AND sent = ? AND n_type = ? AND ( (? - time) < ? )', Date.today, false, 'ACTIVITY_NOTIFICATION', Time.now, 60.minutes)
+          notifications = planning.notifications.where("date = ? AND sent = ? AND n_type = ? AND ( time - INTERVAL '00:20:00' < CURRENT_TIME )", Date.today, false, 'ACTIVITY_NOTIFICATION')
           notifications.find_each do |notification|
             notification.sent = true
             notification.save
@@ -88,7 +88,7 @@ class Notifier
     plans = user.plans.where(:delivered => 1)
     plans.each do |plan|
       plan.plannings.each do |planning|
-        notifications = planning.notifications.where('date = ? AND sent = ? AND n_type = ? AND ( (? - time) < ? )', Date.today, false, 'ACTIVITY_NOTIFICATION', Time.now, 60.minutes)
+        notifications = planning.notifications.where("date = ? AND sent = ? AND n_type = ? AND ( time - INTERVAL '00:20:00' < CURRENT_TIME )", Date.today, false, 'ACTIVITY_NOTIFICATION')
         notifications.find_each do |notification|
           notification.sent = true
           notification.save

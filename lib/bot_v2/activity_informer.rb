@@ -44,7 +44,7 @@ class ActivityInformer
 
   def send_menu
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard("Se hai bisogno di ulteriori dettagli torna nella sezione attivita'", GeneralActions.custom_keyboard(['Attivita', 'Feedback', 'Consigli', 'Messaggi']))
+    actuator.send_reply_with_keyboard("Se hai bisogno di ulteriori dettagli torna nella sezione attivita'", GeneralActions.menu_keyboard)
   end
 
   def send_plans_details(delivered_plans)

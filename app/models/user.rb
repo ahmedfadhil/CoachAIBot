@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :plans, dependent: :destroy
   belongs_to :coach_user, optional: true
   has_many :invitations, dependent: :destroy
+  has_many :bot_commands, dependent: :destroy
 
   validates :telegram_id, uniqueness: true, allow_nil: true
   validates_uniqueness_of :email, message: 'Email in uso. Scegli altra email.'
@@ -34,7 +35,7 @@ class User < ApplicationRecord
   end
 
   def profiled?
-    Questionnaire.joins(:invitations).where('questionnaires.completed = ? AND invitations.user_id = ?', false, self.id).empty?
+    Invitation.where('invitations.completed = ? AND invitations.user_id = ?', false, self.id).empty?
   end
 
   def archived?
@@ -331,6 +332,9 @@ class User < ApplicationRecord
     bot_command_data = command_data
     manager = QuestionnaireManager.new(self, bot_command_data)
     manager.register_response(response)
+    invitation = Invitation.find(bot_command_data['responding']['invitation_id'])
+    invitation.completed = true
+    invitation.save
     manager.send_questionnaire_finished
     questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
     questionnaire.completed = true
