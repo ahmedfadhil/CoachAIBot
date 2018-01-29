@@ -8,6 +8,7 @@ cd CoachAiBot
 
 * If you already cloned the repo pull the changes
 
+
 ```
 cd CoachAiBot
 git pull
