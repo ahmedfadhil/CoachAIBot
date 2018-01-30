@@ -11,7 +11,7 @@
 
 $ ->
   CommunicationsPooler.request()
-  CommunicationsPooler.pool()
+  #CommunicationsPooler.pool()
 
   $('.list-group').paginathing({
     perPage: 5,
