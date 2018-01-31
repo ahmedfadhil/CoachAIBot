@@ -1,3 +1,5 @@
+require 'modules/chart_data_binder'
+
 class ObjectivesCell < Cell::ViewModel
 	include ActionView::Helpers::FormOptionsHelper
 
@@ -15,6 +17,10 @@ class ObjectivesCell < Cell::ViewModel
 
 	def table
 		render
+	end
+
+	def profile_image
+		ChartDataBinder.new.profile_image_path(model)
 	end
 
 	def objective

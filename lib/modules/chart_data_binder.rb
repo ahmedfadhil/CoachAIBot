@@ -1,3 +1,4 @@
+require 'bot_v2/image_solver'
 # collects data needed to create charts for user
 class ChartDataBinder
   DIET, PHYSICAL, MENTAL = 0, 1, 2
@@ -6,6 +7,23 @@ class ChartDataBinder
 
   def init
   end
+
+	def profile_image_path(user)
+		if user.telegram_id.nil?
+			default_image
+		else
+			begin
+				solver = ImageSolver.new
+				solver.solve(user.telegram_id)
+			rescue Exception
+				default_image
+			end
+		end
+	end
+
+	def default_image
+		'https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png'
+	end
 
   def get_scores(coach)
     users = coach.users.where('state <> ?', ARCHIVED)
