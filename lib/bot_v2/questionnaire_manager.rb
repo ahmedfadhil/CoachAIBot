@@ -8,6 +8,10 @@ class QuestionnaireManager
     @bot_command_data = bot_command_data
   end
 
+  def is_last_questionnaire?
+    Invitation.where(user: @user, completed: true).size == 3 ? true : false
+  end
+
   def is_last_question?
     questionnaire = Questionnaire.find(@bot_command_data['responding']['questionnaire_id'])
     invitation = Invitation.find(@bot_command_data['responding']['invitation_id'])
@@ -115,8 +119,21 @@ class QuestionnaireManager
   def send_questionnaire_finished
     bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
     questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    reply = "Hai finito il questionario '#{questionnaire.title}'. Per controllare se ci sono altri questionari vai alla sezione QUESTIONARI."
-    GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.custom_keyboard(GeneralActions.menu_buttons)
+    reply = "Hai finito il questionario '#{questionnaire.title}'. Con che questionario vuoi proseguire?"
+    GeneralActions.new(@user, nil).send_reply reply
+    show_questionnaires
+  end
+
+  def send_menu
+    reply = "Va bene #{@user.last_name}, puoi proseguire dopo, ma ricorda che prima finisci prima riceverai il tuo piano da combattimento!"
+    GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.custom_keyboard(['Questionari'])
+  end
+
+  def send_profiling_finished
+    bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
+    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
+    reply = "Il questionario '#{questionnaire.title}' era l'ultimo e lo hai finito. Ora rimani in attesa che il coach ti mandi delle attivita' da fare."
+    GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.menu_keyboard
   end
 
 end

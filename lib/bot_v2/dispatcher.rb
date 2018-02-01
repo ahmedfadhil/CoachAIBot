@@ -78,8 +78,8 @@ class Dispatcher
         @user.start_questionnaires!
 
       else
-        ApiAIRedirector.new(text, @user).redirect
-        #GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
+        #ApiAIRedirector.new(text, @user).redirect
+        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
 
     end
   end
@@ -90,8 +90,11 @@ class Dispatcher
       when *back_strings
         @user.cancel!
 
-      else # when 'Ulteriori Dettagli'
+      when *tell_me_more_strings
         @user.get_details!
+
+      else
+        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
     end
   end
 
@@ -178,7 +181,7 @@ class Dispatcher
   end
 
   def questionnaires_strings
-    ['questionari', 'Questionari']
+    ['questionari', 'Questionari', 'Prosegui con i questionari']
   end
 
   def messages_strings

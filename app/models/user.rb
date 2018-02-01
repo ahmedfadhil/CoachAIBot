@@ -86,6 +86,9 @@ class User < ApplicationRecord
 
     event :feedback do
       transitions :from => :feedbacking, :to => :idle,
+                  :after => Proc.new {|*args| register_last_feedback(*args)},
+                  :guard => Proc.new {|*args| is_last_feedback_and_last_question?(*args)}
+      transitions :from => :feedbacking, :to => :feedback_plans,
                   :after => Proc.new {|*args| register_last_answer(*args)},
                   :guard => Proc.new {|*args| is_last_question_and_is_answer?(*args)}
       transitions :from => :feedbacking, :to => :feedbacking,
@@ -146,6 +149,9 @@ class User < ApplicationRecord
 
     event :respond_questionnaire do
       transitions :from => :responding, :to => :idle,
+                  :after => Proc.new {|*args| register_last_questionnaire_response(*args)},
+                  :guard => Proc.new {|*args| is_last_question_and_last_questionnaire?(*args)}
+      transitions :from => :responding, :to => :questionnaires,
                   :after => Proc.new {|*args| register_last_response(*args)},
                   :guard => Proc.new {|*args| is_last_question_and_is_response?(*args)}
       transitions :from => :responding, :to => :responding,
@@ -165,9 +171,9 @@ class User < ApplicationRecord
       transitions :from => :messages, :to => :idle,
                   :after => :send_menu_from_messages
       transitions :from => :questionnaires, :to => :idle,
-                  :after => :back_to_menu
+                  :after => :send_menu_from_questionnaires
       transitions :from => :responding, :to => :idle,
-                  :after => :back_to_menu
+                  :after => :send_menu_from_questionnaires
       transitions :from => :feedback_plans, :to => :idle,
                   :after => :send_menu_from_feedbacks
       transitions :from => :feedback_activities, :to => :idle,
@@ -201,16 +207,38 @@ class User < ApplicationRecord
   private
 
   ########## Feedback Methods ##################################################################################
+
+  def is_last_feedback_and_last_question?(answer)
+    manager = FeedbackManager.new(self)
+    if manager.is_answer?(answer) && manager.is_last_question? && manager.is_last_feedback?
+      true
+    else
+      false
+    end
+  end
+
+  def register_last_feedback(answer)
+    manager = FeedbackManager.new(self)
+    manager.register_last_answer(answer)
+    actuator = GeneralActions.new(self, nil)
+    actuator.send_reply_with_keyboard("Non hai piu' feedback da dare per oggi! Prosegui con le attivita'.", GeneralActions.menu_keyboard)
+  end
+
   def inform_wrong_answer
     FeedbackManager.new(self).inform_wrong_answer
   end
 
   def register_last_answer(answer)
-    FeedbackManager.new(self).register_last_answer(answer)
+    manager = FeedbackManager.new(self)
+    manager.register_last_answer(answer)
+    actuator = GeneralActions.new(self, nil)
+    actuator.send_reply('Con che piano vuoi proseguire il feedback?')
+    manager.send_plans_to_feedback
   end
 
   def is_last_question_and_is_answer?(answer)
-    if FeedbackManager.new(self).is_answer?(answer) && FeedbackManager.new(self).is_last_question?
+    manager = FeedbackManager.new(self)
+    if manager.is_answer?(answer) && manager.is_last_question?
       true
     else
       false
@@ -328,6 +356,33 @@ class User < ApplicationRecord
 
 
   ############### Questionnaires Methods ######################################################################################
+
+  def register_last_questionnaire_response(response)
+    bot_command_data = command_data
+    manager = QuestionnaireManager.new(self, bot_command_data)
+    manager.register_response(response)
+    invitation = Invitation.find(bot_command_data['responding']['invitation_id'])
+    invitation.completed = true
+    invitation.save
+    manager.send_profiling_finished
+    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
+    questionnaire.completed = true
+    questionnaire.save!
+    features_manager = FeaturesManager.new
+    features_manager.communicate_profiling_done! self
+    features_manager.save_features_to_csv self
+    #features_manager.save_telegram_profile_img self
+    system 'rake python_clustering &'
+  end
+
+  def is_last_question_and_last_questionnaire?(response)
+    if QuestionnaireManager.new(self, command_data).is_last_questionnaire? && is_last_question_and_is_response?(response)
+      true
+    else
+      false
+    end
+  end
+
   def register_last_response(response)
     bot_command_data = command_data
     manager = QuestionnaireManager.new(self, bot_command_data)
@@ -339,13 +394,6 @@ class User < ApplicationRecord
     questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
     questionnaire.completed = true
     questionnaire.save!
-    if self.profiled?
-      features_manager = FeaturesManager.new
-      features_manager.communicate_profiling_done! self
-      features_manager.save_features_to_csv self
-      #features_manager.save_telegram_profile_img self
-      system 'rake python_clustering &'
-    end
   end
 
   def is_last_question_and_is_response?(response)
@@ -400,6 +448,10 @@ class User < ApplicationRecord
 
   def inform_no_questionnaires
     QuestionnaireManager.new(self, command_data).inform_no_questionnaires
+  end
+
+  def send_menu_from_questionnaires
+    QuestionnaireManager.new(self, command_data).send_menu
   end
 
   ####################################################################################################################################

@@ -12,6 +12,10 @@ class FeedbackManager
     ask(command_data['in_feedback_activities']['activity_chosen'])
   end
 
+  def is_last_feedback?
+    (Notification.joins(planning: :plan).where('plans.user_id = ? AND notifications.done = ? AND notifications.date <= ?', @user.id, 0, Date.today).size == 1)
+  end
+
   def register_last_answer(answer)
     bot_command_data = command_data
     planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
@@ -24,7 +28,6 @@ class FeedbackManager
                     question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
     actuator = GeneralActions.new(@user, nil)
     actuator.send_reply("OK #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{planning.activity.name}' del piano '#{plan.name}'")
-    actuator.send_reply_with_keyboard("Per fornire feedback su altre attivita' entra nuovamente nella sezione FEEDBACK.", GeneralActions.menu_keyboard)
   end
 
   def is_last_question?
