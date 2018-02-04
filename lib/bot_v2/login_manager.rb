@@ -60,6 +60,8 @@ class LoginManager
   end
 
   def valid(phone_number)
+		pp "Help"
+		pp phone_number
     user = User.find_by_cellphone(phone_number)
     if user.nil?
       false

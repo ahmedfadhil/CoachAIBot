@@ -67,7 +67,7 @@ class Dispatcher
   end
 
 	def manage_idle_state_ext(text)
-		hash_state = JSON.parse(BotCommand.where(user: @user).last.data)
+		hash_state = JSON.parse(BotCommand.where(user: @user).last&.data || "{}")
 		ap hash_state
 		if hash_state['state'] == 'objectives'
 			ap "--- objectives ---"
@@ -113,7 +113,7 @@ class Dispatcher
       when /(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
-			when 'obiettivi', 'Obiettivi', 'obbiettivi', 'Obbiettivi', '/obbiettivi'
+			when 'Allenamento', 'allenamento', 'Allenamenti', 'allenamenti', '/allenamenti'
 				ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
 				fsm = FSM::ObjectivesFSM.new @user
 
