@@ -146,12 +146,12 @@ module FSM
 			else
 				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
 				response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile."
-				response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
+				response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Allenamenti']]
 			end
 		end
 
 		def motd_for_future_objectives(response)
-			response[:text] << "Al momento non ci sono obiettivi attivi. "
+			response[:text] << "Al momento non ci sono allenamenti attivi. "
 			if user.scheduled_objectives.any?
 				scheduled_objective = user.scheduled_objectives.first
 				start_date = l(scheduled_objective.start_date, format: "%-d %B %Y")
@@ -176,7 +176,7 @@ module FSM
 			else
 				response[:text] << "Ripassa piu' tardi!"
 			end
-			response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
+			response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Allenamenti']]
 		end
 
 		def current_objective_is_distance?
@@ -229,7 +229,7 @@ module FSM
 
 		def response_abort(response)
 			response[:text] << "OK. Ripassa quando vuoi"
-			response[:keyboard] << ['Attivita', 'Feedback'] << ['Consigli','Messaggi'] << ['Obiettivi']
+			response[:keyboard] << ['Attivita', 'Feedback'] << ['Consigli','Messaggi'] << ['Allenamenti']
 		end
 
 		def response_malformed(response)
@@ -276,7 +276,7 @@ module FSM
 
 		def response_yes(response)
 			response[:text] << "Molto bene. Il dato che hai inserito e' stato salvato"
-			response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Obiettivi']]
+			response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Allenamenti']]
 		end
 
 		def response_no(response)

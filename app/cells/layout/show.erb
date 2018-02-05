@@ -32,10 +32,10 @@
 	<div class="row">
 		<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
 			<ul class="nav nav-pills flex-column">
-				<%= navigation_link("Home", root_path) %>
-				<%= navigation_link("Dashboard", root_path) %>
-				<%= navigation_link("Pazienti", root_path) %>
-				<%= navigation_link("Attivita'", root_path) %>
+				<%= navigation_link("Dashboard", profile_index_path) %>
+				<%= navigation_link("Pazienti", users_path) %>
+				<%= navigation_link("Attività", activities_path) %>
+				<%= navigation_link("Comunicazioni", all_communications_path(current_coach_user)) %>
 			</ul>
 
 			<ul class="nav nav-pills flex-column">
