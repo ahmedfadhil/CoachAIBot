@@ -65,8 +65,6 @@ gem 'awesome_print'
 # Authentication solution
 gem 'devise'
 
-
-
 # Use Puma as the app server
 gem 'puma', '~> 3.10.0'
 
