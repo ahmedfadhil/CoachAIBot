@@ -30,7 +30,7 @@ class Messenger
 
   def inform_no_messages
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard('Non hai nessun messaggio in attesa di essere letto.', GeneralActions.menu_keyboard)
+    actuator.send_reply_with_keyboard('Non hai nessun messaggio in attesa di una risposta.', GeneralActions.menu_keyboard)
   end
 
   def send_menu
@@ -62,7 +62,7 @@ class Messenger
       actuator.send_reply "#{message.created_at.strftime('%d.%m.%Y - %H:%M')} \n\t #{message.text}"
     end
 
-    actuator.send_reply_with_keyboard("Per rispondere ai messaggi ti basta inserire la tua risposta e inviarla. Fai attenzione che puoi rispondere una sola volta a tutti i messaggi.\nSe non vuoi ripondere ora puoi tornare al menu con il bottone 'Torna al Menu' e rispondere piu tardi",
+    actuator.send_reply_with_keyboard("\nPer rispondere ai messaggi ti basta inserire la tua risposta e inviarla. Fai attenzione che puoi rispondere una sola volta a tutti i messaggi.\nSe non vuoi ripondere ora puoi tornare al menu con il bottone 'Torna al Menu' e rispondere piu tardi",
                                       GeneralActions.custom_keyboard(['Rispondi piu\' tardi/Torna al Menu']))
 
   end

@@ -47,7 +47,7 @@ class LoginManager
       reply = "Prima di poter utilizzarmi in questo modo pero' devi completare i questionari presenti nella sezione QUESTIONARI. Non dimenticartelo!\n\n" +
             "Questa cosa e' fondamentale per capire bene qual'e' il tuo stato attuale."
       @api.call('sendMessage', chat_id: chat_id,
-                text: reply, reply_markup: GeneralActions.menu_keyboard)
+                text: reply, reply_markup: GeneralActions.custom_keyboard(['Questionari']))
     end
   end
 

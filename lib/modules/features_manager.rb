@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/bot_v2/image_solver"
 require 'csv'
 
 class FeaturesManager
-  def initialize
+  def init
   end
 
   def communicate_profiling_done!(user)
@@ -36,28 +36,31 @@ class FeaturesManager
     user.save
   end
 
+
   def generate_features(user) #from questionnaires
     features = {}
-    Invitation.where('invitations.user_id = ?', user.id).each do |invitation|
-      work_physical_question = invitation.questionnaire.questionnaire_questions.where(text: 'Il tuo lavoro richiede stare seduti o essere in movimento?').first
-      foot_bicycle_question = invitation.questionnaire.questionnaire_questions.where(text: 'Quanto spesso vai in bici o a piedi?').first
-      health_personality_question = invitation.questionnaire.questionnaire_questions.where(text: 'Se dovessi dare un voto da 1(insufficiente) a 5(ottimo) come valuteresti complessivamente la tua salute?').first
-      stress_question = invitation.questionnaire.questionnaire_questions.where(text: 'Come valuteresti la quantita\' di stress nella tua vita?').first
-      unless work_physical_question.nil?
-        features['work_physical'] = invitation.questionnaire_answers.where(questionnaire_question_id: work_physical_question.id).first.text
+    Invitation.where(user: user).each do |invitation|
+      work_physical_question = invitation.questionnaire.questionnaire_questions.where(text: 'Il tuo lavoro richiede stare seduti o essere in movimento?')
+      foot_bicycle_question = invitation.questionnaire.questionnaire_questions.where(text: 'Quanto spesso vai in bici o a piedi?')
+      health_personality_question = invitation.questionnaire.questionnaire_questions.where(text: 'Se dovessi dare un voto da 1(insufficiente) a 5(ottimo) come valuteresti complessivamente la tua salute?')
+      stress_question = invitation.questionnaire.questionnaire_questions.where(text: 'Come valuteresti la quantita\' di stress nella tua vita?')
+      unless work_physical_question.empty?
+        features['work_physical'] = invitation.questionnaire_answers.where(questionnaire_question_id: work_physical_question.first.id).first.text
       end
-      unless foot_bicycle_question.nil?
-        features['foot_bicycle'] = invitation.questionnaire_answers.where(questionnaire_question_id: foot_bicycle_question.id).first.text
+      unless foot_bicycle_question.empty?
+        features['foot_bicycle'] = invitation.questionnaire_answers.where(questionnaire_question_id: foot_bicycle_question.first.id).first.text
       end
-      unless health_personality_question.nil?
-        features['health_personality'] = invitation.questionnaire_answers.where(questionnaire_question_id: health_personality_question.id).first.text
+      unless health_personality_question.empty?
+        features['health_personality'] = invitation.questionnaire_answers.where(questionnaire_question_id: health_personality_question.first.id).first.text
       end
-      unless stress_question.nil?
-        features['stress'] = invitation.questionnaire_answers.where(questionnaire_question_id: stress_question.id).first.text
+      unless stress_question.empty?
+        features['stress'] = invitation.questionnaire_answers.where(questionnaire_question_id: stress_question.first.id).first.text
       end
     end
     features
   end
+
+
 
   def default_profile_img
     'rsz_user_icon.png'

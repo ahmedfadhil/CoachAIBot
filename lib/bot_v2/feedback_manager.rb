@@ -12,6 +12,10 @@ class FeedbackManager
     ask(command_data['in_feedback_activities']['activity_chosen'])
   end
 
+  def is_last_feedback?
+    (Notification.joins(planning: :plan).where('plans.user_id = ? AND notifications.done = ? AND notifications.date <= ?', @user.id, 0, Date.today).size == 1)
+  end
+
   def register_last_answer(answer)
     bot_command_data = command_data
     planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
@@ -23,9 +27,7 @@ class FeedbackManager
                     notification: Notification.find(bot_command_data['in_feedback_activities']['notification_id']),
                     question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply('Risposta Salvata!')
-    actuator.send_reply("Molto bene #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{planning.activity.name}' del piano '#{plan.name}'")
-    actuator.send_reply_with_keyboard("Per fornire feedback su altre attivita' entra nuovamente nella sezione FEEDBACK.", GeneralActions.menu_keyboard)
+    actuator.send_reply("OK #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{planning.activity.name}' del piano '#{plan.name}'")
   end
 
   def is_last_question?
@@ -47,7 +49,7 @@ class FeedbackManager
     notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
     question = Question.find(bot_command_data['in_feedback_activities']['question_id'])
     Feedback.create(answer: answer, date: Date.today, notification: notification, question: question)
-    GeneralActions.new(@user, nil).send_reply('Risposta Salvata!')
+    GeneralActions.new(@user, nil).send_reply('OK!')
     if planning.questions.count == notification.feedbacks.count
       notification.done = 1
       notification.save
@@ -180,5 +182,33 @@ class FeedbackManager
 
   def time_format(datetime)
     datetime.strftime('%H:%M') unless datetime.blank?
+  end
+
+  def send_feedback_details(plans)
+    actuator = GeneralActions.new(@user, @state)
+    actuator.send_reply "#{@user.last_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi!"
+    actuator.send_chat_action 'upload_document'
+
+    controller = UsersController.new
+    controller.instance_variable_set(:'@plans', plans)
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdf"
+
+
+    pdf = WickedPdf.new.pdf_from_string(
+        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdf.html'),
+        dpi: '250',
+        # orientation: 'Landscape',
+        viewport: '1280x1024',
+        footer: { right: '[page] of [topage]'}
+    )
+    save_path = Rails.root.join('pdfs',doc_name)
+    File.open(save_path, 'wb') do |file|
+      file << pdf
+    end
+
+    file_path = "pdfs/#{doc_name}"
+    actuator.send_doc file_path
+    actuator.send_reply_with_keyboard 'Leggilo con attenzione!', GeneralActions.menu_keyboard
+    File.delete(file_path) if File.exist?(file_path)
   end
 end

@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     user.state = REGISTERED
     if user.valid?
       user.save!
+      create_command_data(user)
       current_coach_user.users << user
       features = assign_questionnaires user
       if features.nil?
@@ -116,6 +117,11 @@ class UsersController < ApplicationController
     render json: data, status: :ok
   end
 
+  def get_images
+    data = ChartDataBinder.new.get_images(current_coach_user)
+    render json: data, status: :ok
+  end
+
   def archive
     user = User.find(params[:id])
     user.state = ARCHIVED
@@ -148,8 +154,12 @@ class UsersController < ApplicationController
 
   def assign_questionnaires(user)
     Questionnaire.where(initial: true).each do |questionnaire|
-      Invitation.create(user: user, questionnaire: questionnaire)
+      Invitation.create(user: user, questionnaire: questionnaire, completed: false)
     end
+  end
+
+  def create_command_data(user)
+    BotCommand.create(data: {}.to_json, user: user)
   end
 
 end

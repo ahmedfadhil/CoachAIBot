@@ -1,6 +1,6 @@
 # collects data needed to create charts for user
 class ChartDataBinder
-  DIET, PHYSICAL, MENTAL = 0, 1, 2
+  DIET, PHYSICAL, MENTAL = '0', '1', '2'
   YES_ANSWER, NO_ANSWER = 'Si', 'No'
   ARCHIVED = 'ARCHIVED'
 
@@ -16,21 +16,51 @@ class ChartDataBinder
                               :id => user.id,
                               :diet_score => score(user, DIET),
                               :physical_score => score(user, PHYSICAL),
-                              :mental_score => score(user, MENTAL)
+                              :mental_score => score(user, MENTAL),
                           })
       end
     end
   end
 
-  def score(user, type)
-    plannings = plannings_of(user, type)
+  def score(user, category)
+    plannings = plannings_of(user, category)
     total = Notification.where('notifications.planning_id in (?)', plannings.map(&:id)).uniq.count
     positive = Notification.joins(:feedbacks).where('notifications.planning_id in (?) AND feedbacks.answer = ?', plannings.map(&:id), YES_ANSWER).uniq.count
     total > 0 ? positive.as_percentage_of(total).to_i : 0
   end
 
   def plannings_of(user, type)
-    Planning.joins(:plan, :activity).where(:plans => {:delivered => 1, :user_id => user.id}, :activities => {:a_type => type})
+    Planning.joins(:plan, :activity).where(:plans => {:delivered => 1, :user_id => user.id}, :activities => {:category => type})
+  end
+
+  def get_images(coach)
+    users = coach.users.where('state <> ?', ARCHIVED)
+    data = {:users => []}
+    data.tap do
+      users.find_each do |user|
+        data[:users].push({
+                              :id => user.id,
+                              :profile_img => profile_image_path(user)
+                          })
+      end
+    end
+  end
+
+  def profile_image_path(user)
+    if user.telegram_id.nil?
+      default_image
+    else
+      begin
+        solver = ImageSolver.new
+        solver.solve(user.telegram_id)
+      rescue Exception
+        default_image
+      end
+    end
+  end
+
+  def default_image
+    'https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png'
   end
 
   def get_overview_data(user)
@@ -80,12 +110,14 @@ class ChartDataBinder
           no = Feedback.where('question_id = (?) AND  notification_id in (?) and answer = ?',
                               q.id,
                               notifications.where(:done => 1).select(:id), 'no').size
-          yes_perc = yes.as_percentage_of(tot)
-          no_perc = no.as_percentage_of(tot)
-          data[:plans][i][:activities][j][:yes_no_data].push({:text => Question.find(q.id).text,
-                                                              :data => [["Si #{yes_perc.to_i}%", yes_perc.to_i],
-                                                                        ["No #{no_perc.to_i}%", no_perc.to_i]]
-                                                             })
+          unless tot == 0
+            yes_perc = yes.as_percentage_of(tot)
+            no_perc = no.as_percentage_of(tot)
+            data[:plans][i][:activities][j][:yes_no_data].push({:text => Question.find(q.id).text,
+                                                                :data => [["Si #{yes_perc.to_i}%", yes_perc.to_i],
+                                                                          ["No #{no_perc.to_i}%", no_perc.to_i]]
+                                                               })
+          end
 
         end
 

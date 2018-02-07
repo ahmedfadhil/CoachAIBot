@@ -14,7 +14,16 @@ class ApiAIRedirector
   end
 
   def redirect
-    response = @api_ai_client.text_request @text
-    @telegram_api.call('sendMessage', chat_id: @user.telegram_id, text: response[:result][:fulfillment][:speech].to_s)
+    begin
+      response = @api_ai_client.text_request @text
+      @telegram_api.call('sendMessage', chat_id: @user.telegram_id, text: response[:result][:fulfillment][:speech].to_s)
+    rescue Exception => e
+      ap 'DialogFlow responded with:'
+      ap response
+      ap 'Rescued from:'
+      ap e
+      ap e.backtrace
+      GeneralActions.new(@user,nil).send_reply 'Mi spiace ma non credo di saperti rispondere!'
+    end
   end
 end

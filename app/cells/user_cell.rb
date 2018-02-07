@@ -13,14 +13,16 @@ class UserCell < Cell::ViewModel
     user.archived?
   end
 
-  def default_image
-    'rsz_user_icon.png'
-  end
-
   def archived_css_class
     if archived?
       'user_archived'
     end
+  end
+
+=begin
+  #replaced with ajax calls
+  def default_image
+    'rsz_user_icon.png'
   end
 
   def profile_photo_url
@@ -35,5 +37,6 @@ class UserCell < Cell::ViewModel
       end
     end
   end
+=end
 
 end

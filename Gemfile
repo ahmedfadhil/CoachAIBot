@@ -124,6 +124,10 @@ group :development, :test do
   gem 'selenium-webdriver'
   # Use sqlite3 as the database for Active Record
   #gem 'sqlite3'
+<<<<<<< HEAD
+=======
+  gem 'pg', '0.20.0'
+>>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5
   gem 'railroady'
 end
 

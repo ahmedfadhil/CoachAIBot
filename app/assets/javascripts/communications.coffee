@@ -10,22 +10,22 @@
     $.get($('#communications').data('url'), after: after)
 
 $ ->
-  #CommunicationsPooler.request()
+  CommunicationsPooler.request()
   #CommunicationsPooler.pool()
 
-  #$('.list-group').paginathing({
-  #  perPage: 5,
-    # Limites your pagination number -> false or number
-  #  limitPagination: false,
-    # Pagination controls
-  #  prevNext: true,
-  #  firstLast: true,
-  #  prevText: '&laquo;',
-  #  nextText: '&raquo;',
-  #  firstText: 'First',
-  #  lastText: 'Last',
-    # containerClass: 'pagination-container',
-  #  ulClass: 'pagination',
-  #  liClass: 'page',
-  #  disabledClass: 'disabled',
-  #  })
+  $('.list-group').paginathing({
+    perPage: 5,
+     #Limites your pagination number -> false or number
+    limitPagination: false,
+     #Pagination controls
+    prevNext: true,
+    firstLast: true,
+    prevText: '&laquo;',
+    nextText: '&raquo;',
+    firstText: 'First',
+    lastText: 'Last',
+     #containerClass: 'pagination-container',
+    ulClass: 'pagination',
+    liClass: 'page',
+    disabledClass: 'disabled',
+    })

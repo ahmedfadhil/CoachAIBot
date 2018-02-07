@@ -16,9 +16,7 @@
 !/log/.keep
 
 /tmp/*
-/pdfs/*
 /csvs/result.csv
-/csvs/features.csv
 /assets/images/profile_images
 
 telegram_webhook_req

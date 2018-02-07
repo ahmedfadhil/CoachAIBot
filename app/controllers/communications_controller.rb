@@ -5,7 +5,8 @@ class CommunicationsController < ApplicationController
   def lasts
     after = 0
     after = params[:after] if params[:after].to_i >= 0
-    @communications = Communication.where('id > ? AND coach_user_id = ? AND (read_at is ? OR read_at >= ? )', after, params[:id], nil, Time.now - 60.minutes)
+    @communications = Communication.where('id > ? AND coach_user_id = ? AND (read_at is ? OR read_at >= ? )', after, params[:id], nil, Time.now - 60.minutes).last(10)
+    @not_read = count_not_read_communications
   end
 
   def show
@@ -25,5 +26,9 @@ class CommunicationsController < ApplicationController
 
   def all
     @communications = Communication.where(:coach_user_id => params[:id])
+  end
+
+  def count_not_read_communications
+    Communication.where(read_at: nil).count
   end
 end
