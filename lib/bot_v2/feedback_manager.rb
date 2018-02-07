@@ -85,7 +85,7 @@ class FeedbackManager
   end
 
   def send_activities_that_need_feedback(plan_name)
-    plan = Plan.where(:user => User.first, :name => plan_name).first
+    plan = Plan.where(:user => @user.id, :name => plan_name).first
     activities_names = Activity.joins(plannings: :notifications).where('plannings.plan_id = ? AND notifications.date<=? AND notifications.done=?', plan.id, Date.today, 0).uniq.map(&:name)
     bot_command_data = command_data
     bot_command_data['in_feedback_plans'] = {'plan_chosen' => plan_name, 'activities_that_need_feedback' => activities_names}

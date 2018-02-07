@@ -374,10 +374,10 @@ DEPENDENCIES
   pg (= 0.20.0)
   polling
   prawn (~> 2.2, >= 2.2.2)
-  puma (~> 3.7)
+  puma (~> 3.10.0)
   rack-mini-profiler
   railroady
-  rails (~> 5.1.1)
+  rails (~> 5.1.4)
   rails-assets-eq.js
   rails-assets-jquery
   rails-assets-mdl-selectfield

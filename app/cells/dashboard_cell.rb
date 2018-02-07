@@ -24,11 +24,11 @@ class DashboardCell < Cell::ViewModel
   end
 
   def users_with_no_plan
-    User.all.count-User.joins(:plans).where(coach_user: coach).count
+    User.all.count-User.joins(:plans).where(coach_user: coach).uniq.count
   end
 
   def users_with_plans
-    User.joins(:plans).where(coach_user: coach).count
+    User.joins(:plans).where(coach_user: coach).uniq.count
   end
 
   def users_count
