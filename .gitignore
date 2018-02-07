@@ -16,7 +16,6 @@
 !/log/.keep
 
 /tmp/*
-/pdfs/*
 /csvs/result.csv
 /assets/images/profile_images
 
