@@ -1,0 +1,14 @@
+<table class="description" id="activity-desc-table">
+  <tr>
+    <td> <i>Descrizione: </i> </td>
+    <td> <b><%= planning.activity.desc %></b> </td>
+  </tr>
+  <tr>
+    <td> <i>Categria: </i> </td>
+    <td> <b><%= ita_category(planning.activity.category) %></b> </td>
+  </tr>
+  <tr>
+    <td> <i>Frequenza: </i> </td>
+    <td> <b><%= planning.activity.n_times %> / <%= ita_type(planning.activity.a_type) %></b> </td>
+  </tr>
+</table>

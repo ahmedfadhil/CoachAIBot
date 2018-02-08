@@ -1,0 +1,10 @@
+<% @communications.each do |communication| %>
+    <%= cell(:communication, communication) %>
+<% end %>
+<li class="mdl-menu__item">
+  <%= link_to all_communications_path do %>
+      <div class="all_communications">
+        Vedi tutte le notifiche
+      </div>
+  <% end %>
+</li>

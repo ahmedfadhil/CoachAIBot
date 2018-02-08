@@ -1,0 +1,16 @@
+<table class="description">
+  <tr>
+    <td> <i>Descrizione: </i> </td>
+    <td> <b><%= plan.desc %></b> </td>
+  </tr>
+  <tr>
+    <td><i>Periodo:</i></td>
+    <td>dal <b> <%= plan.from_day.strftime('%d/%m/%Y') %> </b>  al <b><%= plan.to_day.strftime('%d/%m/%Y') %></b></td>
+  </tr>
+  <% if options[:activities_count] %>
+    <tr>
+      <td><i>Attivita' sotto questo piano:</i></td>
+      <td><%= plan.activities.count %></td>
+    </tr>
+  <% end %>
+</table>

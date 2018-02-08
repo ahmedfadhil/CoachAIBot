@@ -1,0 +1,408 @@
+.description{
+  color: black;
+  font-size: 17px;
+}
+
+.right-align-btn{
+  text-align: -webkit-right;
+}
+
+.right-align-accordion-title{
+  text-align: -webkit-right;
+  margin-top: -20px;
+  font-size: 10px;
+  color: grey;
+}
+
+.new-btn{
+  background: green;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+.centered-row{
+  display: grid;
+}
+
+.centered-col{
+  margin: auto;
+}
+
+.user_archived{
+  min-height: auto;
+}
+
+.sub_menu{
+  background-color: white;
+}
+
+
+/* Add question Panel styles */
+.numeric-answers{
+  display: none;
+}
+/* */
+
+.score{
+  width: 100px;
+  height: 100px;
+  text-align: -webkit-center;
+  padding: 10px
+}
+
+.pushRight{
+  float: right;
+}
+
+.n-icon{
+  color: #65625a !important;
+}
+
+.user-card-n{
+  margin-left: 56px;
+  margin-top: 5px;
+}
+
+.user-card-name{
+  margin-top: 0px;
+  font-family: sans-serif;
+  font-size: 20px;
+  text-align: -webkit-center;
+  color: #383333;
+}
+
+.user-card-actions.mdl-card__actions{
+  outline: #494d4e solid 1px;
+  text-align: -webkit-right;
+  margin-top: 5px;
+}
+
+.user-card-grid{
+  max-height: 50%;
+}
+
+.user-img-round{
+  border-radius: 50%;
+  margin: 5px;
+  border: 1px solid darkgray;
+  width: 70px;
+}
+
+.user-card{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  width: 80%;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#myTitle{
+  text-align: center;
+  font-size: large;
+}
+
+#user-card-img-container{
+  background-color: #ffffff;
+  text-align: -webkit-center;
+}
+
+#user-card-img{
+  max-width: 60%;
+}
+
+#user-card-page-btn{
+  color: #7caec3;
+}
+
+#user-card-actions{
+  outline: #54e2df solid 0px;
+  z-index: 0;
+  text-align: -webkit-center;
+}
+
+#user-card-supporting-text{
+  text-align: -webkit-center;
+}
+
+#user-card-title{
+  text-align: -webkit-center;
+  justify-content: center;
+}
+
+#activity-expandible{
+  margin-bottom: 10px;
+  border-top: 0px solid rgba(0, 0, 0, 0.1);
+  width: 95%;
+  margin-left: 17px;
+  color: rgba(0,0,0, 0.54);
+  padding: 13px;
+}
+
+#activity-desc-table{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#overview-activity-card{
+  //background: darkcyan;
+  width: auto;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#overview-plan-card{
+  //background-color: cadetblue;
+  width: auto;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#overview-title {
+  text-align: -webkit-center;
+}
+
+#overview-grid{
+  text-align: -webkit-center;
+  max-width: 80%;
+  margin-top: 15px;
+}
+
+#no-info-grid{
+  text-align: -webkit-center;
+}
+
+#no-info-card{
+  margin: 20px;
+  margin-top: 5px;
+}
+
+#user-plans-grid{
+  max-width: 95%;
+}
+
+#feature-card-supporting-text{
+  margin: auto;
+  width: 90%;
+  height: 100%;
+  padding: 54px 0;
+  padding-top: 5px;
+  font-size: large;
+}
+
+#feature-table-card{
+  width: 100%;
+}
+
+#features-card{
+  width: 90%;
+  margin: 20px;
+  margin-top: 5px;
+  height: 86%;
+}
+
+#feature-table-card-supporting-text{
+  text-align: -webkit-center;
+}
+
+#features_img{
+  width: 150px;
+}
+
+.features-grid{
+  max-width: 1500px;
+}
+
+#media-health{
+  background-color: #fafafa;
+  text-align: -webkit-center;
+}
+
+.graphs-container{
+  width: 100%;
+  height: 400px;
+}
+
+.line-separator{
+  height: 1px;
+  background: #c3c3c3;
+}
+
+.patients-container{
+  overflow: scroll;
+}
+
+.patient-card{
+  margin: 20px;
+}
+
+.patient-card .mdl-card{
+  width: 320px;
+  height: 200px;
+}
+
+patient-card > .mdl-card__title {
+  color: #fff;
+  background:
+          url('sport_run.jpg') bottom right 15% no-repeat #46B6AC;
+}
+
+nwe-patient-card > .mdl-card__title {
+  color: #fff;
+  background:
+          url('sport_run.jpg') bottom right 15% no-repeat #46B6AC;
+}
+
+
+.patient-insert-card-wide.mdl-card {
+  width: 640px;
+  height: 420px;
+
+}
+
+.mdl-card__actions {
+
+  outline: skyblue solid 5px;
+  z-index: 4;
+
+
+}
+#name {
+  display:flex;
+  margin-top: 10px;
+  justify-content: left;
+}
+
+#contact{
+  diplay: flex;
+
+}
+
+
+.mdl-button {
+  // outline: red solid 5px; 
+  margin-left: 10px ;
+
+}
+.patient-insert-card-wide {
+  height: 200px;
+  // outline: limegreen 10px solid;
+}
+
+
+.patient-insert-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 64px;
+  background-color: #37474F;
+}
+
+.mdl-card__title-text {
+  position: relative;
+  top: 6px;
+
+}
+
+.patient-insert-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+
+#mycard {
+  height: 400px;
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  // outline: red solid 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.mdl-textfield {
+  //width: auto;
+  margin-right: 10px;
+}
+
+.new-patient-card {
+  box-shadow:0px 0px 7px 2px rgb(120, 168, 62);
+}
+
+.active-patient-card {
+  box-shadow:0px 0px 4px 0px rgba(23, 142, 95, 1);
+}
+
+.plan-card-wide.mdl-card {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 20px;
+}
+
+.plan-card-wide > .mdl-card--border{
+  border-top-color: cadetblue;
+  outline: #1cb9b6 solid 1px;
+}
+
+.plan-card-wide > .mdl-card__titleNew {
+  color: #fff;
+  height: 39px;
+  background: #e2db08 center / cover;
+}
+
+.plan-card-wide > .mdl-card__titleDelivered {
+  color: #fff;
+  height: 39px;
+  background: #6fb70f center / cover;
+}
+
+.plan-card-wide > .mdl-card__titleSuspended {
+  color: #fff;
+  height: 39px;
+  background: #e2150b center / cover;
+}
+
+plan-card-wide > .mdl-card__titleStopped {
+  color: #fff;
+  height: 39px;
+  background: #ACEC00 center / cover;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 15px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+#plan-supporting-text{
+  width: 100%;
+}
+
+.plan-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.mdl-card__actions.activities-container.mdl-expansion__summary{
+  font-size: 25px;
+}
+
+#activity-name-styler{
+  font-size: 25px;
+}
+
+.red-col{
+  color: red;
+}
+
+.no-schedule-card .mdl-card {
+  width: 100px;
+}
+.no-schedule-card > .mdl-card__title {
+  color: #00b9d8;
+  height: 50px;
+}
+

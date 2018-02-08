@@ -1,0 +1,5 @@
+$('document').ready(function() {
+    $('#activities-list').empty().html("<%= escape_javascript(render 'activities/activities') %>");
+    $(".activities-menu-btn").css("backgroundColor", '#eeeeee');
+    $("#activities-others").css("backgroundColor", '#757575');
+});

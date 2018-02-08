@@ -1,0 +1,43 @@
+<%= provide(:title, "Lista Pazienti") %>
+
+<div>
+  <%= cell(:users_index_menu, current_coach_user) %>
+
+  <div id="patients">
+    <div class="users-index"></div>
+
+    <% if @users.empty? %>
+        <br>
+        <div id="no-info-grid" class="mdl-grid">
+          <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div id="no-info-card" class="mdl-card mdl-shadow--4dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text"> Nessun Paziente </h2>
+              </div>
+              <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+
+                Nell'archivio non e' presente nessun paziente per il momento. Inserisci un nuovo paziente attraverso il bottone verde in basso a destra.
+
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <% @users.each do |user|  %>
+          <%= cell(:user, user) %>
+      <% end %>
+    </div>
+
+    <div class="row right-align-btn">
+      <%= link_to new_user_path, class: 'mdl-navigation__link' do %>
+          <button id="new-users" class="new-btn mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">fiber_new</i> &nbsp Nuovo Paziente
+          </button>
+      <% end %>
+    </div>
+
+  </div>
+
+</div>

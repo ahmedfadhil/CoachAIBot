@@ -1,0 +1,8 @@
+$('document').ready(function() {
+    <% unless @chats.empty? %>
+      var chats_list = $('#chats');
+      chats_list.append("<%= escape_javascript(render 'chats/chat_list') %>");
+      chats_list.animate({scrollTop: chats_list.prop("scrollHeight")}, 500);
+    <% end %>
+    ChatsPooler.pool();
+});

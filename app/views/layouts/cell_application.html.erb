@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CoachAI</title>
+
+		<%= stylesheet_link_tag 'application', media: 'all' %>
+		<%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en', type: 'text/css' %>
+		<%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons', type: 'text/css' %>
+
+		<%= javascript_include_tag 'application'%>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+		<%= yield %>
+	</body>
+</html>

@@ -1,0 +1,128 @@
+<!-- Submenu for the plans list of a specified patient -->
+<%= sub_menu %>
+
+<div>
+  <% if plans.size == 0 %>
+      <div id="no-info-grid" class="mdl-grid">
+        <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+          <div id="no-info-card" class="mdl-card mdl-shadow--4dp">
+            <div class="mdl-card__title mdl-card--expand">
+              <h2 class="mdl-card__title-text"> Nessuna Piano Presente </h2>
+            </div>
+            <div id="feature-card-supporting-text" class="mdl-card__supporting-text">
+
+              All'utente <%= user.last_name %> <%= user.first_name %> non e' stato ancora definito un piano da seguire. Aggiungi un nuovo piano per iniziare!
+              <br>
+              Se ancora non puoi vedere il bottone AGGIUNGI UN NUOVO PIANO significa che il paziente non ha ancora completato la fase di profilazione.
+
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<div id="user-plans-grid" class="mdl-grid" data-panel="true">
+  <% plans.each do |plan| %>
+    <div class="mdl-cell--7-col">
+      <div class="plans-action"></div>
+      <div class="plan-card-wide mdl-card mdl-shadow--2dp">
+        <div class="<%= is_delivered?(plan) %>">
+          <% if plan.delivered == 1 %>
+              <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;IN CORSO</h2>
+          <% elsif plan.delivered == 0 %>
+              <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;NUOVO</h2>
+          <% else %>
+              <h2 class="mdl-card__title-text">Piano:&nbsp;&nbsp;<b><%= plan.name %></b>&nbsp;-&nbsp;PORTATO A TERMINE </h2>
+          <% end %>
+        </div>
+        <div id="plan-supporting-text" class="mdl-card__supporting-text">
+          <%= cell(:plan_description, plan) %>
+        </div>
+
+        <% if plan.plannings.empty? %>
+            <i>Non sono presenti attivita' per questo piano al momento.</i>
+        <% end %>
+
+        <div class="plan-activities-container">
+          <div class="accordion">
+            <% plan.plannings.each do |planning| %>
+                <h3 data-position="id_<%= planning.id %>">Attivita':&nbsp;&nbsp;<b><%= planning.activity.name %></b> <div class="right-align-accordion-title">Click per espandere</div></h3>
+                <div>
+                  <%= cell(:planning_description, planning) %>
+                  <%= cell(:schedules, planning) %>
+                  <%= cell(:questions, planning) %>
+                  <% if plan.delivered != 1 && plan.delivered != 4 %>
+                      <%= link_to 'Aggiungi Domanda', new_questions_path(:planning_id => planning.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
+                                  method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+                      <%= link_to 'Destituisci Attivita', planning_path(planning) ,
+                                  method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+                  <% end %>
+                </div>
+
+                <!--
+            <div id="activity-expandible" class="mdl-card__actions mdl-card--border">
+              <div class="activities-container">
+                <details class="activity-expander mdl-expansion">
+                  <summary class="mdl-expansion__summary">
+                    <span id="activity-name-styler" class="mdl-expansion__header"><%= planning.activity.name %></span>
+                  </summary>
+                  <div class="mdl-expansion__content">
+
+                    <%#= cell(:planning_description, planning) %>
+                    <%#= cell(:schedules, planning) %>
+                    <%#= cell(:questions, planning) %>
+
+                  </div>
+                  <div class="mdl-expansion__actions">
+                    <#% if plan.delivered != 1 && plan.delivered != 3 %>
+                        <#%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
+                                    method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+                        <#%= link_to 'Destituisci Attivita', planning_path(planning) ,
+                                    method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+                    <#% end %>
+                  </div>
+                </details>
+              </div>
+            </div>
+            -->
+
+            <% end %>
+          </div>
+        </div>
+
+
+        <% if plan.delivered == 0 %>
+            <%= link_to 'Assegna un\'attivita',
+                        assign_plannings_path(:p_id => plan.id, :u_id => plan.user.id), remote: true, method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+            <%= link_to 'Aggiungi un\'attivita',
+                        new_plannings_path(:p_id => plan.id, :u_id => plan.user.id), remote: true, method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
+            <%= link_to 'Consegna',
+                          deliver_plans_path(:p_id => plan.id), method: 'post',
+                          class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'%>
+
+        <% end %>
+        <%= link_to 'Elimina',
+                      plan_path(:p_id => plan.id, :u_id => plan.user.id), method: 'delete',
+                      class: 'pushRight mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent',
+                      data: {confirm: 'Sei sicuro di voler eliminare il piano? Una volta eliminato non potra\' piu\'
+                      essere ripristinato! Tuttavia le Attivita\' non verranno cancellate, ma le ritrovarai nella sezione Attivita\'!'}%>
+      </div>
+
+    </div>
+
+    <div id="lateral-panel-<%= plan.id %>" class="lateral-panel mdl-cell--5-col">
+
+    </div>
+  <% end %>
+
+</div>
+
+<div class="row right-align-btn">
+  <% if user.profiled? %>
+    <%= button_to new_plans_path(:u_id => user.id), class: 'new-btn mdl-button mdl-js-button',
+                  method: 'post' do %>
+        Aggiungi un nuovo piano
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,84 @@
+<div class="col-lg-4 col-xl-3">
+  <div class="user-card mdl-card <%= archived_css_class %>">
+    <div class="row">
+      <div class="col-sm-3">
+
+
+      </div>
+      <div class="col-sm-6">
+        <div class="user-card-name">
+          <div id="profile-img-user-<%= user.id %>" class="row">
+
+          </div>
+          <div class="row">
+            <%= user.first_name %> <%= " #{user.last_name}" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+
+        <% if archived? %>
+            <div class="row">
+              <div class="user-card-n">
+                <a href="<%= restore_users_path(user) %>">
+                  <%= image_tag 'restore_user_icon.png', class: 'restore-user' %>
+                </a>
+              </div>
+            </div>
+
+        <% else %>
+            <div class="row">
+              <div class="user-card-n">
+                <a href="<%= chat_chats_path(user) %>">
+                  <i class="chat-with-user n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">question_answer</i>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="user-card-n">
+                <a href="<%= archive_users_path(user) %>">
+                  <%= image_tag 'archive_user_icon.png', class: 'archive-user'%>
+                </a>
+              </div>
+            </div>
+            <% unless user.profiled? %>
+                <div class="row">
+                  <div class="user-card-n">
+                    <%= link_to user_path(user), method: :delete, data: {confirm: 'Sei sicuro di voler eliminare l\'utente? Una volta eliminato non potra\' piu\' essere recuperato.'} do%>
+                        <i class="delete-user n-icon mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>
+                    <% end %>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+
+      </div>
+    </div>
+
+    <% unless archived? %>
+        <div class="scores-grid mdl-grid">
+          <div class="col-sm-4">
+            <div class="score" id="physical_score_<%= user.id %>">
+
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="score" id="diet_score_<%= user.id %>">
+
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="score" id="mental_score_<%= user.id %>">
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="user-card-actions mdl-card__actions">
+      <%= link_to user_path(user), class: 'btn btn-default' do %>
+        Vedi utente
+      <% end %>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="card card-profile">
+  <div class="card-avatar">
+    <%= image_tag profile_photo_url, alt: 'paziente', class: 'img' %>
+  </div>
+
+  <div class="content">
+    <h6 class="category text-gray">Paziente</h6>
+    <h4 class="card-title"><%= "#{user.first_name} #{user.last_name}" %></h4>
+    <p class="card-content">
+    <table class="table">
+      <tbody class="text-primary">
+
+      <tr>
+        <td>
+          Eta'
+        </td>
+        <td>
+          <%= user.age %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Numero Cellulare
+        </td>
+        <td>
+          <%= user.cellphone %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Email
+        </td>
+        <td>
+          <%= user.email %>
+        </td>
+      </tr>
+
+      <% unless user.py_cluster.nil? %>
+          <tr>
+            <td>
+              Il sistema ha classificato il paziente come
+            </td>
+            <td>
+              <%= cluster %>
+            </td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+    </p>
+  </div>
+</div>
