@@ -1,0 +1,69 @@
+<div id="my-plan-card">
+
+  <div class="new-plan-card mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text">Nuova Domanda per l'attivita' <%= "#{@planning.activity.name}" %></h2>
+    </div>
+
+
+    <div class="mdl-card__supporting-text">
+      Inserisci i dati della domanda che vuoi che il bot faccia al paziente!
+      <%= form_for @question, url: questions_path(@question, :planning_id => @planning.id, :u_id => @user.id), method: 'post' do |f| %>
+          <%= hidden_field_tag :open_answer_val %>
+          <%= hidden_field_tag :scalar_from_val %>
+          <%= hidden_field_tag :scalar_to_val %>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <%= f.text_field :text, class: 'mdl-textfield__input notification_hour' %>
+            <%= f.label :text, 'Testo della domanda ', class: 'mdl-textfield__label notification_hour' %>
+          </div>
+
+          <div class="question-type">
+            <%= f.label :q_type, 'Tipologia: '%><br>
+            <%= f.radio_button :q_type, 'open', :checked => true, 'data-answers' => 'open' %>
+            <%= label :q_type, 'Domanda Aperta' %><br>
+            <%= f.radio_button :q_type, 'scalar', 'data-answers' => 'scalar' %>
+            <%= label :q_type, 'Domanda con Risposta Numerica' %><br>
+            <%= f.radio_button :q_type, 'yes_no', 'data-answers' => 'yes-no' %>
+            <%= label :q_type, 'Domanda con risposta Si/No' %>
+          </div>
+
+          <br>
+
+          <div class="open-answers mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input type="text" class="mdl-textfield__input notification_hour" id="open-answers" data-answer="open">
+            <label  for="open-answers" class="mdl-textfield__label notification_hour"> Risposte alla domanda aperta separate da virgola (Es. ieri,oggi,mai)</label>
+          </div>
+
+          <br>
+
+          <div class="numeric-answers">
+            Risposte per domanda con risposta numerica che va
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input type="number" class="mdl-textfield__input " id="scalar_from" data-answer="from">
+              <label  for="scalar-from" class="mdl-textfield__label"> Da</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input type="number" class="mdl-textfield__input " id="scalar_to" data-answer="to">
+              <label  for="scalar-to" class="mdl-textfield__label"> A</label>
+            </div>
+          </div>
+
+          <br>
+
+          <div>
+            <br>
+            <%= f.submit 'Aggiungi domanda all\'attivita\'', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+          </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+<header class="profile_content_header mdl-layout__header">
+
+  <div class="mdl-layout__header-row">
+    <nav class="mdl-navigation" >
+
+      <%= link_to plans_users_path(user), class: 'mdl-navigation__link', method: 'get' do %>
+          <button id="all_plans_users" class="mdl-button mdl-js-button mdl-button--raised">
+            Tutti
+          </button>
+      <% end %>
+
+      <%= link_to active_plans_users_path(user), class: 'mdl-navigation__link', remote: true do %>
+          <button id="active_plans_users" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">assignment_turned_in</i> &nbsp In Corso
+          </button>
+      <% end %>
+
+      <%= link_to finished_plans_users_path(user), class: 'mdl-navigation__link', remote: true do %>
+          <button id="finished_plans_users" class="mdl-button mdl-js-button mdl-button--raised" >
+            <i class="material-icons">done_all</i> &nbsp Portati a termine
+          </button>
+      <% end %>
+
+    </nav>
+  </div>
+</header>

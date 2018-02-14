@@ -1,0 +1,36 @@
+<h5><b>Domande di verifica</b></h5>
+<table >
+  <col width="50%">
+  <col width="50%">
+  <thead>
+  <tr>
+    <th>Domanda</th>
+    <th>Risposte</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <%  planning.questions.each do |question| %>
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">
+          <%= question.text %>
+        </td>
+
+        <td>
+          <%= short_answers(question) %>
+        </td>
+
+
+          <% if is_not_active(planning.plan) %>
+            <td>
+              <%= link_to 'Elimina ', question_path(question), method: 'delete',
+                          data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
+                          class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+            </td>
+          <% end %>
+
+      </tr>
+  <% end %>
+
+  </tbody>
+</table>

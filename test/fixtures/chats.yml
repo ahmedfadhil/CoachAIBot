@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  coach_user_id: one
+  user_id: one
+  text: MyString
+  direction: false
+
+two:
+  coach_user_id: two
+  user_id: two
+  text: MyString
+  direction: false

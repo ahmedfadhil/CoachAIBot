@@ -1,0 +1,35 @@
+<%= provide(:title, "Tutte le Communicazioni") %>
+<div class="container-fluid">
+  <div class="card">
+    <div id="communications-list-header" class="card-header" data-background-color="purple">
+      <h4 class="title">Communicazioni</h4>
+      <p class="category">Qui ce la lista di tutte le Communicazioni sugli utenti ricevute fin'ora.</p>
+    </div>
+    <div class="communications-list card-content">
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Elenco:</h5>
+          <ul class="list-group">
+
+              <% @communications.order(created_at: :desc).each do |communication| %>
+                <li class="list-item">
+                  <%= link_to communication_path(communication) do %>
+                      <div class="alert alert-info">
+                        <span><%= communication.text %></span>
+                        <div class="communications-list-hour">
+                          <%= communication.created_at.strftime('%d.%m.%Y - %H:%M') %>
+                        </div>
+                      </div>
+                  <% end %>
+                </li>
+              <% end %>
+
+          </ul>
+        </div>
+
+      <br>
+      <br>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<% provide(:title, 'Forgot Password') %>
+
+<section class="container-log-in">
+  <div id="cube" class="show-front">
+    <figure class="front">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-card__title mdl-color--primary mdl-color-text--white relative">
+              <h2 class="mdl-card__title-text">Forgot your password?</h2>
+            </div>
+
+            <div class="mdl-card__supporting-text">
+
+              <div class="field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.email_field :email, autofocus: true, class: 'mdl-textfield__input' %>
+                <%= f.label :email, class: 'mdl-textfield__label'%>
+              </div>
+
+            </div>
+
+            <div class=" actions mdl-card__actions mdl-card--border">
+              <div class="mdl-grid">
+                <%= f.submit "Send me reset password instructions" , class: 'cube-submit mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white'%>
+              </div>
+
+              <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                  <div class="mdl-color-text--primary" style="float: right">
+                    <%= render "devise/shared/links" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <% end %>
+    </figure>
+  </div>
+</section>

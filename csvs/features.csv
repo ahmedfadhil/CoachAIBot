@@ -1,0 +1,6 @@
+Id,Insert your age,How would you rate your overall health?,Does your work require sitting or moving more ?,How often do you get around on foot or by bicycle? ,How would you rate the amount of stress in your life?
+4,36,5,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium
+8,23,4,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium
+2,23,4,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Low
+3,23,2,Mostly moving (Involves movement more than 3days per week),1-2 times a week,Low
+1,30,3,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Low

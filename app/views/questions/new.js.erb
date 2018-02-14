@@ -1,0 +1,22 @@
+$('document').ready(function() {
+    var selector = $('#lateral-panel-<%= @plan_id %>');
+    selector.empty().html("<%= escape_javascript(render 'questions/new') %>");
+
+    selector.on ('change', 'input[type="radio"][data-answers]', function(e) {
+        e.preventDefault()
+        console.log('0')
+        var type = $(this).data("answers")
+        show_hide(this, type)
+    })
+
+
+    selector.on('change', 'input[data-answer]', function(e) {
+        e.preventDefault();
+        var type = $(this).data("answer")
+        assign_to_hidden(this, type)
+    });
+
+    // adds is dirty class to the label in order to make a floating label
+    $('.mdl-textfield__input').parent().addClass('is-focused');
+    $('.mdl-selectfield__select').parent().addClass('is-focused');
+});

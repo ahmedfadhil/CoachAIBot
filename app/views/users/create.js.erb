@@ -1,0 +1,10 @@
+
+$('document').ready(function() {
+    $('#patients-content').empty().html("<%= escape_javascript(render 'users/show') %>")
+
+    $('#overview-user').css('background', 'white')
+    $('#activities-user').css('background', 'rgba(158, 158, 158, 0.2)')
+    $('#notifications-users').css('background', 'rgba(158, 158, 158, 0.2)')
+    
+    $('#new_assign-user-notice').html('Utente INSERITO con successo!')
+});

@@ -1,0 +1,13 @@
+<%= div_personal do %>
+  <%= li_message do %>
+    <input type="hidden" class="message_hidden" value="<%= message.id %>">
+    <div class="avatar">
+      <%= img_style %>
+    </div>
+    <div class="msg">
+      <p><%= text %></p>
+      <time><%= time %></time>
+    </div>
+  <% end %>
+<% end %>
+

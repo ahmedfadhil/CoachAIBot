@@ -1,0 +1,62 @@
+#alwaysbreak { page-break-before: always; }
+#nobreak:before { clear:both; }
+#nobreak { page-break-inside: avoid; }
+
+/* Fonts */
+body {
+  color: #0140be;
+  font-size: 35px;
+  font-weight: normal;
+}
+
+div.pdf-container{
+  text-align: -webkit-center;
+}
+
+img.header-img{
+  width: 100px;
+}
+
+#pdf-plans-grid{
+  max-width: 80%;
+}
+
+#activity_img{
+  width: 5%;
+}
+
+#pdf-header{
+  border-style: groove;
+}
+
+#pdf-actions{
+  border-top: #0f1010 solid 1px;
+  z-index: 0;
+  outline: 0px;
+}
+
+#pdf-plan{
+  width: 100%;
+}
+
+#pdf-activity-card{
+  width: 95%;
+  border : 1px solid #000;
+  padding : 5px;
+}
+
+#pdf-activity-desc-card{
+  width: 95%;
+  border : 1px solid #000;
+  padding : 5px;
+}
+
+#pdf-plan-desc-card{
+  width: 95%;
+  border : 1px solid #000;
+  padding : 5px;
+}
+
+#pdf-activity-media{
+  padding: 5px;
+}
