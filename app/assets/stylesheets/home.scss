@@ -4,14 +4,13 @@
 .banner {
 
   //background: url('CoachAI Graphics/CoachAI_logo.svg') no-repeat center,url('CoachAI Graphics/header-bg.svg') no-repeat center ;
-  background:url('CoachAI Graphics/header-bg.svg') no-repeat center ;
+  background: url('CoachAI Graphics/header-bg.svg') no-repeat center;
   height: 600px;
   padding-top: 0px;
   padding-bottom: 80px;
   background-size: cover;
 
 }
-
 
 //
 //.demo-card-square.mdl-card {
@@ -24,13 +23,19 @@
 //
 //}
 
-
-
-
-
-
-
-
+.miniback {
+  background: url('city.jpg') no-repeat center;
+  background-size: cover;
+  background-position: top center;
+  min-height: 700px;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  z-index: 9999;
+  opacity: 1;
+  display: block;
+  right: 0px;
+}
 
 ///* Header */
 //
@@ -52,11 +57,8 @@
 //  /*-o-background-size: cover;*/
 //}
 
-
-
-
 //The login button
-.btn-banner{
+.btn-banner {
   text-align: -webkit-center;
   /* margin-bottom: 22px; */
   margin: auto;
@@ -68,12 +70,11 @@
   display: none;
 }
 
-.large-btn-home{
+.large-btn-home {
   width: auto;
   height: 50px;
   font-size: xx-large;
 }
-
 
 /* The Modal (background) */
 .modal {
@@ -81,10 +82,9 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -102,7 +102,7 @@
  * limitations under the License.
  */
 
-.login_img{
+.login_img {
   width: 200px;
   height: auto;
 }
@@ -112,9 +112,8 @@ body {
 
 }
 
-
 /* Disable ugly boxes around images in IE10 */
-a img{
+a img {
   border: 0px;
 }
 
@@ -137,7 +136,6 @@ a img{
   margin: 0 !important;
 }
 
-
 .mdl-textfield--expandable {
   width: auto;
 }
@@ -154,7 +152,6 @@ a img{
 .android-mobile-title {
   display: none !important;
 }
-
 
 .android-logo-image {
   height: 50px;
@@ -206,7 +203,6 @@ a img{
   width: 100px;
 }
 
-
 .android-navigation .mdl-navigation__link {
   display: inline-block;
   height: 60px;
@@ -232,7 +228,6 @@ a img{
   -ms-flex-order: 3;
   order: 3;
 }
-
 
 .android-drawer {
   border-right: none;
@@ -264,9 +259,6 @@ a img{
   bottom: 16px;
 }
 
-
-
-
 .android-be-together-section {
   position: relative;
   height: 800px;
@@ -276,9 +268,6 @@ a img{
   background: url('CoachAI Graphics/banner.png') center 30% no-repeat;
   background-size: cover;
 }
-
-
-
 
 .logo-font {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
@@ -348,7 +337,6 @@ a img{
   z-index: 1;
 }
 
-
 .android-phone {
   display: inline-block;
   width: 64px;
@@ -359,7 +347,6 @@ a img{
   width: 100%;
   z-index: 1;
 }
-
 
 .android-tablet {
   display: inline-block;
@@ -377,7 +364,6 @@ a img{
   z-index: 2;
 }
 
-
 .android-tv {
   display: inline-block;
   width: 300px;
@@ -388,7 +374,6 @@ a img{
   width: 100%;
   z-index: 1;
 }
-
 
 .android-auto {
   display: inline-block;
@@ -401,7 +386,6 @@ a img{
   height: 300px;
   z-index: 1;
 }
-
 
 .android-wear-section {
   position: relative;
@@ -561,11 +545,9 @@ a img{
   top: 6px;
 }
 
-
 .android-link-menu:hover {
   cursor: pointer;
 }
-
 
 /**** Mobile layout ****/
 @media (max-width: 900px) {
