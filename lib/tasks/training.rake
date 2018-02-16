@@ -7,7 +7,7 @@ def notify_new
 		#if obj && obj.start_date == Date.today
 		if obj
 			message1 = "Salve! Oggi ha inizio un nuovo programma di allenamento che e' stato impostato dal coach! Naviga nella sezione ALLENAMENTO per ottenere ulteriori informazioni"
-			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data))
+			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data || "{}"))
 			ga.send_reply(message1)
 		end
 	end
@@ -37,7 +37,7 @@ def notify_completed
 			end
 		end
 		message1 << "Invia un messaggio al coach dalla sezione Messaggi se desideri discutere con il coach del risultato di questo programma di allenamento. Grazie"
-		ga = GeneralActions.new(user, JSON.parse(user.bot_command_data))
+		ga = GeneralActions.new(user, JSON.parse(user.bot_command_data || "{}"))
 		ga.send_reply(message1)
 	end
 end

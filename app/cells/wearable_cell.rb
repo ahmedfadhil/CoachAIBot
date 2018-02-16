@@ -7,6 +7,11 @@ class WearableCell < Cell::ViewModel
 		model.first_name + " " + model.last_name
 	end
 
+
+	def profile_image
+		ChartDataBinder.new.profile_image_path(model)
+	end
+
 	def status
 		if model.fitbit_disabled?
 			css_class = "list-group-item list-group-item-danger"

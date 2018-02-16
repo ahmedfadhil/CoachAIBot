@@ -18,7 +18,7 @@ class ObjectivesController < ApplicationController
 	def create
 		@user = User.find(params[:id])
 		@objective = @user.objectives.build(objective_params)
-		@objective.fitbit_enabled! if @user.fitbit_enabled?
+		@objective.fitbit_integration = :fitbit_enabled if @user.fitbit_enabled?
 		if @objective.save
 			Thread.new {
 				message1 = "Cordiale utente, il tuo coach ha pianificato un nuovo programma di allenamento. Visita la sezione ALLENAMENTO per ulteriori informazioni."

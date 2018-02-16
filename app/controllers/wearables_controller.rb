@@ -39,15 +39,16 @@ class WearablesController < ApplicationController
 		@user.save!
 		@user.fitbit_invited!
 		url = wearables_fitbit_connect_url(token: @user.identity_token)
-		redirect_to wearables_url(@user)
-
 		Thread.new {
 			message1 = "Hai ricevuto un invito dal coach a collegare il tuo dispositivo indossabile"
-			message2 = "Perfavore visita il seguente indirizzo per continuare: #{url}"
-			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data))
+			message2 = "Perfavore visita il seguente indirizzo per continuare:"
+			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data || "{}"))
 			ga.send_reply(message1)
 			ga.send_reply(message2)
+			ga.send_reply(url)
 		}
+		redirect_to wearables_url(@user)
+
 	end
 
 	def disable
@@ -56,7 +57,7 @@ class WearablesController < ApplicationController
 		redirect_to edit_wearable_url(@user)
 		Thread.new {
 			message1 = "Gentile utente, l'integrazione con il tuo dispositivo indossabile è stata disabilitata"
-			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data))
+			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data || "{}"))
 			ga.send_reply(message1)
 		}
 	end
@@ -97,7 +98,7 @@ class WearablesController < ApplicationController
 			user.fitbit_enabled!
 
 			message1 = "Gentile utente, grazie per avere abilitato l'integrazione con il tuo dispositivo indossabile"
-			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data))
+			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data || "{}"))
 			ga.send_reply(message1)
 
 			# XXX move into .env file and configuration
