@@ -37,6 +37,8 @@
   right: 0px;
 }
 
+
+
 ///* Header */
 //
 //.header {
@@ -154,8 +156,18 @@ a img {
 }
 
 .android-logo-image {
-  height: 50px;
-  width: 60px;
+  height: auto;
+  width: auto;
+
+}
+.outer{
+  max-width: 5%;
+  max-height: 5%;
+  margin: 28px -2px -30px 16px;
+  border-radius: 15%;
+  background: #0d9598;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
 .android-header {
