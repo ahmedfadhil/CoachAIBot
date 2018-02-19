@@ -114,7 +114,7 @@ class GeneralActions
   # static methods
 
   def self.menu_buttons
-    %w[Attivita Feedback Consigli Messaggi Obiettivi]
+    %w[Attivita Feedback Consigli Messaggi Allenamenti]
   end
 
   def self.answers_from_question(question)
