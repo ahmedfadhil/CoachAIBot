@@ -255,7 +255,11 @@ module FSM
 		end
 
 		def commit!
-			# nothign to do yet!
+			if user.objectives.last.steps?
+				user.objectives.last.objective_logs.create(steps: input)
+			else
+				user.objectives.last.objective_logs.create(distance: input)
+			end
 		end
 
 		def talk

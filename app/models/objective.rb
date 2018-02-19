@@ -115,6 +115,6 @@ class Objective < ApplicationRecord
 
 	def steps_progress_log
 		logs = objective_logs
-		return logs.map{ |e| e.steps }.inject(:+) || 0
+		return logs.map{ |e| e.steps || 0 }.inject(:+) || 0
 	end
 end
