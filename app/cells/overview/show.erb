@@ -1,6 +1,4 @@
 <div class="overview-action"></div>
-
-
 <% delivered_plans = user.plans.where('delivered = ? OR delivered = ?', 1, 4) %>
 <% if delivered_plans.size == 0 %>
     <div id="no-info-grid" class="mdl-grid">

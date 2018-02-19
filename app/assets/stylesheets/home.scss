@@ -103,7 +103,58 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#notificationsButton {
+  height: 60px;
+  border-radius: 20%;
+  padding-right: 6px;
+}
+.main-container{
+ background: white !important;
+//  Lets keep the background simple for now
+//background: url('17.jpg') no-repeat center;
+  background-size: cover;
 
+}
+.mdl-layout__header .mdl-layout__drawer-button{
+  position: absolute;
+  color: rgb(255,255,255);
+  background-color: #dd7625 ;
+}
+.mdl-layout__drawer .avatar{
+
+  margin: 28px -2px -30px 50px;
+  border-radius: 34%;
+  background: #dd7625 !important;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
+}
+.mdl-layout__header-row{
+  color: white !important;
+}
+.mdl-layout__drawer{
+  background: #9fd229d6;
+}
+.dash_header{
+  background-color:#FF9324 !important;
+font-size: larger;
+}
+.header_links{
+  flex-shrink: 15;
+}
+.checkme{
+  margin: 4px 19px 0;
+  font-size: large;
+}
+.footer_color{
+  color: white;
+  font-weight: bold;
+}
+.login_group{
+  border: 73px;
+  background: #c1202000;
+  padding: 9px 50px 65px 20px;
+}
 .login_img {
   width: 200px;
   height: auto;
@@ -165,7 +216,7 @@ a img {
   max-height: 5%;
   margin: 28px -2px -30px 16px;
   border-radius: 15%;
-  background: #0d9598;
+  background: #ad1;
   overflow: hidden;
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }

@@ -1,56 +1,51 @@
-<section class="container-log-in">
-  <div id="cube" class="show-front">
-    <figure class="front">
-      <%= devise_error_messages! %>
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<!--<section class="container-log-in">-->
+  <!--<div id="cube" class="show-front">-->
+    <!--<figure class="front">-->
+      <!--<#%= devise_error_messages! %>-->
+      <!--<#%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>-->
 
-        <div class="mdl-card mdl-shadow--6dp">
-          <div class="mdl-card__title mdl-color--primary mdl-color-text--white relative">
-            <h2 class="mdl-card__title-text">Login</h2>
-          </div>
+        <!--<div class="mdl-card mdl-shadow&#45;&#45;6dp">-->
+          <!--<div class="mdl-card__title mdl-color&#45;&#45;primary mdl-color-text&#45;&#45;white relative">-->
+            <!--<h2 class="mdl-card__title-text">Login</h2>-->
+          <!--</div>-->
 
-          <div class="mdl-card__supporting-text">
+          <!--<div class="mdl-card__supporting-text">-->
 
-            <div class="field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <%= f.email_field :email, autofocus: true, class: 'mdl-textfield__input', for: 'login' %>
-              <%= f.label :email, class: 'mdl-textfield__label', id: 'login' %>
-            </div>
+            <!--<div class="field mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
+              <!--<#%= f.email_field :email, autofocus: true, class: 'mdl-textfield__input', for: 'login' %>-->
+              <!--<#%= f.label :email, class: 'mdl-textfield__label', id: 'login' %>-->
+            <!--</div>-->
 
-            <div class="field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'mdl-textfield__input', for: 'password' %>
-              <%= f.label :password, class: 'mdl-textfield__label', id: 'password' %>
-            </div>
+            <!--<div class="field mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
+              <!--<#%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'mdl-textfield__input', for: 'password' %>-->
+              <!--<#%= f.label :password, class: 'mdl-textfield__label', id: 'password' %>-->
+            <!--</div>-->
 
-            <% if devise_mapping.rememberable? %>
-              <div class="field">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
-              </div>
-            <% end %>
+            <!--<#% if devise_mapping.rememberable? %>-->
+              <!--<div class="field">-->
+                <!--<#%= f.check_box :remember_me %>-->
+                <!--<#%= f.label :remember_me %>-->
+              <!--</div>-->
+            <!--<#% end %>-->
 
-          </div>
-          <div class="mdl-card__actions mdl-card--border">
-            <div class="mdl-grid">
-              <%= f.submit "Log in", class: 'cube-submit mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white' %>
-            </div>
-            <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-color-text--primary" style="float: right">
-                  <%= render "devise/shared/links" %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </figure>
-  </div>
-</section>
-
-
-
-
-
+          <!--</div>-->
+          <!--<div class="mdl-card__actions mdl-card&#45;&#45;border">-->
+            <!--<div class="mdl-grid">-->
+              <!--<#%= f.submit "Log in", class: 'cube-submit mdl-cell mdl-cell&#45;&#45;12-col mdl-button mdl-button&#45;&#45;raised mdl-button&#45;&#45;colored mdl-js-button mdl-js-ripple-effect mdl-color-text&#45;&#45;white' %>-->
+            <!--</div>-->
+            <!--<div class="mdl-grid">-->
+              <!--<div class="mdl-cell mdl-cell&#45;&#45;12-col">-->
+                <!--<div class="mdl-color-text&#45;&#45;primary" style="float: right">-->
+                  <!--<#%= render "devise/shared/links" %>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--<#% end %>-->
+    <!--</figure>-->
+  <!--</div>-->
+<!--</section>-->
 
 <div class="section">
   <div class="container text-center">
@@ -87,26 +82,36 @@
             <p class="text-divider">Or Be Classical</p>
             <div class="content">
 
-              <div class="input-group">
+              <div class="input-group login_group">
 										<span class="input-group-addon">
 											<i class="material-icons">face</i>
 										</span>
                 <input type="text" class="form-control" placeholder="First Name...">
               </div>
 
-              <div class="input-group">
+              <div class="input-group login_group">
 										<span class="input-group-addon">
 											<i class="material-icons">email</i>
 										</span>
-                <input type="text" class="form-control" placeholder="Email...">
+                <%= f.email_field :email, autofocus: true, class: 'mdl-textfield__input form-control', placeholder:'Email...',
+                                  for: 'login' %>
               </div>
 
-              <div class="input-group">
+              <div class="input-group login_group">
 										<span class="input-group-addon">
 											<i class="material-icons">lock_outline</i>
 										</span>
-                <input type="password" placeholder="Password..." class="form-control" />
+
+                <%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'mdl-textfield__input form-control',
+                                     placeholder:'Password...', for: 'password' %>
               </div>
+
+              <% if devise_mapping.rememberable? %>
+                <div class="field checkme login_group">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
+              <% end %>
 
               <!-- If you want to add a checkbox to this form, uncomment this code
 
@@ -118,7 +123,8 @@
               </div> -->
             </div>
             <div class="footer text-center">
-              <a href="#pablo" class="btn btn-simple btn-primary btn-lg">Get Started</a>
+              <%= f.submit "Log in", class: 'btn btn-simple btn-primary btn-lg cube-submit mdl-cell mdl-cell--12-col
+              mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white' %>
             </div>
           </form>
         </div>
@@ -128,8 +134,16 @@
   </div>
 </div>
 
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+      <div class="mdl-color-text--primary" style="float: right">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+<%end %>
+
 <div class="col-md-12 text-center">
   <a href="examples/signup-page.html" class="btn btn-simple btn-primary btn-lg" target="_blank">View Signup Page</a>
 </div>
 
-<%end %>
