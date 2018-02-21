@@ -83,7 +83,7 @@
 
 .user-img-round {
    //border-radius: 50%;
-  background: url("logo.png") no-repeat center;
+  //background: url("logo.png") no-repeat center;
    width: 100%;
    background-size: cover;
 
@@ -105,7 +105,8 @@
   margin-bottom: 30px;
   margin-left: 30px;
   width: 80%;
-  border-style: solid;
+  //border-style: solid;
+  overflow: inherit !important;
   border-width: 1px;
 }
 

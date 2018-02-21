@@ -1,19 +1,55 @@
 <header class="profile_content_header mdl-layout__header">
 
-  <div class="mdl-layout__header-row sub_menu">
+
     <nav class="mdl-navigation" >
 
-      <%= link_to users_path,  class: 'mdl-navigation__link' do %>
-          <button id="all-users" class="mdl-button mdl-js-button mdl-button--raised">
-            <i class="material-icons">supervisor_account</i> &nbsp Attivi (<%= registered %>)
-          </button>
-      <% end %>
 
-      <%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>
-          <button id="archived-users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <%= image_tag 'archive_user_icon.png' %> &nbsp Archiviati (<%= archived %>)
-          </button>
-      <% end %>
+
+        <div class="container">
+
+          <!--  buttons -->
+          <div id="buttons" class="cd-section">
+
+            <div class="row">
+              <div class="col-md-8 ml-auto mr-auto">
+                <%= link_to users_path,  class: 'mdl-navigation__link' do %>
+                  <button id="all-users" class="btn btn-primary btn-large button_attivi">
+                    <i class="material-icons">insert_emoticon</i>&nbsp Attivi ( <%= registered %> )
+                  </button>
+                <% end %>
+
+
+                <%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>
+                  <button id="archived-users" class="btn btn-warning btn-large" >
+                    <i class="material-icons">supervisor_account</i>&nbsp Archiviati ( <%= archived %> )
+                  </button>
+                <% end %>
+
+              </div>
+            </div>
+
+
+
+
+          </div>
+
+
+
+          <!--                 end sliders -->
+        </div>
+
+
+      <!--<#%= link_to users_path,  class: 'mdl-navigation__link' do %>-->
+          <!--<button id="all-users" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised">-->
+            <!--<i class="material-icons">supervisor_account</i> &nbsp Attivi (<%= registered %>)-->
+          <!--</button>-->
+      <!--<#% end %>-->
+
+      <!--<#%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>-->
+        <!--<button id="archived-users" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised" >-->
+          <#%= image_tag 'archive_user_icon.png' %> &nbsp Archiviati (<%= archived %>)
+        <!--</button>-->
+      <!--<#% end %>-->
 
       <!--
       <%#= link_to active_users_path, class: 'mdl-navigation__link' do %>
@@ -30,6 +66,10 @@
       -->
 
 
+
     </nav>
-  </div>
+
+
 </header>
+
+

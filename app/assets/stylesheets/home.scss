@@ -111,10 +111,43 @@
 ////background: url("bot.jpg") no-repeat center;
 //  background-size: cover;
 //}
+.patient_profile{
+  background-color:#dd7625 !important;
+}
+.button_attivi.btn-large{
+  background-color: #9c27b0 !important;
+  color: #FFFFFF;
+}
 
+.middle_align{
+  margin-right: 375px;
+}
+.card_height{
+  margin-top: 20px;
 
+}
+.submenu_buttons{
+  background: rgb(76, 199, 255) !important;
+  font-size: 17px;
+  padding: 18px 36px;
+}
+.three_adherence{
+  margin-left: -41px;
+  margin-top: -32px;
+}
+.user_view_buttons{
+  margin-left: 110px;
+  margin-top: -90px;
+  //display: flex;
+  display: block;
+}
 
-
+.card_center{
+  //align-content: center !important;
+  //padding-left: 90px;
+  display: inline-grid;
+  text-transform: uppercase;
+}
 
 
 #notificationsButton {
@@ -147,7 +180,7 @@
   color: white !important;
 }
 .mdl-layout__drawer{
-  background: #9fd229d6;
+  background: white;
 }
 .dash_header{
   background-color:#FF9324 !important;

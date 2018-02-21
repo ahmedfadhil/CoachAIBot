@@ -3,10 +3,10 @@ class ChartDataBinder
   DIET, PHYSICAL, MENTAL = '0', '1', '2'
   YES_ANSWER, NO_ANSWER = 'Si', 'No'
   ARCHIVED = 'ARCHIVED'
-
+  
   def init
   end
-
+  
   def get_scores(coach)
     users = coach.users.where('state <> ?', ARCHIVED)
     data = {:users => []}
@@ -21,18 +21,18 @@ class ChartDataBinder
       end
     end
   end
-
+  
   def score(user, category)
     plannings = plannings_of(user, category)
     total = Notification.where('notifications.planning_id in (?)', plannings.map(&:id)).uniq.count
     positive = Notification.joins(:feedbacks).where('notifications.planning_id in (?) AND feedbacks.answer = ?', plannings.map(&:id), YES_ANSWER).uniq.count
     total > 0 ? positive.as_percentage_of(total).to_i : 0
   end
-
+  
   def plannings_of(user, type)
     Planning.joins(:plan, :activity).where(:plans => {:delivered => 1, :user_id => user.id}, :activities => {:category => type})
   end
-
+  
   def get_images(coach)
     users = coach.users.where('state <> ?', ARCHIVED)
     data = {:users => []}
@@ -45,7 +45,7 @@ class ChartDataBinder
       end
     end
   end
-
+  
   def profile_image_path(user)
     if user.telegram_id.nil?
       default_image
@@ -58,19 +58,20 @@ class ChartDataBinder
       end
     end
   end
-
+  
   def default_image
-    'https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png'
+    # 'https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png'
+    'https://cdn-images-1.medium.com/max/660/1*paQ7E6f2VyTKXHpR-aViFg.png'
   end
-
+  
   def get_overview_data(user)
     plans = user.plans.where('delivered = ? OR delivered = ?', 1, 4)
     data = {:plans => []}
     i = 0
     plans.find_each do |plan|
       data[:plans].push({:name => plan.name,
-                         :from_day => plan.from_day.strftime('%m/%d/%Y') ,
-                         :to_day => plan.to_day.strftime('%m/%d/%Y') ,
+                         :from_day => plan.from_day.strftime('%m/%d/%Y'),
+                         :to_day => plan.to_day.strftime('%m/%d/%Y'),
                          :activities => []
                         })
       j = 0
@@ -85,7 +86,7 @@ class ChartDataBinder
         undone = feedbacks_completeness.where(:answer => 'No').size
         done_perc = done.as_percentage_of(tot)
         undone_perc = undone.as_percentage_of(tot)
-        to_do_perc = (tot-(undone+done)).as_percentage_of(tot)
+        to_do_perc = (tot - (undone + done)).as_percentage_of(tot)
         data[:plans][i][:activities].push({:name => planning.activity.name,
                                            :planning_id => planning.id,
                                            :completeness_data => {:text => text,
@@ -97,7 +98,7 @@ class ChartDataBinder
                                            :scalar_data => [],
                                            :yes_no_data => []
                                           })
-
+        
         yes_no_questions = planning.questions.where(:q_type => 'yes_no').select(:id).uniq
         yes_no_questions.each do |q|
           feedbacks_yes_no = Feedback.where('question_id = (?) AND  notification_id in (?)',
@@ -118,19 +119,19 @@ class ChartDataBinder
                                                                           ["No #{no_perc.to_i}%", no_perc.to_i]]
                                                                })
           end
-
+        
         end
-
-
+        
+        
         open_questions = planning.questions.where(:q_type => 'open').select(:id).uniq
         h = 0
         open_questions.each do |q|
           feedbacks_open = Feedback.where('question_id = (?) AND  notification_id in (?)',
-                                             q.id,
-                                             notifications.where(:done => 1).select(:id))
+                                          q.id,
+                                          notifications.where(:done => 1).select(:id))
           data[:plans][i][:activities][j][:open_data].push({:text => Question.find(q.id).text,
                                                             :data => []
-                                                             })
+                                                           })
           answers = q.answers.map(&:text)
           tot = feedbacks_open.size
           answers.each do |a|
@@ -139,27 +140,27 @@ class ChartDataBinder
           end
           h = h + 1
         end
-
-
+        
+        
         scalar_questions = planning.questions.where(:q_type => 'scalar').select(:id).uniq
-        h=0
+        h = 0
         scalar_questions.each do |q|
           feedbacks_scalars = Feedback.where('question_id = (?) AND  notification_id in (?)',
                                              q.id,
                                              notifications.where(:done => 1).select(:id))
-
+          
           data[:plans][i][:activities][j][:scalar_data].push({:text => Question.find(q.id).text,
                                                               :data => []
                                                              })
-
+          
           feedbacks_scalars.find_each do |f|
             t = f.notification.date.to_time
             t += t.utc_offset
             t = t.to_i * 1000
             data[:plans][i][:activities][j][:scalar_data][h][:data].push([t, f.answer.to_f])
           end
-
-
+          
+          
           h = h + 1
         end
         j = j + 1

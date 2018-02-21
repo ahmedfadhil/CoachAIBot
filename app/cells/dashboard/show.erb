@@ -4,33 +4,31 @@
   </div>
 
   <div class="row">
-
     <div class="col-lg-4 col-md-12">
       <div class="card">
-        <div class="card-header" data-background-color="red">
-          <h4 class="title">Pazienti CRITICI</h4>
-          <p class="category">Categorizzati dal sistema come Critici, questo significa che non stanno seguendo le attivita' da te assegante oppure e' da troppo tempo che non si ricevono feedback da esso.</p>
+        <div class="card-header" data-background-color="green">
+          <h4 class="title">Pazienti DEVOTI</h4>
+          <p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>
         </div>
         <div class="card-content table-responsive">
           <table class="table table-hover">
             <thead class="text-warning">
             <tr><th>ID</th>
-              <th>Nome</th>
+              <th>Name</th>
             </tr></thead>
             <tbody>
-
-            <% reds.each do |red_user| %>
-                <tr>
-                  <td><%= user_id_link(red_user) %></td>
-                  <td><%= user_name_link(red_user) %></td>
-                </tr>
+            <% greens.each do |green_user| %>
+              <tr>
+                <td><%= user_id_link(green_user) %></td>
+                <td><%= user_name_link(green_user) %></td>
+              </tr>
             <% end %>
-
             </tbody>
           </table>
         </div>
       </div>
     </div>
+
 
     <div class="col-lg-4 col-md-12">
       <div class="card">
@@ -57,30 +55,33 @@
       </div>
     </div>
 
+
+
     <div class="col-lg-4 col-md-12">
       <div class="card">
-        <div class="card-header" data-background-color="green">
-          <h4 class="title">Pazienti DEVOTI</h4>
-          <p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>
+        <div class="card-header" data-background-color="red">
+          <h4 class="title">Pazienti CRITICI</h4>
+          <p class="category">Categorizzati dal sistema come Critici, questo significa che non stanno seguendo le attivita' da te assegante oppure e' da troppo tempo che non si ricevono feedback da esso.</p>
         </div>
         <div class="card-content table-responsive">
           <table class="table table-hover">
             <thead class="text-warning">
             <tr><th>ID</th>
-              <th>Name</th>
+              <th>Nome</th>
             </tr></thead>
             <tbody>
-            <% greens.each do |green_user| %>
-                <tr>
-                  <td><%= user_id_link(green_user) %></td>
-                  <td><%= user_name_link(green_user) %></td>
-                </tr>
+
+            <% reds.each do |red_user| %>
+              <tr>
+                <td><%= user_id_link(red_user) %></td>
+                <td><%= user_name_link(red_user) %></td>
+              </tr>
             <% end %>
+
             </tbody>
           </table>
         </div>
       </div>
     </div>
-
   </div>
 </div>
