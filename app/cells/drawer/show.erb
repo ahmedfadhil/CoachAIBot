@@ -1,6 +1,17 @@
 <div class="drawer mdl-layout__drawer ">
   <header class="drawer-header">
-    <%= image_tag 'logo.png', class: 'avatar' %>
+    <%= link_to profile_index_path do %>
+      <%= image_tag 'logo.png', class: 'avatar head_sizing' %>
+      <br>
+      <a class="logo_text">CoachAI</a>
+
+
+
+
+
+
+
+    <% end %>
 
     <!--<div class="avatar-dropdown">-->
       <!--<span id="admin-name"><#%= "#{coach.first_name} #{coach.last_name}" %></span>-->
@@ -15,25 +26,26 @@
     <!--</div>-->
 
   </header>
-  <nav class="navigation mdl-navigation">
+  <nav class="navigation mdl-navigation side_background icons">
+        <%= link_to profile_index_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+          <i class="material-icons"> dashboard</i>Dashboard
+        <% end %>
+        <%= link_to users_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+          <i class="material-icons">people</i>Pazienti
+        <% end %>
 
-    <%= link_to profile_index_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-        <i class="mdl-color-text--grey-900 material-icons" role="presentation">dashboard</i>Dashboard
-    <% end %>
+        <%= link_to activities_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+          <i class="material-icons">library_books</i> Attivita'
+        <% end %>
 
-    <%= link_to users_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-        <i class="mdl-color-text--grey-900 material-icons" role="presentation">people</i>Pazienti
-    <% end %>
+        <%= link_to all_communications_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+          <i class="material-icons">bubble_chart</i>Communications
+        <% end %>
 
-    <%= link_to activities_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-        <i class="mdl-color-text--grey-900 material-icons" role="presentation">inbox</i>Attivita'
-    <% end %>
-
-    <%= link_to all_communications_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-        <i class="mdl-color-text--grey-900 material-icons" role="presentation">report</i>Communications
-    <% end %>
-
-    <div class="mdl-layout-spacer"></div>
-    <a class="drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900" href=""><i class="mdl-color-text--grey-900 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+    <!--<div class="mdl-layout-spacer"></div>-->
+    <!--<a class="drawer-link-text-size mdl-navigation__link mdl-color-text&#45;&#45;grey-900" href=""><i class="mdl-color-text&#45;&#45;grey-900 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>-->
   </nav>
 </div>
+
+
+

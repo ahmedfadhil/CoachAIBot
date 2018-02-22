@@ -1,28 +1,73 @@
 <%= provide(:title, "Lista Attivita'") %>
 <%= render 'activities/menu' %>
 
-<div class="mdl-grid new-activity-grid">
-  <div class="mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-    <div class="all-activities-card">
-      <div id="activity-insert-card-wide" class="mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Qui sotto ci sono tutte le attivita presenti nel sistema</h2>
-        </div>
+<!--<div class="mdl-grid new-activity-grid">-->
+  <!--<div class="mdl-cell&#45;&#45;12-col-desktop mdl-cell&#45;&#45;8-col-tablet mdl-cell&#45;&#45;4-col-phone">-->
+    <!--<div class="all-activities-card">-->
+      <!--<div id="activity-insert-card-wide" class="mdl-card mdl-shadow&#45;&#45;2dp">-->
+        <!--<div class="mdl-card__title">-->
+          <!--<h2 class="mdl-card__title-text">Qui sotto ci sono tutte le attivita presenti nel sistema</h2>-->
+        <!--</div>-->
 
 
-        <div class="mdl-card__supporting-text">
+        <!--<div class="mdl-card__supporting-text">-->
 
-          <div id="activities-list">
-            <%= render 'activities/activities' %>
-          </div>
+          <!--<div id="activities-list">-->
+            <!--<%= render 'activities/activities' %>-->
+          <!--</div>-->
 
-          <div class="mdl-layout-spacer"></div>
-          <br>
-          <%= button_to new_activity_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', method: 'get' do %>
-              Aggiungi una nuova attivita
-          <% end %>
+          <!--<div class="mdl-layout-spacer"></div>-->
+          <!--<br>-->
+
+          <!--<%= link_to new_activity_path, method: 'get' do %>-->
+            <!--<button id="activities-user" class="btn btn-info btn-large">-->
+              <!--<i class="material-icons">playlist_add</i> &nbsp Aggiungi Attivita-->
+            <!--</button>-->
+          <!--<% end %>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="card">
+      <div class="card-header card-chart" data-background-color="green">
+        <div class="ct-chart" id="dailySalesChart"></div>
+      </div>
+      <div class="card-content">
+        <h4 class="title">Qui sotto ci sono tutte le attivita presenti nel sistema</h4>
+
+        <%= render 'activities/activities' %>
+        <div class="mdl-layout-spacer"></div>
+
+        <%= link_to new_activity_path, method: 'get' do %>
+          <button id="activities-user" class="btn btn-info btn-large">
+            <i class="material-icons">playlist_add</i> &nbsp Aggiungi Attivita
+          </button>
+        <% end %>
+        <div class="mdl-layout-spacer"></div>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons">access_time</i> updated 4 minutes ago
         </div>
       </div>
     </div>
   </div>
+
 </div>

@@ -37,8 +37,6 @@
   right: 0px;
 }
 
-
-
 ///* Header */
 //
 //.header {
@@ -104,104 +102,431 @@
  * limitations under the License.
  */
 
-
-
-
 //.cards{
 ////background: url("bot.jpg") no-repeat center;
 //  background-size: cover;
 //}
-.patient_profile{
-  background-color:#dd7625 !important;
+//.sidebar .sidebar-background:after, .off-canvas-sidebar .sidebar-background:after{
+//  position: absolute;
+//  z-index: 3;
+//  width: 100%;
+//  height: 100%;
+//  content: "";
+//  display: block;
+//  background: #FFFFFF;
+//  opacity: .93;
+//}
+//.side_background {
+//
+//  background: rgba(255, 0, 0, 0.45);
+//  background: rgba(255, 0, 0, 0.45);
+//  background: url('sidebar-1.jpg') no-repeat center;
+//  position: initial;
+//  z-index: 1;
+//  height: 100%;
+//  width: 100%;
+//  display: block;
+//  top: 0;
+//  left: 0;
+//  background-size: cover;
+//  background-position: center center;
+//
+//}
+
+///*
+//  Based from this article from Divya Manian -
+//  http://nimbupani.com/using-background-clip-for-text-with-css-fallback.html
+//*/
+//
+//* {
+//  margin: 0;
+//  padding: 0;
+//}
+//
+//*,
+//:before,
+//:after {
+//  -webkit-box-sizing: border-box;
+//  -moz-box-sizing: border-box;
+//  box-sizing: border-box;
+//}
+//
+//html,
+//body {
+//  min-height: 100%;
+//}
+//
+//body {
+//  font-family: 'Oswald', sans-serif;
+//  color: #fff;
+//  background-color: #000;
+//}
+//
+//.wrapper {
+//  text-align: center;
+//}
+//
+//.title {
+//  font-size: 2em;
+//  position: relative;
+//  margin: 0 auto 1em;
+//  padding: 1em 1em .25em 1em;
+//  text-align: center;
+//  text-transform: uppercase;
+//}
+//.title:after {
+//  position: absolute;
+//  top: 100%;
+//  left: 50%;
+//  width: 240px;
+//  height: 4px;
+//  margin-left: -120px;
+//  content: '';
+//  background-color: #fff;
+//}
+//
+///* Clip text element */
+//.clip-text {
+//  font-size: 6em;
+//  font-weight: bold;
+//  line-height: 1;
+//  position: relative;
+//  display: inline-block;
+//  margin: .25em;
+//  padding: .5em .75em;
+//  text-align: center;
+//  /* Color fallback */
+//  color: #fff;
+//  -webkit-background-clip: text;
+//
+//  -webkit-text-fill-color: transparent;
+//}
+//
+//.clip-text:before,
+//.clip-text:after {
+//  position: absolute;
+//  content: '';
+//}
+//
+///* Background */
+//.clip-text:before {
+//  z-index: -2;
+//  top: 0;
+//  right: 0;
+//  bottom: 0;
+//  left: 0;
+//  background-image: inherit;
+//}
+//
+///* Text Background (black zone) */
+//.clip-text:after {
+//  position: absolute;
+//  z-index: -1;
+//  top: .125em;
+//  right: .125em;
+//  bottom: .125em;
+//  left: .125em;
+//  background-color: #000;
+//}
+//
+///* Change the background position to display letter when the black zone isn't here */
+//.clip-text--no-textzone:before {
+//  background-position: -.65em 0;
+//}
+//
+//.clip-text--no-textzone:after {
+//  content: none;
+//}
+//
+///* Use Background-size cover for photo background and no-repeat background */
+//.clip-text--cover,
+//.clip-text--cover:before {
+//  background-repeat: no-repeat;
+//  -webkit-background-size: cover;
+//  background-size: cover;
+//  background-position: 50% 50%;
+//}
+//
+///* Background image from http://thepatternlibrary.com/ and http://lorempixel.com */
+//.clip-text_one {
+//  background-image: url(http://cdn8.staztic.com/app/a/6278/6278761/hd-abstract-wallpapers-1-0-s-307x512.jpg);
+//}
+//
+//.clip-text_two {
+//  background-image: url(http://wallpaper-gallery.net/images/black-abstract-wallpaper/black-abstract-wallpaper-4.jpg);
+//}
+//
+//.clip-text_tree {
+//  background-image: url(http://www.cruzine.com/wp-content/uploads/2012/04/005-free-abstract-wallpapers.jpg);
+//}
+//
+//.clip-text_four {
+//  background-image: url(http://hd.wallpaperswide.com/thumbs/abstract_black_design_2-t2.jpg);
+//}
+//
+//.clip-text_five {
+//  background-image: url(http://powellong.com/data/wallpapers/81/WDF_1255144.jpg);
+//}
+//
+//.clip-text_six {
+//  background-image: url(https://www.hdwallpapers.net/previews/3d-colorful-spiral-1057.jpg);
+//}
+//
+//.clip-text_seven {
+//  background-image: url(http://cdn8.staztic.com/app/a/6278/6278761/hd-abstract-wallpapers-1-0-s-307x512.jpg);
+//}
+//
+//.clip-text_eight {
+//  background-image: url(http://lorempixel.com/410/200/people);
+//}
+//
+//.clip-text_nine {
+//  background-image: url(https://wallpaperbrowse.com/media/images/background-pictures-10.jpg);
+//}
+//
+//.clip-text_ten {
+//  background-image: url(http://lorempixel.com/480/200/nightlife/8);
+//}
+//
+//.clip-text_eleven {
+//  background-image: url(http://www.wallcoo.net/cartoon/abstract_rainbow_colours_13_1920x1200/images/Abstract_Rainbow_colour_pattern_4116.jpg);
+//  background-size: cover;
+//}
+//
+//.clip-text_twelve {
+//  background-image: url(http://hd.wallpaperswide.com/thumbs/abstract_wallpaper_for_mac-t2.jpg);
+//}
+//
+//.clip-text_thirteen {
+//  background-image: url(http://img.7te.org/images/570x363/abstract-painting-wallpaper-which-is-under-the-abstract-wallpapers-32968.jpg);
+//}
+//
+//.clip-text_fourteen {
+//  background-image: url(https://4kwallpapers.co/wp-content/uploads/2015/09/abstract-colorful-vectors-design-4k-wallpapers.png);
+//}
+//
+//.clip-text_fifteen {
+//  background-image: url(http://lorempixel.com/480/200/nightlife/5);
+//}
+//
+//
+//
+
+.logo_text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 41, 24, 0.6);
+  text-shadow: 1px 1px 0px #ededed, 4px 4px 0px rgba(0, 0, 0, 0.15);
+  font-weight: bold;
+  font-size: 45px;
+  font-family: 'Berkshire Swash', Helvetica, sans-serif;
+
 }
-.button_attivi.btn-large{
+
+.head_sizing {
+  width: 105px !important;
+  height: 105px !important;
+}
+
+.icons .material-icons {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.73) !important;
+  margin-right: 10px;
+  font-weight: 900;
+
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  color: #ffffff !important;
+  background-color: #ff9f2c !important;
+  font-weight: bold;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+  display: block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding: 18px 23px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.76) !important;
+
+}
+
+.side_background {
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('sidebar-1.jpg') no-repeat center;
+  background-size: cover;
+  background-position: center center;
+
+  //border-radius: 2%;
+}
+
+.content_align td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.content_align th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.naming {
+  text-transform: uppercase;
+}
+
+.dashboard_img_thumb {
+  border-radius: 50%;
+  display: inline-block;
+  width: 60px !important;;
+  height: 60px !important;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.user_card {
+  display: inline-table !important;
+
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.patient_profile {
+  background-color: #dd7625 !important;
+}
+
+.button_attivi.btn-large {
   background-color: #9c27b0 !important;
   color: #FFFFFF;
 }
 
-.middle_align{
+.button_diet.btn-large {
+  background-color: #48a1b0 !important;
+  color: #FFFFFF;}
+
+.button_fisiche.btn-large {
+  background-color: #53b03d !important;
+  color: #FFFFFF;}
+
+.button_mentale.btn-large {
+  background-color: #ff4a62 !important;
+  color: #FFFFFF;}
+
+.button_medicinali.btn-large {
+  background-color: #b08114 !important;
+  color: #FFFFFF;}
+
+.button_alt.btn-large {
+  background-color: #48a1b0 !important;
+  color: #FFFFFF;}
+
+
+.middle_align {
   margin-right: 375px;
 }
-.card_height{
+
+.card_height {
   margin-top: 20px;
 
 }
-.submenu_buttons{
+
+.submenu_buttons {
   background: rgb(76, 199, 255) !important;
   font-size: 17px;
   padding: 18px 36px;
 }
-.three_adherence{
+
+.three_adherence {
   margin-left: -41px;
   margin-top: -32px;
 }
-.user_view_buttons{
+
+.user_view_buttons {
   margin-left: 110px;
   margin-top: -90px;
   //display: flex;
   display: block;
 }
 
-.card_center{
+.card_center {
   //align-content: center !important;
   //padding-left: 90px;
   display: inline-grid;
   text-transform: uppercase;
 }
 
-
 #notificationsButton {
   height: 60px;
   border-radius: 20%;
   padding-right: 6px;
 }
-.main-container{
- background: white !important;
-//  Lets keep the background simple for now
-//background: url('17.jpg') no-repeat center;
+
+.main-container {
+  background: white !important;
+  //  Lets keep the background simple for now
+  //background: url('17.jpg') no-repeat center;
   background-size: cover;
 
 }
-.mdl-layout__header .mdl-layout__drawer-button{
+
+.mdl-layout__header .mdl-layout__drawer-button {
   position: absolute;
-  color: rgb(255,255,255);
-  background-color: #dd7625 ;
+  color: rgb(255, 255, 255);
+  background-color: #dd7625;
 }
-.mdl-layout__drawer .avatar{
+
+.mdl-layout__drawer .avatar {
 
   margin: 28px -2px -30px 50px;
-  border-radius: 34%;
-  background: #dd7625 !important;
+  border-radius: 43%;
+  background: #ff9300 !important;
   overflow: hidden;
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 
 }
-.mdl-layout__header-row{
+
+.mdl-layout__header-row {
   color: white !important;
 }
-.mdl-layout__drawer{
+
+.mdl-layout__drawer {
   background: white;
 }
-.dash_header{
-  background-color:#FF9324 !important;
-font-size: larger;
+
+.dash_header {
+  background-color: #FF9324 !important;
+  font-size: larger;
 }
-.header_links{
+
+.header_links {
   flex-shrink: 15;
 }
-.checkme{
+
+.checkme {
   margin: 4px 19px 0;
   font-size: large;
 }
-.footer_color{
+
+.footer_color {
   color: white;
   font-weight: bold;
 }
-.login_group{
+
+.login_group {
   border: 73px;
   background: #c1202000;
   padding: 9px 50px 65px 20px;
 }
+
 .login_img {
   width: 200px;
   height: auto;
@@ -258,7 +583,8 @@ a img {
   width: auto;
 
 }
-.outer{
+
+.outer {
   max-width: 5%;
   max-height: 5%;
   margin: 28px -2px -30px 16px;

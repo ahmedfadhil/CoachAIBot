@@ -1,25 +1,185 @@
-<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-  <thead>
-  <tr>
-    <th class="mdl-data-table__cell--non-numeric">Nome Attivita</th>
-    <th>Categoria</th>
-    <th>Tipologia</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @activities.each do |a| %>
-      <tr>
-        <td class="mdl-data-table__cell--non-numeric"> <b><%= a.name %></b> </td>
-        <td> <%= match_category(a.category) %> </td>
-        <td> <%= match_a_type(a.a_type) %> </td>
-        <td><%= link_to 'Vedi', activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
-        <td><%= link_to 'Elimina ', activity_path(a), method: 'delete',
-                        data: {confirm: 'Sei sicuro di voler eliminare l\'attivita\'? L\'attivita\' potrebbe essere gia\' stata assegnata ad un paziente!!!'},
-                        class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %> </td>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <div class="card card-nav-tabs">
+      <div class="card-header" data-background-color="purple">
+        <div class="nav-tabs-navigation">
+          <div class="nav-tabs-wrapper">
+            <span class="nav-tabs-title">Tutte le attivita presenti nel sistema:</span>
+            <ul class="nav nav-tabs" data-tabs="tabs">
+              <li class="active">
+                <a href="#profile" data-toggle="tab">
+                  <i class="material-icons">bug_report</i> Bugs
+                  <div class="ripple-container"></div>
+                </a>
+              </li>
+              <li class="">
+                <a href="#messages" data-toggle="tab">
+                  <i class="material-icons">code</i> Website
+                  <div class="ripple-container"></div>
+                </a>
+              </li>
+              <li class="">
+                <a href="#settings" data-toggle="tab">
+                  <i class="material-icons">cloud</i> Server
+                  <div class="ripple-container"></div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="tab-content">
+          <div class="tab-pane active" id="profile">
+            <table class="table card-content table-responsive content_align">
+              <thead class="text-warning">
+              <th>Nome Attivita</th>
+              <th>Categoria</th>
+              <th>Tipologia</th>
+              <th>View</th>
+              <th>Delete</th>
+              </thead>
+              <tbody>
+              <% @activities.each do |a| %>
+                <tr>
+                  <td><%= a.name %></td>
+                  <td> <%= match_category(a.category) %> </td>
+                  <td> <%= match_a_type(a.a_type) %> </td>
+                  <td> <%= link_to activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' do %>
+                      <button class="btn btn-sm btn-success">
+                        <i class="material-icons">important_devices</i> &nbsp Vedi
+                      </button>
+                    <% end %> </td>
+                  <td> <%= link_to activity_path(a), method: 'delete',
+                                   data: {confirm: 'Sei sicuro di voler eliminare l\'attivita\'? L\'attivita\'
+                                   potrebbe essere gia\' stata assegnata ad un paziente!!!'} do %>
+                      <button class="btn btn-sm btn-danger">
+                        <i class="material-icons">delete</i> &nbsp Elimina
+                      </button>
+                    <% end %> </td>
+
+
+                  </td>
+                </tr>
+              <% end %>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="messages">
+            <table class="table">
+              <tbody>
+              <tr>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="optionsCheckboxes" checked>
+                    </label>
+                  </div>
+                </td>
+                <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept
+                  through metro Detroit
+                </td>
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                    <i class="material-icons">edit</i>
+                  </button>
+                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="optionsCheckboxes">
+                    </label>
+                  </div>
+                </td>
+                <td>Sign contract for "What are conference organizers afraid of?"</td>
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                    <i class="material-icons">edit</i>
+                  </button>
+                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="settings">
+            <table class="table">
+              <tbody>
+              <tr>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="optionsCheckboxes">
+                    </label>
+                  </div>
+                </td>
+                <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                    <i class="material-icons">edit</i>
+                  </button>
+                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="optionsCheckboxes" checked>
+                    </label>
+                  </div>
+                </td>
+                <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept
+                  through metro Detroit
+                </td>
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                    <i class="material-icons">edit</i>
+                  </button>
+                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="optionsCheckboxes">
+                    </label>
+                  </div>
+                </td>
+                <td>Sign contract for "What are conference organizers afraid of?"</td>
+                <td class="td-actions text-right">
+                  <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                    <i class="material-icons">edit</i>
+                  </button>
+                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
