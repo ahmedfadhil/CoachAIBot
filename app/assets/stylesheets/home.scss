@@ -312,6 +312,41 @@
 //
 //
 
+.chat_style{
+  margin: 0 auto;
+  height: 400px;
+  width: 100%;
+}
+.moving-clouds {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 250.625em;
+  height: 43.75em;
+  -webkit-animation: cloudLoop 80s linear infinite;
+  animation: cloudLoop 80s linear infinite;
+}
+
+.page-header {
+  background-color: #b20d10;
+  background-position: center center;
+  background-size: cover;
+  min-height: 100vh;
+  max-height: 999px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("antoine-barres.jpg") no-repeat;
+  background-size: cover;
+}
+
+
+
 .logo_text {
   display: flex;
   align-items: center;
@@ -585,11 +620,11 @@ a img {
 }
 
 .outer {
-  max-width: 5%;
-  max-height: 5%;
-  margin: 28px -2px -30px 16px;
-  border-radius: 15%;
-  background: #ad1;
+  max-width: 6%;
+  max-height: 6%;
+  margin: 32px 9px -26px 48%;
+  border-radius: 50%;
+  background: #ff9300;
   overflow: hidden;
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }

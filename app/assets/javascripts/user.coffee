@@ -20,6 +20,9 @@
           Highcharts.setOptions(options);
           div_completeness_id = "completeness-#{activity.planning_id}"
           Highcharts.chart(div_completeness_id, {
+            credits: {
+              enabled: false
+            },
             chart: {
               plotBackgroundColor: null,
               plotBorderWidth: 0,
@@ -28,11 +31,22 @@
               spacingBottom: 10,
               spacingTop: 2,
               spacingLeft: 2,
-              spacingRight: 2,
+              spacingRight: 20,
+
+
+
 
               # Explicitly tell the width and height of a chart
               width: null,
-              height: null
+              height: null,
+#              plotBackgroundColor: '#f6fcff',
+              animation: {
+                duration: 1500,
+                easing: 'easeOutBounce'
+
+              },
+              borderColor: '#eb982f',
+              borderWidth: 0.2,
             },
             colors: ['#6ab344', '#bd0e3d', '#ff861b'],
             title: {
@@ -50,15 +64,16 @@
               pie: {
                 dataLabels: {
                   enabled: true,
-                  distance: -50,
+                  distance: 8,
                   style: {
                     fontWeight: 'bold',
-                    color: 'white'
+                    color: 'red',
                   }
                 },
                 startAngle: -90,
                 endAngle: 90,
-                center: ['50%', '75%']
+                center: ['50%', '70%']
+
               }
             },
             series: [{
@@ -98,6 +113,7 @@
                   # Explicitly tell the width and height of a chart
                   width: null,
                   height: null
+
                 },
                 colors: ['#6ab344', '#bd0e3d', '#ff861b'],
                 title: {
@@ -201,6 +217,7 @@
                   min: 0,
                   title: {
                     text: open_question.text
+
                   }
                 },
                 tooltip: {
