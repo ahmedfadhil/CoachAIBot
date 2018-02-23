@@ -3,58 +3,31 @@
   <div class="mdl-layout__header-row">
     <nav class="mdl-navigation" >
 
-      <%= link_to plans_users_path(user), class: 'mdl-navigation__link', method: 'get' do %>
-          <button id="all_plans_users" class="mdl-button mdl-js-button mdl-button--raised">
-            Tutti
+
+        <%= link_to plans_users_path(user), class: 'mdl-navigation__link', method: 'get' do %>
+          <button id="overview-user" class="btn btn-primary btn-large button_tasks">
+            <i class="material-icons">assessment</i> &nbsp Tutti Piani
           </button>
-      <% end %>
+        <% end %>
 
       <%= link_to active_plans_users_path(user), class: 'mdl-navigation__link', remote: true do %>
-          <button id="active_plans_users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">assignment_turned_in</i> &nbsp In Corso
-          </button>
+        <button id="active_plans_users" class="btn btn-info btn-large button_tasks">
+          <i class="material-icons">assessment</i> &nbsp In Corso
+        </button>
       <% end %>
 
+
       <%= link_to finished_plans_users_path(user), class: 'mdl-navigation__link', remote: true do %>
-          <button id="finished_plans_users" class="mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">done_all</i> &nbsp Portati a termine
-          </button>
+        <button id="finished_plans_users" class="btn btn-success btn-large button_tasks">
+          <i class="material-icons">done_all</i> &nbsp Portati a termine
+        </button>
       <% end %>
 
     </nav>
   </div>
+
+
+
+
 </header>
 
-
-
-
-<div id="buttons" class="cd-section">
-
-  <div class="row">
-    <div class="col-md-8 ml-auto mr-auto">
-      <%= link_to user_path(user), class: 'mdl-navigation__link', method: 'get' do %>
-        <button id="overview-user" class="btn btn-primary btn-large button_attivi">
-          <i class="material-icons">assessment</i> &nbsp Panoramica
-        </button>
-      <% end %>
-
-      <%= link_to plans_users_path(user), class: 'mdl-navigation__link', method: 'get' do %>
-        <button id="activities-user" class="btn btn-info btn-large">
-          <i class="material-icons">featured_play_list</i> &nbsp Attività e Piani
-        </button>
-      <% end %>
-      <%= link_to features_users_path(user), class: 'mdl-navigation__link' do %>
-        <button id="features-user" class="btn btn-success btn-large">
-          <i class="material-icons">insert_drive_file</i> &nbsp Informazioni Raccolte
-        </button>
-      <% end %>
-      <%= link_to chat_chats_path(user), class: 'mdl-navigation__link' do %>
-        <button id="chatting-user" class="btn btn-warning btn-large">
-          <i class="material-icons">question_answer</i> &nbsp Chat
-        </button>
-      <% end %>
-
-
-    </div>
-  </div>
-</div>
