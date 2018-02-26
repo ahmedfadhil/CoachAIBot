@@ -311,19 +311,28 @@
 //
 //
 //
+ 
+.activity_style{
+  border: 1px solid #a51d1d;
+  background: #26a765;
+}
+.card [class*="header-"] {
+  font-weight: bold;
+  color: #0f1010 !important;
+}
 
-.button_tasks{
+.button_tasks {
   background-color: #eb982f !important;
   color: #FFFFFF;
   font-weight: bold;
 }
 
-
-.chat_style{
+.chat_style {
   margin: 0 auto;
   height: 400px;
   width: 100%;
 }
+
 .moving-clouds {
   position: absolute;
   z-index: 1;
@@ -351,8 +360,6 @@
   background: url("antoine-barres.jpg") no-repeat;
   background-size: cover;
 }
-
-
 
 .logo_text {
   display: flex;
@@ -453,24 +460,28 @@
 
 .button_diet.btn-large {
   background-color: #48a1b0 !important;
-  color: #FFFFFF;}
+  color: #FFFFFF;
+}
 
 .button_fisiche.btn-large {
   background-color: #53b03d !important;
-  color: #FFFFFF;}
+  color: #FFFFFF;
+}
 
 .button_mentale.btn-large {
   background-color: #ff4a62 !important;
-  color: #FFFFFF;}
+  color: #FFFFFF;
+}
 
 .button_medicinali.btn-large {
   background-color: #b08114 !important;
-  color: #FFFFFF;}
+  color: #FFFFFF;
+}
 
 .button_alt.btn-large {
   background-color: #48a1b0 !important;
-  color: #FFFFFF;}
-
+  color: #FFFFFF;
+}
 
 .middle_align {
   margin-right: 375px;
