@@ -25,9 +25,9 @@ class ChatsMessageCell < Cell::ViewModel
   def img
     case message.direction
       when false
-        'self_img_avatar.png'
+        'logo.png'
       else
-        'other_img_avatar.png'
+        user_profile_image(message.user)
     end
   end
 
@@ -48,4 +48,21 @@ class ChatsMessageCell < Cell::ViewModel
     content_tag :div, class: 'messages', data: {id: message.id}, &block
   end
 
+
+  def user_profile_image(user)
+    if user.telegram_id.nil?
+      default_image
+    else
+      begin
+        solver = ImageSolver.new
+        solver.solve(user.telegram_id)
+      rescue Exception
+        default_image
+      end
+    end
+  end
+
+  def default_image
+    'user.jpg'
+  end
 end

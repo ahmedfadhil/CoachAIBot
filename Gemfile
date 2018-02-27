@@ -136,6 +136,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  
+  # Refactoring classes names
+   gem 'rails_refactor', '~> 1.3'
 
 	# Deploy without confidence ®
 	gem "capistrano", "~> 3.9"

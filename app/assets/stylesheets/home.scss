@@ -311,7 +311,19 @@
 //
 //
 //
- 
+
+.user_chat_img{
+  border-radius: 50%;
+  width: 90px!important;
+  height:90px !important;
+  margin-top: 23px;
+  font-weight: bold;
+
+
+}
+.username_case{
+  text-transform: uppercase;
+}
 .activity_style{
   border: 1px solid #a51d1d;
   background: #26a765;
