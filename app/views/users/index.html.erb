@@ -60,8 +60,12 @@
       <% @users.each do |user| %>
         <%= cell(:user, user) %>
       <% end %>
-    </div>
-  </div>
 
+    </div>
+
+  </div>
+  <div class="mdl-grid mdl-cell--3-col">
+  <%= will_paginate @users,class:"pagination_style", renderer: BootstrapPagination::Rails %>
+  </div>
 
 </div>

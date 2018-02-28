@@ -16,15 +16,15 @@
 
       <%= link_to edit_planning_path(planning), remote: true,
                   method: 'get' do %>
-        <button class="btn btn-info btn-sm">
-          <i class="material-icons">update</i>&nbsp Modifica Pianificazioni
+        <button class="btn btn-warning btn-sm">
+          <i class="material-icons">create</i>&nbsp Modifica Pianificazioni
         </button>
       <% end %>
 
       <%= link_to destroy_all_schedules_plannings_path(planning), method: 'post',
                   data: {confirm: 'Sei sicuro di voler eliminare tutte le pianificazioni?'} do %>
-        <button class="btn btn-info btn-sm">
-          <i class="material-icons">update</i>&nbsp Elimina Pianificazioni
+        <button class="btn btn-danger btn-sm">
+          <i class="material-icons">delete</i>&nbsp Elimina Pianificazioni
         </button>
       <% end %>
 
