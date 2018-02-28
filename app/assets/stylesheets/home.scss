@@ -4,12 +4,17 @@
 .banner {
 
   //background: url('CoachAI Graphics/CoachAI_logo.svg') no-repeat center,url('CoachAI Graphics/header-bg.svg') no-repeat center ;
-  background: url('CoachAI Graphics/header-bg.svg') no-repeat center;
+  background: url('CoachAI Graphics/7.png') no-repeat center;
   height: 600px;
   padding-top: 0px;
   padding-bottom: 80px;
   background-size: cover;
 
+}
+
+.card_img{
+  background: url('CoachAI Graphics/im2.png') no-repeat center;
+  background-size: cover;
 }
 
 //
@@ -312,6 +317,11 @@
 //
 //
 
+
+.main_button{
+  color: white !important;
+  text-transform: uppercase;
+}
 .user_chat_img{
   border-radius: 50%;
   width: 90px!important;
@@ -369,7 +379,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("antoine-barres.jpg") no-repeat;
+  background: url("header-bg.svg") no-repeat;
   background-size: cover;
 }
 
@@ -418,7 +428,7 @@
 }
 
 .side_background {
-  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('sidebar-1.jpg') no-repeat center;
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('37.jpg') no-repeat center;
   background-size: cover;
   background-position: center center;
 
@@ -553,9 +563,11 @@
 
   margin: 28px -2px -30px 50px;
   border-radius: 43%;
-  background: #ff9300 !important;
+  background: #ff9300;
   overflow: hidden;
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  background: url('19.jpg') center no-repeat;
+  background-size: cover;
 
 }
 
@@ -570,6 +582,8 @@
 .dash_header {
   background-color: #FF9324 !important;
   font-size: larger;
+  background: url('15.jpg') center no-repeat;
+  background-size: cover;
 }
 
 .header_links {
@@ -653,15 +667,22 @@ a img {
   max-width: 6%;
   max-height: 6%;
   margin: 32px 9px -26px 48%;
-  border-radius: 50%;
-  background: #ff9300;
+  border-radius: 29%;
+  background: #76eeff;
+  background: url('15.jpg') center no-repeat;
+  background-size: cover;
   overflow: hidden;
-  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 58px 40px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
 }
 
 .android-header {
   overflow: visible;
   background-color: #FF9324;
+  background: url('8.jpg') center no-repeat;
+  background-size: cover;
+
+
 }
 
 .android-header .material-icons {

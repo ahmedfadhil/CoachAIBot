@@ -35,7 +35,7 @@ body {
     height: var(--size);
     background: radial-gradient(circle closest-side, #4405f7, transparent);
     transform: translate(-50%, -50%);
-    transition: width .2s ease, height .2s ease;
+    transition: width .6s ease, height .2s ease;
   }
 
   &:hover::before {

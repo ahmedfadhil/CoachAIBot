@@ -1,22 +1,55 @@
 <% provide(:title, 'Home') %>
 
-<div class="banner">
 
+
+<div class="wrapper">
+  <div class="page-header section-dark">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <!--<div class="title-brand">-->
+          <!--&lt;!&ndash;<h1 class="presentation-title">CoachAI</h1>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="fog-low">&ndash;&gt;-->
+            <!--&lt;!&ndash;<img src="assets/img/fog-low.png" alt="">&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="fog-low right">&ndash;&gt;-->
+            <!--&lt;!&ndash;<img src="assets/img/fog-low.png" alt="">&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<h2 class="presentation-subtitle text-center">Towards healthy lifestyle with conversational agents and AI </h2>-->
+      </div>
+    </div>
+
+    <!--<h6 class="category category-absolute">Designed and coded by-->
+      <!--<a href="https://www.creative-tim.com" target="_blank">-->
+        <!--<img src="assets/img/creative-tim-white-slim2.png" class="creative-tim-logo">-->
+      <!--</a>-->
+    <!--</h6>-->
+  </div>
 </div>
+
 <div class="btn-banner">
+  <div class="section">
   <% if coach_user_signed_in? %>
-    <%= link_to profile_index_path, class: 'banner-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect large-btn-home' do %>
-      Dashboard
+      <%= link_to profile_index_path, class: 'mdl-navigation__link' do %>
+        <button  class="button main_button">
+          <i class="material-icons">chat</i> Accessi Dashboard
+        </button>
+      <% end %>
 
-
-
-    <% end %>
   <% else %>
     <!-- Button that triggers the login popup -->
     <!--<button id="btn_login_1" class="banner-btn mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-js-ripple-effect large-btn-home">-->
-    <a id="btn_login_1" class="btn btn-success btn-large raised mdl-js-ripple-effect nav-tabs-navigation "
-       data-toggle="tab"><i
-    class="material-icons">chat</i> Login </a>
+
+
+
+
+      <button class="button" id="btn_login_1">
+        <span><a  data-toggle="tab" class="main_button"><i class="material-icons">chat</i> Accessi CoachAI</a></span>
+      </button>
+
+
 
     <!--</button>-->
     <!-- Element to pop up -->
@@ -28,53 +61,25 @@
 
 
 </div>
-
-
-<div class="section container">
-  <button class="button">
-    <span>Hover me I'm awesome</span>
-  </button>
 </div>
 
 
-<div class="wrapper">
-  <div class="page-header section-dark">
-    <div class="filter"></div>
-    <div class="content-center">
-      <div class="container">
-        <div class="title-brand">
-          <h1 class="presentation-title">Paper Kit 2</h1>
-          <div class="fog-low">
-            <img src="assets/img/fog-low.png" alt="">
-          </div>
-          <div class="fog-low right">
-            <img src="assets/img/fog-low.png" alt="">
-          </div>
-        </div>
+<div class="banner">
 
-        <h2 class="presentation-subtitle text-center">Make your mark with a Free Bootstrap 4 UI Kit! </h2>
-      </div>
-    </div>
-    <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); ">
-
-    </div>
-    <h6 class="category category-absolute">Designed and coded by
-      <a href="https://www.creative-tim.com" target="_blank">
-        <img src="assets/img/creative-tim-white-slim2.png" class="creative-tim-logo">
-      </a>
-    </h6>
-  </div>
 </div>
+
+
+
 
 
 
 
 <div class="section section-tabs">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
+
+      <div class="col-md-12">
         <div class="title">
-          <h3>Tabs with Icons on Card</h3>
+          <h3>Perche usare gli agenti conversazionali:</h3>
         </div>
 
         <!-- Tabs with icons on Card -->
@@ -86,20 +91,20 @@
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <li class="active">
                     <a href="#profile" data-toggle="tab">
-                      <i class="material-icons">face</i>
-                      Profile
+                      <i class="material-icons">games</i>
+                     Il Chatbot e Assistenza Sanitaria
                     </a>
                   </li>
                   <li>
                     <a href="#messages" data-toggle="tab">
-                      <i class="material-icons">chat</i>
-                      Messages
+                      <i class="material-icons">face</i>
+                     Il Chatbot e Medici
                     </a>
                   </li>
                   <li>
                     <a href="#settings" data-toggle="tab">
-                      <i class="material-icons">build</i>
-                      Settings
+                      <i class="material-icons">supervisor_account</i>
+                      Il Chatbot e Pazienti
                     </a>
 
                   </li>
@@ -107,59 +112,29 @@
               </div>
             </div>
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <div class="content">
             <div class="tab-content text-center">
-              <div class="mdl-card__media">
-                <%= image_tag 'chatting_channel.png' %>
-              </div>
+
               <div class="tab-pane active" id="profile">
-                <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the
-                  answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
-                  possibilities, to show people, this is the level that things could be at. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at. </p>
+                <div class="mdl-card__media">
+                  <%= image_tag 'CoachAI Graphics/im2.png' %>
+                </div>
+                <p> Con l'aumento dei costi sanitari, l'attenzione attuale ha spostato le preferenze individuali dal trattamento delle malattie alla prevenzione. Le attuali applicazioni di telemedicina per la prevenzione delle malattie e la promozione dello stile di vita si concentrano sulla gestione delle condizioni del paziente e sulla raccomandazione di attività e piani per migliorare le loro condizioni. La ricerca della salute digitale per ottimizzare l'esperienza di coinvolgimento dei pazienti e il processo di interazione e supporto ai pazienti trarranno maggior beneficio dai sistemi di chatbot, specialmente dopo la dimissione ospedaliera. Ciò offre la possibilità di semplificare la comunicazione tra medico e paziente tramite un'applicazione di telemedicina basata su chatbot. </p>
               </div>
+
               <div class="tab-pane" id="messages">
-                <p> I think that’s a responsibility that I have, to push possibilities, to show people, this is the
-                  level that things could be at. I will be the leader of a company that ends up being worth billions of
-                  dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at.</p>
+                <div class="mdl-card__media">
+                  <%= image_tag 'CoachAI Graphics/im1.png' %>
+                </div>
+                <p> Gli agenti di conversazione possono supportare i medici gestendo compiti meno importanti, che i medici eseguono ripetutamente e che impedisce loro di concentrarsi su pazienti con condizioni più critiche. Detto questo, i medici svolgono un ruolo cruciale nel processo di cura fornendo il supporto necessario per il paziente. Pertanto, gli agenti di conversazione non possono mai sostituire i medici, tuttavia, possono agire come un assistente virtuale per aiutare i medici a concentrarsi su attività meno importanti ma importanti. Per aiutare i medici, il chatbot può dare peso alle condizioni del paziente, in base alla priorità e alla gravità (alto, moderato, basso o non necessario).</p>
               </div>
+
               <div class="tab-pane" id="settings">
-                <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level
-                  that things could be at. So when you get something that has the name Kanye West on it, it’s supposed
-                  to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth
-                  billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                <div class="mdl-card__media">
+                  <%= image_tag 'CoachAI Graphics/im3.png' %>
+                </div>
+                <p>Gli agenti di conversazione possono coprire il divario nell'interazione fisico-paziente automatizzando le attività, pianificando eventi e fornendo supporto 24/7 ai pazienti. Se definiti con cura, i chatbot possono ridurre il lavoro del medico e aiutarli a fornire interventi efficaci. Chatbots può gestire la prenotazione di un appuntamento con un medico o un ospedale, richiedendo informazioni semplici, fornendo informazioni sullo stato mentale, monitoraggio della dieta, attività fisica, sonno e benessere mentale.
+                    Gli agenti di conversazione possono fornire diagnosi e monitoraggio della salute. Questo tipo di agenti conversazionali è avanzato e focalizzato sulla gestione e il controllo di una malattia. Considerando che, gli agenti di conversazione che tracciano il sonno, la dieta, l'attività fisica e lo stress sono per lo più focalizzati sulla promozione della salute e la prevenzione dall'escalation nella fase a rischio per una malattia.</p>
               </div>
             </div>
           </div>
@@ -168,188 +143,10 @@
 
       </div>
 
-      <div class="mdl-layout-spacer"></div>
-      <div class="wrapper">
-        <div class="clip-text clip-text_fourteen clip-text--cover">CoachAI</div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="title">
-          <h3>Tabs on Plain Card</h3>
-        </div>
-
-        <!-- Tabs on Plain Card -->
-        <div class="card card-nav-tabs card-plain">
-          <div class="header header-danger">
-            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-            <div class="nav-tabs-navigation">
-              <div class="nav-tabs-wrapper">
-                <ul class="nav nav-tabs" data-tabs="tabs">
-                  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-                  <li><a href="#updates" data-toggle="tab">Updates</a></li>
-                  <li><a href="#history" data-toggle="tab">History</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="tab-content text-center">
-              <div class="mdl-card__media">
-                <!--<%= image_tag 'chatting_channel.png' %>-->
-              </div>
-              <div class="tab-pane active" id="home">
-                <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level
-                  that things could be at. So when you get something that has the name Kanye West on it, it’s supposed
-                  to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth
-                  billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-              </div>
-              <div class="tab-pane" id="updates">
-                <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the
-                  answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
-                  possibilities, to show people, this is the level that things could be at. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at. </p>
-              </div>
-              <div class="tab-pane" id="history">
-                <p> I think that’s a responsibility that I have, to push possibilities, to show people, this is the
-                  level that things could be at. I will be the leader of a company that ends up being worth billions of
-                  dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Tabs on plain Card -->
-      </div>
 
     </div>
-  </div>
-</div>
 
-
-<div class="section section-tabs">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="title">
-          <h3>Tabs with Icons on Card</h3>
-        </div>
-
-        <!-- Tabs with icons on Card -->
-        <div class="card card-nav-tabs">
-          <div class="header header-success">
-            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-            <div class="nav-tabs-navigation">
-              <div class="nav-tabs-wrapper">
-                <ul class="nav nav-tabs" data-tabs="tabs">
-                  <li class="active">
-                    <a href="#profile" data-toggle="tab">
-                      <i class="material-icons">face</i>
-                      Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#messages" data-toggle="tab">
-                      <i class="material-icons">chat</i>
-                      Messages
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#settings" data-toggle="tab">
-                      <i class="material-icons">build</i>
-                      Settings
-                    </a>
-
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="tab-content text-center">
-              <div class="mdl-card__media">
-                <%= image_tag 'chatting_channel.png' %>
-              </div>
-              <div class="tab-pane active" id="profile">
-                <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the
-                  answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
-                  possibilities, to show people, this is the level that things could be at. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at. </p>
-              </div>
-              <div class="tab-pane" id="messages">
-                <p> I think that’s a responsibility that I have, to push possibilities, to show people, this is the
-                  level that things could be at. I will be the leader of a company that ends up being worth billions of
-                  dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at.</p>
-              </div>
-              <div class="tab-pane" id="settings">
-                <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level
-                  that things could be at. So when you get something that has the name Kanye West on it, it’s supposed
-                  to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth
-                  billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Tabs with icons on Card -->
-
-      </div>
-
-      <div class="col-md-6">
-        <div class="title">
-          <h3>Tabs on Plain Card</h3>
-        </div>
-
-        <!-- Tabs on Plain Card -->
-        <div class="card card-nav-tabs card-plain">
-          <div class="header header-danger">
-            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-            <div class="nav-tabs-navigation">
-              <div class="nav-tabs-wrapper">
-                <ul class="nav nav-tabs" data-tabs="tabs">
-                  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-                  <li><a href="#updates" data-toggle="tab">Updates</a></li>
-                  <li><a href="#history" data-toggle="tab">History</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="tab-content text-center">
-              <div class="mdl-card__media">
-                <!--<%= image_tag 'chatting_channel.png' %>-->
-              </div>
-              <div class="tab-pane active" id="home">
-                <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level
-                  that things could be at. So when you get something that has the name Kanye West on it, it’s supposed
-                  to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth
-                  billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
-              </div>
-              <div class="tab-pane" id="updates">
-                <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the
-                  answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
-                  possibilities, to show people, this is the level that things could be at. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at. </p>
-              </div>
-              <div class="tab-pane" id="history">
-                <p> I think that’s a responsibility that I have, to push possibilities, to show people, this is the
-                  level that things could be at. I will be the leader of a company that ends up being worth billions of
-                  dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a
-                  responsibility that I have, to push possibilities, to show people, this is the level that things could
-                  be at.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Tabs on plain Card -->
-      </div>
-
-    </div>
-  </div>
 </div>
 
 
