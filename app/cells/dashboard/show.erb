@@ -8,7 +8,7 @@
     <div class="col-lg-12 col-md-12">
       <div class="card">
         <div class="card-header" data-background-color="red">
-          <h4 class="title">Pazienti CRITICI</h4>
+          <h4 class="title">Pazienti critici</h4>
           <p class="category">Categorizzati dal sistema come Critici, questo significa che non stanno seguendo le
             attivita' da te assegante oppure e' da troppo tempo che non si ricevono feedback da esso.</p>
         </div>
@@ -27,8 +27,12 @@
                         'dashboard_img_thumb ' %><br>
                     <%= user_name_link(red_user) %>
                   <% end %></td>
-                <td><%= plans_count %></td>
-                <td><%= activities_count %></td>
+                <td><button class="btn btn-primary btn-fab btn-round">
+                  <%= plans_count %>
+                </button></td>
+                <td><button class="btn btn-primary btn-fab btn-round">
+                  <%= activities_count %>
+                </button></td>
 
               </tr>
             <% end %>
@@ -42,7 +46,7 @@
     <div class="col-lg-12 col-md-12">
       <div class="card">
         <div class="card-header" data-background-color="orange">
-          <h4 class="title">Pazienti CHE MANCANO LE SCADENZE</h4>
+          <h4 class="title">Pazienti che mancano la scadenza</h4>
           <p class="category">Significa che stanno iniziando a mancare le scadenze dei feedback oppure hanno tra il 5%
             ed il 20% di attivita' non portate a termine. </p>
         </div>
@@ -61,8 +65,12 @@
                         'dashboard_img_thumb ' %><br>
                     <%= user_name_link(yellow_user) %>
                   <% end %></td>
-                <td><%= plans_count %></td>
-                <td><%= activities_count %></td>
+                <td><button class="btn btn-primary btn-fab btn-round">
+                  <%= plans_count %>
+                </button></td>
+                <td><button class="btn btn-primary btn-fab btn-round">
+                  <%= activities_count %>
+                </button></td>
 
               </tr>
             <% end %>
@@ -77,7 +85,7 @@
   <div class="col-lg-12 col-md-12">
     <div class="card">
       <div class="card-header" data-background-color="green">
-        <h4 class="title">Pazienti DEVOTI</h4>
+        <h4 class="title">Pazienti devoti</h4>
         <p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>
       </div>
       <div class="card-content table-responsive content_align">
@@ -95,8 +103,12 @@
                       'dashboard_img_thumb ' %><br>
                   <%= user_name_link(green_user) %>
                 <% end %></td>
-              <td><%= plans_count %></td>
-              <td><%= activities_count %></td>
+              <td><button class="btn btn-primary btn-fab btn-round">
+                <%= plans_count %>
+              </button></td>
+              <td><button class="btn btn-primary btn-fab btn-round">
+                <%= activities_count %>
+              </button></td>
 
             </tr>
           <% end %>

@@ -23,9 +23,13 @@
 
           <% if is_not_active(planning.plan) %>
             <td>
-              <%= link_to 'Elimina ', question_path(question), method: 'delete',
-                          data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'},
-                          class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+
+              <%= link_to question_path(question), method: 'delete',
+                          data: {confirm: 'Sei sicuro di voler eliminare l\'orario?'} do %>
+                <button class="btn btn-danger btn-sm">
+                  <i class="material-icons">delete</i>&nbsp Elimina
+                </button>
+              <% end %>
             </td>
           <% end %>
 
@@ -34,3 +38,6 @@
 
   </tbody>
 </table>
+
+
+

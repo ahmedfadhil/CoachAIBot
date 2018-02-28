@@ -1,13 +1,6 @@
 <!-- Submenu for the plans list of a specified patient -->
 <%= sub_menu %>
 
-
-
-
-
-
-
-
 <div class="row col-lg-8 col-lg-offset-5">
   <% if user.profiled? %>
     <%= link_to new_plans_path(:u_id => user.id), method: 'post' do %>
@@ -90,10 +83,21 @@
                       <%= cell(:schedules, planning) %>
                       <%= cell(:questions, planning) %>
                       <% if plan.delivered != 1 && plan.delivered != 4 %>
-                        <%= link_to 'Aggiungi Domanda', new_questions_path(:planning_id => planning.id, :u_id => plan.user.id, :p_id => plan.id), remote: true,
-                                    method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-                        <%= link_to 'Destituisci Attivita', planning_path(planning),
-                                    method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
+
+                        <%= link_to new_questions_path(:planning_id => planning.id, :u_id => plan.user.id, :p_id => plan.id), remote: true,
+                                    method: 'get' do %>
+                          <button class="btn btn-success btn-sm">
+                            <i class="material-icons">alarm_add</i>&nbsp Aggiungi Domanda
+                          </button>
+                        <% end %>
+
+                        <%= link_to planning_path(planning), method: 'delete' do %>
+                          <button class="btn btn-warning btn-sm">
+                            <i class="material-icons">highlight_off</i>&nbsp Destituisci Attività
+                          </button>
+                        <% end %>
+
+
                       <% end %>
                     </div>
 
@@ -102,7 +106,7 @@
               <div class="activities-container">
                 <details class="activity-expander mdl-expansion">
                   <summary class="mdl-expansion__summary">
-                    <span id="activity-name-styler" class="mdl-expansion__header"><%= planning.activity.name %></span>
+                    <span id="activity-name-styler" class="mdl-expansion__header"><#%= planning.activity.name %></span>
                   </summary>
                   <div class="mdl-expansion__content">
 

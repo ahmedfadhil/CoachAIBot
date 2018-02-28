@@ -47,6 +47,7 @@ class DashboardCell < Cell::ViewModel
     link_to "#{user.id}", user
   end
   
+  
   def user_name_link(user)
     link_to "#{user.first_name} #{user.last_name}", user
   end

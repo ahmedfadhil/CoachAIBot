@@ -27,9 +27,15 @@
 //  background: url('dog.png') bottom right 15% no-repeat #46B6AC;
 //
 //}
-
+.text_color{
+  color: white;
+}
+.notification_table{
+  background: url('38.jpg') no-repeat center !important;
+  background-size: cover;
+}
 .miniback {
-  background: url('city.jpg') no-repeat center;
+  background: url('38.jpg') no-repeat center;
   background-size: cover;
   background-position: top center;
   min-height: 700px;
@@ -328,6 +334,9 @@
   height:90px !important;
   margin-top: 23px;
   font-weight: bold;
+  background-color: #eb982f;
+  background: url("30.jpg") no-repeat;
+  background-size: cover;
 
 
 }
@@ -522,9 +531,14 @@
 
 .three_adherence {
   margin-left: -41px;
-  margin-top: -32px;
-}
+  margin-top: -153px;
+  background: #ddb833a1;
 
+}
+.three_bottons{
+  margin-left: 110px !important;
+  margin-top: -115px !important;
+}
 .user_view_buttons {
   margin-left: 110px;
   margin-top: -90px;
@@ -667,7 +681,7 @@ a img {
   max-width: 6%;
   max-height: 6%;
   margin: 32px 9px -26px 48%;
-  border-radius: 29%;
+  border-radius: 50%;
   background: #76eeff;
   background: url('15.jpg') center no-repeat;
   background-size: cover;

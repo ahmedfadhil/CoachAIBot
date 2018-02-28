@@ -37,7 +37,7 @@ class ChatCell < Cell::ViewModel
   end
 
   def default_image
-    'user.jpg'
+    'logo.png'
   end
 
 end

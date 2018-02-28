@@ -365,11 +365,14 @@
 }
 
 .material-card.Red.mc-active .mc-content {
-    background-color: #FFEBEE;
+    background: url('35.jpg') no-repeat center;
+    background-size: cover;
 }
 
 .material-card.Red.mc-active .mc-footer {
-    background-color: #FFCDD2;
+    /*background-color: #2a87d6;*/
+    background: url('34.jpg') no-repeat center;
+    background-size: cover;
 }
 
 .material-card.Red.mc-active .mc-btn-action {

@@ -94,16 +94,16 @@
           <span class="card_center"> <%= user.last_name %> <%= " #{user.first_name}" %>
 </span>
 
-              <%= link_to user_path(user), class: 'btn btn-default' do %>
+              <%= link_to user_path(user), class: 'btn btn-info' do %>
                 Vedi utente
               <% end %>
 
               <strong>
-                <i class="fa fa-fw fa-star"></i>
-                The Deer Hunter
+                <a class="text_color"><i class="material-icons">date_range</i>
+                <%= user.created_at.strftime("%d %b. %Y") %></a>
               </strong>
 
-              <div class="col-sm-3 user_view_buttons">
+              <div class="col-sm-3 user_view_buttons three_bottons">
 
                 <% if archived? %>
                   <div class="row">
@@ -127,7 +127,9 @@
                   <div class="row">
                     <div class="user-card-n">
                       <a href="<%= archive_users_path(user) %>">
-                        <%= image_tag 'archive_user_icon.png', class: 'archive-user' %>
+
+                        <i class="material-icons archive-user" role="presentation">theaters</i>
+
                       </a>
                     </div>
                   </div>
@@ -166,33 +168,34 @@
             </a>
             <div class="mc-footer">
 
-              <h4>
-                Social
-              </h4>
+
               <% unless archived? %>
                 <div class="scores-grid mdl-grid three_adherence">
                   <div class="col-sm-4">
                     <div class="score" id="physical_score_<%= user.id %>">
-
+                      <h4>
+                        Fisica
+                      </h4>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="score" id="diet_score_<%= user.id %>">
-
+                      <h4>
+                        Dieta
+                      </h4>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="score" id="mental_score_<%= user.id %>">
+                      <h4>
+                        Mentale
+                      </h4>
                     </div>
                   </div>
                 </div>
               <% end %>
 
 
-              <!--<a class="fa fa-fw fa-facebook"></a>-->
-              <!--<a class="fa fa-fw fa-twitter"></a>-->
-              <!--<a class="fa fa-fw fa-linkedin"></a>-->
-              <!--<a class="fa fa-fw fa-google-plus"></a>-->
             </div>
           </article>
         </div>
