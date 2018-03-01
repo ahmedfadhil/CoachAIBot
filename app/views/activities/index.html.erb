@@ -13,17 +13,17 @@
         <!--<div class="mdl-card__supporting-text">-->
 
           <!--<div id="activities-list">-->
-            <!--<%= render 'activities/activities' %>-->
+            <!--<#%= render 'activities/activities' %>-->
           <!--</div>-->
 
           <!--<div class="mdl-layout-spacer"></div>-->
           <!--<br>-->
 
-          <!--<%= link_to new_activity_path, method: 'get' do %>-->
+          <!--<#%= link_to new_activity_path, method: 'get' do %>-->
             <!--<button id="activities-user" class="btn btn-info btn-large">-->
               <!--<i class="material-icons">playlist_add</i> &nbsp Aggiungi Attivita-->
             <!--</button>-->
-          <!--<% end %>-->
+          <!--<#% end %>-->
         <!--</div>-->
       <!--</div>-->
     <!--</div>-->
@@ -64,7 +64,7 @@
       </div>
       <div class="card-footer">
         <div class="stats">
-          <i class="material-icons">access_time</i> updated 4 minutes ago
+          <i class="material-icons">access_time</i> Ultimo piano creato: <%=l Plan.last().created_at %>
         </div>
       </div>
     </div>

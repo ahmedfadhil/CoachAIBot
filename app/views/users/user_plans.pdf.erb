@@ -8,9 +8,10 @@
           <%= image_tag wicked_pdf_asset_base64('logo.png'), class: 'header-img'%><br>
         </div>
         <div class="col-xs-6">
-          <h2>Piani ed Attivita' di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h2>
+          <h2>Piani ed Attività di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h2>
           <p>
-            Nel documento seguente troverai tutti i dettagli riguardanti le attivita' definite dal coach <%= "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
+            Nel documento seguente troverai tutti i dettagli riguardanti le attività definite dal coach <%=
+            "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
           </p>
         </div>
         <div class="col-xs-3">
@@ -48,7 +49,7 @@
 
           <div class="panel panel-danger">
             <div class="panel-heading">
-                <h3 class="panel-title">Attivita' sotto questo piano</h3>
+                <h3 class="panel-title">Attività sotto questo piano</h3>
             </div>
 
             <div class="panel-body">
@@ -58,10 +59,10 @@
                     <%= image_tag wicked_pdf_asset_base64(pdf_activity_img(planning.activity.category)), class: 'media-object'%>
                   </div>
                   <div class="media-body">
-                    <h4 class="media-heading">Attivita' <b><u><%= planning.activity.name %></u></b></h4>
+                    <h4 class="media-heading">Attività <b><u><%= planning.activity.name %></u></b></h4>
                     <div class="panel panel-info">
                       <div class="panel-heading">
-                          <h3 class="panel-title">Dettagli attivita'</h3>
+                          <h3 class="panel-title">Dettagli attività</h3>
                       </div>
                       <div class="panel-body">
                         <ul class="list-group">

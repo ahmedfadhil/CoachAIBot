@@ -10,7 +10,8 @@
         for activity in plan.activities
           options = {
             lang: {
-              months: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+              months: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
+                'Ottobre', 'Novembre', 'Dicembre'],
               weekdays: ['Domenica', 'Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato'],
               shortMonths: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
               loading: "Caricamento..."
@@ -27,16 +28,14 @@
               plotBackgroundColor: null,
               plotBorderWidth: 0,
               plotShadow: false,
-              # Edit chart spacing
+# Edit chart spacing
               spacingBottom: 10,
               spacingTop: 2,
               spacingLeft: 2,
               spacingRight: 20,
 
 
-
-
-              # Explicitly tell the width and height of a chart
+# Explicitly tell the width and height of a chart
               width: null,
               height: null,
 #              plotBackgroundColor: '#f6fcff',
@@ -104,13 +103,13 @@
                   plotBackgroundColor: null,
                   plotBorderWidth: 0,
                   plotShadow: false,
-                  # Edit chart spacing
+# Edit chart spacing
                   spacingBottom: 10,
                   spacingTop: 2,
                   spacingLeft: 2,
                   spacingRight: 2,
 
-                  # Explicitly tell the width and height of a chart
+# Explicitly tell the width and height of a chart
                   width: null,
                   height: null
 
@@ -164,7 +163,7 @@
           i = 0
           for scalar_adherence in activity.scalar_data
             div_scalar_id = "scalar-adherence-#{i}-#{activity.planning_id}"
-            if scalar_adherence.data.length>0
+            if scalar_adherence.data.length > 0
               Highcharts.setOptions(options);
               Highcharts.chart(div_scalar_id, {
                 chart: {
@@ -192,7 +191,7 @@
               });
               i++
 
-          i=0
+          i = 0
           for open_question in activity.open_data
             div_open_id = "open-question-#{i}-#{activity.planning_id}"
             console.log open_question.data
@@ -270,21 +269,21 @@
 
 
 @show_hide = (element, type) ->
-  if type=='open'
+  if type == 'open'
     $('.numeric-answers').css('display', 'none')
     $('.open-answers').css('display', 'block')
-  else if type=='scalar'
+  else if type == 'scalar'
     $('.numeric-answers').css('display', 'block')
     $('.open-answers').css('display', 'none')
-  else if type=='yes-no'
+  else if type == 'yes-no'
     $('.numeric-answers').css('display', 'none')
     $('.open-answers').css('display', 'none')
 
 
 @assign_to_hidden = (element, type) ->
-  if type=='from'
+  if type == 'from'
     $('#scalar_from_val').val($('#scalar_from').val())
-  else if type=='to'
+  else if type == 'to'
     $('#scalar_to_val').val($('#scalar_to').val())
   else
     $('#open_answer_val').val($('#open-answers').val())
@@ -292,11 +291,11 @@
 @animate = (bar, type, user) ->
   switch type
     when 0
-      bar.animate user.diet_score/100
+      bar.animate user.diet_score / 100
     when 1
-      bar.animate user.physical_score/100
+      bar.animate user.physical_score / 100
     else
-      bar.animate user.mental_score/100
+      bar.animate user.mental_score / 100
 
 @get_labels_name = (type) ->
   switch type
@@ -327,8 +326,10 @@
         top: '-72%',
         padding: 0,
         margin: 0,
-    from: color: '#FF0000'
-    to: color: '#008000'
+    from:
+      color: '#FF0000'
+    to:
+      color: '#008000'
     step: (state, semicircle, attachment) ->
       semicircle.path.setAttribute('stroke', state.color)
     autoStyleContainer: false
@@ -378,10 +379,18 @@ $ ->
     textColor = $(this).data("text-color")
 
     $('.datepicker').datepicker () ->
-      weekStart:1
+      weekStart: 1
 
   $("tr[data-href]").click (e) ->
     e.preventDefault()
     window.location = $(this).data("href");
 
   addTips()
+
+
+  $ ->
+    flashCallback = ->
+      $(".alert").fadeOut()
+    $(".alert").bind 'click', (ev) =>
+      $(".alert").fadeOut()
+    setTimeout flashCallback, 10000

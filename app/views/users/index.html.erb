@@ -25,14 +25,14 @@
       </div>
     <% end %>
     <!--<div class="mdl-grid">-->
-      <!--<div class="mdl-layout-spacer"></div>-->
-      <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col"><#%= link_to new_user_path, class: 'mdl-navigation__link' do %>-->
-          <!--<button id="new-users" class="new-btn mdl-button mdl-js-button mdl-button&#45;&#45;raised">-->
-            <!--<i class="material-icons">fiber_new</i> &nbsp Nuovo Paziente-->
-          <!--</button>-->
-        <!--<#% end %>-->
-  <!--</div>-->
-      <!--<div class="mdl-layout-spacer"></div>-->
+    <!--<div class="mdl-layout-spacer"></div>-->
+    <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col"><#%= link_to new_user_path, class: 'mdl-navigation__link' do %>-->
+    <!--<button id="new-users" class="new-btn mdl-button mdl-js-button mdl-button&#45;&#45;raised">-->
+    <!--<i class="material-icons">fiber_new</i> &nbsp Nuovo Paziente-->
+    <!--</button>-->
+    <!--<#% end %>-->
+    <!--</div>-->
+    <!--<div class="mdl-layout-spacer"></div>-->
     <!--</div>-->
 
     <div class="mdl-grid mdl-cell--3-col">
@@ -64,8 +64,11 @@
     </div>
 
   </div>
-  <div class="mdl-grid mdl-cell--3-col">
-  <%= will_paginate @users,class:"pagination_style", renderer: BootstrapPagination::Rails %>
-  </div>
 
+
+</div>
+
+
+<div class="mdl-grid mdl-cell--3-col">
+  <%= will_paginate @users, class: "pagination_style", renderer: BootstrapPagination::Rails %>
 </div>

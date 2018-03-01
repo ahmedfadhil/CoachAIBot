@@ -3,25 +3,24 @@
 
 
 
-<div class="col-md-12">
+<div class="col-md-12 ">
   <div class="card">
     <div class="card-header card-chart" data-background-color="blue">
-      <div class="col-lg-6 col-lg-offset-6 username_case">
+      <div class="col-lg-6 col-lg-offset-6 username_case ">
         <%= link_to user_path(user) do %>
           <%= image_tag user_profile_image(user), alt: 'paziente', class:
               'user_chat_img' %>
 
-          <%= user_status%>
-          <div class="day"><%= Date.today %></div>
-        <%end %>
+          <%= user_status %>
+
+          Acesso: <%= Date.today.strftime("%d %b. %Y") %>
+        <% end %>
       </div>
       <div class="ct-chart" id="completedTasksChart"></div>
 
     </div>
 
     <div class="card-content">
-
-
 
 
       <% if user.profiled? && !user.archived? %>
@@ -31,7 +30,6 @@
               <div class="mdl-cell--12-col-desktop">
 
                 <ol id="chats" class="chat" data-url="<%= chats_chats_path(user) %>">
-
 
 
                   <% chats.each do |message| %>
@@ -56,7 +54,6 @@
                       <%= content_tag :div, class: 'mdl-navigation__link' do %>
 
 
-
                         <button class="btn btn-success btn-large btn-round" type="submit">
                           <i class="material-icons">send</i> &nbsp Invia
                         </button>
@@ -69,18 +66,18 @@
               </div>
             </div>
           </div>
+
+          <i class="material-icons">access_time </i>  &nbsp; <%= l user.chats.last().updated_at %>
         </div>
       <% else %>
         <%= user_not_profiled %>
       <% end %>
 
 
-
-
     </div>
     <div class="card-footer">
       <div class="stats">
-        <i class="material-icons">access_time</i>  <%=l user.chats.last().updated_at%>
+
       </div>
     </div>
   </div>

@@ -19,8 +19,10 @@ class User < ApplicationRecord
   validates_uniqueness_of :cellphone, message: 'Cellulare in uso. Scegli un altro numero di cellulare.'
   validates :first_name, presence: { message: 'Inserisci nome.' }, length: { maximum: 50 }
   validates :last_name, presence: { message: 'Inserisci cognome.' }, length: { maximum: 50 }
-  validates :cellphone, presence: { message: 'Inserisci numero cellulare.' }, length: { maximum: 25, message: 'Numero Cellulare troppo lungo. Max 25.' }
-  validates :age, presence: { message: 'Inserisci eta\'.' }
+  validates :cellphone, presence: { message: 'Inserisci numero cellulare.' }, length: { maximum: 12, message: 'Numero
+ cellulare troppo lungo. Max 12 cifre.' }
+  validates :age, presence: { message: 'Inserisci età.' },length: { maximum: 2, message: 'l età deve essere di due
+cifre' }
   validate :age_has_to_be_positive
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

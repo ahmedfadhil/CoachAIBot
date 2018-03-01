@@ -168,9 +168,7 @@
                               </div>
                               <div class="card-content">
                                 <h4 class="title">Attività:&nbsp<b><%= planning.activity.name %></h4>
-                                <p class="category">
-                                  <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in
-                                  today sales.</p>
+
                               </div>
 
 
@@ -226,7 +224,7 @@
                               </div>
                               <div class="card-footer">
                                 <div class="stats">
-                                  <i class="material-icons">access_time</i> updated 4 minutes ago
+                                  <i class="material-icons">access_time</i> inviato a: <%= planning.created_at.strftime("%d %b. %Y") %>
                                 </div>
                               </div>
                             </div>

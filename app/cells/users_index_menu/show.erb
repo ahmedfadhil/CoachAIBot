@@ -1,4 +1,4 @@
-<header class="profile_content_header mdl-layout__header">
+<header class="profile_content_header mdl-layout__header sub_menu_image">
 
 
     <nav class="mdl-navigation" >
@@ -20,7 +20,7 @@
 
 
                 <%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>
-                  <button id="archived-users" class="btn btn-warning btn-large" >
+                  <button id="archived-users" class="btn btn-warning btn-large button_medicinali" >
                     <i class="material-icons">supervisor_account</i>&nbsp Archiviati ( <%= archived %> )
                   </button>
                 <% end %>
@@ -41,13 +41,13 @@
 
       <!--<#%= link_to users_path,  class: 'mdl-navigation__link' do %>-->
           <!--<button id="all-users" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised">-->
-            <!--<i class="material-icons">supervisor_account</i> &nbsp Attivi (<%= registered %>)-->
+            <!--<i class="material-icons">supervisor_account</i> &nbsp Attivi (<#%= registered %>)-->
           <!--</button>-->
       <!--<#% end %>-->
 
       <!--<#%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>-->
         <!--<button id="archived-users" class="mdl-button mdl-js-button mdl-button&#45;&#45;raised" >-->
-          <#%= image_tag 'archive_user_icon.png' %> &nbsp Archiviati (<%= archived %>)
+          <!--<#%= image_tag 'archive_user_icon.png' %> &nbsp Archiviati (<#%= archived %>)-->
         <!--</button>-->
       <!--<#% end %>-->
 

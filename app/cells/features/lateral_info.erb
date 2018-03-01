@@ -63,11 +63,12 @@
     <div class="card-header" data-background-color="orange">
       <h4 class="title"><%= "#{user.last_name} #{user.first_name}" %></h4>
       <p class="category">Profilo del paziente</p>
+      <p>    Registrato a: <%= user.created_at.strftime("%d %b. %Y") %></p>
     </div>
     <div class="card-content table-responsive">
       <table class="table table-hover">
         <thead>
-        <th>Eta'</th>
+        <th>Età</th>
         <th><%= user.age %></th>
 
 
@@ -93,12 +94,15 @@
 
 
         </tr>
+
+
           <% end %>
 
 
 
         </tbody>
       </table>
+
     </div>
   </div>
 </div>
