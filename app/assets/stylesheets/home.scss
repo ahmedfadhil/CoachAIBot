@@ -444,7 +444,11 @@
   color: rgba(0, 0, 0, 0.76) !important;
 
 }
-
+.home_bottom{
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('37.jpg') no-repeat center;
+  background-size: cover;
+  background-position: center center;
+}
 .side_background {
   background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('37.jpg') no-repeat center;
   background-size: cover;
@@ -687,15 +691,15 @@ a img {
 }
 
 .outer {
-  max-width: 6%;
-  max-height: 6%;
-  margin: 32px 9px -26px 48%;
+  max-width: 15%;
+  max-height: 15%;
+  margin: 85px 9px -26px 48%;
   border-radius: 50%;
   background: #76eeff;
-  background: url('15.jpg') center no-repeat;
+  background: url(22.jpg) center no-repeat;
   background-size: cover;
   overflow: hidden;
-  box-shadow: 0 58px 40px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 58px 90px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 
 }
 
