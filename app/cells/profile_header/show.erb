@@ -15,14 +15,12 @@
       </li>
       <li class="mdl-menu__item">
         <%= link_to all_communications_path(coach) do %>
-            <div class="all_communications">
-              Vedi tutte le notifiche
-            </div>
+          <div class="all_communications">
+            Vedi tutte le notifiche
+          </div>
         <% end %>
       </li>
     </ul>
-
-
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="moreButton">
       <i class="material-icons">more_vert</i>
     </button>
@@ -32,7 +30,7 @@
       <hr>
       <span id="admin-name"><%= "#{coach.first_name} #{coach.last_name}" %></span>
       <%= link_to destroy_coach_user_session_path, method: :delete do %>
-          <li class="mdl-menu__item">Log Out</li>
+        <li class="mdl-menu__item">Log Out</li>
       <% end %>
     </ul>
 

@@ -27,12 +27,16 @@
                         'dashboard_img_thumb ' %><br>
                     <%= user_name_link(red_user) %>
                   <% end %></td>
-                <td><button class="btn btn-danger btn-fab btn-round">
-                  <%= plans_count %>
-                </button></td>
-                <td><button class="btn btn-danger btn-fab btn-round">
-                  <%= activities_count %>
-                </button></td>
+                <td>
+                  <button class="btn btn-danger btn-fab btn-round">
+                    <%= plans_count %>
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-danger btn-fab btn-round">
+                    <%= activities_count %>
+                  </button>
+                </td>
 
               </tr>
             <% end %>
@@ -65,12 +69,16 @@
                         'dashboard_img_thumb ' %><br>
                     <%= user_name_link(yellow_user) %>
                   <% end %></td>
-                <td><button class="btn btn-warning btn-fab btn-round">
-                  <%= plans_count %>
-                </button></td>
-                <td><button class="btn btn-warning btn-fab btn-round">
-                  <%= activities_count %>
-                </button></td>
+                <td>
+                  <button class="btn btn-warning btn-fab btn-round">
+                    <%= plans_count %>
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-warning btn-fab btn-round">
+                    <%= activities_count %>
+                  </button>
+                </td>
 
               </tr>
             <% end %>
@@ -81,43 +89,46 @@
     </div>
 
 
+    <div class="col-lg-12 col-md-12">
+      <div class="card">
+        <div class="card-header" data-background-color="green">
+          <h4 class="title">Pazienti devoti</h4>
+          <p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>
+        </div>
+        <div class="card-content table-responsive content_align">
+          <table class="table table-hover">
+            <thead class="text-warning">
+            <th>Profilo</th>
+            <th>Piani</th>
+            <th>Attività</th>
+            </thead>
+            <tbody>
+            <% greens.each do |green_user| %>
+              <tr>
+                <td class="naming"><%= link_to user_path(green_user) do %>
+                    <%= image_tag user_profile_image(green_user), alt: 'paziente', class:
+                        'dashboard_img_thumb ' %><br>
+                    <%= user_name_link(green_user) %>
+                  <% end %></td>
+                <td>
+                  <button class="btn btn-success btn-fab btn-round">
+                    <%= plans_count %>
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-success btn-fab btn-round">
+                    <%= activities_count %>
+                  </button>
+                </td>
 
-  <div class="col-lg-12 col-md-12">
-    <div class="card">
-      <div class="card-header" data-background-color="green">
-        <h4 class="title">Pazienti devoti</h4>
-        <p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>
-      </div>
-      <div class="card-content table-responsive content_align">
-        <table class="table table-hover">
-          <thead class="text-warning">
-          <th>Profilo</th>
-          <th>Piani</th>
-          <th>Attività</th>
-          </thead>
-          <tbody>
-          <% greens.each do |green_user| %>
-            <tr>
-              <td class="naming"><%= link_to user_path(green_user) do %>
-                  <%= image_tag user_profile_image(green_user), alt: 'paziente', class:
-                      'dashboard_img_thumb ' %><br>
-                  <%= user_name_link(green_user) %>
-                <% end %></td>
-              <td><button class="btn btn-success btn-fab btn-round">
-                <%= plans_count %>
-              </button></td>
-              <td><button class="btn btn-success btn-fab btn-round">
-                <%= activities_count %>
-              </button></td>
-
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 
