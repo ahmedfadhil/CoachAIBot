@@ -10,10 +10,7 @@ class WebhooksController < ApplicationController
       ap 'Rescued from:'
       ap e
       ap e.backtrace
-<<<<<<< HEAD
-=======
-      GeneralActions.new(@user,nil).send_reply 'Forse non ho capito bene cosa intendevi, potresti ripetere per favore?'
->>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5
+      GeneralActions.new(@user,nil).send_reply_to_new_user(from[:id], 'Forse non ho capito bene cosa intendevi, potresti ripetere per favore?')
     end
     render json: nil, status: :ok
   end
