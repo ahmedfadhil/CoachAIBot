@@ -427,8 +427,8 @@ ol.chat {
 // The css for new chat window
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 
-$green: #86BB71;
-$blue: #94C2ED;
+$green: #3dbbbb;
+$blue: #ed847c;
 $orange: #E38968;
 $gray: #92959E;
 
@@ -444,7 +444,7 @@ body {
 }
 
 .container {
-  margin: -92px auto;
+  margin: 0 auto;
   width: 750px;
   //background: #aadd3370;
   border-radius: 39px;
@@ -548,7 +548,7 @@ body {
     border-bottom: 0px solid white;
 
     //overflow-y: scroll;
-    height: 246px;
+    height: 185px;
     text-align: right;
 
     .message-data {
@@ -585,17 +585,34 @@ body {
         margin-left: -10px;
       }
     }
+.time_style{
 
+  text-align:center;
+  margin-bottom: -11px;
+  font-size:10px;
+}
     .my-message {
       background: $green;
     }
 
     .other-message {
       background: $blue;
+      margin-top: 38px;
 
       &:after {
         border-bottom-color: $blue;
-        left: 93%;
+        left: 7%;
+
+      }
+    }
+
+    .self-message {
+      background: $green;
+      margin-top: 74px;
+
+      &:after {
+        border-bottom-color: $green;
+        left: 92%;
 
       }
     }

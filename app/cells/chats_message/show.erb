@@ -7,14 +7,16 @@
     <div class="chat-history">
       <ul>
         <li class="clearfix">
-          <div class="message-data align-right">
-
+          <div class="message-data <%= style %>">
             <span class="avatar" ><%= img_style %></span>
-
           </div>
-          <%= "Tempo: "+ time %>
-          <div class="message other-message float-right">
+
+
+
+          <div class="<%= msg_style %>">
             <p><%= text %></p>
+
+            <p class="time_style">  <%= "Inviato: "+ time %></p>
 
           </div>
 

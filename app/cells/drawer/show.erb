@@ -35,8 +35,18 @@
           <i class="material-icons">bubble_chart</i>Communications
         <% end %>
 
-    <!--<div class="mdl-layout-spacer"></div>-->
-    <!--<a class="drawer-link-text-size mdl-navigation__link mdl-color-text&#45;&#45;grey-900" href=""><i class="mdl-color-text&#45;&#45;grey-900 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>-->
+    <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+      <i class="material-icons">devices_other</i> Indossabile
+    <% end %>
+
+    <div class="mdl-layout-spacer"></div>
+
+    <%= link_to root_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id:
+        'drawer-btn' do %>
+      <i class="material-icons">home</i> Home
+    <% end %>
+
+
   </nav>
 </div>
 
