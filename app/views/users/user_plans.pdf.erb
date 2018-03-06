@@ -1,11 +1,35 @@
 <div class="container">
 
+  <div class="jumbotron pdf_background">
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-0">
+        <%= image_tag wicked_pdf_asset_base64('title.png'), class: 'header-img' %><br>
+
+      </div>
+
+      <div class="col-lg-10 col-lg-offset-8 plan_title">
+
+        <h1> Rapporto per piani e attività</h1><br>
+        <p>Ciao <%= " #{@plans[0].user.last_name}" %>, ecco i tuoi piani con le loro
+          attività e la tua adesione generale a CoachAI.</p><br>
+        <p><%= Date.today.to_s(:long) %></p>
+        <p>
+          <a class="btn btn-primary btn-lg" href="https://web.telegram.org/#/login" role="button">Learn more &raquo;</a>
+        </p>
+
+      </div>
+
+
+    </div>
+  </div>
+
+
   <div id="pdf-header" class="jumbotron">
     <div class="container pdf-container">
 
       <div class="row">
         <div class="col-xs-3">
-          <%= image_tag wicked_pdf_asset_base64('logo.png'), class: 'header-img'%><br>
+          <%= image_tag wicked_pdf_asset_base64('logo.png'), class: 'header-img' %><br>
         </div>
         <div class="col-xs-6">
           <h2>Piani ed Attività di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h2>
@@ -13,9 +37,11 @@
             Nel documento seguente troverai tutti i dettagli riguardanti le attività definite dal coach <%=
             "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>
           </p>
+
+
         </div>
         <div class="col-xs-3">
-          <%= image_tag wicked_pdf_asset_base64('pdf_head.jpg'), class: 'header-img'%><br>
+          <%= image_tag wicked_pdf_asset_base64('pdf_head.jpg'), class: 'header-img' %><br>
         </div>
       </div>
 
@@ -23,77 +49,182 @@
   </div>
 
 
-  <% @plans.each do |plan| %>
-      <div class="media">
-        <div class="media-left">
-           <%= image_tag wicked_pdf_asset_base64('rsz_plan_ico.png'), class: 'media-object'%>
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron pdf_background">
+    <div class="container">
+
+      <div class="modal-body text-center mb-1">
+
+        <h5 class="mt-1 mb-2">Maria Doe</h5>
+
+        <div class="md-form ml-0 mr-0">
+          <input type="password" type="text" id="form18" class="form-control ml-0">
+          <label for="form18" class="ml-0">Enter password</label>
         </div>
-        <div class="media-body">
-          <h4 class="media-heading">Piano <u><b><%= plan.name %></b></u></h4>
 
-          <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">Dettagli</h3>
-            </div>
-
-            <div class="panel-body">
-
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-danger"><b>Descrizione: </b> <%= plan.desc %></li>
-                <li class="list-group-item list-group-item-danger"><b>Durata: </b> <%= plan.ita_duration %></li>
-              </ul>
-
-            </div>
-
-          </div>
-
-          <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">Attività sotto questo piano</h3>
-            </div>
-
-            <div class="panel-body">
-              <% plan.plannings.each do |planning| %>
-                <div class="media">
-                  <div id="pdf-activity-media" class="media-left">
-                    <%= image_tag wicked_pdf_asset_base64(pdf_activity_img(planning.activity.category)), class: 'media-object'%>
-                  </div>
-                  <div class="media-body">
-                    <h4 class="media-heading">Attività <b><u><%= planning.activity.name %></u></b></h4>
-                    <div class="panel panel-info">
-                      <div class="panel-heading">
-                          <h3 class="panel-title">Dettagli attività</h3>
-                      </div>
-                      <div class="panel-body">
-                        <ul class="list-group">
-                          <li class="list-group-item list-group-item-info"><b>Descrizione: </b> <%= planning.activity.desc %></li>
-                          <li class="list-group-item list-group-item-info"><b>Categoria: </b> <%= ita_category(planning.activity.category) %></li>
-                          <li class="list-group-item list-group-item-info"><b>Frequenza: </b> <%= planning.activity.n_times %> / <%= ita_a_type(planning.activity.a_type) %></li>
-                          <% unless planning.schedules.empty? %>
-                            <li class="list-group-item list-group-item-info"><b>Pianificazioni fatte dal Coach: </b><br>
-                              <div class="list-group">
-                                <% planning.schedules.each do |schedule| %>
-                                  <div class="list-group-item">
-                                    <h4 class="list-group-item-heading"><%= ita_schedule(schedule) %></h4>
-                                  </div>
-                                <% end %>
-                              </div>
-                            </li>
-                          <% end %>
-                        </ul>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              <% end %>
-
-            </div>
-
-          </div>
-
+        <div class="text-center">
+          <button class="btn btn-cyan mt-1">Login <i class="fa fa-sign-in ml-1"></i></button>
         </div>
       </div>
+
+      <div class="col-lg-8 col-lg-offset-0">
+        <%= image_tag wicked_pdf_asset_base64('title.png'), class: 'header-img' %>
+
+      </div>
+
+      <div class="col-lg-10 col-lg-offset-5 plan_title">
+
+        <h2><i class="material-icons md-48">camera_roll</i>Rapporto per
+          piani e attività</h2>
+        <p>Ciao <%= " #{@plans[0].user.last_name}" %>, ecco i tuoi piani con le loro
+          attività e la tua adesione generale a CoachAI.</p>
+        <p>
+        <p><%= Date.today.to_s(:long) %></p></p>
+
+      </div>
+
+
+
+
+
+      <%= image_tag 'CoachAI Graphics/CoachAI_logo.png', class: 'android-logo-image outer' %>
+
+      <h1>Hello, world!</h1>
+      <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+        jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+        unique.</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Hello, world!</h1>
+      <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+        jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+        unique.</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+          condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+          Donec sed odio dui. </p>
+        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+          condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+          Donec sed odio dui. </p>
+        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
+          felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+          massa justo sit amet risus.</p>
+        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+      </div>
+    </div>
+
+    <hr>
+
+    <footer>
+      <p>&copy; 2015 Company, Inc.</p>
+      <p><%= Date.today.to_s(:long) %></p>
+    </footer>
+  </div>
+
+
+
+
+
+
+
+
+  <% @plans.each do |plan| %>
+    <div class="media">
+      <div class="media-left">
+        <%= image_tag wicked_pdf_asset_base64('rsz_plan_ico.png'), class: 'media-object' %>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Piano <u><b><%= plan.name %></b></u></h4>
+
+        <div class="panel panel-danger">
+          <div class="back_coloring">
+            <h3 class="panel-title">Dettagli</h3>
+          </div>
+
+          <div class="panel-body">
+
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-danger"><b>Descrizione: </b> <%= plan.desc %></li>
+              <li class="list-group-item list-group-item-danger"><b>Durata: </b> <%= plan.ita_duration %></li>
+            </ul>
+
+          </div>
+
+        </div>
+
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Attività sotto questo piano</h3>
+          </div>
+
+          <div class="panel-body">
+            <% plan.plannings.each do |planning| %>
+              <div class="media">
+                <div id="pdf-activity-media" class="media-left">
+                  <%= image_tag wicked_pdf_asset_base64(pdf_activity_img(planning.activity.category)), class: 'media-object' %>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Attività <b><u><%= planning.activity.name %></u></b></h4>
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Dettagli attività</h3>
+                    </div>
+                    <div class="panel-body">
+                      <ul class="list-group">
+                        <li class="list-group-item list-group-item-info">
+                          <b>Descrizione: </b> <%= planning.activity.desc %></li>
+                        <li class="list-group-item list-group-item-info">
+                          <b>Categoria: </b> <%= ita_category(planning.activity.category) %></li>
+                        <li class="list-group-item list-group-item-info">
+                          <b>Frequenza: </b> <%= planning.activity.n_times %>
+                          / <%= ita_a_type(planning.activity.a_type) %></li>
+                        <% unless planning.schedules.empty? %>
+                          <li class="list-group-item list-group-item-info"><b>Pianificazioni fatte dal Coach: </b><br>
+                            <div class="list-group">
+                              <% planning.schedules.each do |schedule| %>
+                                <div class="list-group-item">
+                                  <h4 class="list-group-item-heading"><%= ita_schedule(schedule) %></h4>
+                                </div>
+                              <% end %>
+                            </div>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            <% end %>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
   <% end %>
 
 </div>

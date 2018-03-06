@@ -32,12 +32,34 @@
 //  background: url('dog.png') bottom right 15% no-repeat #46B6AC;
 //
 //}
+//.app_title {
+//  //margin-left: -78px;
+//  margin-top: -50px;
+//  height: 50%;
+//  width: 50%;
+//  //background-color: powderblue;
+//}
+//.plan_title{
+//  color: white;
+//  margin-top: -104px;
+//}
+///* Rules for sizing the icon. */
+//.material-icons.md-18 { font-size: 18px; }
+//.material-icons.md-24 { font-size: 24px; }
+//.material-icons.md-36 { font-size: 36px; }
+//.material-icons.md-48 { font-size: 48px; }
+//
+//.pdf_background {
+//  background: linear-gradient(#D75D5D, #D46B26, #5bd73b, #34c2d7), url('38.jpg') no-repeat center;
+//  background-size: cover;
+//}
+
 .text_color {
   color: white;
 }
 
 .notification_table {
-  background: url('38.jpg') no-repeat center !important;
+  background: url('38.jpg') no-repeat center;
   background-size: cover;
 }
 
@@ -1151,8 +1173,6 @@ a img {
     top: 12px;
     transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-
 
   /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
      consecutive "+" operators in some cases. Therefore, we need to use both

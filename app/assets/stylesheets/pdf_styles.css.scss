@@ -1,6 +1,14 @@
-#alwaysbreak { page-break-before: always; }
-#nobreak:before { clear:both; }
-#nobreak { page-break-inside: avoid; }
+#alwaysbreak {
+  page-break-before: always;
+}
+
+#nobreak:before {
+  clear: both;
+}
+
+#nobreak {
+  page-break-inside: avoid;
+}
 
 /* Fonts */
 body {
@@ -9,54 +17,103 @@ body {
   font-weight: normal;
 }
 
-div.pdf-container{
+
+.back_coloring{
+  color: #54ff31;
+  background: #00bfa5;
+}
+div.pdf-container {
   text-align: -webkit-center;
 }
 
-img.header-img{
-  width: 100px;
+img.header-img {
+  width: 100%;
+
+  //border-radius: 50%;
 }
 
-#pdf-plans-grid{
+#pdf-plans-grid {
   max-width: 80%;
 }
 
-#activity_img{
+#activity_img {
   width: 5%;
 }
 
-#pdf-header{
+#pdf-header {
   border-style: groove;
 }
 
-#pdf-actions{
+#pdf-actions {
   border-top: #0f1010 solid 1px;
   z-index: 0;
   outline: 0px;
 }
 
-#pdf-plan{
+#pdf-plan {
   width: 100%;
 }
 
-#pdf-activity-card{
+#pdf-activity-card {
   width: 95%;
-  border : 1px solid #000;
-  padding : 5px;
-}
-
-#pdf-activity-desc-card{
-  width: 95%;
-  border : 1px solid #000;
-  padding : 5px;
-}
-
-#pdf-plan-desc-card{
-  width: 95%;
-  border : 1px solid #000;
-  padding : 5px;
-}
-
-#pdf-activity-media{
+  border: 1px solid #000;
   padding: 5px;
+}
+
+#pdf-activity-desc-card {
+  width: 95%;
+  border: 1px solid #000;
+  padding: 5px;
+}
+
+#pdf-plan-desc-card {
+  width: 95%;
+  border: 1px solid #000;
+  padding: 5px;
+}
+
+#pdf-activity-media {
+  padding: 5px;
+}
+
+// New css
+
+.app_title {
+  //margin-left: -78px;
+  margin-top: -50px;
+  height: 100%;
+  width: 100%;
+  //background-color: powderblue;
+}
+
+.plan_title {
+  //color: white;
+  margin-top: -10px;
+  color: #ff5234;
+  font-family: Impact, fantasy;
+  font-size: 30px;
+  font-weight: bold;
+
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+.pdf_background {
+  background: linear-gradient(#D75D5D, #D46B26, #5bd73b, #34c2d7), url('38.jpg') no-repeat center;
+  background-size: cover;
 }

@@ -8,7 +8,7 @@
           <%= image_tag wicked_pdf_asset_base64('logo.png'), class: 'header-img'%><br>
         </div>
         <div class="col-xs-6">
-          <h2>Piani ed Attività di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h2>
+          <h2>Piani ed Attività di <b> <%= "#{@plans[0].user.last_name} #{@plans[0].user.first_name}" %> </b></h2>
           <p>
             Nel documento seguente troverai le attività che dovevi fare fino ad oggi e sulle quali non hai fornito
             feedback.
@@ -38,7 +38,7 @@
 
           <div class="panel panel-danger">
             <div class="panel-heading">
-                <h3 class="panel-title">Questo piano ha bisogno di feedback per le seguenti ttività</h3>
+                <h3 class="panel-title">Questo piano ha bisogno di feedback per le seguenti atività</h3>
             </div>
 
             <div class="panel-body">
