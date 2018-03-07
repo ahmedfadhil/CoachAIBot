@@ -16,22 +16,75 @@ body {
   font-size: 35px;
   font-weight: normal;
 }
+img.logo_sizer{
+
+  width: 100%;
+
+}
+
+div.jumbotron{
+
+  background: #ed7584;
+  //background: url('38.jpg');
+  margin-bottom: 0px;
+  background-image: url('38.jpg');
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+
+
+}
+img.piano_image{
+  padding-right: 30px;
+}
+.piano{
+  font-family: Impact, fantasy;
+  font-size: 15px;
+  text-align: center;
+}
+
+div.cards_back{
+  background: #74ed7a;
+  border-radius: 1%;
+}
 
 
 .back_coloring{
-  color: #54ff31;
+  color: #c8ffc2;
   background: #00bfa5;
 }
 div.pdf-container {
-  text-align: -webkit-center;
+
+}
+
+img.plan_img{
+  width: 100%;
 }
 
 img.header-img {
-  width: 100%;
+  width: 50%;
+  padding: 5px;
+
 
   //border-radius: 50%;
 }
 
+img.activity{
+  width: 100%;
+}
+
+
+img.footer-img{
+  width: 100%;
+  border-radius: 1%;
+
+}
+.copyright_font{
+  font-family: Impact, fantasy;
+  font-size: 15px;
+  text-align: center;
+}
 #pdf-plans-grid {
   max-width: 80%;
 }
@@ -42,6 +95,7 @@ img.header-img {
 
 #pdf-header {
   border-style: groove;
+  border-bottom-color: #d47319;
 }
 
 #pdf-actions {
@@ -86,14 +140,39 @@ img.header-img {
   //background-color: powderblue;
 }
 
+.logo_title{
+  color: #fff8ed;
+  font-family: Impact, fantasy;
+  font-size: 20px;
+  text-align: center;
+}
 .plan_title {
   //color: white;
-  margin-top: -10px;
-  color: #ff5234;
+
+  color: #fff8ed;
   font-family: Impact, fantasy;
-  font-size: 30px;
+  font-size: 20px;
+  text-align: left;
+}
+
+.cards{
+  background: #69bfff;
+  border-radius: 2%;
+}
+
+.piano_font{
+  color: #fff8ed;
+  font-family: Impact, fantasy;
+  font-size: 35px;
   font-weight: bold;
 
+  text-shadow: #fffce8;
+}
+
+img.plan_logo{
+  width: 20%;
+
+  align-content: right;
 }
 
 /* Rules for sizing the icon. */
@@ -112,8 +191,41 @@ img.header-img {
 .material-icons.md-48 {
   font-size: 48px;
 }
-
-.pdf_background {
-  background: linear-gradient(#D75D5D, #D46B26, #5bd73b, #34c2d7), url('38.jpg') no-repeat center;
+.activity_back{
+  background: #ff9331;
   background-size: cover;
+  border-radius: 1%;
+}
+.pdf_background {
+  background: #61bf94;
+  background-size: cover;
+  border-radius: 1%;
+  border-bottom-width: thick;
+margin-bottom: 30px;
+  color: #fff8ed;
+  font-family: Impact, fantasy;
+  font-size: 25px;
+  font-weight: bold;
+
+  text-shadow: #fffce8;
+}
+
+.notice{
+
+
+  border-radius: 1%;
+
+text-align: center;
+  color: #ff3914;
+  font-family: Palatino, URW;
+  font-size: 30px;
+  font-weight: bold;
+
+
+  text-shadow: #fffce8;
+
+}
+img.theend{
+  width: 12%;
+
 }

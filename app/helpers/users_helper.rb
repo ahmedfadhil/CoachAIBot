@@ -133,15 +133,15 @@ module UsersHelper
   def pdf_activity_img(category)
     case category
       when '0'
-        'rsz_diet.png'
+        'diet.png'
       when '1'
-        'rsz_doc-bot.png'
+        'fitness.png'
       when '2'
-        'rsz_mental.png'
+        'mental.png'
       when '3'
-        'rsz_medicine.png'
+        'medicine.png'
       else
-        'rsz_other.png'
+        'coffee.png'
     end
   end
 
