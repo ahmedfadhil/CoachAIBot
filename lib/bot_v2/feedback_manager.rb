@@ -62,7 +62,7 @@ class FeedbackManager
   end
 
   def inform_wrong_activity
-    GeneralActions.new(@user, nil).send_reply_with_keyboard("Hai scelto un'attivita' che non conosco. Per favore, scegli una delle attivita' indicate!",GeneralActions.custom_keyboard(command_data['in_feedback_plans']['activities_that_need_feedback']))
+    GeneralActions.new(@user, nil).send_reply_with_keyboard("Hai scelto un'attivita' che non conosco. Per favore, scegli una delle attivita' indicate!",GeneralActions.custom_keyboard(command_data['in_feedback_plans']['activities_that_need_feedback']).push('Rispondi piu\' tardi/Torna al Menu'))
   end
 
   def ask(activity_name)
