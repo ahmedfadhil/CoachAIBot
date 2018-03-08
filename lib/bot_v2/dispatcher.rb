@@ -26,90 +26,62 @@ class Dispatcher
       case aasm_state
         when 'idle'
           manage_idle_state(text)
-        
+
         when 'activities'
           manage_activities_state(text)
-        
+
         when 'messages'
           manage_messages_state(text)
-        
+
         when 'feedback_plans'
           manage_feedback_plans_state(text)
-        
+
         when 'feedback_activities'
           manage_feedback_activities_state(text)
-        
+
         when 'feedbacking'
           manage_feedbacking_state(text)
-        
+
         when 'questionnaires'
           manage_questionnaires_state(text)
-<<<<<<< HEAD
-        
-        else # 'responding'
-          manage_responding_state(text)
-      
-      
-=======
 
         when 'responding'
           manage_responding_state(text)
 
+        when 'confirmation'
+          manage_confirmation_state(text)
+
         else
           GeneralActions.new(@user,nil).send_reply 'Penso di non aver capito, potresti ripetere per favore?'
->>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5
       end
     
     end
   end
-<<<<<<< HEAD
-  
-  def text
-    @message[:message][:text]
-  end
-  
-  def back_strings
-    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu', 'Rispondi piu\' tardi/Torna al Menu']
-  end
-  
-  def tell_me_more_strings
-    ['Dimmi di piu', 'ulteriori dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
-  end
-  
-=======
-
->>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5
   def manage_idle_state(text)
     case text
       # Activities & Plans
-      when *activities_strings #/(\w|\s|.)*(([Aa]+[Tt]+[Ii]+[Vv]+[Ii]*[Tt]+[AaÀà]*)|([Pp]+[Ii]+[Aa]+[Nn]+([Ii]+|[Oo]+)))+(\w|\s|.)*/
+      when *activities_strings
         ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
         @user.get_activities!
-      
+
       # Feedbacks
-      when *feedback_strings #/(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
+      when *feedback_strings
         ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
         @user.show_plans_to_feedback!
-      
+
       # Messages
-      when *messages_strings #/(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
+      when *messages_strings
         ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
         @user.get_messages!
-      
+
       # Questionnaires
-      when *questionnaires_strings #/(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
+      when *questionnaires_strings
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
-      
+
       else
-<<<<<<< HEAD
-        ApiAIRedirector.new(text, @user).redirect
-        #GeneralActions.new(@user, nil).send_reply("Hey there")
-=======
         #ApiAIRedirector.new(text, @user).redirect
         GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
-
->>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5
     end
   end
   
@@ -118,13 +90,8 @@ class Dispatcher
     case text
       when *back_strings
         @user.cancel!
-<<<<<<< HEAD
-      
-      else # when 'Ulteriori Dettagli'
-=======
 
       when *tell_me_more_strings
->>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5
         @user.get_details!
 
       else
@@ -138,7 +105,7 @@ class Dispatcher
       when *back_strings
         ap "---------USER #{@user.id} CANCELLED MESSAGES RESPONDING ACTION---------"
         @user.cancel!
-      
+
       else
         ap "---------RECEIVING RESPONSE FOR COACH MESSAGE BY USER: #{@user.id}---------"
         @user.respond!(text)
@@ -150,10 +117,10 @@ class Dispatcher
     case text
       when *tell_me_more_strings
         @user.get_details!
-      
+
       when *back_strings
         @user.cancel!
-      
+
       else
         @user.show_activities_to_feedback!(text)
     end
@@ -163,7 +130,7 @@ class Dispatcher
     case text
       when *back_strings
         @user.cancel!
-      
+
       else
         @user.start_feedbacking!(text)
     end
@@ -173,7 +140,7 @@ class Dispatcher
     case text
       when *back_strings
         @user.cancel!
-      
+
       else
         @user.feedback!(text)
     end
@@ -193,8 +160,19 @@ class Dispatcher
     case text
       when *back_strings
         @user.cancel!
+      when 'Torna alla domanda precedente'
+        @user.cancel_last_answer!
       else
         @user.respond_questionnaire!(text)
+    end
+  end
+
+  def manage_confirmation_state(text)
+    case text
+      when 'Si'
+        @user.confirm!
+      when 'No'
+        @user.cancel_confirmation!
     end
   end
 

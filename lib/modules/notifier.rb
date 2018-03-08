@@ -113,7 +113,7 @@ class Notifier
     end_date = plan.to_day
 
     plannings.each do |planning|
-      notification_time = user_preferred_time(plan)
+      notification_time = '10:00'
 
       ap 'creando notifiche per ATTIVITA:'
       ap planning.activity
@@ -182,13 +182,6 @@ class Notifier
       start = stop.send("beginning_of_#{interval}")
       start += 1.send(interval)
     end
-  end
-
-  def user_preferred_time(plan)
-    physical_questionnaire_inv = Invitation.where('user_id = ? AND questionnaire_id = ?', plan.user.id, Questionnaire.where('title = ?', 'Salute').first.id).first
-    morning_hour_question = QuestionnaireQuestion.where('text like ?', '%mattina per ricevere le notifiche%').first
-    user_preferred_hour_answer = QuestionnaireAnswer.where('invitation_id = ? AND questionnaire_question_id = ?', physical_questionnaire_inv.id, morning_hour_question.id).first
-    Time.parse(user_preferred_hour_answer.text)
   end
 
   def set(notification, planning)

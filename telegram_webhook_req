@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-curl https://api.telegram.org/bot294560170:AAFaB9cQ-hCzQEfYNr6z30gD2K7FeDZ1gVQ/setWebhook?url=https://76875f2c.ngrok.io/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
+curl https://api.telegram.org/bot474840015:AAEWUooE8EecBDjYQmskZhLqdI0kaILf5Rg/setWebhook?url=https://59aac2fd.ngrok.io/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
 
-curl https://api.telegram.org/bot509838469:AAFGZo_8SgNaV2NnRiH0KKDW2smkgbK-vpc/setWebhook?url=https://76875f2c.ngrok.io/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
-=======
-https://api.telegram.org/bot294560170:AAFaB9cQ-hCzQEfYNr6z30gD2K7FeDZ1gVQ/setWebhook?url=https://5521d08d.ngrok.io/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1
->>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5

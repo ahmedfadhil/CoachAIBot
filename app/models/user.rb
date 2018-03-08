@@ -55,9 +55,19 @@ class User < ApplicationRecord
 
     ########## States ##############################################
     state :idle, :initial => true
-    state :messages, :activities, :questionnaires, :responding, :feedback_plans, :feedback_activities, :feedbacking
+    state :messages, :activities, :questionnaires, :responding, :confirmation, :feedback_plans, :feedback_activities, :feedbacking, :recover, :help
     ###################################################################
 
+=begin
+    event :give_help do
+      transitions :from => :idle, :to => :help,
+                  :after => :send_help_first_msg
+    end
+    event :choose_faq do
+      transitions :from => :help, :to => :idle,
+                  :after => Proc.new {|*args| redirect_to_apiAI(*args)}
+    end
+=end
 
     ########## Feedback Events ##############################################
     event :show_plans_to_feedback do
@@ -147,11 +157,12 @@ class User < ApplicationRecord
                   :after => Proc.new {|*args| inform_wrong_questionnaire(*args)}
     end
 
+=begin
     event :respond_questionnaire do
-      transitions :from => :responding, :to => :idle,
+      transitions :from => :responding, :to => :confirmation,
                   :after => Proc.new {|*args| register_last_questionnaire_response(*args)},
                   :guard => Proc.new {|*args| is_last_question_and_last_questionnaire?(*args)}
-      transitions :from => :responding, :to => :questionnaires,
+      transitions :from => :responding, :to => :confirmation,
                   :after => Proc.new {|*args| register_last_response(*args)},
                   :guard => Proc.new {|*args| is_last_question_and_is_response?(*args)}
       transitions :from => :responding, :to => :responding,
@@ -160,6 +171,38 @@ class User < ApplicationRecord
       transitions :from => :responding, :to => :responding,
                   :after => :ask_last_question_again
     end
+=end
+
+    event :respond_questionnaire do
+      transitions :from => :responding, :to => :confirmation,
+                  :after => Proc.new {|*args| ask_confirmation(*args)},
+                  :guard => Proc.new {|*args| is_last_question_and_is_response?(*args)}
+      transitions :from => :responding, :to => :responding,
+                  :after => Proc.new {|*args| register_response(*args)},
+                  :guard => Proc.new {|*args| is_response?(*args)}
+      transitions :from => :responding, :to => :responding,
+                  :after => :ask_last_question_again
+    end
+
+    event :cancel_last_answer do
+      transitions :from => :responding, :to => :responding,
+                  :after => :restore_last_question
+    end
+
+    event :confirm do
+      transitions :from => :confirmation, :to => :idle,
+                  :after => :register_last_questionnaire_response,
+                  :guard => :is_last_questionnaire?
+      transitions :from => :confirmation, :to => :questionnaires,
+                  :after => :register_last_response
+    end
+
+    event :cancel_confirmation do
+      transitions :from => :confirmation, :to => :responding,
+                  :after => :ask_again_after_negative_confirmation
+    end
+
+
     ###################################################################
 
 
@@ -170,8 +213,14 @@ class User < ApplicationRecord
                   :after => :send_menu_from_activities
       transitions :from => :messages, :to => :idle,
                   :after => :send_menu_from_messages
+
       transitions :from => :questionnaires, :to => :idle,
                   :after => :send_menu_from_questionnaires
+      transitions :from => :responding, :to => :idle,
+                  :after => :send_menu_from_questionnaires
+      transitions :from => :confirmation, :to => :idle,
+                  :after => :send_menu_from_questionnaires
+
       transitions :from => :responding, :to => :idle,
                   :after => :send_menu_from_questionnaires
       transitions :from => :feedback_plans, :to => :idle,
@@ -179,6 +228,8 @@ class User < ApplicationRecord
       transitions :from => :feedback_activities, :to => :idle,
                   :after => :send_menu_from_feedbacks
       transitions :from => :feedbacking, :to => :idle,
+                  :after => :send_menu_from_feedbacks
+      transitions :from => :confirm, :to => :idle,
                   :after => :send_menu_from_feedbacks
     end
     ###################################################################
@@ -202,19 +253,124 @@ class User < ApplicationRecord
   end
 
 
-
-
   private
+
+  ############### Questionnaires Methods ######################################################################################
+
+  def restore_last_question
+    QuestionnaireManager.new(self, command_data).restore_last_question
+  end
+
+  def ask_confirmation(response)
+    QuestionnaireManager.new(self, command_data).ask_confirmation(response)
+  end
+
+  def register_last_questionnaire_response
+    bot_command_data = command_data
+    manager = QuestionnaireManager.new(self, bot_command_data)
+    manager.register_response(bot_command_data['recover_data']['response'])
+    invitation = Invitation.find(bot_command_data['recover_data']['invitation_id'])
+    invitation.completed = true
+    invitation.save
+    manager.send_profiling_finished
+    questionnaire = Questionnaire.find(bot_command_data['recover_data']['questionnaire_id'])
+    questionnaire.completed = true
+    questionnaire.save!
+    features_manager = FeaturesManager.new
+    features_manager.communicate_profiling_done! self
+    features_manager.save_features_to_csv self
+    system 'rake python_clustering &'
+  end
+
+  def is_last_question_and_last_questionnaire?
+    (QuestionnaireManager.new(self, command_data).is_last_questionnaire? && is_last_question_and_is_response?) ? true : false
+  end
+
+  def is_last_questionnaire?
+    QuestionnaireManager.new(self, command_data).is_last_questionnaire?
+  end
+
+  def register_last_response
+    bot_command_data = command_data
+    response = bot_command_data['recover_data']['response']
+    manager = QuestionnaireManager.new(self, bot_command_data)
+    manager.register_response(response)
+    invitation = Invitation.find(bot_command_data['recover_data']['invitation_id'])
+    invitation.completed = true
+    invitation.save
+    manager.send_questionnaire_finished
+    questionnaire = Questionnaire.find(bot_command_data['recover_data']['questionnaire_id'])
+    questionnaire.completed = true
+    questionnaire.save!
+  end
+
+  def is_last_question_and_is_response?(response)
+    (is_response?(response) && QuestionnaireManager.new(self, command_data).is_last_question?) ? true : false
+  end
+
+  def ask_next_question
+    bot_command_data = command_data
+    QuestionnaireManager.new(self, bot_command_data).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title, true)
+  end
+
+  def ask_again_after_negative_confirmation
+    QuestionnaireManager.new(self, command_data).ask_again_after_negative_confirmation
+  end
+
+  def ask_last_question_again
+    manager = QuestionnaireManager.new(self, command_data)
+    manager.inform_wrong_response
+    manager.ask_last_question_again(false)
+  end
+
+  def register_response(response)
+    QuestionnaireManager.new(self, command_data).register_response(response)
+    ask_next_question
+  end
+
+  def is_response?(response)
+    QuestionnaireManager.new(self, command_data).is_response?(response)
+  end
+
+  def inform_wrong_questionnaire(text)
+    QuestionnaireManager.new(self, nil).inform_wrong_questionnaire(text)
+  end
+
+  def ask_question(questionnaire)
+    QuestionnaireManager.new(self, command_data).ask_question(questionnaire, false)
+  end
+
+  def questionnaire_is_not_finished?(questionnaire)
+    QuestionnaireManager.new(self, command_data).questionnaire_is_not_finished?(questionnaire)
+  end
+
+  def show_questionnaires
+    QuestionnaireManager.new(self, command_data).show_questionnaires
+  end
+
+  def has_questionnaires?
+    QuestionnaireManager.new(self, command_data).has_questionnaires?
+  end
+
+  def send_no_action_received
+    QuestionnaireManager.new(self, command_data).inform_no_action_received
+  end
+
+  def inform_no_questionnaires
+    QuestionnaireManager.new(self, command_data).inform_no_questionnaires
+  end
+
+  def send_menu_from_questionnaires
+    QuestionnaireManager.new(self, command_data).send_menu
+  end
+
+  ####################################################################################################################################
 
   ########## Feedback Methods ##################################################################################
 
   def is_last_feedback_and_last_question?(answer)
     manager = FeedbackManager.new(self)
-    if manager.is_answer?(answer) && manager.is_last_question? && manager.is_last_feedback?
-      true
-    else
-      false
-    end
+    (manager.is_answer?(answer) && manager.is_last_question? && manager.is_last_feedback?) ? true : false
   end
 
   def register_last_feedback(answer)
@@ -355,111 +511,9 @@ class User < ApplicationRecord
 
 
 
-  ############### Questionnaires Methods ######################################################################################
-
-  def register_last_questionnaire_response(response)
-    bot_command_data = command_data
-    manager = QuestionnaireManager.new(self, bot_command_data)
-    manager.register_response(response)
-    invitation = Invitation.find(bot_command_data['responding']['invitation_id'])
-    invitation.completed = true
-    invitation.save
-    manager.send_profiling_finished
-    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    questionnaire.completed = true
-    questionnaire.save!
-    features_manager = FeaturesManager.new
-    features_manager.communicate_profiling_done! self
-    features_manager.save_features_to_csv self
-    #features_manager.save_telegram_profile_img self
-    system 'rake python_clustering &'
-  end
-
-  def is_last_question_and_last_questionnaire?(response)
-    if QuestionnaireManager.new(self, command_data).is_last_questionnaire? && is_last_question_and_is_response?(response)
-      true
-    else
-      false
-    end
-  end
-
-  def register_last_response(response)
-    bot_command_data = command_data
-    manager = QuestionnaireManager.new(self, bot_command_data)
-    manager.register_response(response)
-    invitation = Invitation.find(bot_command_data['responding']['invitation_id'])
-    invitation.completed = true
-    invitation.save
-    manager.send_questionnaire_finished
-    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    questionnaire.completed = true
-    questionnaire.save!
-  end
-
-  def is_last_question_and_is_response?(response)
-    if is_response?(response) && QuestionnaireManager.new(self, command_data).is_last_question?
-      true
-    else
-      false
-    end
-  end
-
-  def ask_next_question
-    bot_command_data = command_data
-    QuestionnaireManager.new(self, bot_command_data).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title)
-  end
-
-  def ask_last_question_again
-    QuestionnaireManager.new(self, command_data).ask_last_question_again
-  end
-
-  def register_response(response)
-    QuestionnaireManager.new(self, command_data).register_response(response)
-    ask_next_question
-  end
-
-  def is_response?(response)
-    QuestionnaireManager.new(self, command_data).is_response?(response)
-  end
-
-  def inform_wrong_questionnaire(text)
-    QuestionnaireManager.new(self, nil).inform_wrong_questionnaire(text)
-  end
-
-  def ask_question(questionnaire)
-    QuestionnaireManager.new(self, command_data).ask_question(questionnaire)
-  end
-
-  def questionnaire_is_not_finished?(questionnaire)
-    QuestionnaireManager.new(self, command_data).questionnaire_is_not_finished?(questionnaire)
-  end
-
-  def show_questionnaires
-    QuestionnaireManager.new(self, command_data).show_questionnaires
-  end
-
-  def has_questionnaires?
-    QuestionnaireManager.new(self, command_data).has_questionnaires?
-  end
-
-  def send_no_action_received
-    QuestionnaireManager.new(self, command_data).inform_no_action_received
-  end
-
-  def inform_no_questionnaires
-    QuestionnaireManager.new(self, command_data).inform_no_questionnaires
-  end
-
-  def send_menu_from_questionnaires
-    QuestionnaireManager.new(self, command_data).send_menu
-  end
-
-  ####################################################################################################################################
-
   def back_to_menu
     GeneralActions.new(self, nil).back_to_menu_with_menu
   end
-  
 
   # will be called if any event fails
   def aasm_event_failed(event_name, old_state_name)
