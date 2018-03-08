@@ -17,7 +17,7 @@
 
 /tmp/*
 /csvs/result.csv
-/assets/images/profile_images
+/csvs/features.csv
 
 telegram_webhook_req
 
