@@ -8,6 +8,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'utf8', '~> 0.1.8'
+
 # use svg files in views
 #gem 'inline_svg'
 
