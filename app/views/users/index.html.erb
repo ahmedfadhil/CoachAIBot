@@ -1,13 +1,8 @@
-
-
 <%= provide(:title, "Lista Pazienti") %>
-
 <div>
   <%= cell(:users_index_menu, current_coach_user) %>
-
   <div id="patients">
     <div class="users-index"></div>
-
     <% if @users.empty? %>
       <br>
       <div id="no-info-grid" class="mdl-grid">
@@ -20,30 +15,27 @@
 
               Nell'archivio non e' presente nessun paziente per il momento. Inserisci un nuovo paziente attraverso il
               bottone verde in basso a destra.
-
             </div>
           </div>
         </div>
       </div>
     <% end %>
     <!--<div class="mdl-grid">-->
-      <!--<div class="mdl-layout-spacer"></div>-->
-      <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col"><#%= link_to new_user_path, class: 'mdl-navigation__link' do %>-->
-          <!--<button id="new-users" class="new-btn mdl-button mdl-js-button mdl-button&#45;&#45;raised">-->
-            <!--<i class="material-icons">fiber_new</i> &nbsp Nuovo Paziente-->
-          <!--</button>-->
-        <!--<#% end %>-->
-  <!--</div>-->
-      <!--<div class="mdl-layout-spacer"></div>-->
+    <!--<div class="mdl-layout-spacer"></div>-->
+    <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col"><#%= link_to new_user_path, class: 'mdl-navigation__link' do %>-->
+    <!--<button id="new-users" class="new-btn mdl-button mdl-js-button mdl-button&#45;&#45;raised">-->
+    <!--<i class="material-icons">fiber_new</i> &nbsp Nuovo Paziente-->
+    <!--</button>-->
+    <!--<#% end %>-->
     <!--</div>-->
-
-
+    <!--<div class="mdl-layout-spacer"></div>-->
+    <!--</div>-->
     <div class="mdl-grid mdl-cell--3-col">
       <div class="mdl-layout-spacer"></div>
       <div class="mdl-cell">
         <!-- add content here -->
       </div>
-      <div class="mdl-cell middle_align">
+      <div class="mdl-cell middle_align col-lg-offset-3">
         <%= link_to new_user_path, class: 'mdl-navigation__link' do %>
           <button id="new-users" class="btn btn-success btn-lg">
             <i class="material-icons">create</i> &nbsp Nuovo Paziente
@@ -59,7 +51,6 @@
     </div>
 
     <div class="row">
-
       <% @users.each do |user| %>
         <%= cell(:user, user) %>
       <% end %>
@@ -68,7 +59,7 @@
 
   </div>
   <div class="mdl-grid mdl-cell--3-col">
-  <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   </div>
 
 </div>

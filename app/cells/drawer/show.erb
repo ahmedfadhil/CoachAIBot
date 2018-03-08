@@ -21,29 +21,39 @@
   </header>
   <nav class="navigation mdl-navigation side_background icons">
         <%= link_to profile_index_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons"> dashboard</i>Dashboard
+          <i class="material-icons"> dashboard</i>DASHBOARD
         <% end %>
         <%= link_to users_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons">people</i>Pazienti
+          <i class="material-icons">people</i>PAZIENTI
         <% end %>
 
         <%= link_to activities_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons">library_books</i> Attività
+          <i class="material-icons">library_books</i> ATTIVITÀ
         <% end %>
 
         <%= link_to all_communications_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons">bubble_chart</i>Communications
+          <i class="material-icons">bubble_chart</i> COMUNICAZIONE
         <% end %>
 
     <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-      <i class="material-icons">devices_other</i> Indossabile
+      <i class="material-icons">devices_other</i> INDOSSABILE
     <% end %>
+
+    <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+      <i class="material-icons">nature_people</i> APPUNTAMENTI
+    <% end %>
+
+    <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+      <i class="material-icons">forum</i> COSTRUIRE DIALOGO
+    <% end %>
+
+
 
     <div class="mdl-layout-spacer"></div>
 
     <%= link_to root_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id:
         'drawer-btn' do %>
-      <i class="material-icons">home</i> Home
+      <i class="material-icons">home</i> HOME
     <% end %>
 
 

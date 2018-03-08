@@ -19,7 +19,6 @@
     </div>
     <p><%= Date.today.to_s(:long) %></p>
   </div>
-
 </div>
 
 <div class="container">
@@ -123,28 +122,20 @@
                     </div>
                   </div>
                 <% end %>
-
               </div>
-
-
             </div>
           </div>
           <br>
           <br>
       <% end %>
-
-
       </div>
     </div>
-
-
   </div>
-
-
 </div>
 <div class="notice">
   <p> **Non dimenticare di seguire i piani e segnalarli al chatbot** <%= image_tag wicked_pdf_asset_base64('end.png'),
-                                                                                 class: 'theend' %><br>Arrivederci</p></div>
+                                                                                   class: 'theend' %><br>Arrivederci</p>
+</div>
 <footer class="copyright_font">
   <%= image_tag wicked_pdf_asset_base64('blog-header-generic.png'), class: 'footer-img' %>
   <p>&copy; 2018 CoachAI. All rights reserved. <%= Date.today.to_s(:long) %></p>

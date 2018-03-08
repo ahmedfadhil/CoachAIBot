@@ -64,4 +64,5 @@ class FeaturesCell < Cell::ViewModel
   def default_image
     'https://i.imgur.com/hur32sb.png'
   end
+  
 end
