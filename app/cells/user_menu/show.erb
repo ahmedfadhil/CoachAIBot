@@ -1,46 +1,48 @@
 <header class="profile_content_header mdl-layout__header sub_menu_image">
 
 
-    <nav class="mdl-navigation" >
+  <nav class="mdl-navigation">
 
 
-      <div class="container">
+    <div class="container">
 
-        <!--  buttons -->
-        <div id="buttons" class="cd-section">
+      <!--  buttons -->
+      <div id="buttons" class="cd-section">
 
-          <div class="row">
-            <div class="col-md-8 ml-auto mr-auto">
-              <%= link_to user_path(user), class: 'mdl-navigation__link', method: 'get' do %>
-                <button id="overview-user" class="btn btn-primary btn-large button_attivi">
-                  <i class="material-icons">assessment</i> &nbsp Panoramica
-                </button>
-              <% end %>
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <%= link_to features_users_path(user), class: 'mdl-navigation__link' do %>
+              <button id="features-user" class="btn btn-success btn-large button_fisiche">
+                <i class="material-icons">insert_drive_file</i> &nbsp Informazioni Raccolte
+              </button>
+            <% end %>
 
-              <%= link_to plans_users_path(user), class: 'mdl-navigation__link', method: 'get' do %>
-                <button id="activities-user" class="btn btn-info btn-large">
-                  <i class="material-icons">featured_play_list</i> &nbsp Attività e Piani
-                </button>
-              <% end %>
-              <%= link_to features_users_path(user), class: 'mdl-navigation__link' do %>
-                <button id="features-user" class="btn btn-success btn-large button_fisiche">
-                  <i class="material-icons">insert_drive_file</i> &nbsp Informazioni Raccolte
-                </button>
-              <% end %>
-              <%= link_to chat_chats_path(user), class: 'mdl-navigation__link' do %>
-                <button id="chatting-user" class="btn btn-warning btn-large button_medicinali">
-                  <i class="material-icons">question_answer</i> &nbsp Chat
-                </button>
-              <% end %>
+            <%= link_to plans_users_path(user), class: 'mdl-navigation__link', method: 'get' do %>
+              <button id="activities-user" class="btn btn-info btn-large">
+                <i class="material-icons">featured_play_list</i> &nbsp Piani e Attività
+              </button>
+            <% end %>
+            <%= link_to user_path(user), class: 'mdl-navigation__link', method: 'get' do %>
+              <button id="overview-user" class="btn btn-primary btn-large button_attivi">
+                <i class="material-icons">assessment</i> &nbsp Panoramica
+              </button>
+            <% end %>
 
 
-            </div>
+            <%= link_to chat_chats_path(user), class: 'mdl-navigation__link' do %>
+              <button id="chatting-user" class="btn btn-warning btn-large button_medicinali">
+                <i class="material-icons">question_answer</i> &nbsp Chat
+              </button>
+            <% end %>
+
+
           </div>
         </div>
-
       </div>
 
-    </nav>
+    </div>
+
+  </nav>
 
 </header>
 

@@ -23,3 +23,6 @@ Id,Insert your age,How would you rate your overall health?,Does your work requir
 28,32,2,Mostly sitting (Involves movement less than 30 minutes per week),1-2 times a week,Medium
 29,23,2,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium
 30,32,4,Mostly sitting (Involves movement less than 30 minutes per week),Most of the time,Medium
+1,30,1,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Low
+1,30,1,Mostly moving (Involves movement more than 3days per week),> 3 times a week,Low
+2,29,3,Mostly sitting (Involves movement less than 30 minutes per week),> 3 times a week,Low

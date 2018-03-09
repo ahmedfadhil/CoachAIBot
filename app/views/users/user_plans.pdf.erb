@@ -40,7 +40,7 @@
 
 <div class="container alwaysbreak">
 
-  <div id="pdf-header" class="jumbotron">
+  <div id="pdf-header">
     <div class="container pdf-container">
 
       <% @plans.each do |plan| %>
@@ -132,7 +132,7 @@
     </div>
   </div>
 </div>
-<div class="notice">
+<div class="last_notice">
   <p> **Non dimenticare di seguire i piani e segnalarli al chatbot** <%= image_tag wicked_pdf_asset_base64('end.png'),
                                                                                    class: 'theend' %><br>Arrivederci</p>
 </div>

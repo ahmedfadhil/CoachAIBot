@@ -300,11 +300,12 @@
 @get_labels_name = (type) ->
   switch type
     when 0
-      ['Dieta', 'diet']
+      ['<i class="material-icons md-36">room_service</i>', 'diet']
     when 1
-      ['Attivita\' Fisica', 'physical']
+      ['<i class="material-icons md-36">directions_bike</i>', 'physical']
     else
-      ['Mentale', 'mental']
+      ['<i class="material-icons md-36">local_florist</i>', 'mental']
+#      consider adding more...
 
 @score = (user, type) ->
   labels = get_labels_name(type)
