@@ -25,12 +25,15 @@
       <i class="material-icons">more_vert</i>
     </button>
     <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="moreButton">
-      <li class="mdl-menu__item"><%= coach.first_name %></li>
-      <li class="mdl-menu__item"><%= coach.email %></li>
+      <li class="mdl-menu__item"><a><i class="material-icons md-24">record_voice_over</i>&nbsp; <%= coach.first_name
+      %></a></li>
+      <li class="mdl-menu__item"><a><i class="material-icons md-24">email</i>&nbsp; <%= coach.email %></a></li>
       <hr>
-      <span id="admin-name"><%= "#{coach.first_name} #{coach.last_name}" %></span>
+      <!--<span id="admin-name"><a><i class="material-icons">record_voice_over</i> <#%= "#{coach.first_name} #{coach
+      .last_name}" %></a></span>-->
       <%= link_to destroy_coach_user_session_path, method: :delete do %>
-        <li class="mdl-menu__item">Log Out</li>
+        <li class="mdl-menu__item"><a><i class="material-icons md-24">input</i>&nbsp; Log
+          Out</a></li>
       <% end %>
     </ul>
 
