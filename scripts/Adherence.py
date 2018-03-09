@@ -15,16 +15,12 @@ def main():
     #df.drop([Timestamp], 1, inplace = True)
     #df2["id"] = df.index + 1
 
-    #df3 = pd.read_csv("./csvs/Low.csv",usecols=[0, 1, 2])
-    #df3.replace('?', -99999, inplace=True)
+    df3 = pd.read_csv("./csvs/Low.csv",usecols=[0, 1, 2])
+    df3.replace('?', -99999, inplace=True)
     #df.drop([Timestamp], 1, inplace = True)
     #df3["id"] = df.index + 1
 
-    df0 = pd.read_csv("./csvs/features.csv", usecols=[1, 2, 3])
-    df0.replace('?', -99999, inplace=True)
-
-
-    frames = [df1, df2,df0]
+    frames = [df1, df2, df3]
     df = pd.concat(frames)
     df["id"] = df.index + 1
 
@@ -40,7 +36,7 @@ def main():
             val = 1
         return val
     df['Adherence'] = df.apply(f, axis=1)
-    df= df.fillna(2)
+    df = df.fillna(2)
 
     x = np.array(df.drop(['Adherence'],1))
     y = np.array(df['Adherence'])
@@ -61,7 +57,7 @@ def main():
 
     df["id"] = df.index + 1
     df0['Adherence'] = df.apply(f, axis=1)
-    df0= df.fillna(2)
+    df0 = df.fillna(2)
     x = np.array(df0.drop(['Adherence'],1))
 
     prediction = clf.predict(x)
@@ -93,7 +89,7 @@ def main():
     dfn['prediction'] = df0.apply(g, axis=1)
     dfn['Estimation'] = df0.apply(h, axis=1)
 
-    df0.to_csv("./csvs/result.csv", sep=',')
+    dfn.to_csv("./csvs/result.csv", sep=',')
 
 
 if __name__ == '__main__':

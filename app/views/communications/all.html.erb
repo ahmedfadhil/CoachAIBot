@@ -1,35 +1,59 @@
 <%= provide(:title, "Tutte le Communicazioni") %>
 <div class="container-fluid">
-  <div class="card">
-    <div id="communications-list-header" class="card-header" data-background-color="purple">
-      <h4 class="title">Communicazioni</h4>
-      <p class="category">Qui ce la lista di tutte le Communicazioni sugli utenti ricevute fin'ora.</p>
-    </div>
-    <div class="communications-list card-content">
-      <div class="row">
-        <div class="col-md-12">
-          <h5>Elenco:</h5>
-          <ul class="list-group">
+  <div class="col-md-12">
+    <div class="card">
+      <div id="communications-list-header" class="card-header" data-background-color="purple">
+        <h4 class="title">Communicazioni</h4>
+        <p class="category">Qui ce la lista di tutte le Communicazioni sugli utenti ricevute fin'ora.</p>
+      </div>
+      <div class="communications-list card-content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel-heading panel">
+              <h2>Elenco</h2>
+              <div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Filtra Comunicazione" data-container="body">
 
-              <% @communications.order(created_at: :desc).each do |communication| %>
-                <li class="list-item">
+							</span>
+              </div>
+              <div class="panel-body">
+                <input type="text" class="form-control" id="dev-table-filter" data-action="filter"
+                       data-filters="#dev-table" placeholder=" &nbsp; Filtra Comunicazione"/>
+              </div>
+            </div>
+            <ul class="list-group">
+
+              <table class="table table-hover" id="dev-table">
+
+                <thead>
+
+                <tr>
+                  <th>Comunicazione</th>
+                  <th>Tempo</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @communications.order(created_at: :desc).each do |communication| %>
                   <%= link_to communication_path(communication) do %>
-                      <div class="alert alert-info">
-                        <span><%= communication.text %></span>
-                        <div class="communications-list-hour">
-                          <%= communication.created_at.strftime('%d.%m.%Y - %H:%M') %>
-                        </div>
-                      </div>
+                    <tr>
+                      <td><%= communication.text %></td>
+                      <td> <%= communication.created_at.strftime('%d.%m.%Y - %H:%M') %></td>
+                    </tr>
                   <% end %>
-                </li>
-              <% end %>
+                <% end %>
+                </tbody>
 
-          </ul>
+              </table>
+            </ul>
+          </div>
+
+          <br>
+          <br>
         </div>
-
-      <br>
-      <br>
       </div>
     </div>
+    </div>
   </div>
-</div>
+
+
+
