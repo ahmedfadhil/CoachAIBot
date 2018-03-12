@@ -88,7 +88,7 @@ class QuestionnaireManager
   end
 
   def inform_no_questionnaires
-    reply = "Non hai Questionari da completare oggi! Torna piu' tardi per ricontrollare."
+    reply = "Non hai Questionario da completare oggi! Torna piu' tardi per ricontrollare."
     GeneralActions.new(@user,nil).send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
 
@@ -99,7 +99,7 @@ class QuestionnaireManager
 
 
   def inform_wrong_questionnaire(text)
-    reply1 = "Oups! '#{text}' non e' il titolo di nessun questionario che hai da fare."
+    reply1 = "Oups! '#{text}' non è il titolo di nessun questionario che hai da fare."
     reply2 = "I questionari che hai da fare sono: \n\t-#{@bot_command_data['questionnaires'].join("\n\t-")} \n Scegli uno dei questionari indicati per rispondere alle domande."
     actuator = GeneralActions.new(@user,nil)
     actuator.send_reply(reply1)

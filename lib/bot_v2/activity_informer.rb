@@ -49,8 +49,7 @@ class ActivityInformer
 
   def send_plans_details(delivered_plans)
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply "#{@user.first_name} ti sto inviando il documento con
-tutti i dettagli relativi alle tua attività..."
+    actuator.send_reply "#{@user.first_name} ti sto inviando il documento con tutti i dettagli relativi alle tua attività..."
     actuator.send_chat_action 'upload_document'
 
     controller = UsersController.new
