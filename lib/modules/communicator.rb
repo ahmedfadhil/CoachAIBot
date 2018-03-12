@@ -66,11 +66,11 @@ class Communicator
   end
 
   def plan_has_missing_feedback_text(plan)
-    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha ecceduto il periodo per il piano #{plan.name} ma non ha fornito tutto il feedback riguardante le attivita' che aveva da fare."
+    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha ecceduto il periodo per il piano #{plan.name} ma non ha fornito tutto il feedback riguardante le attività che aveva da fare."
   end
 
   def plan_finished_text(plan)
-    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha portato a termine il piano #{plan.name}. Guarda il suo resoconto per capire come sono andate le sue attivita'."
+    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha portato a termine il piano #{plan.name}. Guarda il suo resoconto per capire come sono andate le sue attività."
   end
 
   def save_communication(communication, plan)

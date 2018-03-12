@@ -125,30 +125,26 @@ class Cluster
     end
     ap "PROCESS #{checker} FINISHED" if checker == pid
   end
-  
+
   def process_result
     path = "#{Rails.root}/csvs/result.csv"
     file = File.open(path, 'r')
     rows = CSV.parse(file, headers: true)
     rows.each do |row|
       id = row[1]
-      ap "READING USER_ID=#{id}"
       unless id.nil?
-        prediction = row[6]
+        prediction = row[7]
         save_py_prediction(id, prediction)
       end
     end
   end
-  
+
   def save_py_prediction(id, prediction)
-    begin
-      user = User.find(id)
+    users = User.where(id: id)
+    unless users.empty?
+      user = users.first
       user.py_cluster = prediction
       user.save!
-    rescue Exception => e
-      ap "rescued from:"
-      ap e.message
-      ap e.backtrace.inspect
     end
   end
 end

@@ -57,6 +57,34 @@ list-style-type: none;
 //  background: linear-gradient(#D75D5D, #D46B26, #5bd73b, #34c2d7), url('38.jpg') no-repeat center;
 //  background-size: cover;
 //}
+//.pocco{
+//  background: url('run.svg') no-repeat center;
+//  background-size: cover;
+//  width: 50%;
+//  height: 30px;
+//}
+
+.pocco{
+  color: rgba(221, 58, 30, 0.87);
+
+}
+.moderate{
+  color: rgba(76, 199, 221, 0.87);
+}
+.molto{
+  color: rgba(76, 221, 82, 0.87);
+
+}
+.user-level{
+  padding-left: 83px;
+  margin-top: -90px;
+  font-size: 10px;
+  line-height: 14px;
+  text-shadow: #d46739;
+  font-weight: bold;
+
+}
+
 .moto{
  size: 30px;
 }

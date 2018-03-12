@@ -142,7 +142,10 @@
                       </div>
                     </div>
                   <% end %>
+
+
                 <% end %>
+
 
               </div>
             </h2>
@@ -198,15 +201,46 @@
 
 
             </div>
+
           </article>
+
         </div>
+
       </div>
 
 
+
     </div>
+
   </div>
 
+  <div class="user-level container col-md-offset-3">
+    <div class="user-card-n">
+      <% if user.profiled? %>
+        <% if user.py_cluster == 'HIGH' %>
+          <a href="<%= features_users_path(user)%>">
 
+            <i class="material-icons md-36 molto">mood</i>
+            Molto Attivo
+
+          </a>
+        <% elsif user.py_cluster == 'MEDIUM' %>
+          <a href="<%= features_users_path(user)%>">
+
+            <i class="material-icons md-36 moderate">sentiment_neutral</i>Moderatamente Attivo
+
+          </a>
+        <% elsif user.py_cluster == 'LOW' %>
+          <a href="<%= features_users_path(user) %>">
+
+            <i class="material-icons md-36 pocco">mood_bad</i>Poco Attivo
+
+
+          </a>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 
