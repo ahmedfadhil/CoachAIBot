@@ -36,8 +36,8 @@
 
 
 # Explicitly tell the width and height of a chart
-              width: null,
-              height: null,
+              width: 500,
+              height: 500,
 #              plotBackgroundColor: '#f6fcff',
               animation: {
                 duration: 1500,
@@ -110,8 +110,8 @@
                   spacingRight: 2,
 
 # Explicitly tell the width and height of a chart
-                  width: null,
-                  height: null
+                  width: 500,
+                  height: 500
 
                 },
                 colors: ['#6ab344', '#bd0e3d', '#ff861b'],
@@ -312,7 +312,7 @@
   bar = new (ProgressBar.Circle)("##{labels[1]}_score_#{user.id}",
     strokeWidth: 10
     color: '#FF0000'
-    trailColor: '#787878'
+    trailColor: '#4cc7dd'
     trailWidth: 10
     easing: 'easeInOut'
     duration: 1400
@@ -352,9 +352,10 @@
     json: true
     success: (data, textStatus, jqXHR) ->
       for user in data.users
-        score(user, 0)
-        score(user, 1)
-        score(user, 2)
+        if $("#physical_score_#{user.id}").length > 0
+          score(user, 0)
+          score(user, 1)
+          score(user, 2)
 
 @getImages = () ->
   $.ajax "/users/get_images",

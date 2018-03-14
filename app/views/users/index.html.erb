@@ -50,11 +50,13 @@
       <div class="mdl-layout-spacer"></div>
     </div>
 
-    <div class="row">
+    <div class="row user_pic_align">
+      <div class="container">
       <% @users.each do |user| %>
         <%= cell(:user, user) %>
       <% end %>
 
+    </div>
     </div>
 
   </div>

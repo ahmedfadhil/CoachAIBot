@@ -13,7 +13,8 @@ class GeneralActions
 
   def back_to_menu_with_menu
     @api.call('sendMessage', chat_id: @user.telegram_id,
-              text: "Va bene #{@user.last_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup: GeneralActions.menu_keyboard)
+              text: "Va bene #{@user.first_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup:
+                  GeneralActions.menu_keyboard)
   end
 
   def send_reply(reply)

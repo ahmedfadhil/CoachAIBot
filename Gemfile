@@ -15,6 +15,9 @@ end
 # gem 'state_machines'
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 
+# A discard gem to be used in archived users
+gem 'discard'
+
 gem 'record_tag_helper', '~> 1.0'
 
 # writing and deploying cron jobs.

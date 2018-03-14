@@ -3,7 +3,7 @@
 
     <%= image_tag wicked_pdf_asset_base64('logobanner.png'), class: 'logo_sizer' %><br>
     <div class="col-xs-offset-3">
-      <h1>Piani ed Attività di <b> <%= "#{@plans[0].user.first_name} #{@plans[0].user.last_name}" %> </b></h1>
+      <h1>Piani ed Attività di <b> <%= "#{@plans[0].user.last_name} #{@plans[0].user.first_name}" %> </b></h1>
       <p>
         Nel documento seguente troverai tutti i dettagli riguardanti le attività definite dal coach <%=
         "#{@plans[0].user.coach_user.first_name} #{@plans[0].user.coach_user.last_name}" %>

@@ -29,7 +29,7 @@ list-style-type: none;
 //
 //.demo-card-square.mdl-card {
 //  width: 320px;
-//  height: 320px;
+//  height: 320px;Z
 //}
 //.demo-card-square > .mdl-card__title {
 //  color: #fff;
@@ -82,6 +82,7 @@ list-style-type: none;
   line-height: 14px;
   text-shadow: #d46739;
   font-weight: bold;
+  padding-top: -4px !important;
 
 }
 
@@ -431,6 +432,10 @@ list-style-type: none;
 //
 //
 //
+
+.user_card{
+  width: 33% !important;
+}
 .sub_menu_image {
   background-color: #eb982f;
   background: url("22.jpg") no-repeat !important;
@@ -584,12 +589,15 @@ list-style-type: none;
   text-transform: uppercase;
 }
 
+.login_card{
+  margin-top: -118px !important;
+}
+
 .dashboard_img_thumb {
   border-radius: 50%;
   display: inline-block;
   width: 60px !important;;
   height: 60px !important;
-
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

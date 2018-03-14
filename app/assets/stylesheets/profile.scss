@@ -217,7 +217,10 @@ html, body {
 .content {
   max-width: 1080px;
 }
-
+.content_table{
+  max-width: 50%;
+  width: 90%;
+}
 .charts {
   -webkit-align-items: center;
   -ms-flex-align: center;

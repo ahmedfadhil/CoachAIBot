@@ -1,14 +1,12 @@
 <%= provide(:title, "Nuovo Piano") %>
 
-
-
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12 col-md-offset-8">
+      <div class="col-md-10 col-md-offset-2">
         <div class="card">
           <div class="card-header" data-background-color="green">
-            <h4 class="title">Nuovo Piano per <%= "#{@user.last_name} #{@user.first_name}" %></h4>
+            <h4 class="title">Nuovo Piano per <%= "#{@user.first_name} #{@user.last_name}" %></h4>
             <p class="category"> Inserisci i dati del nuovo piano!</p>
           </div>
           <div class="card-content">

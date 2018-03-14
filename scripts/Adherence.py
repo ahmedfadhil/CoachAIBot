@@ -2,6 +2,7 @@ import numpy as np
 #import matplotlib.pyplot as plt
 from sklearn import preprocessing, cross_validation, neighbors
 import pandas as pd
+from sklearn import svm
 
 def main():
     df1 = pd.read_csv("./csvs/Active.csv",usecols=[0, 1, 2])
@@ -43,8 +44,8 @@ def main():
     x = np.array(df.drop(['Adherence'],1))
     y = np.array(df['Adherence'])
     x_train, x_test, y_train, y_test = cross_validation.train_test_split(x,y,test_size=0.2)
-    clf = neighbors.KNeighborsClassifier()
-
+    #clf = neighbors.KNeighborsClassifier()
+    clf = svm.SVC( C=3)
     clf.fit(x_train, y_train)
 
     accuracy = clf.score(x_test,y_test)
