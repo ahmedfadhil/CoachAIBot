@@ -24,10 +24,23 @@ class DashboardCell < Cell::ViewModel
   end
   
   def users_with_no_plan
+    User.left_outer_joins(:plans).where("plans.user_id is null")
+    # User.all.count - User.joins(:plans).where(coach_user: coach).uniq.count
+  end
+  
+  def all_users
+    User.all.count
+  end
+  
+  def users_with_no_plan_count
     User.all.count - User.joins(:plans).where(coach_user: coach).uniq.count
   end
   
   def users_with_plans
+    User.joins(:plans).where(coach_user: coach).uniq
+  end
+  
+  def users_with_plans_count
     User.joins(:plans).where(coach_user: coach).uniq.count
   end
   
@@ -35,12 +48,20 @@ class DashboardCell < Cell::ViewModel
     User.where(:coach_user_id => model.id).count
   end
   
-  def plans_count
+  def plans_count(user)
+    Plan.joins(:user).where(:users => {:id => user.id}).count
+  end
+  
+  def global_plans_count
     Plan.joins(:user).where(:users => {:coach_user_id => model.id}).count
   end
   
-  def activities_count
+  def global_activities_count
     Activity.all.count
+  end
+  
+  def activities_count(user)
+    Activity.joins(:plans).where(:plans => {:user_id => user.id}).count
   end
   
   def user_id_link(user)

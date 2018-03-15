@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       current_coach_user.users << user
       features = assign_questionnaires user
       if features.nil?
-        flash[:err] = "C'e' stato un problema interno e l'utente non e' stato inserito, riprova piu' tardi!"
+        flash[:err] = "C'é stato un problema interno e l'utente non é stato inserito, riprova piú tardi!"
       else
         flash[:OK] = 'Utente inserito con successo!'
       end
@@ -151,7 +151,7 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :cellphone, :age)
+    params.require(:user).permit(:first_name, :last_name, :email, :cellphone, :age,:patient_objective)
   end
   
   def assign_questionnaires(user)

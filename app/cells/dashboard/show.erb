@@ -29,12 +29,12 @@
                   <% end %></td>
                 <td>
                   <button class="btn btn-danger btn-fab btn-round">
-                    <%= plans_count %>
+                    <%= plans_count(red_user) %>
                   </button>
                 </td>
                 <td>
                   <button class="btn btn-danger btn-fab btn-round">
-                    <%= activities_count %>
+                    <%= activities_count(red_user) %>
                   </button>
                 </td>
 
@@ -71,12 +71,12 @@
                   <% end %></td>
                 <td>
                   <button class="btn btn-warning btn-fab btn-round">
-                    <%= plans_count %>
+                    <%= plans_count(yellow_user) %>
                   </button>
                 </td>
                 <td>
                   <button class="btn btn-warning btn-fab btn-round">
-                    <%= activities_count %>
+                    <%= activities_count(yellow_user) %>
                   </button>
                 </td>
 
@@ -112,12 +112,12 @@
                   <% end %></td>
                 <td>
                   <button class="btn btn-success btn-fab btn-round">
-                    <%= plans_count %>
+                    <%= plans_count(green_user) %>
                   </button>
                 </td>
                 <td>
                   <button class="btn btn-success btn-fab btn-round">
-                    <%= activities_count %>
+                    <%= activities_count(green_user) %>
                   </button>
                 </td>
 
@@ -141,7 +141,6 @@
     </div>
 
 
-
   </div>
 </div>
 
@@ -150,123 +149,5 @@
 
 
 
-
-
-
-
-
-
-
-
-
-<!--<div class="col-lg-4 col-md-12">-->
-<!--<div class="card">-->
-<!--<div class="card-header" data-background-color="green">-->
-<!--<h4 class="title">Pazienti DEVOTI</h4>-->
-<!--<p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>-->
-<!--</div>-->
-<!--<div class="card-content table-responsive content_align">-->
-<!--<table class="table table-hover">-->
-<!--<thead class="text-warning">-->
-<!--<tr>-->
-<!--<th>Profilo</th>-->
-<!--<th>Piani</th>-->
-<!--<th>Attività</th>-->
-
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--
-<#% greens.each do |green_user| %>-->
-<!--<tr>-->
-<!--<td class="naming"><#%= link_to user_path(green_user) do %>-->
-<!--<#%= image_tag user_profile_image(green_user), alt: 'paziente', class:-->
-<!--'dashboard_img_thumb ' %><br>-->
-<!--&lt;!&ndash;<#%= user_name_link(green_user) %>&ndash;&gt;-->
-<!--<#% end %></td>-->
-<!--&lt;!&ndash;<td><#%= plans_count %></td>&ndash;&gt;-->
-<!--&lt;!&ndash;<td><#%= activities_count %></td>&ndash;&gt;-->
-
-<!--</tr>-->
-<!--
-<#% end %>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<div class="col-lg-4 col-md-12">-->
-<!--<div class="card">-->
-<!--<div class="card-header" data-background-color="orange">-->
-<!--<h4 class="title">Pazienti CHE MANCANO LE SCADENZE</h4>-->
-<!--<p class="category">Significa che stanno iniziando a mancare le scadenze dei feedback oppure hanno tra il 5%-->
-<!--ed il 20% di attivita' non portate a termine. </p>-->
-<!--</div>-->
-<!--<div class="card-content table-responsive">-->
-<!--<table class="table table-hover">-->
-<!--<thead class="text-warning">-->
-<!--<tr>-->
-<!--<th>Profilo</th>-->
-<!--<th>Piani</th>-->
-<!--<th>Attività</th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--
-<#% yellows.each do |yellow_user| %>-->
-<!--<tr>-->
-<!--<td><#%= link_to user_path(green_user) do %>-->
-<!--<#%= image_tag user_profile_image(yellow_user), alt: 'paziente', class:-->
-<!--'dashboard_img_thumb ' %>-->
-<!--<#% end %></td>-->
-<!--<td class="naming"><#%= user_name_link(yellow_user) %></td>-->
-<!--</tr>-->
-<!--
-<#% end %>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<div class="col-lg-4 col-md-12">-->
-<!--<div class="card">-->
-<!--<div class="card-header" data-background-color="red">-->
-<!--<h4 class="title">Pazienti CRITICI</h4>-->
-<!--<p class="category">Categorizzati dal sistema come Critici, questo significa che non stanno seguendo le-->
-<!--attivita' da te assegante oppure e' da troppo tempo che non si ricevono feedback da esso.</p>-->
-<!--</div>-->
-<!--<div class="card-content table-responsive">-->
-<!--<table class="table table-hover">-->
-<!--<thead class="text-warning">-->
-<!--<tr>-->
-<!--<th>Profilo</th>-->
-<!--<th>Nome</th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-
-<!--
-<#% reds.each do |red_user| %>-->
-<!--<tr>-->
-<!--<td><#%= link_to user_path(green_user) do %>-->
-<!--<#%= image_tag user_profile_image(red_user), alt: 'paziente', class:-->
-<!--'dashboard_img_thumb ' %>-->
-<!--<#% end %></td>-->
-<!--<td class="naming"><#%= user_name_link(red_user) %></td>-->
-<!--</tr>-->
-<!--
-<#% end %>-->
-
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 
 
