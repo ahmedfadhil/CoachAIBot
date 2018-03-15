@@ -111,7 +111,7 @@
 
 # Explicitly tell the width and height of a chart
                   width: 500,
-                  height: 500
+                  height: null
 
                 },
                 colors: ['#6ab344', '#bd0e3d', '#ff861b'],
