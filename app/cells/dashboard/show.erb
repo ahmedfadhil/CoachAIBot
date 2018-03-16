@@ -16,6 +16,7 @@
           <table class="table table-hover">
             <thead class="text-warning">
             <th>Profilo</th>
+            <th>Obiettivo</th>
             <th>Piani</th>
             <th>Attività</th>
             </thead>
@@ -27,6 +28,15 @@
                         'dashboard_img_thumb ' %><br>
                     <%= user_name_link(red_user) %>
                   <% end %></td>
+                <% if red_user.patient_objective == nil %>
+                  <td>
+                    nothing
+                  </td>
+                <% else %>
+                  <td>
+                    <%= red_user.patient_objective %>
+                  </td>
+                <% end %>
                 <td>
                   <button class="btn btn-danger btn-fab btn-round">
                     <%= plans_count(red_user) %>
@@ -58,6 +68,7 @@
           <table class="table table-hover">
             <thead class="text-warning">
             <th>Profilo</th>
+            <th>Obiettivo</th>
             <th>Piani</th>
             <th>Attività</th>
             </thead>
@@ -69,6 +80,16 @@
                         'dashboard_img_thumb' %><br>
                     <%= user_name_link(yellow_user) %>
                   <% end %></td>
+
+                <% if yellow_user.patient_objective == nil %>
+                  <td>
+                    nothing
+                  </td>
+                <% else %>
+                  <td>
+                    <%= yellow_user.patient_objective %>
+                  </td>
+                <% end %>
                 <td>
                   <button class="btn btn-warning btn-fab btn-round">
                     <%= plans_count(yellow_user) %>
@@ -99,6 +120,7 @@
           <table class="table table-hover">
             <thead class="text-warning">
             <th>Profilo</th>
+            <th>Obiettivo</th>
             <th>Piani</th>
             <th>Attività</th>
             </thead>
@@ -110,11 +132,26 @@
                         'dashboard_img_thumb ' %><br>
                     <%= user_name_link(green_user) %>
                   <% end %></td>
+                <% if green_user.patient_objective == nil %>
+                  <td>
+                    nothing
+                  </td>
+                <% else %>
+                  <td>
+                    <%= green_user.patient_objective %>
+                  </td>
+                <% end %>
                 <td>
                   <button class="btn btn-success btn-fab btn-round">
                     <%= plans_count(green_user) %>
                   </button>
                 </td>
+                <td>
+                  <button class="btn btn-success btn-fab btn-round">
+                    <%= activities_count(green_user) %>
+                  </button>
+                </td>
+
                 <td>
                   <button class="btn btn-success btn-fab btn-round">
                     <%= activities_count(green_user) %>
