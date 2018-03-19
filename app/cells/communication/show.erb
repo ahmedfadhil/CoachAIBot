@@ -1,4 +1,5 @@
-<%= link_to communication_path(communication) do %>
+
+<%= link_to communication_path(communication)[0..5] do %>
   <li class="<%= compute_class %> mdl-menu__item">
     <input type="hidden" class="communication_hidden" value="<%= communication.id %>">
     <%= communication.text %>
@@ -6,4 +7,5 @@
   <div class="communication-hour">
     <%= time %>
   </div>
+  <hr>
 <% end %>

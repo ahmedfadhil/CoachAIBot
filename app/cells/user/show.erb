@@ -1,6 +1,6 @@
 <div class="col-lg-4 col-lg-5">
   <div class="user-card mdl-card <%= archived_css_class %>">
-      <div class="container">
+    <div class="container">
       <div class="row active-with-click">
         <div class="col-md-4 col-sm-6 col-xs-12 card_height">
           <article class="material-card Red">
@@ -45,6 +45,11 @@
                       </a>
                     </div>
                   </div>
+
+
+
+
+
                   <% unless user.profiled? %>
                     <div class="row">
                       <div class="user-card-n">
@@ -116,33 +121,43 @@
 
       </div>
 
-      <!--<div class="user-level container col-md-offset-3">-->
-      <!--<div class="user-card-n">-->
-      <!--<#% if user.profiled? %>-->
-      <!--<#% if user.py_cluster == 'HIGH' %>-->
-      <!--<a href="<#%= features_users_path(user) %>">-->
+      <div class="user-level container col-md-offset-3">
+        <div class="user-card-n">
+          <% if user.profiled? %>
+            <% if user.py_cluster == 'HIGH' %>
+              <a href="<%= features_users_path(user) %>">
 
-      <!--<i class="material-icons md-36 molto">mood</i>-->
-      <!--Molto Attivo-->
+                <i class="material-icons md-36 molto">mood</i>
+                Molto Attivo
 
-      <!--</a>-->
-      <!--<#% elsif user.py_cluster == 'MEDIUM' %>-->
-      <!--<a href="<#%= features_users_path(user) %>">-->
+              </a>
+              <#% elsif user.py_cluster == 'MEDIUM' %>
+              <a href="<%= features_users_path(user) %>">
 
-      <!--<i class="material-icons md-36 moderate">sentiment_neutral</i>Moderatamente Attivo-->
+                <i class="material-icons md-36 moderate">sentiment_neutral</i>Moderatamente Attivo
 
-      <!--</a>-->
-      <!--<#% elsif user.py_cluster == 'LOW' %>-->
-      <!--<a href="<#%= features_users_path(user) %>">-->
+              </a>
+            <% elsif user.py_cluster == 'LOW' %>
+              <a href="<%= features_users_path(user) %>">
 
-      <!--<i class="material-icons md-36 pocco">mood_bad</i>Poco Attivo-->
+                <i class="material-icons md-36 pocco">mood_bad</i>Poco Attivo
 
 
-      <!--</a>-->
-      <!--<#% end %>-->
-      <!--<#% end %>-->
-      <!--</div>-->
-      <!--</div>-->
+              </a>
+            <% end %>
+          <% end %>
+
+
+
+
+          <button class="btn btn-danger btn-round btn-xs">
+            <div class='notification_count'> <%= user.communications.where(read_at: nil).count %> <i id="communications-badge" class="material-icons mdl-badge md-36">notifications</i></div>
+          </button>
+
+
+
+        </div>
+      </div>
     </div>
   </div>
 

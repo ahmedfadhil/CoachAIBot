@@ -129,7 +129,7 @@
               <tr>
                 <td class="naming"><%= link_to user_path(green_user) do %>
                     <%= image_tag user_profile_image(green_user), alt: 'paziente', class:
-                        'dashboard_img_thumb ' %><br>
+                        'dashboard_img_thumb' %><br>
                     <%= user_name_link(green_user) %>
                   <% end %></td>
                 <% if green_user.patient_objective == nil %>
@@ -146,12 +146,6 @@
                     <%= plans_count(green_user) %>
                   </button>
                 </td>
-                <td>
-                  <button class="btn btn-success btn-fab btn-round">
-                    <%= activities_count(green_user) %>
-                  </button>
-                </td>
-
                 <td>
                   <button class="btn btn-success btn-fab btn-round">
                     <%= activities_count(green_user) %>

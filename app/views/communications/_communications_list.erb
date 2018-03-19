@@ -1,10 +1,26 @@
+
+
 <% @communications.each do |communication| %>
+  <li class="clearfix">
     <%= cell(:communication, communication) %>
+  </li>
+
 <% end %>
+
 <li class="mdl-menu__item">
   <%= link_to all_communications_path do %>
+
+    <!--<button type="button" class="btn btn-primary">Primary</button>-->
+    <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
+    <!---->
+    <!--<button type="button" class="btn btn-danger">Danger</button>-->
+    <!--<button type="button" class="btn btn-warning">Warning</button>-->
+    <!--<button type="button" class="btn btn-info">Info</button>-->
+    <!--<button type="button" class="btn btn-light">Light</button>-->
+    <!--<button type="button" class="btn btn-dark">Dark</button>-->
+
       <div class="all_communications">
-        Vedi tutte le notifiche
+        <button type="button" class="btn btn-success">Vedi tutte le notifiche</button>
       </div>
   <% end %>
 </li>

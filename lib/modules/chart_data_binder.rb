@@ -60,9 +60,8 @@ class ChartDataBinder
   end
   
   def default_image
-    # 'https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png'
     'https://i.imgur.com/hur32sb.png'
-    
+    # 'https://i.imgur.com/Sf5Waux.png'
   end
   
   def get_overview_data(user)

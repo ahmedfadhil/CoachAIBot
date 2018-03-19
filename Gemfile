@@ -20,6 +20,13 @@ gem 'discard'
 
 gem 'record_tag_helper', '~> 1.0'
 
+
+
+# Saving data to csv, excel
+gem 'xport'
+# gem 'axlsx' # optional
+# gem 'rubyXL' # optional
+# gem 'xlsxtream' # optional
 # writing and deploying cron jobs.
 # gem 'whenever', :require => false
 
