@@ -32,7 +32,7 @@ body {
     background-color: #f7f7f7;
 }
 
-.container {
+.container_500 {
     font-family: 'Varela Round', sans-serif;
     color: #9b9b9b;
     position: relative;
@@ -120,3 +120,4 @@ body {
     border-radius: 50%;
     animation: floatingShadow 3s ease-in-out infinite;
 }
+

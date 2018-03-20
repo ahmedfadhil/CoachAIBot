@@ -44,15 +44,15 @@ class Communicator
   private
 
   def new_message_text(user)
-    "Nuovo messaggio da #{user.first_name} #{user.last_name}. Controlla la sua chat."
+    "Nuovo messaggio da #{user.last_name} #{user.first_name}. Controlla la sua chat."
   end
 
   def user_critical_text(user)
-    "ATTENZIONE! La situazione del paziente #{user.first_name} #{user.last_name} sta diventando critica. Controlla il suo progresso!"
+    "ATTENZIONE! La situazione del paziente #{user.last_name} #{user.first_name} sta diventando critica. Controlla il suo progresso!"
   end
 
   def profiling_finished_text(user)
-    "Profilazione fatta da parte di #{user.first_name} #{user.last_name}. Controlla le informazioni che sono state raccolte."
+    "Profilazione fatta da parte di #{user.last_name} #{user.first_name}. Controlla le informazioni che sono state raccolte."
   end
 
   def communicate_missing_feedback(plan)

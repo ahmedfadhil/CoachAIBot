@@ -18,17 +18,11 @@ body {
     background: #152c3e;
 }
 
-.container {
-    width: 680px;
-    margin-left: 200px;
-    position: absolute;
-    transform: scale(0.6);
-}
 
 h1 {
     font-size: 24px;
     text-align: center;
-    font-family: "Snowburst One", cursive;
+    font-family: 'Varela Round', sans-serif;
     color: #3e0;
 }
 
@@ -44,6 +38,8 @@ h1 {
     left: calc(30%);
     transform: scale(0.6);
 }
+
+
 .laptop > div {
     position: absolute;
 }
@@ -162,4 +158,161 @@ h1 {
     background-position-x: -20px;
     background-size: 120% 140%;
     box-shadow: 1px -2px 10px 0px #8b8b8b, 1px -3px 0px 0px #222222, 1px -5px 0px 0px #8b8b8b, 1px -5px 60px -2px rgba(255, 255, 255, 0.4);
+}
+
+
+/*Last part*/
+
+/*body {*/
+    /*background-color: #fcf8f3;*/
+/*}*/
+
+h1 {
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    /*color: #d6c7bc;*/
+    font-weight: 700;
+    text-align: center;
+}
+
+.outer-wrapper {
+    padding-top: 10%;
+    width: 100vw;
+    height: 100vh;
+}
+@media (max-width: 767px) {
+    .outer-wrapper {
+        padding-top: 5%;
+    }
+}
+.outer-wrapper .inner {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    white-space: nowrap;
+}
+
+.four-wrapper {
+    position: relative;
+    width: 200px;
+    height: 260px;
+    margin: 12px;
+}
+.four-wrapper .leg-1 {
+    background: linear-gradient(to right, #b38ca5 0%, #b38ca5 20%, #d7949c 50%, #d76f74 100%);
+    width: 210px;
+    height: 65px;
+    overflow: hidden;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    border-radius: 35px;
+    transform-origin: 50% 100%;
+    transform: rotate(-50deg);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+}
+.four-wrapper .leg-2 {
+    background: linear-gradient(to right, #b38ca5 0%, #b38ca5 20%, #d7949c 50%, #d76f74 100%);
+    width: 100%;
+    height: 65px;
+    overflow: hidden;
+    position: absolute;
+    top: 113px;
+    left: 0;
+    border-radius: 35px;
+    z-index: 1;
+}
+.four-wrapper .leg-2::before, .four-wrapper .leg-2::after {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.four-wrapper .leg-2::before {
+    width: 30px;
+    height: 80px;
+    transform: rotate(50deg);
+    left: 50px;
+    top: -15px;
+}
+.four-wrapper .leg-2::after {
+    width: 30px;
+    height: 100%;
+    transform: skew(-15deg);
+    left: 88px;
+    top: 0;
+}
+.four-wrapper .leg-3 {
+    background: linear-gradient(to top, #b38ca5 0%, #b38ca5 20%, #d7949c 50%, #d76f74 100%);
+    width: 65px;
+    height: 235px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 95px;
+    border-radius: 35px;
+    box-shadow: 2px 0px 3px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+.four-wrapper .leg-3::before, .four-wrapper .leg-3::after {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.four-wrapper .leg-3::before {
+    width: 30px;
+    height: 100%;
+    transform: rotate(25deg);
+}
+.four-wrapper .leg-3::after {
+    top: -30px;
+    width: 25px;
+    height: 100%;
+    transform: rotate(50deg);
+}
+
+.zero-wrapper {
+    background: linear-gradient(45deg, #b38ca5 0%, #b38ca5 20%, #d7949c 50%, #d76f74 100%);
+    position: relative;
+    width: 235px;
+    height: 235px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2) inset;
+    margin: 12px;
+}
+.zero-wrapper::before, .zero-wrapper::after {
+    content: '';
+    display: block;
+    position: absolute;
+}
+.zero-wrapper::before {
+    top: 40%;
+    left: 33px;
+    width: 104px;
+    height: 60%;
+    transform: rotate(35deg);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.zero-wrapper::after {
+    top: -60px;
+    left: -5px;
+    width: 60%;
+    height: 110%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+}
+.zero-wrapper .zero-wrapper__middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 104px;
+    height: 104px;
+    background-color: #fcf8f3;
+    border-radius: 50%;
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 2;
 }

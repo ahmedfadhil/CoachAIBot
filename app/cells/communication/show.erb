@@ -1,11 +1,31 @@
 
-<%= link_to communication_path(communication)[0..5] do %>
+<%= link_to communication_path(communication) do %>
+
+
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav navbar-left">
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
   <li class="<%= compute_class %> mdl-menu__item">
     <input type="hidden" class="communication_hidden" value="<%= communication.id %>">
+    <i class="material-icons">notifications</i>
     <%= communication.text %>
   </li>
   <div class="communication-hour">
     <%= time %>
+    <hr align="right" width="50%">
   </div>
-  <hr>
+
+      </a>
+
+      </li>
+
+    </ul></div>
+
+
 <% end %>
+
+
+
+

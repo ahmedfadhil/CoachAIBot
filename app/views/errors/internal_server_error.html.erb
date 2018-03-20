@@ -1,34 +1,38 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <%= favicon_link_tag asset_path('favicon.ico'), :rel => 'icon', :type =>  'image/x-icon' %>
+  <title>CoachAI | 500 Error</title>
   <%= stylesheet_link_tag 'internal_server_error', media: 'all' %>
   <%= javascript_include_tag 'internal_server_error'%>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<h1>Errors#internal_server_error</h1>
-<p>Find me in app/views/errors/internal_server_error.html.erb</p>
+<div class="container_500">
+  <h1>500 Error: internal_server_error</h1>
+  <p>Si è verificato un errore interno del server</p>
 
-
-<div class="container">
   <div class="boo-wrapper">
+
     <div class="boo">
       <div class="face"></div>
     </div>
+
     <div class="shadow"></div>
 
     <h1>Whoops!</h1>
     <p>
-      We couldn't find the page you
+      Non siamo riusciti a trovare la pagina
       <br />
-      were looking for.
+      che stavi cercando.
     </p>
   </div>
+
 </div>
+
+
+
 
 </body>
 </html>

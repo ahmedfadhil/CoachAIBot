@@ -14,10 +14,12 @@
           <thead>
           <th>Età</th>
           <th><%= user.age %></th>
-
-
           </thead>
           <tbody>
+          <tr>
+            <td> Sesso</td>
+            <td><%= user.gender %></td>
+          </tr>
           <tr>
             <% if user.patient_objective==nil %>
             <td>Obiettivo del paziente</td>
@@ -39,13 +41,12 @@
 
 
           </tr>
+
           <% unless user.py_cluster.nil? %>
             <tr>
 
               <td>Classificazione del paziente</td>
               <td class="font_style"><%= cluster %></td>
-
-
             </tr>
           <% end %>
 
