@@ -20,8 +20,9 @@ gem 'discard'
 
 gem 'record_tag_helper', '~> 1.0'
 
-
-
+# Custom error page
+# #Gemfile
+# gem 'exception_handler', '~> 0.7.7.0'
 # Saving data to csv, excel
 gem 'xport'
 # gem 'axlsx' # optional

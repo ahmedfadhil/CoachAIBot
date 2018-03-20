@@ -20,4 +20,8 @@ Rails.application.config.assets.precompile += %w( profile.js )
 
 Rails.application.config.assets.precompile += %w( pdf_styles.css.scss )
 
+Rails.application.config.assets.precompile += %w( internal_server_error.js )
+Rails.application.config.assets.precompile += %w( internal_server_error.css )
 
+Rails.application.config.assets.precompile += %w( page_not_found.js )
+Rails.application.config.assets.precompile += %w( page_not_found.css )

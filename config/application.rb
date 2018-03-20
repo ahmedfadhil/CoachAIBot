@@ -47,5 +47,10 @@ module Coach
     config.assets.paths << Rails.root.join('vendor')
 
     config.i18n.default_locale = :it
+    # Custom error page
+    config.exceptions_app = self.routes
   end
+
+
 end
+

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+
+  get 'errors/internal_server_error'
+
   # crono jobs route
   mount Crono::Web, at: '/crono'
 
@@ -97,4 +101,10 @@ Rails.application.routes.draw do
 	get 'wearables/fitbit/connect/:token', to: 'wearables#connect', as: 'wearables_fitbit_connect'
 	# oauth2 callback
 	get 'users/auth/fitbit/callback', to: 'wearables#oauth2_callback'
+
+
+  match "/404", :to => "errors#not_found", :via => :all
+  match "/500", :to => "errors#internal_server_error", :via => :all
+
+
 end
