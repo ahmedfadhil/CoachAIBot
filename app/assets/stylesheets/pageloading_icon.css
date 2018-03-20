@@ -10,7 +10,7 @@ if it's not present, don't show loader */
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background: url("simple-pre-loader/images/loader-128x/Preloader_3.gif") center no-repeat #ffffff;
+    background: url("simple-pre-loader/images/loader-128x/Preloader_3.gif") center no-repeat #fffff3;
 }
 
 

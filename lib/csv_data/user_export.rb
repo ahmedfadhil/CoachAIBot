@@ -16,7 +16,9 @@ class UserExport < Xport::Export
     end
     column :user_cellphone
     column :user_email
-    column :user_cluster
+    column :user_cluster do |row|
+      row.user_cluster ? row.user_cluster : "Nullo"
+    end
     column :user_patient_objective do |row|
       row.user_patient_objective ? row.user_patient_objective : "Sconosciuto"
     end
@@ -43,9 +45,8 @@ class UserExport < Xport::Export
     column :activity_category
   end
   
-  def self.userActivities
-    
-    select_options = %{
+  
+  SELECT_OPTIONS = %{
       users.id as user_id,
       users.first_name as user_first_name,
       users.last_name as user_last_name,
@@ -62,7 +63,7 @@ class UserExport < Xport::Export
       plans.to_day as plan_to_day,
       plans.created_at as plan_created_at,
       plans.delivered as plan_delivered,
-      plans.communicated as plan_communicated
+      plans.communicated as plan_communicated,
       activities.id as activity_id,
       activities.name as activity_name,
       activities.desc as activity_desc,
@@ -71,10 +72,18 @@ class UserExport < Xport::Export
       activities.created_at as activity_created_at,
       activities.category as activity_category
     }.gsub(/\s+/, " ").strip
-    
-    
+  
+  def self.allData
     # activites = Activity.joins(:plans, :users).select(select_options)
-    activites = [Activity.joins(:plans, :users).select(select_options).first]
+    activites = Activity.joins(:plans, :users).select(SELECT_OPTIONS).order('users.id','plans.id','activities.id')
+    new activites
+  end
+  
+  def self.userData(user)
+    # activites = Activity.joins(:plans, :users).select(select_options)
+    activites = Activity.joins(:plans, :users).select(SELECT_OPTIONS).where(users: {
+        id: user.id
+    }).order('users.id','plans.id','activities.id')
     new activites
   end
 

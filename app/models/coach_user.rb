@@ -1,7 +1,7 @@
 class CoachUser < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable :registerable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable,:registerable
 
   validates_uniqueness_of :email, message: 'Email in uso. Scegli altra email.'
   validates :first_name, presence: { message: 'Nome obbligatorio.' }, length: { maximum: 50, message: 'Nome troppo lungo, massimo 50 caratteri.' }
