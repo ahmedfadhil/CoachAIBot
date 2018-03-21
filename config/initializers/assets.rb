@@ -25,3 +25,4 @@ Rails.application.config.assets.precompile += %w( internal_server_error.css )
 
 Rails.application.config.assets.precompile += %w( page_not_found.js )
 Rails.application.config.assets.precompile += %w( page_not_found.css )
+

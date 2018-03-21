@@ -24,12 +24,12 @@
               <p class="text-divider">Tutti i campi richiesti *</p>
               <div class="content">
 
-                <div class="input-group login_group">
-										<span class="input-group-addon">
-											<i class="material-icons">face</i>
-										</span>
-                  <input type="text" class="form-control" placeholder="Nome, Cognome...">
-                </div>
+                <!--<div class="input-group login_group">-->
+                <!--<span class="input-group-addon">-->
+                <!--<i class="material-icons">face</i>-->
+                <!--</span>-->
+                <!--<input type="text" class="form-control" placeholder="Nome, Cognome...">-->
+                <!--</div>-->
 
                 <div class="input-group login_group">
 										<span class="input-group-addon">
@@ -47,12 +47,20 @@
                   <%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'mdl-textfield__input form-control',
                                        placeholder: 'Password...', for: 'password' %>
                 </div>
+                <!--<div class="input-group login_group">-->
+										<!--<span class="input-group-addon">-->
+									<!--<i class="material-icons">vpn_key</i>-->
+										<!--</span>-->
+                  <!--<#%= f.text_field :access_code, class: 'mdl-textfield__input form-control', placeholder: 'Codice
+                   d\'accesso...', for: 'login' %>-->
+                <!--</div>-->
 
                 <% if devise_mapping.rememberable? %>
-                  <div class="field checkme login_group">
+                  <div class=" field checkme login_group">
                     <%= f.check_box :remember_me %>
-                    <%= f.label :remember_me %>
+                    <%= f.label 'Ricordati di me' %>
                   </div>
+
                 <% end %>
 
                 <!-- If you want to add a checkbox to this form, uncomment this code
@@ -65,6 +73,10 @@
               </div>
               <div class="footer text-center">
                 <%= f.submit "Log in", class: 'btn btn-success btn-lg' %>
+              </div>
+              <div class="col-md-12 text-center">
+                <p>Non hai un account? <a> <%= link_to "Iscriviti qui", new_coach_user_registration_path, class: "btn
+              btn-info btn-sm" %></a></p>
               </div>
             </form>
           </div>
@@ -81,9 +93,8 @@
       </div>
     </div>
   </div>
+
 <% end %>
 
-<div class="col-md-12 text-center">
-  <a href="examples/signup-page.html" class="btn btn-simple btn-primary btn-lg" target="_blank">View Signup Page</a>
-</div>
+
 

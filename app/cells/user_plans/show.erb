@@ -101,32 +101,6 @@
                       <% end %>
                     </div>
 
-                    <!--
-            <div id="activity-expandible" class="mdl-card__actions mdl-card--border">
-              <div class="activities-container">
-                <details class="activity-expander mdl-expansion">
-                  <summary class="mdl-expansion__summary">
-                    <span id="activity-name-styler" class="mdl-expansion__header"><#%= planning.activity.name %></span>
-                  </summary>
-                  <div class="mdl-expansion__content">
-
-                    <%#= cell(:planning_description, planning) %>
-                    <%#= cell(:schedules, planning) %>
-                    <%#= cell(:questions, planning) %>
-
-                  </div>
-                  <div class="mdl-expansion__actions">
-                    <#% if plan.delivered != 1 && plan.delivered != 3 %>
-                        <#%= link_to 'Aggiungi Domanda', new_questions_path(:a_id => planning.activity.id, :u_id => plan.user.id, :p_id => plan.id) , remote: true,
-                                    method: 'get', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-                        <#%= link_to 'Destituisci Attivita', planning_path(planning) ,
-                                    method: 'delete', class: 'mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect' %>
-                    <#% end %>
-                  </div>
-                </details>
-              </div>
-            </div>
-            -->
 
                   <% end %>
                 </div>

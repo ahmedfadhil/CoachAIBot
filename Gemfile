@@ -74,6 +74,7 @@ gem 'awesome_print'
 
 # Authentication solution
 gem 'devise'
+# gem 'devise-bootstrapped', '~> 0.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
