@@ -79,7 +79,8 @@ gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
 
-
+# upload coach image
+gem 'paperclip', '~> 6.0'
 # Gemfile
 gem 'will_paginate-bootstrap'
 # Use Puma as the app server

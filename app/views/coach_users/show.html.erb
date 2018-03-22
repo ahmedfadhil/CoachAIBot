@@ -1,0 +1,673 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout-title">MDL Sheet</span>
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">A</a>
+        <a class="mdl-navigation__link" href="">B</a>
+      </nav>
+
+    </div>
+
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">About</a>
+      <a href="#fixed-tab-2" class="mdl-layout__tab">Learn</a>
+    </div>
+  </header>
+
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Kaptain Kitty</span>
+    <div class="avatar">
+      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/cat.jpg" alt="Kaptain Kitty" class="avatar-img">
+    </div>
+    <!-- /.avatar -->
+
+    <div class="drawer-text">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur officiis animi, soluta ab deserunt dolore
+      fugit voluptatem laboriosam, magni. Eligendi quia quasi qui cupiditate optio fugit vel, suscipit harum illum.
+    </div>
+    <!-- /.drawer-text -->
+    <span class="mdl-layout-title">MDL Sheet</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+
+
+  </div>
+
+
+
+
+
+  <main class="mdl-layout__content">
+    <h1>Google Material Design FAB-Sheet</h1>
+
+
+    <p>This is the coach panel</p><br>
+
+
+    <%= image_tag @coach.avatar.url,:class => "avatar" %>
+    <%= image_tag @coach.avatar.url(:medium),:class => "avatar" %>
+    <%= image_tag @coach.avatar.url(:thumb),:class => "avatar" %>
+    <%= @coach.first_name %><br>
+    <%= @coach.last_name %><br>
+    <%= @coach.email %><br>
+
+
+
+
+
+
+
+
+
+
+    <p>
+      Floating action button (FAB) that transforms into a single sheet of material which contains all the actions.
+    </p>
+
+
+    <div class="mdl-sheet__container">
+      <div class="mdl-sheet mdl-shadow--2dp">
+        <i class="material-icons mdl-sheet__icon">add</i>
+
+        <div class="mdl-sheet__content">
+          <div class="mdl-list">
+            <div class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-avatar">person</i>
+              <span>Bryan Cranston</span>
+            </span>
+              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">add</i></a>
+            </div>
+            <div class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-avatar">person</i>
+              <span>Aaron Paul</span>
+            </span>
+              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">add</i></a>
+            </div>
+            <div class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-avatar">person</i>
+              <span>Bob Odenkirk</span>
+            </span>
+              <span class="mdl-list__item-secondary-content">
+              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
+
+
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <h1>Some Buttons</h1>
+          <!-- FAB button -->
+          <button class="mdl-button mdl-js-button mdl-button--fab">
+            <i class="material-icons">add</i>
+          </button>
+          <!-- FAB button with ripple -->
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+            <i class="material-icons">add</i>
+          </button>
+          <!-- Disabled FAB button -->
+          <button class="mdl-button mdl-js-button mdl-button--fab" disabled>
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+      </div>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <button class="mdl-button mdl-js-button mdl-button--raised">
+            Button
+          </button>
+          <!-- Raised button with ripple -->
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Button
+          </button>
+          <!-- Raised disabled button-->
+          <button class="mdl-button mdl-js-button mdl-button--raised" disabled>
+            Button
+          </button>
+        </div>
+      </div>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            Button
+          </button>
+          <!-- Accent-colored raised button -->
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+            Button
+          </button>
+          <!-- Accent-colored raised button with ripple -->
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Button
+          </button>
+        </div>
+      </div>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <!-- Flat button -->
+          <button class="mdl-button mdl-js-button">
+            Button
+          </button>
+          <!-- Flat button with ripple -->
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            Button
+          </button>
+          <!-- Disabled flat button -->
+          <button class="mdl-button mdl-js-button" disabled>
+            Button
+          </button>
+        </div>
+      </div>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <!-- Icon button -->
+          <button class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">mood</i>
+          </button>
+          <!-- Colored icon button -->
+          <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+            <i class="material-icons">mood</i>
+          </button>
+
+        </div>
+      </div>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <!-- Mini FAB button -->
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <i class="material-icons">add</i>
+          </button>
+          <!-- Colored mini FAB button -->
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+            <i class="material-icons">add</i>
+          </button>
+
+        </div>
+      </div>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <!-- Left aligned menu below button -->
+          <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+          </button>
+
+          <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
+            <li class="mdl-menu__item">Some Action</li>
+            <li class="mdl-menu__item">Another Action</li>
+            <li disabled class="mdl-menu__item">Disabled Action</li>
+            <li class="mdl-menu__item">Yet Another Action</li>
+          </ul>
+          <!-- Right aligned menu below button -->
+          <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+          </button>
+
+          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+            <li class="mdl-menu__item">Some Action</li>
+            <li class="mdl-menu__item">Another Action</li>
+            <li disabled class="mdl-menu__item">Disabled Action</li>
+            <li class="mdl-menu__item">Yet Another Action</li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+          <h1>Some Other Stuff</h1>
+
+
+          <!-- Simple Textfield -->
+          <form action="#">
+            <div class="mdl-textfield mdl-js-textfield textfield-demo">
+              <input class="mdl-textfield__input" type="text" id="sample1"/>
+              <label class="mdl-textfield__label" for="sample1">Text...</label>
+            </div>
+          </form>
+          <!-- Numeric Textfield -->
+          <form action="#">
+            <div class="mdl-textfield mdl-js-textfield textfield-demo">
+              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2"/>
+              <label class="mdl-textfield__label" for="sample2">Number...</label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+              <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked/>
+              <span class="mdl-checkbox__label">Checkbox</span>
+            </label>
+
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+              <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"/>
+              <span class="mdl-checkbox__label">Checkbox</span>
+            </label>
+
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked/>
+              <span class="mdl-radio__label">Option 1</span>
+            </label>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <main class="mdl-layout__content">
+
+    <div class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+      <div class="page-content">
+        <!-- Your content goes here -->
+        <!-- Hero section -->
+        <div class="hero-section">
+
+          <div class="hero-text mdl-typography--text-center">
+
+            <h1 class="mdl-typography--display-2">I'm Kaptain Kitty</h1>
+            <p class="mdl-typography--display-1">
+              I'll teach you loads about your kitten
+            </p>
+
+            <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent kitty-hero__text-button" href="#intro">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </a>
+
+          </div>
+          <!-- /.hero-text -->
+
+        </div>
+        <!-- /.hero-section -->
+
+        <!-- INTRO -->
+        <div id="intro" class="mdl-grid intro-section">
+          <div class="about-kitty mdl-cell mdl-cell--12-col">
+            <p class="mdl-typography--headline">
+              Welcome to Kaptain Kitty!
+              This is a demo HTML template that accompanies an article for SitePoint. The article illustrates how to use the Material Design Lite library to build a web page. You're free to use this template as you like. All images on this demo are courtesy of <a href="https://pixabay.com/">Pixabay.com</a>.
+            </p>
+          </div>
+          <!-- /.about-kitty -->
+
+          <div class="about-kitty mdl-cell mdl-cell--12-col">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint dolorum consectetur natus sequi, est similique! Temporibus rem consequuntur laudantium, illo excepturi velit quas. Culpa ipsum dolor tempore accusantium sed iusto.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, dicta aliquid, inventore a ullam excepturi similique sit, nobis incidunt laboriosam amet maxime iusto nam facilis possimus quo optio? Dolor, et?
+            </p>
+          </div>
+          <!-- /.about-kitty -->
+
+          <div class="about-kitty mdl-cell mdl-cell--5-col mdl-cell--1-col-tablet mdl-cell--hide-phone">
+            <div class="circle-container">
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+            </div>
+            <!-- /.circle-container -->
+
+          </div>
+          <!-- /.about-kitty -->
+          <div class="about-kitty mdl-cell mdl-cell--7-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+            <div class="topics-container">
+              <div class="topic">Feeding</div>
+              <div class="topic">Choosing the right vet</div>
+              <div class="topic">Keeping you kittens healthy</div>
+              <div class="topic">Adopting a kitten</div>
+              <div class="topic">Vaccinating your kitten</div>
+            </div>
+            <!-- /.topics-container -->
+          </div>
+          <!-- /.about-kitty -->
+
+          <div class="about-kitty mdl-cell mdl-cell--12-col">
+
+            <p class="clearfix">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/cat.jpg" alt="Kaptain Kitty" class="embedded-img float-left"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint dolorum consectetur natus sequi, est similique! Temporibus
+              rem consequuntur laudantium, illo excepturi velit quas. Culpa ipsum dolor tempore accusantium sed iusto. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, dicta aliquid, inventore a ullam excepturi similique sit, nobis incidunt
+              laboriosam amet maxime iusto nam facilis possimus quo optio? Dolor, et?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, dicta aliquid, inventore a ullam excepturi similique sit, nobis incidunt laboriosam amet maxime iusto nam facilis possimus quo optio? Dolor, et?
+            </p>
+          </div>
+          <!-- /.about-kitty -->
+        </div>
+        <!--/.mdl-grid -->
+
+        <!-- Testimonial -->
+        <div class="mdl-grid mdl-grid--no-spacing fullwidth-panel">
+          <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center quote-panel">
+            <blockquote>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint dolorum consectetur natus sequi, est similique! Temporibus rem consequuntur laudantium, illo excepturi velit quas. Culpa ipsum dolor tempore accusantium sed iusto.
+              </p>
+              <footer>
+                — <cite>Happy Kitten Owner</cite>
+              </footer>
+            </blockquote>
+
+          </div>
+          <!-- /.mdl-cell -->
+        </div>
+        <!--/.mdl-grid -->
+
+      </div>
+      <!-- /.page-content -->
+    </div>
+    <!-- /.tab1 -->
+
+    <div class="mdl-layout__tab-panel" id="fixed-tab-2">
+      <div class="page-content">
+        <!-- Your content goes here -->
+
+        <!-- CARDS  -->
+        <div class="mdl-grid cards-section">
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp home-bringing-card">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Bringing a kitten into your home</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+          </div>
+          <!-- /.mdl-card -->
+          <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp play-card">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Playing with your kitten</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+          </div>
+          <!-- /.mdl-card -->
+          <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp image-card">
+            <div class="mdl-card__actions">
+              <span class="image-card__title">KaptainKitty.jpg</span>
+            </div>
+          </div>
+          <!-- /.mdl-card -->
+
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp litter-card">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Taking care of a litter of kittens</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+          </div>
+          <!--/.mdl-card -->
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp diet-card">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Healthy diet for your kitten</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                Learn about feeding
+              </a>
+            </div>
+          </div>
+          <!--/.mdl-card -->
+
+          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Kitten behavior</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                More on behavior
+              </a>
+            </div>
+          </div>
+          <!--/.mdl-card -->
+          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Finding a vet</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                More on finding a vet
+              </a>
+            </div>
+          </div>
+          <!--/.mdl-card -->
+          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Toys for kittens</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                More on toys
+              </a>
+            </div>
+          </div>
+          <!--/.mdl-card -->
+          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Adopting a kitten</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                More on adopting
+              </a>
+            </div>
+          </div>
+          <!--/.mdl-card -->
+        </div>
+        <!--/.mdl-grid -->
+
+      </div>
+      <!-- /.page-content -->
+    </div>
+    <!-- /tab2 -->
+
+    <!-- Contact -->
+    <div class="mdl-grid mdl-grid--no-spacing">
+
+      <div class="mdl-cell mdl-cell--12-col contact-intro mdl-color--indigo-900">
+        <h2 class="mdl-typography--title mdl-typography--title-color-contrast mdl-typography--font-thin mdl-typography--text-center">Make your kittens happier with my tips</h2>
+      </div>
+      <!--/.contact-intro  -->
+
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone contact-panel form-panel mdl-color--indigo-50">
+
+        <form action="#">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="name">
+            <label class="mdl-textfield__label" for="name">Your name</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="email" id="email">
+            <label class="mdl-textfield__label" for="email">Your email</label>
+          </div>
+          <div class="button-container clearfix">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent subscribe-button">
+              Join my fans
+            </button>
+          </div>
+          <!--/.button-container -->
+
+        </form>
+      </div>
+      <!--/.contact-panel -->
+
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone contact-panel address-panel mdl-typography--text-center mdl-color--indigo-100">
+
+        <p class="mdl-typography--title-color-contrast mdl-typography--text-nowrap mdl-typography--font-thin">
+          <i class="material-icons">email</i> <a href="mailto:info@captain.kitty.com">info@kaptain.kitty.com</a>
+        </p>
+
+        <p class="mdl-typography--title-color-contrast mdl-typography--text-nowrap mdl-typography--font-thin">
+          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="twitter.com">twitter</a>
+          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="plus.google.com">Google+</a>
+          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="facebook.com">Facebook</a>
+        </p>
+      </div>
+      <!-- /.contact-panel -->
+
+    </div>
+    <!-- /.mdl-grid -->
+
+    <!-- FOOTER -->
+    <footer class="mdl-mini-footer mdl-color--indigo-200">
+      <div class="mdl-mini-footer__left-section">
+        <div class="mdl-logo">Kaptain Kitty &ndash; designed by <a href="http://wpthememakeover.com">Maria Antonietta Perna</a></div>
+        <ul class="mdl-mini-footer__link-list">
+          <li><a href="#">Help</a></li>
+          <li><a href="#">Privacy & Terms</a></li>
+        </ul>
+        &copy; Maria Antonietta Perna 2016
+      </div>
+      <!-- /.mdl-mini-footer__left-section -->
+    </footer>
+
+  </main>
+  <!-- /.mdl-layout__content -->
+
+</div>
+
+
+
+<style>
+  body {
+    background: #ECEFF1;
+  }
+
+  .mdl-layout__content {
+    padding: 24px 12px;
+  }
+
+  .mdl-layout__content h1 {
+    font-size: 30px;
+    margin: 0 0 .3em;
+  }
+
+  .mdl-sheet__container {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  .mdl-sheet {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: #FF5722;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition: all 180ms;
+    transition: all 180ms;
+  }
+
+  .mdl-sheet .mdl-sheet__content {
+    display: none;
+  }
+
+  .mdl-sheet__icon {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-12px, -12px);
+    transform: translate(-12px, -12px);
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  .mdl-sheet--opened {
+    background: #fff;
+    color: #263238;
+    border-radius: 2px;
+    width: 240px;
+    height: auto;
+    min-height: 150px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .mdl-sheet--opened .mdl-sheet__icon {
+    display: none;
+  }
+
+  .mdl-sheet--opened .mdl-sheet__content {
+    display: block;
+  }
+
+
+    .avatar{
+      /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
+
+
+      /* make a square container */
+      width: 150px;
+      height: 150px;
+
+      /* fill the container, preserving aspect ratio, and cropping to fit */
+      background-size: cover;
+
+      /* center the image vertically and horizontally */
+      background-position: top center;
+
+      /* round the edges to a circle with border radius 1/2 container size */
+      border-radius: 50%;
+    }
+</style>
+
+<script>
+    var $sheet = $('.mdl-sheet');
+
+    if ($sheet.length > 0) {
+        $('html').on('click', function () {
+            $sheet.removeClass('mdl-sheet--opened')
+        });
+
+        $sheet.on('click', function (event) {
+            event.stopPropagation();
+
+            $sheet.addClass('mdl-sheet--opened');
+        });
+    }
+</script>

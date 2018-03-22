@@ -89,6 +89,12 @@ Rails.application.routes.draw do
   devise_for :coach_users #, :controllers => {sessions: 'sessions'}
   get 'home/index'
   root 'home#index'
+
+  resources :coach_users do
+    collection do
+      get 'coach_users/:id', to: 'coach_users#show', as: 'show'
+    end
+    end
   
   # Webhooks
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
