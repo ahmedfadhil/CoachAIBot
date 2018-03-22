@@ -1,39 +1,78 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">MDL Sheet</span>
+      <span class="mdl-layout-title">CoachAI - Admin</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="">A</a>
-        <a class="mdl-navigation__link" href="">B</a>
-      </nav>
 
     </div>
 
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-      <a href="#fixed-tab-1" class="mdl-layout__tab is-active">About</a>
-      <a href="#fixed-tab-2" class="mdl-layout__tab">Learn</a>
-    </div>
+    <!--<div class="mdl-layout__tab-bar mdl-js-ripple-effect">-->
+      <!--<a href="#fixed-tab-1" class="mdl-layout__tab is-active">About</a>-->
+      <!--<a href="#fixed-tab-2" class="mdl-layout__tab">Learn</a>-->
+    <!--</div>-->
   </header>
 
   <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Kaptain Kitty</span>
+
     <div class="avatar">
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/cat.jpg" alt="Kaptain Kitty" class="avatar-img">
+      <%= image_tag @coach.avatar.url,:class => "avatar",:alt=> "Kaptain Kitty" %>
     </div>
+    <span class="mdl-layout-title"><%= @coach.first_name %> <%= @coach.last_name %></span>
     <!-- /.avatar -->
 
-    <div class="drawer-text">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur officiis animi, soluta ab deserunt dolore
-      fugit voluptatem laboriosam, magni. Eligendi quia quasi qui cupiditate optio fugit vel, suscipit harum illum.
+    <div class="drawer-text container">
+      Il pannello di amministrazione per CoachAI
     </div>
     <!-- /.drawer-text -->
-    <span class="mdl-layout-title">MDL Sheet</span>
+
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
+      <hr width="50%" style="border-style: dotted;">
+      <div class="col-xs-12">
+        <%= link_to profile_index_path, class: 'mdl-navigation__link' do %>
+          <i class="material-icons"> dashboard</i> DASHBOARD
+        <% end %>
+      </div>
+      <hr width="50%" style="border-style: dotted;">
+
+      <div class="col-xs-12">
+        <%= link_to users_path, class: 'mdl-navigation__link' do %>
+          <i class="material-icons">people</i>PAZIENTI
+        <% end %>
+      </div>
+      <hr width="50%" style="border-style: dotted;">
+      <div class="col-xs-12">
+        <%= link_to activities_path, class: 'mdl-navigation__link' do %>
+          <i class="material-icons">library_books</i> ATTIVITÀ
+        <% end %>
+      </div>
+      <hr width="50%" style="border-style: dotted;">
+
+      <div class="col-xs-12">
+        <%= link_to "#", class: 'mdl-navigation__link' do %>
+          <i class="material-icons">devices_other</i> INDOSSABILE
+        <% end %>
+      </div>
+      <hr width="50%" style="border-style: dotted;">
+      <div class="col-xs-12">
+        <%= link_to "#", class: 'mdl-navigation__link' do %>
+          <i class="material-icons">nature_people</i> APPUNTAMENTI
+        <% end %>
+      </div>
+      <hr width="50%" style="border-style: dotted;">
+      <div class="col-xs-12">
+        <%= link_to "#", class: 'mdl-navigation__link' do %>
+          <i class="material-icons">forum</i> DIALOGO
+        <% end %>
+      </div>
+      <hr width="50%" style="border-style: dotted;">
+      <div class="col-xs-12">
+        <%= link_to root_path, class: 'mdl-navigation__link' do %>
+          <i class="material-icons">home</i> HOME
+        <% end %>
+      </div>
+      <hr width="50%" style="border-style: dotted;">
+
+
     </nav>
 
 
@@ -42,33 +81,391 @@
 
 
 
+  <div class="container">
+    <div class="user-profile">
+      <div class="profile-header-background">
+
+
+        <img src="http://demo.thedevelovers.com/dashboard/queenadmin-1.2/assets/img/city.jpg" alt="Profile Header Background"></div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="profile-info-left">
+            <div class="text-center">
+
+              <%= image_tag @coach.avatar.url,:class => "avatar img-circle" %>
+              <h2> <%= @coach.first_name %> <%= @coach.last_name %></h2>
+              <h5> <%= @coach.email %></h5>
+              <p> Ultimo accesso: <%= @coach.last_sign_in_at.strftime("%e %b %Y(%I:%M%p)") %></p>
+
+            </div>
+            <div class="section">
+              <h3>About Me</h3>
+
+
+            <div class="action-buttons">
+
+              <div class="row">
+
+                <div class="col-xs-6">
+                  <%= link_to profile_index_path, class: 'btn btn-success btn-block' do %>
+                    <i class="material-icons"> dashboard</i> DASHBOARD
+                  <% end %>
+
+                </div>
+
+
+                <div class="col-xs-6">
+                  <%= link_to "#", class: 'btn btn-warning btn-block' do %>
+                    <i class="material-icons">forum</i> DIALOG
+                  <% end %>
+
+                </div>
+                <div class="col-xs-6">
+                  <%= link_to edit_coach_user_registration_path, class: 'btn btn-info btn-block' do %>
+                    <i class="material-icons">create</i> MODIFICA
+                  <% end %>
+
+                </div>
+                <div class="col-xs-6">
+                  <%= link_to destroy_coach_user_session_path, method: :delete, class: 'btn btn-danger btn-block' do %>
+                    <i class="material-icons">input</i> LOGOUT
+                  <% end %>
+
+                </div>
+
+              </div>
+            </div>
+            </div>
+            <div class="section">
+              <h3>About Me</h3>
+              <p>Energistically administrate 24/7 portals and enabled catalysts for change. Objectively revolutionize client-centered e-commerce via covalent scenarios. Continually envisioneer.</p>
+            </div>
+            <div class="section">
+              <h3>Statistics</h3>
+              <p><span class="badge">332</span> Following</p>
+              <p><span class="badge">124</span> Followers</p>
+              <p><span class="badge">620</span> Likes</p>
+            </div>
+            <div class="section">
+              <h3>Social</h3>
+              <ul class="list-unstyled list-social">
+                <li><a href="#"><i class="fa fa-twitter"></i> @jackbay</a></li>
+                <li><a href="#"><i class="fa fa-facebook"></i> Jack Bay</a></li>
+                <li><a href="#"><i class="fa fa-dribbble"></i> jackdribs</a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i> Jack Bay</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="profile-info-right">
+            <ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
+              <li class="active"><a href="#following" data-toggle="tab">PAZIENTI</a></li>
+
+              <li><a href="#activities" data-toggle="tab">ATTIVITÀ</a></li>
+              <li><a href="#followers" data-toggle="tab">PIANI</a></li>
+
+
+
+            </ul>
+            <div class="tab-content">
+              <!-- activities -->
+              <div class="tab-pane fade in active" id="activities">
+                <div class="media activity-item">
+                  <a href="#" class="pull-left">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Avatar" class="media-object avatar">
+                  </a>
+                  <div class="media-body">
+                    <p class="activity-title"><a href="#">Antonius</a> started following <a href="#">Jack Bay</a> <small class="text-muted">- 2m ago</small></p>
+                    <small class="text-muted">Today 08:30 am - 02.05.2014</small>
+                  </div>
+                  <div class="btn-group pull-right activity-actions">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a href="#">I don't want to see this</a></li>
+                      <li><a href="#">Unfollow Antonius</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Get Notification</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <li><a href="#following" data-toggle="tab">PAZIENTI ATTIVI</a></li>
+                <li><a href="#following" data-toggle="tab">PAZIENTI PASSIVI</a></li>
+                <li><a href="#following" data-toggle="tab">PAZIENTI MODERATI</a></li>
+                <div class="media activity-item">
+                  <a href="#" class="pull-left">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="Avatar" class="media-object avatar">
+                  </a>
+                  <div class="media-body">
+                    <p class="activity-title"><a href="#">Jane Doe</a> likes <a href="#">Jack Bay</a> <small class="text-muted">- 36m ago</small></p>
+                    <small class="text-muted">Today 07:23 am - 02.05.2014</small>
+                  </div>
+                  <div class="btn-group pull-right activity-actions">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a href="#">I don't want to see this</a></li>
+                      <li><a href="#">Unfollow Jane Doe</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Get Notification</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="media activity-item">
+                  <a href="#" class="pull-left">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar3.png" alt="Avatar" class="media-object avatar">
+                  </a>
+                  <div class="media-body">
+                    <p class="activity-title"><a href="#">Michael</a> posted something for <a href="#">Jack Bay</a> <small class="text-muted">- 1h ago</small></p>
+                    <small class="text-muted">Today 07:23 am - 02.05.2014</small>
+                    <div class="activity-attachment">
+                      <div class="well well-sm">
+                        Professionally evolve corporate services without ethical leadership. Proactively re-engineer client-focused infrastructures before alternative potentialities. Competently predominate just in time e-tailers for leveraged solutions. Intrinsicly initiate end-to-end collaboration and idea-sharing after 24/365 ROI. Rapidiously.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="btn-group pull-right activity-actions">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a href="#">I don't want to see this</a></li>
+                      <li><a href="#">Unfollow Michael</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Get Notification</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="media activity-item">
+                  <a href="#" class="pull-left">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar5.png" alt="Avatar" class="media-object avatar">
+                  </a>
+                  <div class="media-body">
+                    <p class="activity-title"><a href="#">Jack Bay</a> has uploaded two photos <small class="text-muted">- Yesterday</small></p>
+                    <small class="text-muted">Yesterday 06:42 pm - 01.05.2014</small>
+                    <div class="activity-attachment">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <a href="#" class="thumbnail">
+                            <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Uploaded photo">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="btn-group pull-right activity-actions">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a href="#">I don't want to see this</a></li>
+                      <li><a href="#">Unfollow Jack Bay</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Get Notification</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="media activity-item">
+                  <a href="#" class="pull-left">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar6.png" alt="Avatar" class="media-object avatar">
+                  </a>
+                  <div class="media-body">
+                    <p class="activity-title"><a href="#">Jack Bay</a> has changed his profile picture <small class="text-muted">- 2 days ago</small></p>
+                    <small class="text-muted">2 days ago 05:42 pm - 30.04.2014</small>
+                    <div class="activity-attachment">
+                      <a href="#" class="thumbnail">
+                        <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Uploaded photo">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="btn-group pull-right activity-actions">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a href="#">I don't want to see this</a></li>
+                      <li><a href="#">Unfollow Jack Bay</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Get Notification</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-default center-block"><i class="fa fa-refresh"></i> Load more activities</button>
+              </div>
+              <!-- end activities -->
+              <!-- followers -->
+              <div class="tab-pane fade" id="followers">
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Antonius<br><span class="text-muted username">@mrantonius</span></a>
+                    <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Michael<br><span class="text-muted username">@iamichael</span></a>
+                    <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar3.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Stella<br><span class="text-muted username">@stella</span></a>
+                    <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar4.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Jane Doe<br><span class="text-muted username">@janed</span></a>
+                    <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar5.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">John Simmons<br><span class="text-muted username">@jsimm</span></a>
+                    <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar6.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Antonius<br><span class="text-muted username">@mrantonius</span></a>
+                    <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar6.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Michael<br><span class="text-muted username">@iamichael</span></a>
+                    <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar7.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Stella<br><span class="text-muted username">@stella</span></a>
+                    <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Jane Doe<br><span class="text-muted username">@janed</span></a>
+                    <button type="button" class="btn btn-sm btn-toggle-following pull-right"><i class="fa fa-checkmark-round"></i> <span>Following</span></button>
+                  </div>
+                </div>
+                <div class="media user-follower">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">John Simmons<br><span class="text-muted username">@jsimm</span></a>
+                    <button type="button" class="btn btn-sm btn-default pull-right"><i class="fa fa-plus"></i> Follow</button>
+                  </div>
+                </div>
+              </div>
+              <!-- end followers -->
+              <!-- following -->
+              <div class="tab-pane fade" id="following">
+                <div class="media user-following">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Stella<br><span class="text-muted username">@stella</span></a>
+                    <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
+                  </div>
+                </div>
+                <div class="media user-following">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar2.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Jane Doe<br><span class="text-muted username">@janed</span></a>
+                    <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
+                  </div>
+                </div>
+                <div class="media user-following">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar3.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">John Simmons<br><span class="text-muted username">@jsimm</span></a>
+                    <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
+                  </div>
+                </div>
+                <div class="media user-following">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar4.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Antonius<br><span class="text-muted username">@mrantonius</span></a>
+                    <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
+                  </div>
+                </div>
+                <div class="media user-following">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar5.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Michael<br><span class="text-muted username">@iamichael</span></a>
+                    <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
+                  </div>
+                </div>
+                <div class="media user-following">
+                  <img src="http://bootdey.com/img/Content/avatar/avatar6.png" alt="User Avatar" class="media-object pull-left">
+                  <div class="media-body">
+                    <a href="#">Stella<br><span class="text-muted username">@stella</span></a>
+                    <button type="button" class="btn btn-sm btn-danger pull-right"><i class="fa fa-close-round"></i> Unfollow</button>
+                  </div>
+                </div>
+              </div>
+              <!-- end following -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--<#%= image_tag @coach.avatar.url,:class => "avatar" %>-->
+  <!--<#%= image_tag @coach.avatar.url(:medium),:class => "avatar" %>-->
+  <!--<#%= image_tag @coach.avatar.url(:thumb),:class => "avatar" %>-->
+
+
+
+
+
+
+
 
   <main class="mdl-layout__content">
-    <h1>Google Material Design FAB-Sheet</h1>
-
-
-    <p>This is the coach panel</p><br>
-
-
-    <%= image_tag @coach.avatar.url,:class => "avatar" %>
-    <%= image_tag @coach.avatar.url(:medium),:class => "avatar" %>
-    <%= image_tag @coach.avatar.url(:thumb),:class => "avatar" %>
-    <%= @coach.first_name %><br>
-    <%= @coach.last_name %><br>
-    <%= @coach.email %><br>
 
 
 
-
-
-
-
-
-
-
-    <p>
-      Floating action button (FAB) that transforms into a single sheet of material which contains all the actions.
-    </p>
 
 
     <div class="mdl-sheet__container">
@@ -106,460 +503,11 @@
   </main>
 
 
-  <main class="mdl-layout__content">
-    <div class="page-content">
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <h1>Some Buttons</h1>
-          <!-- FAB button -->
-          <button class="mdl-button mdl-js-button mdl-button--fab">
-            <i class="material-icons">add</i>
-          </button>
-          <!-- FAB button with ripple -->
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-            <i class="material-icons">add</i>
-          </button>
-          <!-- Disabled FAB button -->
-          <button class="mdl-button mdl-js-button mdl-button--fab" disabled>
-            <i class="material-icons">add</i>
-          </button>
-        </div>
-      </div>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <button class="mdl-button mdl-js-button mdl-button--raised">
-            Button
-          </button>
-          <!-- Raised button with ripple -->
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Button
-          </button>
-          <!-- Raised disabled button-->
-          <button class="mdl-button mdl-js-button mdl-button--raised" disabled>
-            Button
-          </button>
-        </div>
-      </div>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-            Button
-          </button>
-          <!-- Accent-colored raised button -->
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
-            Button
-          </button>
-          <!-- Accent-colored raised button with ripple -->
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Button
-          </button>
-        </div>
-      </div>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <!-- Flat button -->
-          <button class="mdl-button mdl-js-button">
-            Button
-          </button>
-          <!-- Flat button with ripple -->
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-            Button
-          </button>
-          <!-- Disabled flat button -->
-          <button class="mdl-button mdl-js-button" disabled>
-            Button
-          </button>
-        </div>
-      </div>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <!-- Icon button -->
-          <button class="mdl-button mdl-js-button mdl-button--icon">
-            <i class="material-icons">mood</i>
-          </button>
-          <!-- Colored icon button -->
-          <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-            <i class="material-icons">mood</i>
-          </button>
-
-        </div>
-      </div>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <!-- Mini FAB button -->
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-            <i class="material-icons">add</i>
-          </button>
-          <!-- Colored mini FAB button -->
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
-            <i class="material-icons">add</i>
-          </button>
-
-        </div>
-      </div>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <!-- Left aligned menu below button -->
-          <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
-            <i class="material-icons">more_vert</i>
-          </button>
-
-          <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
-            <li class="mdl-menu__item">Some Action</li>
-            <li class="mdl-menu__item">Another Action</li>
-            <li disabled class="mdl-menu__item">Disabled Action</li>
-            <li class="mdl-menu__item">Yet Another Action</li>
-          </ul>
-          <!-- Right aligned menu below button -->
-          <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
-            <i class="material-icons">more_vert</i>
-          </button>
-
-          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-            <li class="mdl-menu__item">Some Action</li>
-            <li class="mdl-menu__item">Another Action</li>
-            <li disabled class="mdl-menu__item">Disabled Action</li>
-            <li class="mdl-menu__item">Yet Another Action</li>
-          </ul>
-
-        </div>
-      </div>
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <h1>Some Other Stuff</h1>
 
 
-          <!-- Simple Textfield -->
-          <form action="#">
-            <div class="mdl-textfield mdl-js-textfield textfield-demo">
-              <input class="mdl-textfield__input" type="text" id="sample1"/>
-              <label class="mdl-textfield__label" for="sample1">Text...</label>
-            </div>
-          </form>
-          <!-- Numeric Textfield -->
-          <form action="#">
-            <div class="mdl-textfield mdl-js-textfield textfield-demo">
-              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2"/>
-              <label class="mdl-textfield__label" for="sample2">Number...</label>
-              <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
 
-            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-              <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked/>
-              <span class="mdl-checkbox__label">Checkbox</span>
-            </label>
 
-            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-              <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input"/>
-              <span class="mdl-checkbox__label">Checkbox</span>
-            </label>
 
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked/>
-              <span class="mdl-radio__label">Option 1</span>
-            </label>
-
-          </form>
-        </div>
-      </div>
-    </div>
-
-  </main>
-  <main class="mdl-layout__content">
-
-    <div class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-      <div class="page-content">
-        <!-- Your content goes here -->
-        <!-- Hero section -->
-        <div class="hero-section">
-
-          <div class="hero-text mdl-typography--text-center">
-
-            <h1 class="mdl-typography--display-2">I'm Kaptain Kitty</h1>
-            <p class="mdl-typography--display-1">
-              I'll teach you loads about your kitten
-            </p>
-
-            <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent kitty-hero__text-button" href="#intro">
-              <i class="material-icons">keyboard_arrow_down</i>
-            </a>
-
-          </div>
-          <!-- /.hero-text -->
-
-        </div>
-        <!-- /.hero-section -->
-
-        <!-- INTRO -->
-        <div id="intro" class="mdl-grid intro-section">
-          <div class="about-kitty mdl-cell mdl-cell--12-col">
-            <p class="mdl-typography--headline">
-              Welcome to Kaptain Kitty!
-              This is a demo HTML template that accompanies an article for SitePoint. The article illustrates how to use the Material Design Lite library to build a web page. You're free to use this template as you like. All images on this demo are courtesy of <a href="https://pixabay.com/">Pixabay.com</a>.
-            </p>
-          </div>
-          <!-- /.about-kitty -->
-
-          <div class="about-kitty mdl-cell mdl-cell--12-col">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint dolorum consectetur natus sequi, est similique! Temporibus rem consequuntur laudantium, illo excepturi velit quas. Culpa ipsum dolor tempore accusantium sed iusto.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, dicta aliquid, inventore a ullam excepturi similique sit, nobis incidunt laboriosam amet maxime iusto nam facilis possimus quo optio? Dolor, et?
-            </p>
-          </div>
-          <!-- /.about-kitty -->
-
-          <div class="about-kitty mdl-cell mdl-cell--5-col mdl-cell--1-col-tablet mdl-cell--hide-phone">
-            <div class="circle-container">
-              <div class="circle"></div>
-              <div class="circle"></div>
-              <div class="circle"></div>
-              <div class="circle"></div>
-              <div class="circle"></div>
-            </div>
-            <!-- /.circle-container -->
-
-          </div>
-          <!-- /.about-kitty -->
-          <div class="about-kitty mdl-cell mdl-cell--7-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-            <div class="topics-container">
-              <div class="topic">Feeding</div>
-              <div class="topic">Choosing the right vet</div>
-              <div class="topic">Keeping you kittens healthy</div>
-              <div class="topic">Adopting a kitten</div>
-              <div class="topic">Vaccinating your kitten</div>
-            </div>
-            <!-- /.topics-container -->
-          </div>
-          <!-- /.about-kitty -->
-
-          <div class="about-kitty mdl-cell mdl-cell--12-col">
-
-            <p class="clearfix">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/cat.jpg" alt="Kaptain Kitty" class="embedded-img float-left"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint dolorum consectetur natus sequi, est similique! Temporibus
-              rem consequuntur laudantium, illo excepturi velit quas. Culpa ipsum dolor tempore accusantium sed iusto. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, dicta aliquid, inventore a ullam excepturi similique sit, nobis incidunt
-              laboriosam amet maxime iusto nam facilis possimus quo optio? Dolor, et?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, dicta aliquid, inventore a ullam excepturi similique sit, nobis incidunt laboriosam amet maxime iusto nam facilis possimus quo optio? Dolor, et?
-            </p>
-          </div>
-          <!-- /.about-kitty -->
-        </div>
-        <!--/.mdl-grid -->
-
-        <!-- Testimonial -->
-        <div class="mdl-grid mdl-grid--no-spacing fullwidth-panel">
-          <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center quote-panel">
-            <blockquote>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint dolorum consectetur natus sequi, est similique! Temporibus rem consequuntur laudantium, illo excepturi velit quas. Culpa ipsum dolor tempore accusantium sed iusto.
-              </p>
-              <footer>
-                — <cite>Happy Kitten Owner</cite>
-              </footer>
-            </blockquote>
-
-          </div>
-          <!-- /.mdl-cell -->
-        </div>
-        <!--/.mdl-grid -->
-
-      </div>
-      <!-- /.page-content -->
-    </div>
-    <!-- /.tab1 -->
-
-    <div class="mdl-layout__tab-panel" id="fixed-tab-2">
-      <div class="page-content">
-        <!-- Your content goes here -->
-
-        <!-- CARDS  -->
-        <div class="mdl-grid cards-section">
-          <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp home-bringing-card">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Bringing a kitten into your home</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-          </div>
-          <!-- /.mdl-card -->
-          <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp play-card">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Playing with your kitten</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-          </div>
-          <!-- /.mdl-card -->
-          <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp image-card">
-            <div class="mdl-card__actions">
-              <span class="image-card__title">KaptainKitty.jpg</span>
-            </div>
-          </div>
-          <!-- /.mdl-card -->
-
-          <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp litter-card">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Taking care of a litter of kittens</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-          </div>
-          <!--/.mdl-card -->
-          <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp diet-card">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Healthy diet for your kitten</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                Learn about feeding
-              </a>
-            </div>
-          </div>
-          <!--/.mdl-card -->
-
-          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Kitten behavior</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                More on behavior
-              </a>
-            </div>
-          </div>
-          <!--/.mdl-card -->
-          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Finding a vet</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                More on finding a vet
-              </a>
-            </div>
-          </div>
-          <!--/.mdl-card -->
-          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Toys for kittens</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                More on toys
-              </a>
-            </div>
-          </div>
-          <!--/.mdl-card -->
-          <div class="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--2dp card-small">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Adopting a kitten</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem explicabo reiciendis corporis, optio animi autem, quisquam, temporibus sed deleniti officiis dolor eveniet tempore ad nulla deserunt laudantium, obcaecati esse! Officia.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                More on adopting
-              </a>
-            </div>
-          </div>
-          <!--/.mdl-card -->
-        </div>
-        <!--/.mdl-grid -->
-
-      </div>
-      <!-- /.page-content -->
-    </div>
-    <!-- /tab2 -->
-
-    <!-- Contact -->
-    <div class="mdl-grid mdl-grid--no-spacing">
-
-      <div class="mdl-cell mdl-cell--12-col contact-intro mdl-color--indigo-900">
-        <h2 class="mdl-typography--title mdl-typography--title-color-contrast mdl-typography--font-thin mdl-typography--text-center">Make your kittens happier with my tips</h2>
-      </div>
-      <!--/.contact-intro  -->
-
-      <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone contact-panel form-panel mdl-color--indigo-50">
-
-        <form action="#">
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="name">
-            <label class="mdl-textfield__label" for="name">Your name</label>
-          </div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="email" id="email">
-            <label class="mdl-textfield__label" for="email">Your email</label>
-          </div>
-          <div class="button-container clearfix">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent subscribe-button">
-              Join my fans
-            </button>
-          </div>
-          <!--/.button-container -->
-
-        </form>
-      </div>
-      <!--/.contact-panel -->
-
-      <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-cell--4-col-phone contact-panel address-panel mdl-typography--text-center mdl-color--indigo-100">
-
-        <p class="mdl-typography--title-color-contrast mdl-typography--text-nowrap mdl-typography--font-thin">
-          <i class="material-icons">email</i> <a href="mailto:info@captain.kitty.com">info@kaptain.kitty.com</a>
-        </p>
-
-        <p class="mdl-typography--title-color-contrast mdl-typography--text-nowrap mdl-typography--font-thin">
-          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="twitter.com">twitter</a>
-          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="plus.google.com">Google+</a>
-          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="facebook.com">Facebook</a>
-        </p>
-      </div>
-      <!-- /.contact-panel -->
-
-    </div>
-    <!-- /.mdl-grid -->
-
-    <!-- FOOTER -->
-    <footer class="mdl-mini-footer mdl-color--indigo-200">
-      <div class="mdl-mini-footer__left-section">
-        <div class="mdl-logo">Kaptain Kitty &ndash; designed by <a href="http://wpthememakeover.com">Maria Antonietta Perna</a></div>
-        <ul class="mdl-mini-footer__link-list">
-          <li><a href="#">Help</a></li>
-          <li><a href="#">Privacy & Terms</a></li>
-        </ul>
-        &copy; Maria Antonietta Perna 2016
-      </div>
-      <!-- /.mdl-mini-footer__left-section -->
-    </footer>
-
-  </main>
-  <!-- /.mdl-layout__content -->
 
 </div>
 
@@ -654,6 +602,328 @@
       /* round the edges to a circle with border radius 1/2 container size */
       border-radius: 50%;
     }
+</style>
+<style>
+
+  body {
+
+    background-repeat: repeat;
+    min-height: 1585px;
+  }
+  /*------------------------------------------------*/
+  /*    Profile Page
+  /*------------------------------------------------*/
+  .user-profile {
+    padding-bottom: 30px;
+  }
+
+  .profile-header-background {
+    margin: -30px -30px 0 -30px;
+  }
+  .profile-header-background img {
+    width: 100%;
+    height: 310px;
+  }
+
+  .profile-info-left {
+    position: relative;
+    top: -92px;
+  }
+  .profile-info-left img.avatar {
+    border: 2px solid #fff;
+  }
+  .profile-info-left h2 {
+    font-family: "josefinslab-semibold";
+    margin-bottom: 30px;
+  }
+  .profile-info-left .section {
+    margin-top: 50px;
+  }
+  .profile-info-left .section h3 {
+    font-size: 1.1em;
+    font-weight: 700;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  .profile-info-left ul.list-social > li {
+    line-height: 2.3;
+  }
+  .profile-info-left ul.list-social > li i {
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    *zoom: 1;
+    *display: inline;
+    position: relative;
+    top: 1px;
+    font-size: 16px;
+    min-width: 16px;
+    line-height: 1;
+  }
+  .profile-info-left ul.list-social > li a {
+    color: #696565;
+  }
+
+  .profile-info-right .tab-content {
+    padding: 30px 0;
+    background-color: transparent;
+  }
+  @media screen and (max-width: 768px) {
+    .profile-info-right {
+      position: relative;
+      top: -70px;
+    }
+  }
+
+  .user-follower,
+  .user-following {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .user-follower img,
+  .user-following img {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    width: 40px;
+  }
+  .user-follower a,
+  .user-following a {
+    font-size: 1.1em;
+    line-height: 1;
+  }
+  .user-follower .username,
+  .user-following .username {
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+  .user-follower .btn,
+  .user-following .btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 92px;
+  }
+
+  .btn-toggle-following {
+    background-color: #7bae16;
+    color: #fff;
+  }
+  .btn-toggle-following:hover {
+    background-color: #ef2020;
+    color: #fff;
+  }
+  .btn-toggle-following:hover span {
+    display: none;
+  }
+  .btn-toggle-following:hover:after {
+    content: 'Unfollow';
+    display: inline;
+  }
+  .btn-toggle-following:hover i:before {
+    content: '\f129';
+  }
+
+
+  /* list icons */
+  .list-icons-demo li {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .list-icons-demo li i {
+    font-size: 24px;
+  }
+
+  .list-icons-demo2 li {
+    margin-bottom: 10px;
+  }
+
+  .activity-item {
+    overflow: visible;
+    position: relative;
+    margin: 15px 0;
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+  }
+  .activity-item:first-child {
+    border-top: none;
+  }
+  .activity-item .avatar {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    width: 32px;
+  }
+  .activity-item > i {
+    font-size: 18px;
+    line-height: 1;
+  }
+  .activity-item .media-body {
+    position: relative;
+  }
+  .activity-item .activity-title {
+    margin-bottom: 0;
+    line-height: 1.3;
+  }
+  .activity-item .activity-attachment {
+    padding-top: 20px;
+  }
+  .activity-item .well {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    border-left: 2px solid #cfcfcf;
+    background: #fff;
+    margin-left: 20px;
+    font-size: 0.85em;
+  }
+  .activity-item .thumbnail {
+    display: inline;
+    border: none;
+    padding: 0;
+  }
+  .activity-item .thumbnail img {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    width: auto;
+    margin: 0;
+  }
+  .activity-item .activity-actions {
+    position: absolute;
+    top: 15px;
+    right: 0;
+  }
+  .activity-item .activity-actions .btn i {
+    margin: 0;
+  }
+  .activity-item .activity-actions .dropdown-menu > li > a {
+    font-size: 0.9em;
+    padding: 3px 10px;
+  }
+  .activity-item + .btn {
+    margin-bottom: 15px;
+  }
+
+
+  .nav-tabs > li > a {
+    -moz-border-radius-topleft: 2px;
+    -webkit-border-top-left-radius: 2px;
+    border-top-left-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    -webkit-border-top-right-radius: 2px;
+    border-top-right-radius: 2px;
+  }
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    cursor: pointer;
+  }
+
+  .nav-pills > li > a {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+  }
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #1688ae;
+  }
+
+  .nav-tabs.tabs-iconized > li a,
+  .nav-pills.tabs-iconized > li a {
+    padding-top: 0;
+    padding-bottom: 5px;
+  }
+  .nav-tabs.tabs-iconized > li i,
+  .nav-pills.tabs-iconized > li i {
+    position: relative;
+    margin-right: 3px;
+    top: 4px;
+    font-size: 24px;
+  }
+
+  .tab-content {
+    padding: 30px 15px 15px 15px;
+    background-color: #fff;
+  }
+
+  .nav.nav-tabs-custom-colored > li > a {
+    border-color: #ccc;
+    border-bottom: transparent;
+  }
+  .nav.nav-tabs-custom-colored > li > a:hover, .nav.nav-tabs-custom-colored > li > a:focus {
+    background-color: #1688ae;
+  }
+
+  .nav-tabs.nav-tabs-custom-colored {
+    border-bottom-color: #1688ae;
+  }
+  .nav-tabs.nav-tabs-custom-colored > li {
+    z-index: 0;
+    margin-bottom: 0;
+    background-color: #fff;
+  }
+  .nav-tabs.nav-tabs-custom-colored > li > a {
+    -moz-border-radius-topleft: 2px;
+    -webkit-border-top-left-radius: 2px;
+    border-top-left-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    -webkit-border-top-right-radius: 2px;
+    border-top-right-radius: 2px;
+    color: #696565;
+    margin-right: 0;
+  }
+  .nav-tabs.nav-tabs-custom-colored > li > a:hover, .nav-tabs.nav-tabs-custom-colored > li > a:focus {
+    color: #fff;
+    border-color: #1688ae;
+  }
+  .nav-tabs.nav-tabs-custom-colored > li.active > a, .nav-tabs.nav-tabs-custom-colored > li.active > a:hover, .nav-tabs.nav-tabs-custom-colored > li.active > a:focus {
+    color: #fff;
+    background-color: #1688ae;
+    border-color: #1688ae;
+    border-bottom: transparent;
+  }
+  .nav-tabs > li.active {
+    z-index: 1;
+  }
+
+  .nav-pills-custom-minimal {
+    border-bottom: 1px solid #ccc;
+  }
+  .nav-pills-custom-minimal > li > a {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    padding: 10px;
+    border-top: 4px solid transparent;
+    color: #696565;
+  }
+  .nav-pills-custom-minimal > li > a:hover, .nav-pills-custom-minimal > li > a:focus {
+    background-color: transparent;
+    color: #4f4c4c;
+  }
+  .nav-pills-custom-minimal > li.active > a, .nav-pills-custom-minimal > li.active > a:hover, .nav-pills-custom-minimal > li.active > a:focus {
+    background-color: transparent;
+    border-top-color: #94c632;
+    color: #696565;
+  }
+  .nav-pills-custom-minimal > li + li {
+    margin-left: 30px;
+  }
+  @media screen and (max-width: 480px) {
+    .nav-pills-custom-minimal > li + li {
+      margin-left: 0;
+    }
+  }
+  .nav-pills-custom-minimal.custom-minimal-bottom > li a {
+    border-top: none;
+    border-bottom: 4px solid transparent;
+  }
+  .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:hover, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:focus {
+    border-bottom-color: #94c632;
+  }
 </style>
 
 <script>

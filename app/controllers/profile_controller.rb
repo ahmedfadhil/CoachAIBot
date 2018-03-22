@@ -3,6 +3,7 @@ class ProfileController < ApplicationController
 
   def index
     @coach = current_coach_user
+    
   end
   
   

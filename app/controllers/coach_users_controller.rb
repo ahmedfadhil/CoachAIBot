@@ -19,7 +19,10 @@ class CoachUsersController < ApplicationController
   def show
     @coach = CoachUser.find(params[:id])
   end
-  
+  def destroy
+    @coach.avatar = nil
+    @coach.save
+  end
   
   private
   

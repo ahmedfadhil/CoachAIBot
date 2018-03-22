@@ -4,7 +4,7 @@
   <%= devise_error_messages! %>
   <!--<#%= form_for(resource, as: resource_name, url: coach_user_registration_path(@resource), html: { method: :PATCH
    }) do |f| %>-->
-  <%= form_for(resource, as: resource_name, url: coach_user_registration_path(@resource), html: { multipart: true }) do
+  <%= form_for(resource, as: resource_name, url: coach_user_registration_path(@resource), html: { method: :PATCH }) do
   |f| %>
 
     <div class="section section-full-screen section-signup miniback">
