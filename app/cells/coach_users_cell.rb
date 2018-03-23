@@ -15,14 +15,22 @@ class CoachUsersCell < Cell::ViewModel
     User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 0).uniq
   end
   
+  def green_count
+    greens.count
+  end
+  
   def yellows
     User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 1).uniq
   end
-  
+  def yellow_count
+    yellows.count
+  end
   def reds
     User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 2).uniq
   end
-  
+  def red_count
+    reds.count
+  end
   def users_with_no_plan
     User.left_outer_joins(:plans).where("plans.user_id is null")
     # User.all.count - User.joins(:plans).where(coach_user: coach).uniq.count

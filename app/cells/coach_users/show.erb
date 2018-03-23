@@ -104,8 +104,7 @@
               <div class="action-buttons">
 
                 <div class="row">
-
-                  <div class="col-xs-6">
+                                     <div class="col-xs-6">
                     <%= link_to profile_index_path, class: 'btn btn-success btn-block' do %>
                       <i class="material-icons"> dashboard</i> DASHBOARD
                     <% end %>
@@ -135,20 +134,53 @@
               </div>
             </div>
 
+            <div class="section">
+              <h3>Scarica Dati</h3>
+              <p>È possibile scaricare tutti i piani del paziente e i dati relativi all'attività.</p>
+              <div class="action-buttons">
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= link_to saveAllData_activities_path, class: 'btn btn-success btn-block' do %>
+                      <i class="material-icons">cloud_download</i> scarica tutti i dati
+                    <% end %>
+
+                  </div>
+
+                  <div class="col-xs-12">
+                    <%= link_to users_path, class: 'btn btn-success btn-block' do %>
+                      <i class="material-icons">cloud_done</i> scarica i dati per un paziente
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div class="section">
               <h3>Statistica</h3>
               <% greens.each do |green_user| %>
-
-                <p><span class="label label-success"><%= green_user %></span> PAZIENTI ATTIVI</p>
-
+                <% if green_user.nil? %>
+                  <p><span class="label label-success">0</span> PAZIENTI ATTIVI</p>
+                <% else %>
+                  <p><span class="label label-success"><%= green_count %></span> PAZIENTI ATTIVI</p>
+                <% end %>
               <% end %>
-              <% yellows.each do |yellow_user| %>
 
-                <p><span class="label label-warning"><%= yellow_user %></span> PAZIENTI MODERATI</p>
+              <% yellows.each do |yellow_user| %>
+                <% if yellow_user.nil? %>
+                  <p><span class="label label-warning">0</span> PAZIENTI MODERATI</p>
+                <% else %>
+                  <p><span class="label label-warning"><%= yellow_count %></span> PAZIENTI MODERATI</p>
+                <% end %>
               <% end %>
               <% reds.each do |red_user| %>
-                <p><span class="label label-danger"><%= red_user %></span> PAZIENTI PASSIVI</p>
+                <% if red_user.nil? %>
+                  <p><span class="label label-danger">0</span> PAZIENTI PASSIVI</p>
+                <% else %>
+                  <p><span class="label label-danger"><%= red_count %></span> PAZIENTI PASSIVI</p>
+
+                <% end %>
               <% end %>
             </div>
 

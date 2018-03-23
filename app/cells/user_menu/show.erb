@@ -10,10 +10,10 @@
       <div id="buttons" class="cd-section">
 
         <div class="row">
-          <div class="col-md-8 ml-auto mr-auto">
+          <div class="col-md-10 ml-auto mr-auto">
             <%= link_to features_users_path(user), class: 'mdl-navigation__link' do %>
               <button id="features-user" class="btn btn-success btn-large button_fisiche">
-                <i class="material-icons">insert_drive_file</i> &nbsp Informazioni Raccolte
+                <i class="material-icons">insert_drive_file</i> &nbsp Informazioni
               </button>
             <% end %>
 
@@ -32,6 +32,11 @@
             <%= link_to chat_chats_path(user), class: 'mdl-navigation__link' do %>
               <button id="chatting-user" class="btn btn-warning btn-large button_medicinali">
                 <i class="material-icons">question_answer</i> &nbsp Chat
+              </button>
+            <% end %>
+            <%= link_to saveUserData_activities_path(user), class: 'mdl-navigation__link' do %>
+              <button id="chatting-user" class="btn btn-default btn-large button_scarica">
+                <i class="material-icons">cloud_done</i> &nbsp Scarica i dati di <%= user.last_name %>
               </button>
             <% end %>
 
