@@ -129,6 +129,26 @@
                     <% end %>
 
                   </div>
+                  <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-on="<i class='fa
+                  fa-play'></i> Attivo"
+                         data-off="<i class='fa fa-pause'></i> Archiviato"
+                         data-onstyle="success" data-offstyle="warning">
+                  <div id="console-event"></div>
+
+                  <input type="checkbox" checked data-toggle="toggle" data-on="Paziente <br> Attivo"
+                         data-off="Paziente <br> Archiviato"
+                         data-offstyle="warning" data-onstyle="success">
+
+                  <script>
+                      $(function() {
+                          $('#toggle-event').change(function() {
+                              $('#console-event').html('Stato: ' + $(this).prop('checked'))
+                          })
+                      })
+                  </script>
+
+                  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+                  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
                 </div>
               </div>
