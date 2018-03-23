@@ -1,0 +1,191 @@
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+    <div class=" notification_table card-header">
+      <h4 class="title">Stati di pazienti e attività</h4>
+      <p class="category">Il numero di pazienti e la quantità di piani e attività assegnati. </p>
+    </div>
+    <div class="card-content table-responsive content_align">
+
+
+      <table class="table table-hover">
+        <thead class="text-warning">
+        <th><a>
+          <div class="card-header" data-background-color="gray">
+            <i class="material-icons md-36">blur_linear</i> Pazienti totali
+          </div>
+        </a></th>
+        <th><a>
+          <div class="card-header" data-background-color="green">
+            <i class="material-icons md-36">verified_user</i> Pazienti attivi
+          </div>
+        </a></th>
+        <th><a>
+          <div class="card-header" data-background-color="orange">
+            <i class="material-icons md-36">pause_circle_outline</i> Pazienti in attesa di piano
+          </div>
+        </a></th>
+        <th><a>
+          <div class="card-header" data-background-color="purple">
+            <i class="material-icons md-36">assignment_turned_in</i> Piani
+          </div>
+        </a></th>
+        <th><a>
+          <div class="card-header" data-background-color="blue">
+            <i class="material-icons md-36">today</i> Attività
+          </div>
+        </a></th>
+        </thead>
+        <tbody>
+        <tr class="content_align">
+          <td>
+            <button class="btn btn-default btn-fab btn-round">
+              <%= all_users %>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-success btn-fab btn-round">
+              <%= users_with_plans_count %>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-warning btn-fab btn-round">
+              <%= users_with_no_plan_count %>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-primary btn-fab btn-round">
+              <%= global_plans_count %>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-info btn-fab btn-round">
+              <%= global_activities_count %>
+            </button>
+          </td>
+
+        </tr>
+        <tr>
+          <td><a>
+            <div id="counter-label-size" class="stats">
+              <i class="material-icons text-default">gradient</i>
+              <a href="<%= users_path %>">Tutti i pazienti</a>
+            </div>
+          </a></td>
+          <td><a>
+            <div id="counter-label-size" class="stats">
+              <i class="material-icons text-success">date_range</i> Numero totale di pazienti che stanno seguendo un
+              piano
+            </div>
+          </a></td>
+          <td><a>
+            <div id="counter-label-size" class="stats">
+              <i class="material-icons text-warning">warning</i> <a href="<%= users_path %>">Consegna loro un piano</a>
+            </div>
+          </a></td>
+          <td><a>
+            <div id="counter-label-size" class="stats">
+              <i class="material-icons">local_offer</i> Numero di piani presenti nel sistema, sia consegnati che non
+            </div>
+          </a></td>
+          <td><a>
+            <div id="counter-label-size" class="stats">
+              <i class="material-icons text-info">update</i>
+              <a href="<%= activities_path %>">Gestisci l'archivio delle attivita'</a>
+            </div>
+          </a></td>
+
+        </tr>
+
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="col-lg-6 col-md-offset-0">
+  <div class="card">
+    <div class="card-header" data-background-color="green">
+      <h4 class="title">Pazienti con piani</h4>
+      <p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>
+    </div>
+    <div class="card-content table-responsive content_align">
+      <table class="table table-hover">
+        <thead class="text-warning">
+        <th>#</th>
+        <th>Profilo</th>
+        <th>Piani</th>
+
+        </thead>
+        <tbody>
+        <% users_with_plans[0..10].each_with_index do |user,index| %>
+          <tr>
+            <td class="naming">
+              <%= link_to "#{index}", features_users_path(user) %>
+            </td>
+            <td class="naming">
+              <%= link_to "#{user.first_name} #{user.last_name}", features_users_path(user) %>
+            </td>
+            <td>
+              <button class="btn btn-success btn-fab btn-round">
+                some
+              </button>
+            </td>
+
+
+          </tr>
+        <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-lg-6 col-md-offset-0">
+  <div class="card">
+    <div class="card-header" data-background-color="orange">
+      <h4 class="title">Pazienti in attesa di piano</h4>
+      <p class="category">Sono coloro che stanno seguendo le attivita' come da programma. </p>
+    </div>
+    <div class="card-content table-responsive content_align">
+      <table class="table table-hover">
+        <thead class="text-warning">
+        <th>#</th>
+        <th>Profilo</th>
+        <th>Piani</th>
+
+        </thead>
+        <tbody>
+        <% users_with_no_plan[0..10].each_with_index do |user,index| %>
+          <tr>
+
+            <td class="naming">
+              <%= link_to "#{index}", features_users_path(user) %>
+            </td>
+            <td class="naming">
+              <%= link_to "#{user.first_name} #{user.last_name}", features_users_path(user) %>
+            </td>
+            <td>
+              <button class="btn btn-success btn-fab btn-round">
+                some
+              </button>
+            </td>
+
+
+          </tr>
+        <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+

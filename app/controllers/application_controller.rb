@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   
   # To be checked... there are two of them ... not good!
   #
-
+  
   protected
   
   def configure_permitted_parameters
