@@ -20,6 +20,8 @@
  *= require profile
  *= require questions
  *= require static_pages
+ *= require internal_server_error
+ *= require page_not_found
  *= require_tree .
  *= require_tree ./third_party
  *= require_tree ./third_party/tipped

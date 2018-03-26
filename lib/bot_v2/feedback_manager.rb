@@ -27,7 +27,7 @@ class FeedbackManager
                     notification: Notification.find(bot_command_data['in_feedback_activities']['notification_id']),
                     question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply("OK #{@user.last_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attivita' '#{planning.activity.name}' del piano '#{plan.name}'")
+    actuator.send_reply("OK #{@user.first_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attività '#{planning.activity.name}' del piano '#{plan.name}'")
   end
 
   def is_last_question?
@@ -62,7 +62,7 @@ class FeedbackManager
   end
 
   def inform_wrong_activity
-    GeneralActions.new(@user, nil).send_reply_with_keyboard("Hai scelto un'attivita' che non conosco. Per favore, scegli una delle attivita' indicate!",GeneralActions.custom_keyboard(command_data['in_feedback_plans']['activities_that_need_feedback']).push('Rispondi piu\' tardi/Torna al Menu'))
+    GeneralActions.new(@user, nil).send_reply_with_keyboard("Hai scelto un attività che non conosco. Per favore, scegli una delle attivita' indicate!",GeneralActions.custom_keyboard(command_data['in_feedback_plans']['activities_that_need_feedback']))
   end
 
   def ask(activity_name)
@@ -103,9 +103,9 @@ class FeedbackManager
 
   def inform_no_plans_to_feedback
     if @user.profiled?
-      reply = "Per ora non c'e' feedback da dare. Prosegui con le attivita' se ne hai da fare oppure attendi che il coach te ne dia."
+      reply = "Per ora non c'e' feedback da dare. Prosegui con le attività se ne hai da fare oppure attendi che il coach te ne dia."
     else
-      reply = "Per ora non c'e' feedback da dare. Completa prima i questionari presenti nella sezione QUESTIONARI."
+      reply = "Per ora non c'è feedback da dare. Completa prima i questionari presenti nella sezione QUESTIONARI."
     end
     GeneralActions.new(@user, nil)
         .send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
@@ -136,7 +136,7 @@ class FeedbackManager
 
   def send_menu
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply_with_keyboard("Va bene! Quando vorrai sapere di piu' sul feedback che devi fornire, torna alla sezione FEEDBACK.", GeneralActions.menu_keyboard)
+    actuator.send_reply_with_keyboard("Va bene! Quando vorrai sapere di più sul feedback che devi fornire, torna alla sezione FEEDBACK.", GeneralActions.menu_keyboard)
   end
 
   def question_header(notification)
@@ -186,7 +186,7 @@ class FeedbackManager
 
   def send_feedback_details(plans)
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply "#{@user.last_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi!"
+    actuator.send_reply "#{@user.first_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi!"
     actuator.send_chat_action 'upload_document'
 
     controller = UsersController.new

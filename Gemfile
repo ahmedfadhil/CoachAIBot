@@ -8,8 +8,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'utf8', '~> 0.1.8'
-
 # use svg files in views
 #gem 'inline_svg'
 
@@ -17,9 +15,19 @@ gem 'utf8', '~> 0.1.8'
 # gem 'state_machines'
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 
+# A discard gem to be used in archived users
+gem 'discard'
+
 gem 'record_tag_helper', '~> 1.0'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+
+# Custom error page
+# #Gemfile
+# gem 'exception_handler', '~> 0.7.7.0'
+# Saving data to csv, excel
+gem 'xport'
+# gem 'axlsx' # optional
+# gem 'rubyXL' # optional
+# gem 'xlsxtream' # optional
 # writing and deploying cron jobs.
 # gem 'whenever', :require => false
 
@@ -66,11 +74,17 @@ gem 'awesome_print'
 
 # Authentication solution
 gem 'devise'
+# gem 'devise-bootstrapped', '~> 0.1.1'
 
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.1.1'
 
-
+# upload coach image
+gem 'paperclip', '~> 6.0'
+# Gemfile
+gem 'will_paginate-bootstrap'
 # Use Puma as the app server
-gem 'puma', '~> 3.10.0'
+gem 'puma', '~> 3.7'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -126,9 +140,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   # Use sqlite3 as the database for Active Record
   #gem 'sqlite3'
-# <<<<<<< HEAD =======
   gem 'pg', '0.20.0'
-# >>>>>>> c11d02a27049a1f80b4ce61492ed6e5159830aa5
   gem 'railroady'
 end
 
@@ -140,6 +152,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  
+  # Refactoring classes names
+   gem 'rails_refactor', '~> 1.3'
 
 	# Deploy without confidence ®
 	gem "capistrano", "~> 3.9"
@@ -154,7 +169,6 @@ group :development do
   # For call-stack profiling flamegraphs (requires Ruby MRI 2.0.0+)
   gem 'flamegraph'
   gem 'stackprof'     # For Ruby MRI 2.1+
-  gem 'pg', '0.20.0'
 end
 
 group :production do

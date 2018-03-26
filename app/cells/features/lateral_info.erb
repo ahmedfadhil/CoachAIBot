@@ -1,55 +1,65 @@
-<div class="card card-profile">
+<div class="card card-profile user_card">
   <div class="card-avatar">
     <%= image_tag profile_photo_url, alt: 'paziente', class: 'img' %>
   </div>
-
-  <div class="content">
-    <h6 class="category text-gray">Paziente</h6>
-    <h4 class="card-title"><%= "#{user.first_name} #{user.last_name}" %></h4>
-    <p class="card-content">
-    <table class="table">
-      <tbody class="text-primary">
-
-      <tr>
-        <td>
-          Eta'
-        </td>
-        <td>
-          <%= user.age %>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          Numero Cellulare
-        </td>
-        <td>
-          <%= user.cellphone %>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          Email
-        </td>
-        <td>
-          <%= user.email %>
-        </td>
-      </tr>
-
-      <% unless user.py_cluster.nil? %>
+  <div class="col-md-12">
+    <div class="card card-plain">
+      <div class="card-header" data-background-color="orange">
+        <h4 class="title"><%= "#{user.last_name} #{user.first_name}" %></h4>
+        <p class="category">Profilo del paziente</p>
+        <p> Registrato a: <%= user.created_at.strftime("%d %b. %Y") %></p>
+      </div>
+      <div class="card-content table-responsive">
+        <table class="table table-hover">
+          <thead>
+          <th>Età</th>
+          <th><%= user.age %></th>
+          </thead>
+          <tbody>
           <tr>
-            <td>
-              Il sistema ha classificato il paziente come
-            </td>
-            <td>
-              <%= cluster %>
-            </td>
+            <td> Sesso</td>
+            <td><%= user.gender %></td>
           </tr>
-      <% end %>
+          <tr>
+            <% if user.patient_objective==nil %>
+            <td>Obiettivo del paziente</td>
+            <td>Non assegnato</td>
+              <% else %>
+              <td>Obiettivo del paziente</td>
+            <td><%= user.patient_objective %></td>
+            <%end %>
+          </tr>
 
-      </tbody>
-    </table>
-    </p>
+
+          <tr>
+            <td>Numero Cellulare</td>
+            <td><%= user.cellphone %></td>
+          </tr>
+          <tr>
+            <td> Email</td>
+            <td><%= user.email %></td>
+
+
+          </tr>
+
+          <% unless user.py_cluster.nil? %>
+            <tr>
+
+              <td>Classificazione del paziente</td>
+              <td class="font_style"><%= cluster %></td>
+            </tr>
+          <% end %>
+
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+
+

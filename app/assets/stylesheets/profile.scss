@@ -23,10 +23,13 @@
   //position: absolute;
   right: 0;
   bottom: 0;
+  top: 2px;
   left: 0;
-  padding: 1rem;
-  background-color: #efefef;
+  padding: 3rem;
+  background-color: #FF9324;
   text-align: center;
+  background: url('6.jpg') no-repeat center;
+  background-size: cover;
 }
 
 .home-footer{
@@ -214,7 +217,10 @@ html, body {
 .content {
   max-width: 1080px;
 }
-
+.content_table{
+  max-width: 50%;
+  width: 90%;
+}
 .charts {
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -286,7 +292,7 @@ _:-ms-input-placeholder, :root .graph {
 }
 .updates .mdl-card__title {
   min-height: 200px;
-  background-image: url('images/dog.png');
+  //background-image: url('images/dog.png');
   background-position: 90% 100%;
   background-repeat: no-repeat;
 }
@@ -347,7 +353,8 @@ _:-ms-input-placeholder, :root .graph {
 
 #error-grid{
   text-align: -webkit-center;
-  max-width: 80%;
+  max-width: 100%;
+  padding:0px;
 }
 
 #drawer-btn:hover{

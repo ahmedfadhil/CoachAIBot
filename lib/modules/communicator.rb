@@ -44,15 +44,15 @@ class Communicator
   private
 
   def new_message_text(user)
-    "Nuovo messaggio da #{user.first_name} #{user.last_name}. Controlla la sua chat."
+    "Nuovo messaggio da #{user.last_name} #{user.first_name}. Controlla la sua chat."
   end
 
   def user_critical_text(user)
-    "ATTENZIONE! La situazione del paziente #{user.first_name} #{user.last_name} sta diventando critica. Controlla il suo progresso!"
+    "ATTENZIONE! La situazione del paziente #{user.last_name} #{user.first_name} sta diventando critica. Controlla il suo progresso!"
   end
 
   def profiling_finished_text(user)
-    "Profilazione fatta da parte di #{user.first_name} #{user.last_name}. Controlla le informazioni che sono state raccolte."
+    "Profilazione fatta da parte di #{user.last_name} #{user.first_name}. Controlla le informazioni che sono state raccolte."
   end
 
   def communicate_missing_feedback(plan)
@@ -66,11 +66,11 @@ class Communicator
   end
 
   def plan_has_missing_feedback_text(plan)
-    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha ecceduto il periodo per il piano #{plan.name} ma non ha fornito tutto il feedback riguardante le attivita' che aveva da fare."
+    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha ecceduto il periodo per il piano #{plan.name} ma non ha fornito tutto il feedback riguardante le attività che aveva da fare."
   end
 
   def plan_finished_text(plan)
-    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha portato a termine il piano #{plan.name}. Guarda il suo resoconto per capire come sono andate le sue attivita'."
+    "Il paziente #{plan.user.first_name} #{plan.user.last_name} ha portato a termine il piano #{plan.name}. Guarda il suo resoconto per capire come sono andate le sue attività."
   end
 
   def save_communication(communication, plan)

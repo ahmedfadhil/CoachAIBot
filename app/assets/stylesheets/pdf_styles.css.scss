@@ -1,6 +1,14 @@
-#alwaysbreak { page-break-before: always; }
-#nobreak:before { clear:both; }
-#nobreak { page-break-inside: avoid; }
+#alwaysbreak {
+  page-break-before: always;
+}
+
+#nobreak:before {
+  clear: both;
+}
+
+#nobreak {
+  page-break-inside: avoid;
+}
 
 /* Fonts */
 body {
@@ -8,55 +16,216 @@ body {
   font-size: 35px;
   font-weight: normal;
 }
+img.logo_sizer{
 
-div.pdf-container{
-  text-align: -webkit-center;
+  width: 100%;
+
 }
 
-img.header-img{
-  width: 100px;
+div.jumbotron{
+
+  background: #ed7584;
+  //background: url('38.jpg');
+  margin-bottom: 0px;
+  background-image: url('38.jpg');
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+
+
+}
+img.piano_image{
+  padding-right: 30px;
+}
+.piano{
+  font-family: Impact, fantasy;
+  font-size: 15px;
+  text-align: center;
 }
 
-#pdf-plans-grid{
+div.cards_back{
+  background: #74ed7a;
+  border-radius: 1%;
+}
+
+
+.back_coloring{
+  color: #c8ffc2;
+  background: #00bfa5;
+}
+div.pdf-container {
+
+}
+
+img.plan_img{
+  width: 100%;
+}
+
+img.header-img {
+  width: 50%;
+  padding: 5px;
+
+
+  //border-radius: 50%;
+}
+
+img.activity{
+  width: 100%;
+}
+
+
+img.footer-img{
+  width: 100%;
+  border-radius: 1%;
+
+}
+.copyright_font{
+  font-family: Impact, fantasy;
+  font-size: 15px;
+  text-align: center;
+}
+#pdf-plans-grid {
   max-width: 80%;
 }
 
-#activity_img{
+#activity_img {
   width: 5%;
 }
 
-#pdf-header{
+#pdf-header {
   border-style: groove;
+  border-bottom-color: #d47319;
 }
 
-#pdf-actions{
+#pdf-actions {
   border-top: #0f1010 solid 1px;
   z-index: 0;
   outline: 0px;
 }
 
-#pdf-plan{
+#pdf-plan {
   width: 100%;
 }
 
-#pdf-activity-card{
+#pdf-activity-card {
   width: 95%;
-  border : 1px solid #000;
-  padding : 5px;
-}
-
-#pdf-activity-desc-card{
-  width: 95%;
-  border : 1px solid #000;
-  padding : 5px;
-}
-
-#pdf-plan-desc-card{
-  width: 95%;
-  border : 1px solid #000;
-  padding : 5px;
-}
-
-#pdf-activity-media{
+  border: 1px solid #000;
   padding: 5px;
+}
+
+#pdf-activity-desc-card {
+  width: 95%;
+  border: 1px solid #000;
+  padding: 5px;
+}
+
+#pdf-plan-desc-card {
+  width: 95%;
+  border: 1px solid #000;
+  padding: 5px;
+}
+
+#pdf-activity-media {
+  padding: 5px;
+}
+
+// New css
+
+.app_title {
+  //margin-left: -78px;
+  margin-top: -50px;
+  height: 100%;
+  width: 100%;
+  //background-color: powderblue;
+}
+
+.logo_title{
+  color: #fff8ed;
+  font-family: Impact, fantasy;
+  font-size: 20px;
+  text-align: center;
+}
+.plan_title {
+  //color: white;
+
+  color: #fff8ed;
+  font-family: Impact, fantasy;
+  font-size: 20px;
+  text-align: left;
+}
+
+.cards{
+  background: #69bfff;
+  border-radius: 2%;
+}
+
+.piano_font{
+  color: #fff8ed;
+  font-family: Impact, fantasy;
+  font-size: 35px;
+  font-weight: bold;
+
+  text-shadow: #fffce8;
+}
+
+img.plan_logo{
+  width: 20%;
+
+  align-content: right;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+.activity_back{
+  background: #ff9331;
+  background-size: cover;
+  border-radius: 1%;
+}
+.pdf_background {
+  background: #61bf94;
+  background-size: cover;
+  border-radius: 1%;
+  border-bottom-width: thick;
+margin-bottom: 30px;
+  color: #fff8ed;
+  font-family: Impact, fantasy;
+  font-size: 25px;
+  font-weight: bold;
+
+  text-shadow: #fffce8;
+}
+
+.last_notice{
+
+
+  border-radius: 1%;
+
+text-align: center;
+  color: #ff3914;
+  font-family: Palatino, URW;
+  font-size: 30px;
+  font-weight: bold;
+
+
+  text-shadow: #fffce8;
+
+}
+img.theend{
+  width: 12%;
+
 }

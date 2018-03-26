@@ -39,28 +39,28 @@ class FeaturesManager
 
   def generate_features(user) #from questionnaires
     features = {}
-    work_physical_question = QuestionnaireAnswer.joins(:invitation, :questionnaire_question)
-                                 .where('questionnaire_questions.text = ? AND invitations.user_id = ?', 'Il tuo lavoro richiede stare seduti o essere in movimento?',
-                                        user.id)
-    foot_bicycle_question = QuestionnaireAnswer.joins(:invitation, :questionnaire_question)
-                                .where('questionnaire_questions.text = ? AND invitations.user_id = ?',
-                                       'Quanto spesso vai in bici o a piedi?',
-                                       user.id)
-    health_personality_question =  QuestionnaireAnswer.joins(:invitation, :questionnaire_question)
-                                       .where('questionnaire_questions.text = ? AND invitations.user_id = ?',
-                                              'Se dovessi dare un voto da 1(insufficiente) a 5(ottimo) come valuteresti complessivamente la tua salute?',
-                                              user.id)
-    stress_question = QuestionnaireAnswer.joins(:invitation, :questionnaire_question)
-                          .where('questionnaire_questions.text = ? AND invitations.user_id = ?',
-                                 'Come valuteresti la quantità di stress nella tua vita?',
-                                 user.id)
-
-    features['work_physical'] = work_physical_question.last.text
-    features['foot_bicycle'] = foot_bicycle_question.last.text
-    features['health_personality'] = health_personality_question.last.text
-    features['stress'] = stress_question.last.text
+    Invitation.where(user: user).each do |invitation|
+      work_physical_question = invitation.questionnaire.questionnaire_questions.where(text: 'Il tuo lavoro richiede stare seduti o essere in movimento?')
+      foot_bicycle_question = invitation.questionnaire.questionnaire_questions.where(text: 'Quanto spesso vai in bici o a piedi?')
+      health_personality_question = invitation.questionnaire.questionnaire_questions.where(text: 'Se dovessi dare un voto da 1(insufficiente) a 5(ottimo) come valuteresti complessivamente la tua salute?')
+      stress_question = invitation.questionnaire.questionnaire_questions.where(text: 'Come valuteresti la quantita\' di stress nella tua vita?')
+      unless work_physical_question.empty?
+        features['work_physical'] = invitation.questionnaire_answers.where(questionnaire_question_id: work_physical_question.first.id).first.text
+      end
+      unless foot_bicycle_question.empty?
+        features['foot_bicycle'] = invitation.questionnaire_answers.where(questionnaire_question_id: foot_bicycle_question.first.id).first.text
+      end
+      unless health_personality_question.empty?
+        features['health_personality'] = invitation.questionnaire_answers.where(questionnaire_question_id: health_personality_question.first.id).first.text
+      end
+      unless stress_question.empty?
+        features['stress'] = invitation.questionnaire_answers.where(questionnaire_question_id: stress_question.first.id).first.text
+      end
+    end
     features
   end
+
+
 
   def default_profile_img
     'rsz_user_icon.png'

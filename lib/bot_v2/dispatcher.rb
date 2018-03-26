@@ -5,20 +5,20 @@ require 'bot_v2/login_manager'
 
 class Dispatcher
   attr_reader :message, :user
-  
+
   def initialize(message, user)
     @message = message
     @user = user
   end
-  
+
   # process the user state
   def process
-    
+
     if @user.nil?
       # user needs to log in
       LoginManager.new(@message, @user).manage
     else
-      
+
       # dispatch in function of user state and text input
       aasm_state = @user.aasm_state
       ap "CURRENT USER: #{@user.id} STATE: #{aasm_state}"
@@ -48,43 +48,42 @@ class Dispatcher
         when 'responding'
           manage_responding_state(text)
 
-        when 'confirmation'
-          manage_confirmation_state(text)
-
         else
           GeneralActions.new(@user,nil).send_reply 'Penso di non aver capito, potresti ripetere per favore?'
       end
-    
+
     end
   end
+
   def manage_idle_state(text)
     case text
       # Activities & Plans
-      when *activities_strings
+      when *activities_strings #/(\w|\s|.)*(([Aa]+[Tt]+[Ii]+[Vv]+[Ii]*[Tt]+[AaÀà]*)|([Pp]+[Ii]+[Aa]+[Nn]+([Ii]+|[Oo]+)))+(\w|\s|.)*/
         ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
         @user.get_activities!
 
       # Feedbacks
-      when *feedback_strings
+      when *feedback_strings #/(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
         ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
         @user.show_plans_to_feedback!
 
       # Messages
-      when *messages_strings
+      when *messages_strings #/(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
         ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
         @user.get_messages!
 
       # Questionnaires
-      when *questionnaires_strings
+      when *questionnaires_strings #/(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
 
       else
         #ApiAIRedirector.new(text, @user).redirect
         GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
+
     end
   end
-  
+
   def manage_activities_state(text)
     ap "---------INFORMING ABOUT ACTIVITIES USER: #{@user.id}---------"
     case text
@@ -98,7 +97,7 @@ class Dispatcher
         GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
     end
   end
-  
+
   def manage_messages_state(text)
     case text
       # Respond Later
@@ -111,8 +110,8 @@ class Dispatcher
         @user.respond!(text)
     end
   end
-  
-  
+
+
   def manage_feedback_plans_state(text)
     case text
       when *tell_me_more_strings
@@ -125,7 +124,7 @@ class Dispatcher
         @user.show_activities_to_feedback!(text)
     end
   end
-  
+
   def manage_feedback_activities_state(text)
     case text
       when *back_strings
@@ -135,7 +134,7 @@ class Dispatcher
         @user.start_feedbacking!(text)
     end
   end
-  
+
   def manage_feedbacking_state(text)
     case text
       when *back_strings
@@ -145,8 +144,8 @@ class Dispatcher
         @user.feedback!(text)
     end
   end
-  
-  
+
+
   def manage_questionnaires_state(text)
     case text
       when *back_strings
@@ -155,24 +154,13 @@ class Dispatcher
         @user.start_responding!(text)
     end
   end
-  
+
   def manage_responding_state(text)
     case text
       when *back_strings
         @user.cancel!
-      when 'Torna alla domanda precedente'
-        @user.cancel_last_answer!
       else
         @user.respond_questionnaire!(text)
-    end
-  end
-
-  def manage_confirmation_state(text)
-    case text
-      when 'Si'
-        @user.confirm!
-      when 'No'
-        @user.cancel_confirmation!
     end
   end
 

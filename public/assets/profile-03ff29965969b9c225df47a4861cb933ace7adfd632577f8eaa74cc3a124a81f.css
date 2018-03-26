@@ -77,10 +77,12 @@ html, body {
 }
 
 /* line 71, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */
-.avatar {
+.avatar{
   width: 48px;
   height: 48px;
-  border-radius: 24px;
+  vertical-align: middle;
+  border-radius: 50%;
+
 }
 
 /* line 76, /Users/ict4g/Desktop/CoachAIBot/app/assets/stylesheets/profile.scss */

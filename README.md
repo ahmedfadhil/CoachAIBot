@@ -96,14 +96,3 @@ email:      user@example.com
 password:   12345678
 ```
 * Search `@CoachAIBot` on [Telegram](https://web.telegram.org/#/login)
-
-
-
-* In case of server issues, as: "A server is already running. When restarting" 
-
-Try this:
-
-- bin/bundle exec pumactl start -P tmp/pids/server.pid
-- Wait for app to boot
-- touch tmp/restart.txt
-- App reboots just fine

@@ -12,9 +12,9 @@ class GeneralActions
   end
 
   def back_to_menu_with_menu
-    send_chat_action 'typing'
     @api.call('sendMessage', chat_id: @user.telegram_id,
-              text: "Va bene #{@user.last_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup: GeneralActions.menu_keyboard)
+              text: "Va bene #{@user.first_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup:
+                  GeneralActions.menu_keyboard)
   end
 
   def send_reply(reply)
@@ -23,15 +23,12 @@ class GeneralActions
   end
 
   def send_reply_with_keyboard(reply, keyboard)
-    send_chat_action 'typing'
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: keyboard)
   end
 
 
   def send_chat_action(action)
-    unless @user.nil?
-      @api.call('sendChatAction', chat_id: @user.telegram_id, action: action)
-    end
+    @api.call('sendChatAction', chat_id: @user.telegram_id, action: action)
   end
 
   def plans_needing_feedback
@@ -41,11 +38,6 @@ class GeneralActions
 
   def send_doc(file_path)
     @api.call('sendDocument', chat_id: @user.telegram_id, document: Faraday::UploadIO.new(file_path, 'pdf'))
-  end
-
-  def send_reply_to_new_user(telegram_id, reply)
-    ap "chat_id: #{telegram_id}"
-    @api.call('sendMessage', chat_id: telegram_id, text: reply)
   end
 
   ######################

@@ -7,4 +7,5 @@ class Activity < ApplicationRecord
 
   has_many :plannings, dependent: :destroy
   has_many :plans, :through => :plannings
+  has_many :users, :through => :plans
 end

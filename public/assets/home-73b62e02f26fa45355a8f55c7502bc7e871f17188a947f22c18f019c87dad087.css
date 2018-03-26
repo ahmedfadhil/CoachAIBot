@@ -1,0 +1,1204 @@
+/* banner */
+/* line 4, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.banner {
+  background: url("CoachAI Graphics/7.png") no-repeat center;
+  height: 600px;
+  padding-top: 0px;
+  padding-bottom: 80px;
+  background-size: cover;
+}
+
+/* line 14, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.listing {
+  list-style-type: none;
+  border-radius: 10%;
+}
+
+/* line 19, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.main-raised {
+  margin-left: -49px !important;
+}
+
+/* line 24, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.card_img {
+  background: url("CoachAI Graphics/im2.png") no-repeat center;
+  background-size: cover;
+}
+
+/* line 67, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.pocco {
+  color: rgba(221, 58, 30, 0.87);
+}
+
+/* line 71, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.moderate {
+  color: rgba(76, 199, 221, 0.87);
+}
+
+/* line 74, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.molto {
+  color: rgba(76, 221, 82, 0.87);
+}
+
+/* line 78, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.user-level {
+  padding-left: 83px;
+  margin-top: -90px;
+  font-size: 10px;
+  line-height: 14px;
+  text-shadow: #d46739;
+  font-weight: bold;
+  padding-top: -4px !important;
+}
+
+/* line 89, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.moto {
+  size: 30px;
+}
+
+/* line 92, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.text_color {
+  color: white;
+}
+
+/* line 96, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.notification_table {
+  background: url("38.jpg") no-repeat center;
+  background-size: cover;
+}
+
+/* line 101, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.miniback {
+  background: url("38.jpg") no-repeat center;
+  background-size: cover;
+  background-position: top center;
+  min-height: 700px;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  z-index: 9999;
+  opacity: 1;
+  display: block;
+  right: 0px;
+}
+
+/* line 134, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.footer_image {
+  width: 20%;
+  align-content: center;
+}
+
+/* line 140, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.second_banner {
+  background: linear-gradient(#ffa32e, #dd3f5c, #39dd53), url("37.jpg") no-repeat center;
+  background-size: cover;
+  color: white;
+  margin-bottom: 0px;
+  background-position: 0% 25%;
+}
+
+/* line 153, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.card_image {
+  background: url("dots-bg@2x copy.jpg") no-repeat center;
+  background-size: cover;
+}
+
+/* line 158, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.card_size {
+  margin-bottom: 105px !important;
+}
+
+/* line 162, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.font_style {
+  font-weight: bold;
+}
+
+/* line 166, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.card_align {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: 95px !important;
+}
+
+/* line 172, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.pagination > li > a, .pagination > li > span {
+  font-size: 15px !important;
+  font-weight: bold !important;
+}
+
+/* line 179, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.btn-banner {
+  text-align: -webkit-center;
+  /* margin-bottom: 22px; */
+  margin: auto;
+  background: url("dots-bg@2x copy.jpg") no-repeat center;
+  background-size: cover;
+}
+
+/* line 190, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+#login_pop_up {
+  display: none;
+}
+
+/* line 194, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.large-btn-home {
+  width: auto;
+  height: 50px;
+  font-size: xx-large;
+}
+
+/* The Modal (background) */
+/* line 201, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.modal {
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* line 436, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.user_card {
+  width: 33% !important;
+}
+
+/* line 439, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.sub_menu_image {
+  background-color: #eb982f;
+  background: url("22.jpg") no-repeat !important;
+  background-size: cover !important;
+}
+
+/* line 445, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.main_button {
+  color: white !important;
+  text-transform: uppercase;
+}
+
+/* line 450, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.user_chat_img {
+  border-radius: 50%;
+  width: 90px !important;
+  height: 90px !important;
+  margin-top: 23px;
+  font-weight: bold;
+  background-color: #eb982f;
+  background: url("30.jpg") no-repeat;
+  background-size: cover;
+}
+
+/* line 462, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.username_case {
+  text-transform: uppercase;
+}
+
+/* line 466, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.activity_style {
+  border: 1px solid #a51d1d;
+  background: #26a765;
+}
+
+/* line 471, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.card [class*="header-"] {
+  color: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 16px 38px -12px #ff9331, 0 4px 25px 0px #39dd53, 0 8px 10px -5px #69bfff;
+  font-family: Impact, fantasy !important;
+}
+
+/* line 478, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.button_tasks {
+  background-color: #eb982f !important;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+/* line 484, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.chat_style {
+  margin: 0 auto;
+  height: 400px;
+  width: 100%;
+}
+
+/* line 490, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.moving-clouds {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 250.625em;
+  height: 43.75em;
+  -webkit-animation: cloudLoop 80s linear infinite;
+  animation: cloudLoop 80s linear infinite;
+}
+
+/* line 501, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.page-header {
+  background-color: #b20d10;
+  background: linear-gradient(#ff8b12, #dd3f5c, #39dd53);
+  background-position: center center;
+  background-size: cover;
+  min-height: 100vh;
+  max-height: 999px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("big_banner.svg") no-repeat;
+  background-size: cover;
+}
+
+/* line 520, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.logo_text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 41, 24, 0.6);
+  text-shadow: 1px 1px 0px #ededed, 4px 4px 0px rgba(0, 0, 0, 0.15);
+  font-weight: bold;
+  font-size: 45px;
+  font-family: 'Berkshire Swash', Helvetica, sans-serif;
+}
+
+/* line 532, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.head_sizing {
+  width: 105px !important;
+  height: 105px !important;
+}
+
+/* line 537, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.icons .material-icons {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.73) !important;
+  margin-right: 10px;
+  font-weight: 900;
+}
+
+/* line 545, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  color: #ffffff !important;
+  background-color: #ff9f2c !important;
+  font-weight: bold;
+}
+
+/* line 553, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+  display: block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding: 18px 23px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.76) !important;
+}
+
+/* line 564, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.home_bottom {
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url("37.jpg") no-repeat center;
+  background-size: cover;
+  background-position: center center;
+}
+
+/* line 570, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.side_background {
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url("37.jpg") no-repeat center;
+  background-size: cover;
+  background-position: center center;
+}
+
+/* line 578, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.content_align td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* line 583, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.content_align th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* line 588, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.naming {
+  text-transform: uppercase;
+}
+
+/* line 592, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.login_card {
+  margin-top: -118px !important;
+}
+
+/* line 596, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.dashboard_img_thumb {
+  border-radius: 50%;
+  display: inline-block;
+  width: 60px !important;
+  height: 60px !important;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* line 606, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.user_card {
+  display: inline-table !important;
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* line 617, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.patient_profile {
+  background-color: #dd7625 !important;
+}
+
+/* line 621, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.button_attivi.btn-large {
+  background-color: #9c27b0 !important;
+  color: #FFFFFF;
+}
+
+/* line 626, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.button_diet.btn-large {
+  background-color: #48a1b0 !important;
+  color: #FFFFFF;
+}
+
+/* line 631, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.button_fisiche.btn-large {
+  background-color: #53b03d !important;
+  color: #FFFFFF;
+}
+
+/* line 636, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.button_mentale.btn-large {
+  background-color: #ff4a62 !important;
+  color: #FFFFFF;
+}
+
+/* line 641, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.button_medicinali.btn-large {
+  background-color: #b08114 !important;
+  color: #FFFFFF;
+}
+
+/* line 646, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.button_alt.btn-large {
+  background-color: #48a1b0 !important;
+  color: #FFFFFF;
+}
+
+/* line 651, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.middle_align {
+  margin-right: 375px;
+}
+
+/* line 655, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.card_height {
+  margin-top: 20px;
+}
+
+/* line 660, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.submenu_buttons {
+  background: #4cc7ff !important;
+  font-size: 17px;
+  padding: 18px 36px;
+}
+
+/* line 666, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.three_adherence {
+  margin-left: -41px;
+  margin-top: -153px;
+  background: #ddb833a1;
+}
+
+/* line 673, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.three_bottons {
+  margin-left: 110px !important;
+  margin-top: -115px !important;
+}
+
+/* line 678, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.user_view_buttons {
+  margin-left: 110px;
+  margin-top: -90px;
+  display: block;
+}
+
+/* line 685, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.card_center {
+  display: inline-grid;
+  text-transform: uppercase;
+}
+
+/* line 692, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+#notificationsButton {
+  height: 60px;
+  border-radius: 20%;
+  padding-right: 6px;
+}
+
+/* line 698, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.main-container {
+  background: white !important;
+  background-size: cover;
+}
+
+/* line 706, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-layout__header .mdl-layout__drawer-button {
+  position: absolute;
+  color: white;
+  background-color: #dd7625;
+}
+
+/* line 712, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-layout__drawer .avatar {
+  margin: 28px -2px -30px 50px;
+  border-radius: 43%;
+  background: #ff9300;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  background: url("19.jpg") center no-repeat;
+  background-size: cover;
+}
+
+/* line 724, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-layout__header-row {
+  color: white !important;
+}
+
+/* line 728, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-layout__drawer {
+  background: white;
+}
+
+/* line 732, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.dash_header {
+  background-color: #FF9324 !important;
+  font-size: larger;
+  background: url("15.jpg") center no-repeat;
+  background-size: cover;
+}
+
+/* line 739, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.header_links {
+  flex-shrink: 15;
+}
+
+/* line 743, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.checkme {
+  margin: 4px 19px 0;
+  font-size: large;
+}
+
+/* line 748, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.footer_color {
+  color: white;
+  font-weight: bold;
+}
+
+/* line 753, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.login_group {
+  border: 73px;
+  background: #c1202000;
+  padding: 9px 50px 65px 20px;
+}
+
+/* line 759, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.login_img {
+  width: 200px;
+  height: auto;
+}
+
+/* line 764, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+body {
+  margin: 0;
+}
+
+/* Disable ugly boxes around images in IE10 */
+/* line 770, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+a img {
+  border: 0px;
+}
+
+/* line 774, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+::-moz-selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+/* line 779, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+::selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+/* line 784, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-search-box .mdl-textfield__input {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* line 788, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .mdl-menu__container {
+  z-index: 50;
+  margin: 0 !important;
+}
+
+/* line 793, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-textfield--expandable {
+  width: auto;
+}
+
+/* line 797, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-fab {
+  position: absolute;
+  right: 20%;
+  bottom: -26px;
+  z-index: 3;
+  background: #64ffda !important;
+  color: black !important;
+}
+
+/* line 806, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-mobile-title {
+  display: none !important;
+}
+
+/* line 810, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-logo-image {
+  height: auto;
+  width: auto;
+}
+
+/* line 816, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.outer {
+  max-width: 15%;
+  max-height: 15%;
+  margin: 85px 9px -26px 48%;
+  border-radius: 50%;
+  background: #76eeff;
+  background: url(22.jpg) center no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  box-shadow: 0 58px 90px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* line 829, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header {
+  overflow: visible;
+  background-color: #FF9324;
+  background: url("8.jpg") center no-repeat;
+  background-size: cover;
+}
+
+/* line 837, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .material-icons {
+  color: #767777 !important;
+}
+
+/* line 841, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .mdl-layout__drawer-button {
+  background: transparent;
+  color: #767777;
+}
+
+/* line 846, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-header .mdl-navigation__link {
+  color: #757575;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* line 852, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation-container {
+  /* Simple hack to make the overflow happen to the left instead... */
+  direction: rtl;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  width: 500px;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* line 863, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation {
+  /* ... and now make sure the content is actually LTR */
+  direction: ltr;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  width: 800px;
+}
+
+/* line 872, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-search-box.is-focused + .android-navigation-container {
+  opacity: 0;
+  width: 100px;
+}
+
+/* line 877, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation .mdl-navigation__link {
+  display: inline-block;
+  height: 60px;
+  line-height: 68px;
+  background-color: transparent !important;
+  border-bottom: 4px solid transparent;
+}
+
+/* line 885, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-navigation .mdl-navigation__link:hover {
+  border-bottom: 4px solid #8bc34a;
+}
+
+/* line 889, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-search-box {
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+/* line 897, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-more-button {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3;
+}
+
+/* line 903, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer {
+  border-right: none;
+}
+
+/* line 907, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer-separator {
+  height: 1px;
+  background-color: #dcdcdc;
+  margin: 8px 0;
+}
+
+/* line 913, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer .mdl-navigation__link.mdl-navigation__link {
+  font-size: 14px;
+  color: #757575;
+}
+
+/* line 918, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer span.mdl-navigation__link.mdl-navigation__link {
+  color: #8bc34a;
+}
+
+/* line 922, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer .mdl-layout-title {
+  position: relative;
+  background: #6ab344;
+  height: 160px;
+}
+
+/* line 928, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-drawer .android-logo-image {
+  position: absolute;
+  bottom: 16px;
+}
+
+/* line 933, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-be-together-section {
+  position: relative;
+  height: 800px;
+  width: auto;
+  background-color: #f3f3f3;
+  background: url("CoachAI Graphics/banner.png") center 30% no-repeat;
+  background-size: cover;
+}
+
+/* line 943, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.logo-font {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #767777;
+  font-weight: 500;
+}
+
+/* line 950, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-slogan {
+  font-size: 60px;
+  padding-top: 160px;
+}
+
+/* line 955, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-sub-slogan {
+  font-size: 21px;
+  padding-top: 24px;
+}
+
+/* line 960, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-create-character {
+  font-size: 25px;
+  padding-top: 340px;
+}
+
+/* line 965, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-create-character a {
+  text-decoration: none;
+  color: #4b5252;
+  font-weight: 300;
+  font-size: larger;
+  height: inherit;
+}
+
+/* line 973, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screen-section {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+/* line 979, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screens {
+  text-align: right;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+/* line 986, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screen {
+  text-align: center;
+}
+
+/* line 990, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-screen .android-link {
+  margin-top: 16px;
+  display: block;
+  z-index: 2;
+}
+
+/* line 996, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-image-link {
+  text-decoration: none;
+}
+
+/* line 1000, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear {
+  display: inline-block;
+  width: 160px;
+  margin-right: 32px;
+}
+
+/* line 1006, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear .android-screen-image {
+  width: 40%;
+  z-index: 1;
+}
+
+/* line 1011, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-phone {
+  display: inline-block;
+  width: 64px;
+  margin-right: 48px;
+}
+
+/* line 1017, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-phone .android-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+/* line 1022, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tablet {
+  display: inline-block;
+  width: 110px;
+  margin-right: 64px;
+}
+
+/* line 1028, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tablet .android-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+/* line 1033, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tablet .android-link {
+  display: block;
+  z-index: 2;
+}
+
+/* line 1038, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tv {
+  display: inline-block;
+  width: 300px;
+  margin-right: 80px;
+}
+
+/* line 1044, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-tv .android-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+/* line 1049, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-auto {
+  display: inline-block;
+  width: 300px;
+  overflow: hidden;
+}
+
+/* line 1055, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-auto .android-screen-image {
+  display: block;
+  height: 300px;
+  z-index: 1;
+}
+
+/* line 1061, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-section {
+  position: relative;
+  background: url("images/wear.png") center top no-repeat;
+  background-size: cover;
+  height: 800px;
+}
+
+/* line 1068, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-band {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #37474f;
+}
+
+/* line 1076, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-band-text {
+  max-width: 800px;
+  margin-left: 25%;
+  padding: 24px;
+  text-align: left;
+  color: white;
+}
+
+/* line 1084, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-wear-band-text p {
+  padding-top: 8px;
+}
+
+/* line 1088, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link {
+  text-decoration: none;
+  color: #8bc34a !important;
+}
+
+/* line 1093, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link:hover {
+  color: #7cb342 !important;
+}
+
+/* line 1097, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link .material-icons {
+  position: relative;
+  top: -1px;
+  vertical-align: middle;
+}
+
+/* line 1103, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-alt-link {
+  text-decoration: none;
+  color: #64ffda !important;
+  font-size: 16px;
+}
+
+/* line 1109, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-alt-link:hover {
+  color: #00bfa5 !important;
+}
+
+/* line 1113, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-alt-link .material-icons {
+  position: relative;
+  top: 6px;
+}
+
+/* line 1118, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section {
+  text-align: center;
+}
+
+/* line 1122, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section-text {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 80px 16px 0 16px;
+}
+
+/* line 1129, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section-text p {
+  padding-top: 16px;
+}
+
+/* line 1133, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-customized-section-image {
+  background: url("images/devices.jpg") center top no-repeat;
+  background-size: cover;
+  height: 400px;
+}
+
+/* line 1139, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-more-section {
+  padding: 80px 0;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 1146, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-more-section .android-section-title {
+  margin-left: 12px;
+  padding-bottom: 24px;
+}
+
+/* line 1154, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__media {
+  overflow: hidden;
+  background: transparent;
+}
+
+/* line 1159, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__media img {
+  width: 100%;
+}
+
+/* line 1163, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__title {
+  background: transparent;
+  height: auto;
+}
+
+/* line 1168, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__title-text {
+  color: black;
+  height: auto;
+}
+
+/* line 1173, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__supporting-text {
+  height: auto;
+  color: black;
+  padding-bottom: 56px;
+}
+
+/* line 1179, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__actions {
+  position: absolute;
+  bottom: 0;
+}
+
+/* line 1184, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-card-container .mdl-card__actions a {
+  border-top: none;
+  font-size: 16px;
+}
+
+/* line 1189, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer {
+  background-color: #fafafa;
+  position: relative;
+}
+
+/* line 1194, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer a:hover {
+  color: #8bc34a;
+}
+
+/* line 1198, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--top-section::after {
+  border-bottom: none;
+}
+
+/* line 1202, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--middle-section::after {
+  border-bottom: none;
+}
+
+/* line 1206, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--bottom-section {
+  position: relative;
+}
+
+/* line 1210, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--bottom-section a {
+  margin-right: 2em;
+}
+
+/* line 1214, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-footer .mdl-mega-footer--right-section a .material-icons {
+  position: relative;
+  top: 6px;
+}
+
+/* line 1219, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.android-link-menu:hover {
+  cursor: pointer;
+}
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+  /* line 1225, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-navigation-container {
+    display: none;
+  }
+
+  /* line 1229, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-title {
+    display: none !important;
+  }
+
+  /* line 1233, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-mobile-title {
+    display: block !important;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: 12px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
+     consecutive "+" operators in some cases. Therefore, we need to use both
+     here to cover index the bases. */
+  /* line 1244, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android.android-search-box.is-focused ~ .android-mobile-title,
+  .android-search-box.is-focused + .android-navigation-container + .android-mobile-title {
+    opacity: 0;
+  }
+
+  /* line 1249, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-more-button {
+    display: none;
+  }
+
+  /* line 1253, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-search-box.is-focused {
+    width: calc(100% - 48px);
+  }
+
+  /* line 1257, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-search-box .mdl-textfield__expandable-holder {
+    width: 100%;
+  }
+
+  /* line 1261, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-be-together-section {
+    height: 350px;
+  }
+
+  /* line 1265, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-slogan {
+    font-size: 26px;
+    margin: 0 16px;
+    padding-top: 24px;
+  }
+
+  /* line 1271, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-sub-slogan {
+    font-size: 16px;
+    margin: 0 16px;
+    padding-top: 8px;
+  }
+
+  /* line 1277, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-create-character {
+    padding-top: 200px;
+    font-size: 16px;
+  }
+
+  /* line 1282, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-create-character img {
+    height: 12px;
+  }
+
+  /* line 1286, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-fab {
+    display: none;
+  }
+
+  /* line 1290, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-wear-band-text {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  /* line 1295, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+  .android-footer .mdl-mega-footer--bottom-section {
+    display: none;
+  }
+}
+/*
+  Log In Style
+ */
+/* line 1303, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.container-log-in {
+  position: relative;
+  top: 40px;
+  perspective: 1000px;
+  width: 330px;
+  height: 375px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* line 1313, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+#cube {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+/* line 1320, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+#cube figure {
+  backface-visibility: hidden;
+  margin: 0;
+  width: 330px;
+  height: 375px;
+  display: block;
+  position: absolute;
+}
+
+/* line 1329, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+.mdl-textfield__label {
+  color: rgba(0, 0, 1, 0.5);
+}
+
+/* line 1333, /Users/AhmedFadhil/Downloads/CoachAIBot/app/assets/stylesheets/home.scss */
+#cube-submit:hover {
+  cursor: pointer;
+}

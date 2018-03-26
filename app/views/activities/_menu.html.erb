@@ -1,45 +1,70 @@
-<header class="profile_content_header mdl-layout__header">
+<header class="profile_content_header mdl-layout__header sub_menu_image">
 
-  <div class="mdl-layout__header-row">
+
     <nav class="mdl-navigation" >
 
-      <%= link_to activities_path, class: 'mdl-navigation__link' do %>
-          <button id="activities-all" class="activities-menu-btn mdl-button mdl-js-button mdl-button--raised">
-            <i class="material-icons">featured_play_list</i> &nbsp Tutte
-          </button>
-      <% end %>
 
-      <%= link_to diets_activities_path, remote: true, class: 'mdl-navigation__link' do %>
-          <button id="activities-diets" class="activities-menu-btn mdl-button mdl-js-button mdl-button--raised">
-            <i class="material-icons">restaurant</i> &nbsp Diete
-          </button>
-      <% end %>
 
-      <%= link_to physicals_activities_path, remote: true, class: 'mdl-navigation__link' do %>
-          <button id="activities-physicals" class="activities-menu-btn mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">fitness_center</i> &nbsp Fisiche
-          </button>
-      <% end %>
 
-      <%= link_to mentals_activities_path, remote: true, class: 'mdl-navigation__link' do %>
-          <button id="activities-mentals" class="activities-menu-btn mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">mood</i> &nbsp Benessere Mentale
-          </button>
-      <% end %>
+        <div class="container">
 
-      <%= link_to medicinals_activities_path, remote: true, class: 'mdl-navigation__link' do %>
-          <button id="activities-medicinals" class="activities-menu-btn mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">local_hospital</i> &nbsp Medicinali
-          </button>
-      <% end %>
+          <!--  buttons -->
 
-      <%= link_to others_activities_path, remote: true, class: 'mdl-navigation__link' do %>
-          <button id="activities-others" class="activities-menu-btn mdl-button mdl-js-button mdl-button--raised" >
-            <i class="material-icons">grain</i> &nbsp Altro
-          </button>
-      <% end %>
 
+            <div class="row">
+              <div class="col-md-10 ml-auto mr-auto">
+                <%= link_to activities_path, class: 'mdl-navigation__link' do %>
+                  <button id="activities-all" class="btn btn-primary btn-large button_attivi">
+                    <i class="material-icons">featured_play_list</i> &nbsp Tutte
+                  </button>
+                <% end %>
+
+
+                <%= link_to diets_activities_path, remote: true, class: 'mdl-navigation__link' do %>
+                  <button id="activities-diets" class="btn btn-info btn-large button_diet">
+                    <i class="material-icons">restaurant</i> &nbsp Diete
+                  </button>
+                <% end %>
+
+
+                <%= link_to physicals_activities_path, remote: true, class: 'mdl-navigation__link' do %>
+                  <button id="activities-physicals" class="btn btn-warning btn-large button_fisiche" >
+                    <i class="material-icons">fitness_center</i> &nbsp Fisiche
+                  </button>
+                <% end %>
+
+                <%= link_to mentals_activities_path, remote: true, class: 'mdl-navigation__link' do %>
+                  <button id="activities-mentals" class="btn btn-success btn-large button_mentale" >
+                    <i class="material-icons">mood</i> &nbsp Benessere Mentale
+                  </button>
+                <% end %>
+
+                <%= link_to medicinals_activities_path, remote: true, class: 'mdl-navigation__link' do %>
+                  <button id="activities-medicinals" class="btn btn-danger btn-large button_medicinali" >
+                    <i class="material-icons">local_hospital</i> &nbsp Medicinali
+                  </button>
+                <% end %>
+
+                <%= link_to others_activities_path, remote: true, class: 'mdl-navigation__link' do %>
+                  <button id="activities-others" class="btn btn-default btn-large button_alt" >
+                    <i class="material-icons">grain</i> &nbsp Altro
+                  </button>
+                <% end %>
+
+              </div>
+            </div>
+
+
+
+
+          </div>
 
     </nav>
-  </div>
+
 </header>
+
+
+
+
+
+

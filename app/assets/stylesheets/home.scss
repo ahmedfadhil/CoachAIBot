@@ -1,35 +1,206 @@
 /* banner */
 
-
+//Changed the banner size into full-size cover
 .banner {
-  position: relative;
-  background: #ffffff url('CoachAI Graphics/banner.png') no-repeat center;
-  height: 800px;
-  width: auto;
-  text-align: -webkit-center;
+
+  //background: url('CoachAI Graphics/CoachAI_logo.svg') no-repeat center,url('CoachAI Graphics/header-bg.svg') no-repeat center ;
+  background: url('CoachAI Graphics/7.png') no-repeat center;
+  height: 600px;
+  padding-top: 0px;
+  padding-bottom: 80px;
+  background-size: cover;
+
 }
 
-.btn-banner{
+.listing {
+  list-style-type: none;
+  border-radius: 10%;
+
+}
+
+.main-raised {
+  margin-left: -49px !important;
+  //margin-right: 10px;
+}
+
+.card_img {
+  background: url('CoachAI Graphics/im2.png') no-repeat center;
+  background-size: cover;
+}
+
+//
+//.demo-card-square.mdl-card {
+//  width: 320px;
+//  height: 320px;Z
+//}
+//.demo-card-square > .mdl-card__title {
+//  color: #fff;
+//  background: url('dog.png') bottom right 15% no-repeat #46B6AC;
+//
+//}
+//.app_title {
+//  //margin-left: -78px;
+//  margin-top: -50px;
+//  height: 50%;
+//  width: 50%;
+//  //background-color: powderblue;
+//}
+//.plan_title{
+//  color: white;
+//  margin-top: -104px;
+//}
+///* Rules for sizing the icon. */
+//.material-icons.md-18 { font-size: 18px; }
+//.material-icons.md-24 { font-size: 24px; }
+//.material-icons.md-36 { font-size: 36px; }
+//.material-icons.md-48 { font-size: 48px; }
+//
+//.pdf_background {
+//  background: linear-gradient(#D75D5D, #D46B26, #5bd73b, #34c2d7), url('38.jpg') no-repeat center;
+//  background-size: cover;
+//}
+//.pocco{
+//  background: url('run.svg') no-repeat center;
+//  background-size: cover;
+//  width: 50%;
+//  height: 30px;
+//}
+
+.pocco {
+  color: rgba(221, 58, 30, 0.87);
+
+}
+
+.moderate {
+  color: rgba(76, 199, 221, 0.87);
+}
+
+.molto {
+  color: rgba(76, 221, 82, 0.87);
+
+}
+
+.user-level {
+  padding-left: 83px;
+  margin-top: -90px;
+  font-size: 10px;
+  line-height: 14px;
+  text-shadow: #d46739;
+  font-weight: bold;
+  padding-top: -4px !important;
+
+}
+
+.moto {
+  size: 30px;
+}
+
+.text_color {
+  color: white;
+}
+
+.notification_table {
+  background: url('38.jpg') no-repeat center;
+  background-size: cover;
+}
+
+.miniback {
+  background: url('38.jpg') no-repeat center;
+  background-size: cover;
+  background-position: top center;
+  min-height: 700px;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  z-index: 9999;
+  opacity: 1;
+  display: block;
+  right: 0px;
+}
+
+///* Header */
+//
+//.header {
+//  /*display: table;*/
+//  /*position: relative;*/
+//  /*width: 100%;*/
+//  height: 600px;
+//  background: url(image_path('header-bg.svg')) no-repeat center, url(image_path('bbg.jpg')) no-repeat center;
+//  padding-top: 0px;
+//  padding-bottom: 80px;
+//  /*max-height: 100%;*/
+//  /*max-width: 100%;*/
+//  /*width: 200%;*/
+//  background-size: cover;
+//  /*-webkit-background-size: cover;*/
+//  /*-moz-background-size: cover;*/
+//  /*!*background-size: cover;*!*/
+//  /*-o-background-size: cover;*/
+//}
+.footer_image {
+  width: 20%;
+  align-content: center;
+
+}
+
+.second_banner {
+  background: linear-gradient(#ffa32e, #dd3f5c, #39dd53), url('37.jpg') no-repeat center;
+  background-size: cover;
+  color: white;
+
+  //background: url('38.jpg');
+  margin-bottom: 0px;
+
+  background-position: 0% 25%;
+
+}
+
+.card_image {
+  background: url("dots-bg@2x copy.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.card_size {
+  margin-bottom: 105px !important;
+}
+
+.font_style {
+  font-weight: bold;
+}
+
+.card_align {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: 95px !important;
+}
+
+.pagination > li > a, .pagination > li > span {
+  font-size: 15px !important;
+  font-weight: bold !important;
+
+}
+
+//The login button
+.btn-banner {
   text-align: -webkit-center;
   /* margin-bottom: 22px; */
-  margin-top: -55px;
+  margin: auto;
+  background: url("dots-bg@2x copy.jpg") no-repeat center;
+  background-size: cover;
+
 }
 
-
-/**
- * Popup
- */
+//The login popup window
 
 #login_pop_up {
   display: none;
 }
 
-.large-btn-home{
+.large-btn-home {
   width: auto;
   height: 50px;
   font-size: xx-large;
 }
-
 
 /* The Modal (background) */
 .modal {
@@ -37,10 +208,9 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -58,17 +228,556 @@
  * limitations under the License.
  */
 
-.login_img{
+//.cards{
+////background: url("bot.jpg") no-repeat center;
+//  background-size: cover;
+//}
+//.sidebar .sidebar-background:after, .off-canvas-sidebar .sidebar-background:after{
+//  position: absolute;
+//  z-index: 3;
+//  width: 100%;
+//  height: 100%;
+//  content: "";
+//  display: block;
+//  background: #FFFFFF;
+//  opacity: .93;
+//}
+//.side_background {
+//
+//  background: rgba(255, 0, 0, 0.45);
+//  background: rgba(255, 0, 0, 0.45);
+//  background: url('sidebar-1.jpg') no-repeat center;
+//  position: initial;
+//  z-index: 1;
+//  height: 100%;
+//  width: 100%;
+//  display: block;
+//  top: 0;
+//  left: 0;
+//  background-size: cover;
+//  background-position: center center;
+//
+//}
+
+///*
+//  Based from this article from Divya Manian -
+//  http://nimbupani.com/using-background-clip-for-text-with-css-fallback.html
+//*/
+//
+//* {
+//  margin: 0;
+//  padding: 0;
+//}
+//
+//*,
+//:before,
+//:after {
+//  -webkit-box-sizing: border-box;
+//  -moz-box-sizing: border-box;
+//  box-sizing: border-box;
+//}
+//
+//html,
+//body {
+//  min-height: 100%;
+//}
+//
+//body {
+//  font-family: 'Oswald', sans-serif;
+//  color: #fff;
+//  background-color: #000;
+//}
+//
+//.wrapper {
+//  text-align: center;
+//}
+//
+//.title {
+//  font-size: 2em;
+//  position: relative;
+//  margin: 0 auto 1em;
+//  padding: 1em 1em .25em 1em;
+//  text-align: center;
+//  text-transform: uppercase;
+//}
+//.title:after {
+//  position: absolute;
+//  top: 100%;
+//  left: 50%;
+//  width: 240px;
+//  height: 4px;
+//  margin-left: -120px;
+//  content: '';
+//  background-color: #fff;
+//}
+//
+///* Clip text element */
+//.clip-text {
+//  font-size: 6em;
+//  font-weight: bold;
+//  line-height: 1;
+//  position: relative;
+//  display: inline-block;
+//  margin: .25em;
+//  padding: .5em .75em;
+//  text-align: center;
+//  /* Color fallback */
+//  color: #fff;
+//  -webkit-background-clip: text;
+//
+//  -webkit-text-fill-color: transparent;
+//}
+//
+//.clip-text:before,
+//.clip-text:after {
+//  position: absolute;
+//  content: '';
+//}
+//
+///* Background */
+//.clip-text:before {
+//  z-index: -2;
+//  top: 0;
+//  right: 0;
+//  bottom: 0;
+//  left: 0;
+//  background-image: inherit;
+//}
+//
+///* Text Background (black zone) */
+//.clip-text:after {
+//  position: absolute;
+//  z-index: -1;
+//  top: .125em;
+//  right: .125em;
+//  bottom: .125em;
+//  left: .125em;
+//  background-color: #000;
+//}
+//
+///* Change the background position to display letter when the black zone isn't here */
+//.clip-text--no-textzone:before {
+//  background-position: -.65em 0;
+//}
+//
+//.clip-text--no-textzone:after {
+//  content: none;
+//}
+//
+///* Use Background-size cover for photo background and no-repeat background */
+//.clip-text--cover,
+//.clip-text--cover:before {
+//  background-repeat: no-repeat;
+//  -webkit-background-size: cover;
+//  background-size: cover;
+//  background-position: 50% 50%;
+//}
+//
+///* Background image from http://thepatternlibrary.com/ and http://lorempixel.com */
+//.clip-text_one {
+//  background-image: url(http://cdn8.staztic.com/app/a/6278/6278761/hd-abstract-wallpapers-1-0-s-307x512.jpg);
+//}
+//
+//.clip-text_two {
+//  background-image: url(http://wallpaper-gallery.net/images/black-abstract-wallpaper/black-abstract-wallpaper-4.jpg);
+//}
+//
+//.clip-text_tree {
+//  background-image: url(http://www.cruzine.com/wp-content/uploads/2012/04/005-free-abstract-wallpapers.jpg);
+//}
+//
+//.clip-text_four {
+//  background-image: url(http://hd.wallpaperswide.com/thumbs/abstract_black_design_2-t2.jpg);
+//}
+//
+//.clip-text_five {
+//  background-image: url(http://powellong.com/data/wallpapers/81/WDF_1255144.jpg);
+//}
+//
+//.clip-text_six {
+//  background-image: url(https://www.hdwallpapers.net/previews/3d-colorful-spiral-1057.jpg);
+//}
+//
+//.clip-text_seven {
+//  background-image: url(http://cdn8.staztic.com/app/a/6278/6278761/hd-abstract-wallpapers-1-0-s-307x512.jpg);
+//}
+//
+//.clip-text_eight {
+//  background-image: url(http://lorempixel.com/410/200/people);
+//}
+//
+//.clip-text_nine {
+//  background-image: url(https://wallpaperbrowse.com/media/images/background-pictures-10.jpg);
+//}
+//
+//.clip-text_ten {
+//  background-image: url(http://lorempixel.com/480/200/nightlife/8);
+//}
+//
+//.clip-text_eleven {
+//  background-image: url(http://www.wallcoo.net/cartoon/abstract_rainbow_colours_13_1920x1200/images/Abstract_Rainbow_colour_pattern_4116.jpg);
+//  background-size: cover;
+//}
+//
+//.clip-text_twelve {
+//  background-image: url(http://hd.wallpaperswide.com/thumbs/abstract_wallpaper_for_mac-t2.jpg);
+//}
+//
+//.clip-text_thirteen {
+//  background-image: url(http://img.7te.org/images/570x363/abstract-painting-wallpaper-which-is-under-the-abstract-wallpapers-32968.jpg);
+//}
+//
+//.clip-text_fourteen {
+//  background-image: url(https://4kwallpapers.co/wp-content/uploads/2015/09/abstract-colorful-vectors-design-4k-wallpapers.png);
+//}
+//
+//.clip-text_fifteen {
+//  background-image: url(http://lorempixel.com/480/200/nightlife/5);
+//}
+//
+//
+//
+
+.user_card {
+  width: 33% !important;
+}
+
+.sub_menu_image {
+  background-color: #eb982f;
+  background: url("22.jpg") no-repeat !important;
+  background-size: cover !important;
+}
+
+.main_button {
+  color: white !important;
+  text-transform: uppercase;
+}
+
+.user_chat_img {
+  border-radius: 50%;
+  width: 90px !important;
+  height: 90px !important;
+  margin-top: 23px;
+  font-weight: bold;
+  background-color: #eb982f;
+  background: url("30.jpg") no-repeat;
+  background-size: cover;
+
+}
+
+.username_case {
+  text-transform: uppercase;
+}
+
+.activity_style {
+  border: 1px solid #a51d1d;
+  background: #26a765;
+}
+
+.card [class*="header-"] {
+
+  color: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 16px 38px -12px rgb(255, 147, 49), 0 4px 25px 0px rgb(57, 221, 83), 0 8px 10px -5px rgb(105, 191, 255);
+  font-family: Impact, fantasy !important;
+}
+
+.button_tasks {
+  background-color: #eb982f !important;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.chat_style {
+  margin: 0 auto;
+  height: 400px;
+  width: 100%;
+}
+
+.moving-clouds {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 250.625em;
+  height: 43.75em;
+  -webkit-animation: cloudLoop 80s linear infinite;
+  animation: cloudLoop 80s linear infinite;
+}
+
+.page-header {
+  background-color: #b20d10;
+  background: linear-gradient(#ff8b12, #dd3f5c, #39dd53);
+  background-position: center center;
+  background-size: cover;
+  min-height: 100vh;
+  max-height: 999px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //background: url("header-bg.svg") no-repeat;
+  background: url("big_banner.svg") no-repeat;
+  background-size: cover;
+}
+
+.logo_text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 41, 24, 0.6);
+  text-shadow: 1px 1px 0px #ededed, 4px 4px 0px rgba(0, 0, 0, 0.15);
+  font-weight: bold;
+  font-size: 45px;
+  font-family: 'Berkshire Swash', Helvetica, sans-serif;
+
+}
+
+.head_sizing {
+  width: 105px !important;
+  height: 105px !important;
+}
+
+.icons .material-icons {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.73) !important;
+  margin-right: 10px;
+  font-weight: 900;
+
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  color: #ffffff !important;
+  background-color: #ff9f2c !important;
+  font-weight: bold;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+  display: block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding: 18px 23px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.76) !important;
+
+}
+
+.home_bottom {
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('37.jpg') no-repeat center;
+  background-size: cover;
+  background-position: center center;
+}
+
+.side_background {
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('37.jpg') no-repeat center;
+  background-size: cover;
+  background-position: center center;
+
+  //border-radius: 2%;
+}
+
+.content_align td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.content_align th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.naming {
+  text-transform: uppercase;
+}
+
+.login_card {
+  margin-top: -118px !important;
+}
+
+.dashboard_img_thumb {
+  border-radius: 50%;
+  display: inline-block;
+  width: 60px !important;;
+  height: 60px !important;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.user_card {
+  display: inline-table !important;
+
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.patient_profile {
+  background-color: #dd7625 !important;
+}
+
+.button_attivi.btn-large {
+  background-color: #9c27b0 !important;
+  color: #FFFFFF;
+}
+
+.button_diet.btn-large {
+  background-color: #48a1b0 !important;
+  color: #FFFFFF;
+}
+
+.button_fisiche.btn-large {
+  background-color: #53b03d !important;
+  color: #FFFFFF;
+}
+
+.button_scarica.btn-large {
+  background-color: #d46739 !important;
+  color: #FFFFFF;
+}
+
+.button_mentale.btn-large {
+  background-color: #ff4a62 !important;
+  color: #FFFFFF;
+}
+
+.button_medicinali.btn-large {
+  background-color: #b08114 !important;
+  color: #FFFFFF;
+}
+
+.button_alt.btn-large {
+  background-color: #48a1b0 !important;
+  color: #FFFFFF;
+}
+
+.middle_align {
+  margin-right: 375px;
+}
+
+.card_height {
+  margin-top: 20px;
+
+}
+
+.submenu_buttons {
+  background: rgb(76, 199, 255) !important;
+  font-size: 17px;
+  padding: 18px 36px;
+}
+
+.three_adherence {
+  margin-left: -41px;
+  margin-top: -153px;
+  background: #ddb833a1;
+
+}
+
+.three_bottons {
+  margin-left: 110px !important;
+  margin-top: -115px !important;
+}
+
+.user_view_buttons {
+  margin-left: 110px;
+  margin-top: -90px;
+  //display: flex;
+  display: block;
+}
+
+.card_center {
+  //align-content: center !important;
+  //padding-left: 90px;
+  display: inline-grid;
+  text-transform: uppercase;
+}
+
+#notificationsButton {
+  height: 60px;
+  border-radius: 20%;
+  padding-right: 6px;
+}
+
+.main-container {
+  background: white !important;
+  //  Lets keep the background simple for now
+  //background: url('17.jpg') no-repeat center;
+  background-size: cover;
+
+}
+
+.mdl-layout__header .mdl-layout__drawer-button {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  background-color: #dd7625;
+}
+
+.mdl-layout__drawer .avatar {
+
+  margin: 28px -2px -30px 50px;
+  border-radius: 43%;
+  background: #ff9300;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  background: url('19.jpg') center no-repeat;
+  background-size: cover;
+}
+
+.mdl-layout__header-row {
+  color: white !important;
+}
+
+.mdl-layout__drawer {
+  background: white;
+}
+
+.dash_header {
+  background-color: #FF9324 !important;
+  font-size: larger;
+  background: url('15.jpg') center no-repeat;
+  background-size: cover;
+}
+
+.header_links {
+  flex-shrink: 15;
+}
+
+.checkme {
+  margin: 4px 19px 0;
+  font-size: large;
+}
+
+.footer_color {
+  color: white;
+  font-weight: bold;
+}
+
+.login_group {
+  border: 73px;
+  background: #c1202000;
+  padding: 9px 50px 65px 20px;
+}
+
+.login_img {
   width: 200px;
   height: auto;
 }
 
 body {
   margin: 0;
+
 }
 
 /* Disable ugly boxes around images in IE10 */
-a img{
+a img {
   border: 0px;
 }
 
@@ -91,7 +800,6 @@ a img{
   margin: 0 !important;
 }
 
-
 .mdl-textfield--expandable {
   width: auto;
 }
@@ -109,15 +817,31 @@ a img{
   display: none !important;
 }
 
-
 .android-logo-image {
-  height: 50px;
-  width: 60px;
+  height: auto;
+  width: auto;
+
+}
+
+.outer {
+  max-width: 15%;
+  max-height: 15%;
+  margin: 85px 9px -26px 48%;
+  border-radius: 50%;
+  background: #76eeff;
+  background: url(22.jpg) center no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  box-shadow: 0 58px 90px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
 }
 
 .android-header {
   overflow: visible;
-  background-color: white;
+  background-color: #FF9324;
+  background: url('8.jpg') center no-repeat;
+  background-size: cover;
+
 }
 
 .android-header .material-icons {
@@ -160,7 +884,6 @@ a img{
   width: 100px;
 }
 
-
 .android-navigation .mdl-navigation__link {
   display: inline-block;
   height: 60px;
@@ -186,7 +909,6 @@ a img{
   -ms-flex-order: 3;
   order: 3;
 }
-
 
 .android-drawer {
   border-right: none;
@@ -296,7 +1018,6 @@ a img{
   z-index: 1;
 }
 
-
 .android-phone {
   display: inline-block;
   width: 64px;
@@ -307,7 +1028,6 @@ a img{
   width: 100%;
   z-index: 1;
 }
-
 
 .android-tablet {
   display: inline-block;
@@ -325,7 +1045,6 @@ a img{
   z-index: 2;
 }
 
-
 .android-tv {
   display: inline-block;
   width: 300px;
@@ -336,7 +1055,6 @@ a img{
   width: 100%;
   z-index: 1;
 }
-
 
 .android-auto {
   display: inline-block;
@@ -349,7 +1067,6 @@ a img{
   height: 300px;
   z-index: 1;
 }
-
 
 .android-wear-section {
   position: relative;
@@ -509,11 +1226,9 @@ a img{
   top: 6px;
 }
 
-
 .android-link-menu:hover {
   cursor: pointer;
 }
-
 
 /**** Mobile layout ****/
 @media (max-width: 900px) {

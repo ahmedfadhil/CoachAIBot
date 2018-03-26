@@ -1,13 +1,34 @@
+<div class="container"></div>
 <%= div_personal do %>
-  <%= li_message do %>
     <input type="hidden" class="message_hidden" value="<%= message.id %>">
-    <div class="avatar">
-      <%= img_style %>
+
+
+
+    <div class="chat-history">
+      <ul>
+        <li class="clearfix">
+          <div class="message-data <%= style %>">
+            <span class="avatar" ><%= img_style %></span>
+          </div>
+
+          <div class="<%= msg_style %>">
+            <p><%= text %></p>
+
+            <p class="time_style">  <%= "Inviato: "+ time %></p>
+
+          </div>
+
+        </li>
+
+
+      </ul>
+
     </div>
-    <div class="msg">
-      <p><%= text %></p>
-      <time><%= time %></time>
-    </div>
-  <% end %>
+
+
+
 <% end %>
+
+
+
 

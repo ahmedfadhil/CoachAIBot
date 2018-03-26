@@ -10,7 +10,8 @@
         for activity in plan.activities
           options = {
             lang: {
-              months: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+              months: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
+                'Ottobre', 'Novembre', 'Dicembre'],
               weekdays: ['Domenica', 'Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato'],
               shortMonths: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
               loading: "Caricamento..."
@@ -20,19 +21,31 @@
           Highcharts.setOptions(options);
           div_completeness_id = "completeness-#{activity.planning_id}"
           Highcharts.chart(div_completeness_id, {
+            credits: {
+              enabled: false
+            },
             chart: {
               plotBackgroundColor: null,
               plotBorderWidth: 0,
               plotShadow: false,
-              # Edit chart spacing
+# Edit chart spacing
               spacingBottom: 10,
               spacingTop: 2,
               spacingLeft: 2,
-              spacingRight: 2,
+              spacingRight: 20,
 
-              # Explicitly tell the width and height of a chart
-              width: null,
-              height: null
+
+# Explicitly tell the width and height of a chart
+              width: 500,
+              height: 500,
+#              plotBackgroundColor: '#f6fcff',
+              animation: {
+                duration: 1500,
+                easing: 'easeOutBounce'
+
+              },
+              borderColor: '#eb982f',
+              borderWidth: 0.2,
             },
             colors: ['#6ab344', '#bd0e3d', '#ff861b'],
             title: {
@@ -50,15 +63,16 @@
               pie: {
                 dataLabels: {
                   enabled: true,
-                  distance: -50,
+                  distance: 8,
                   style: {
                     fontWeight: 'bold',
-                    color: 'white'
+                    color: 'red',
                   }
                 },
                 startAngle: -90,
                 endAngle: 90,
-                center: ['50%', '75%']
+                center: ['50%', '70%']
+
               }
             },
             series: [{
@@ -89,15 +103,16 @@
                   plotBackgroundColor: null,
                   plotBorderWidth: 0,
                   plotShadow: false,
-                  # Edit chart spacing
+# Edit chart spacing
                   spacingBottom: 10,
                   spacingTop: 2,
                   spacingLeft: 2,
                   spacingRight: 2,
 
-                  # Explicitly tell the width and height of a chart
-                  width: null,
+# Explicitly tell the width and height of a chart
+                  width: 500,
                   height: null
+
                 },
                 colors: ['#6ab344', '#bd0e3d', '#ff861b'],
                 title: {
@@ -148,7 +163,7 @@
           i = 0
           for scalar_adherence in activity.scalar_data
             div_scalar_id = "scalar-adherence-#{i}-#{activity.planning_id}"
-            if scalar_adherence.data.length>0
+            if scalar_adherence.data.length > 0
               Highcharts.setOptions(options);
               Highcharts.chart(div_scalar_id, {
                 chart: {
@@ -176,7 +191,7 @@
               });
               i++
 
-          i=0
+          i = 0
           for open_question in activity.open_data
             div_open_id = "open-question-#{i}-#{activity.planning_id}"
             console.log open_question.data
@@ -201,6 +216,7 @@
                   min: 0,
                   title: {
                     text: open_question.text
+
                   }
                 },
                 tooltip: {
@@ -253,21 +269,21 @@
 
 
 @show_hide = (element, type) ->
-  if type=='open'
+  if type == 'open'
     $('.numeric-answers').css('display', 'none')
     $('.open-answers').css('display', 'block')
-  else if type=='scalar'
+  else if type == 'scalar'
     $('.numeric-answers').css('display', 'block')
     $('.open-answers').css('display', 'none')
-  else if type=='yes-no'
+  else if type == 'yes-no'
     $('.numeric-answers').css('display', 'none')
     $('.open-answers').css('display', 'none')
 
 
 @assign_to_hidden = (element, type) ->
-  if type=='from'
+  if type == 'from'
     $('#scalar_from_val').val($('#scalar_from').val())
-  else if type=='to'
+  else if type == 'to'
     $('#scalar_to_val').val($('#scalar_to').val())
   else
     $('#open_answer_val').val($('#open-answers').val())
@@ -275,27 +291,28 @@
 @animate = (bar, type, user) ->
   switch type
     when 0
-      bar.animate user.diet_score/100
+      bar.animate user.diet_score / 100
     when 1
-      bar.animate user.physical_score/100
+      bar.animate user.physical_score / 100
     else
-      bar.animate user.mental_score/100
+      bar.animate user.mental_score / 100
 
 @get_labels_name = (type) ->
   switch type
     when 0
-      ['Dieta', 'diet']
+      ['<i class="material-icons md-36">room_service</i>', 'diet']
     when 1
-      ['Attivita\' Fisica', 'physical']
+      ['<i class="material-icons md-36">directions_bike</i>', 'physical']
     else
-      ['Mentale', 'mental']
+      ['<i class="material-icons md-36">local_florist</i>', 'mental']
+#      consider adding more...
 
 @score = (user, type) ->
   labels = get_labels_name(type)
   bar = new (ProgressBar.Circle)("##{labels[1]}_score_#{user.id}",
     strokeWidth: 10
     color: '#FF0000'
-    trailColor: '#787878'
+    trailColor: '#4cc7dd'
     trailWidth: 10
     easing: 'easeInOut'
     duration: 1400
@@ -310,8 +327,10 @@
         top: '-72%',
         padding: 0,
         margin: 0,
-    from: color: '#FF0000'
-    to: color: '#008000'
+    from:
+      color: '#FF0000'
+    to:
+      color: '#008000'
     step: (state, semicircle, attachment) ->
       semicircle.path.setAttribute('stroke', state.color)
     autoStyleContainer: false
@@ -333,9 +352,10 @@
     json: true
     success: (data, textStatus, jqXHR) ->
       for user in data.users
-        score(user, 0)
-        score(user, 1)
-        score(user, 2)
+        if $("#physical_score_#{user.id}").length > 0
+          score(user, 0)
+          score(user, 1)
+          score(user, 2)
 
 @getImages = () ->
   $.ajax "/users/get_images",
@@ -361,10 +381,18 @@ $ ->
     textColor = $(this).data("text-color")
 
     $('.datepicker').datepicker () ->
-      weekStart:1
+      weekStart: 1
 
   $("tr[data-href]").click (e) ->
     e.preventDefault()
     window.location = $(this).data("href");
 
   addTips()
+
+
+  $ ->
+    flashCallback = ->
+      $(".alert").fadeOut()
+    $(".alert").bind 'click', (ev) =>
+      $(".alert").fadeOut()
+    setTimeout flashCallback, 9000

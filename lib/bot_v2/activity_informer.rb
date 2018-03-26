@@ -1,3 +1,4 @@
+
 require 'telegram/bot'
 require 'bot_v2/general'
 
@@ -49,12 +50,12 @@ class ActivityInformer
 
   def send_plans_details(delivered_plans)
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply "#{@user.last_name} ti sto inviando un documento che contiene tutti i dettagli relativi alle attivita' che hai da fare."
+    actuator.send_reply "#{@user.first_name} ti sto inviando il documento con tutti i dettagli relativi alle tua attività..."
     actuator.send_chat_action 'upload_document'
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', delivered_plans)
-    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-plans.pdf"
+    doc_name = "Piano di #{user.first_name} #{user.last_name}.pdf"
 
     pdf = WickedPdf.new.pdf_from_string(
         controller.render_to_string('users/user_plans', layout: 'layouts/pdf.html'),

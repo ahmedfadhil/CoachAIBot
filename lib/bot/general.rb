@@ -81,7 +81,7 @@ class GeneralActions
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', plans)
-    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdf"
+    doc_name = "#{user.last_name}#{user.first_name}-feedbacka.pdf"
 
 
     pdf = WickedPdf.new.pdf_from_string(

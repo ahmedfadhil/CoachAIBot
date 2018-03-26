@@ -1,29 +1,31 @@
-<div id="activity-insert-card-wide" class="mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Scegli un'attivita gia presente nel sistema </h2>
-  </div>
 
-  <div id="assign_table" class="mdl-card__supporting-text">
-    <table>
-      <thead>
-      <tr>
-        <th class="mdl-data-table__cell--non-numeric">Nome</th>
+<div class="col-lg-12 col-lg-offset-4" id="activity-insert-card-wide">
+  <div class="card" id="assign_table">
+    <div class="card-header" data-background-color="purple">
+      <h4 class="title">Scegli un'attività gia presente nel sistema</h4>
+      <p class="category"></p>
+    </div>
+    <div class="card-content table-responsive">
+      <table class="table table-hover content_align">
+        <thead class="text-warning">
+        <th>Nome</th>
         <th>Categoria</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @activities.each do |a| %>
+        <th>Modifica</th>
+        <th>Assegna</th>
+        </thead>
+        <tbody>
+
+        <% @activities.each do |a| %>
           <tr>
-            <td class="mdl-data-table__cell--non-numeric"> <%= a.name %> </td>
-            <td> <%= match_category(a.category) %> </td>
-            <td><%= link_to 'Vedi', activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %> </td>
-            <td>
-              <%= link_to 'Assegna', plannings_path(:a_id => a.id, :p_id => @plan_id, :u_id => @user_id),
-                          method: 'post', class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' %>
-            </td>
+            <td><%= a.name %> </td>
+            <td><%= match_category(a.category) %></td>
+            <td><%= link_to 'Modifica', activity_path(a), class: 'btn btn-primary btn-sm' %></td>
+            <td><%= link_to 'Assegna', plannings_path(:a_id => a.id, :p_id => @plan_id, :u_id => @user_id),
+                            method: 'post', class: 'btn btn-success btn-sm' %></td>
           </tr>
-      <% end %>
-      </tbody>
-    </table>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

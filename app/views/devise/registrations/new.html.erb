@@ -1,29 +1,107 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: coach_user_registration_path, html: { multipart: true }) do |f| %>
+
   <%= devise_error_messages! %>
+  <div class="section section-full-screen section-signup miniback">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="card card-signup login_card">
+            <form class="form" method="" action="">
+              <div class="header header-primary text-center">
+                <h2>CoachAI</h2>
+                <h4>Pannello di registrazione</h4>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+              </div>
+              <p class="text-divider">Tutti i campi richiesti *</p>
+              <div class="content">
+                <div class="input-group login_group">
+										<span class="input-group-addon">
+										<i class="material-icons">brightness_6</i>
+										</span>
+                  <%= f.text_field :first_name, autofocus: true, class: 'mdl-textfield__input form-control',
+                                placeholder: 'Nome...',
+                                    for: 'login' %>
+                </div>
+
+                <div class="input-group login_group">
+										<span class="input-group-addon">
+											<i class="material-icons">brightness_5</i>
+										</span>
+                  <%= f.text_field :last_name, class: 'mdl-textfield__input form-control', placeholder: 'Cognome...',
+                                    for: 'login' %>
+                </div>
+                <div class="input-group login_group">
+										<span class="input-group-addon">
+											<i class="material-icons">email</i>
+										</span>
+                  <%= f.email_field :email, class: 'mdl-textfield__input form-control', placeholder: 'Email...',
+                                    for: 'login' %>
+                </div>
+                <div class="input-group login_group">
+										<span class="input-group-addon">
+											<i class="material-icons">lock_outline</i>
+										</span>
+
+                  <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %><br/>
+                  <%= f.password_field :password, autocomplete: 'off', class: 'mdl-textfield__input form-control',
+                                       placeholder: 'Password...', for: 'password' %>
+                </div>
+
+
+                <div class="input-group login_group">
+										<span class="input-group-addon">
+											<i class="material-icons">vpn_key</i>
+										</span>
+                  <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'mdl-textfield__input form-control',
+                                       placeholder: 'Conferma password...', for: 'password' %>
+                </div>
+
+                <div class="input-group login_group">
+										<span class="input-group-addon">
+										<i class="material-icons">face</i>
+										</span>
+                  <%= f.file_field :avatar, class: 'mdl-textfield__input form-control'%>
+                </div>
+
+              </div>
+              <div class="footer text-center actions">
+                <%= f.submit "Sign up", class: 'btn btn-success btn-lg' %>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+      <div class="mdl-color-text--primary" style="float: right">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
