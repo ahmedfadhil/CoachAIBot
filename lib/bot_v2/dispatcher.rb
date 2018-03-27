@@ -48,39 +48,40 @@ class Dispatcher
         when 'responding'
           manage_responding_state(text)
 
+        when 'confirmation'
+          manage_confirmation_state(text)
+
         else
           GeneralActions.new(@user,nil).send_reply 'Penso di non aver capito, potresti ripetere per favore?'
       end
 
     end
   end
-
   def manage_idle_state(text)
     case text
       # Activities & Plans
-      when *activities_strings #/(\w|\s|.)*(([Aa]+[Tt]+[Ii]+[Vv]+[Ii]*[Tt]+[AaÀà]*)|([Pp]+[Ii]+[Aa]+[Nn]+([Ii]+|[Oo]+)))+(\w|\s|.)*/
+      when *activities_strings
         ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
         @user.get_activities!
 
       # Feedbacks
-      when *feedback_strings #/(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
+      when *feedback_strings
         ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
         @user.show_plans_to_feedback!
 
       # Messages
-      when *messages_strings #/(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
+      when *messages_strings
         ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
         @user.get_messages!
 
       # Questionnaires
-      when *questionnaires_strings #/(\w|\s|.)*([Qq]+[Uu]+[Ee]+[Ss]+[Tt]+[Ii]*[Oo]+[Nn]+[Aa]*[Rr]+[Ii]*)+(\w|\s|.)*/
+      when *questionnaires_strings
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
 
       else
         #ApiAIRedirector.new(text, @user).redirect
         GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
-
     end
   end
 
@@ -159,8 +160,19 @@ class Dispatcher
     case text
       when *back_strings
         @user.cancel!
+      when 'Torna alla domanda precedente'
+        @user.cancel_last_answer!
       else
         @user.respond_questionnaire!(text)
+    end
+  end
+
+  def manage_confirmation_state(text)
+    case text
+      when 'Si'
+        @user.confirm!
+      when 'No'
+        @user.cancel_confirmation!
     end
   end
 

@@ -20,10 +20,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :cellphone, message: 'Cellulare in uso. Scegli un altro numero di cellulare.'
   validates :first_name, presence: {message: 'Inserisci nome.'}, length: {maximum: 50}
   validates :last_name, presence: {message: 'Inserisci cognome.'}, length: {maximum: 50}
-  validates :cellphone, presence: {message: 'Inserisci numero cellulare.'}, length: {maximum: 12, message: 'Numero
- cellulare troppo lungo. Max 12 cifre.'}
-  validates :age, presence: {message: 'Inserisci età.'}, length: {maximum: 2, message: 'l età deve essere di due
-cifre'}
+  validates :cellphone, presence: {message: 'Inserisci numero cellulare.'}, length: {maximum: 12, message: 'Numero cellulare troppo lungo. Max 12 cifre.'}
+  validates :age, presence: {message: 'Inserisci età.'}, length: {maximum: 2, message: 'l età deve essere di due cifre'}
   validate :age_has_to_be_positive
   
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -51,20 +49,30 @@ cifre'}
   def has_delivered_plans?
     self.plans.where(:delivered => 1).count > 0
   end
-  
+
   include AASM # Act As State Machine
-  
+
   # default column: aasm_state
   # no direct assignment to aasm_state
   # return false instead of exceptions
-  aasm :whiny_transitions => false do
-    
+  aasm  :whiny_transitions => false do
+
     ########## States ##############################################
     state :idle, :initial => true
-    state :messages, :activities, :questionnaires, :responding, :feedback_plans, :feedback_activities, :feedbacking
+    state :messages, :activities, :questionnaires, :responding, :confirmation, :feedback_plans, :feedback_activities, :feedbacking, :recover, :help
     ###################################################################
-    
-    
+
+=begin
+    event :give_help do
+      transitions :from => :idle, :to => :help,
+                  :after => :send_help_first_msg
+    end
+    event :choose_faq do
+      transitions :from => :help, :to => :idle,
+                  :after => Proc.new {|*args| redirect_to_apiAI(*args)}
+    end
+=end
+
     ########## Feedback Events ##############################################
     event :show_plans_to_feedback do
       transitions :from => :idle, :to => :feedback_plans,
@@ -73,7 +81,7 @@ cifre'}
       transitions :from => :idle, :to => :idle,
                   :after => :inform_no_plans_to_feedback
     end
-    
+
     event :show_activities_to_feedback do
       transitions :from => :feedback_plans, :to => :feedback_activities,
                   :after => Proc.new {|*args| send_activities_that_need_feedback(*args)},
@@ -81,7 +89,7 @@ cifre'}
       transitions :from => :feedback_plans, :to => :feedback_plans,
                   :after => :inform_wrong_plan_name
     end
-    
+
     event :start_feedbacking do
       transitions :from => :feedback_activities, :to => :feedbacking,
                   :after => Proc.new {|*args| start_asking(*args)},
@@ -89,7 +97,7 @@ cifre'}
       transitions :from => :feedback_activities, :to => :feedback_activities,
                   :after => :inform_wrong_activity_name
     end
-    
+
     event :feedback do
       transitions :from => :feedbacking, :to => :idle,
                   :after => Proc.new {|*args| register_last_feedback(*args)},
@@ -104,8 +112,9 @@ cifre'}
                   :after => :inform_wrong_answer
     end
     ###################################################################
-    
-    
+
+
+
     ########## Activities Events ###########################################
     event :get_activities do
       transitions :from => :idle, :to => :activities,
@@ -115,8 +124,9 @@ cifre'}
                   :after => :inform_no_activities
     end
     ###################################################################
-    
-    
+
+
+
     ########## Messages Events #############################################
     event :get_messages do
       transitions :from => :idle, :to => :messages,
@@ -125,14 +135,15 @@ cifre'}
       transitions :from => :idle, :to => :idle,
                   :after => :inform_no_messages
     end
-    
+
     event :respond do
       transitions :from => :messages, :to => :idle,
-                  :after => Proc.new {|*args| register_patient_response(*args)}
+                  :after => Proc.new {|*args| register_patient_response(*args) }
     end
     ###################################################################
-    
-    
+
+
+
     ########## Questionnaires Events ####################################
     event :start_questionnaires do
       transitions :from => :idle, :to => :questionnaires,
@@ -141,7 +152,7 @@ cifre'}
       transitions :from => :idle, :to => :idle,
                   :after => :inform_no_questionnaires
     end
-    
+
     event :start_responding do
       transitions :from => :questionnaires, :to => :responding,
                   :after => Proc.new {|*args| ask_question(*args)},
@@ -149,12 +160,13 @@ cifre'}
       transitions :from => :questionnaires, :to => :questionnaires,
                   :after => Proc.new {|*args| inform_wrong_questionnaire(*args)}
     end
-    
+
+=begin
     event :respond_questionnaire do
-      transitions :from => :responding, :to => :idle,
+      transitions :from => :responding, :to => :confirmation,
                   :after => Proc.new {|*args| register_last_questionnaire_response(*args)},
                   :guard => Proc.new {|*args| is_last_question_and_last_questionnaire?(*args)}
-      transitions :from => :responding, :to => :questionnaires,
+      transitions :from => :responding, :to => :confirmation,
                   :after => Proc.new {|*args| register_last_response(*args)},
                   :guard => Proc.new {|*args| is_last_question_and_is_response?(*args)}
       transitions :from => :responding, :to => :responding,
@@ -163,17 +175,56 @@ cifre'}
       transitions :from => :responding, :to => :responding,
                   :after => :ask_last_question_again
     end
+=end
+
+    event :respond_questionnaire do
+      transitions :from => :responding, :to => :confirmation,
+                  :after => Proc.new {|*args| ask_confirmation(*args)},
+                  :guard => Proc.new {|*args| is_last_question_and_is_response?(*args)}
+      transitions :from => :responding, :to => :responding,
+                  :after => Proc.new {|*args| register_response(*args)},
+                  :guard => Proc.new {|*args| is_response?(*args)}
+      transitions :from => :responding, :to => :responding,
+                  :after => :ask_last_question_again
+    end
+
+    event :cancel_last_answer do
+      transitions :from => :responding, :to => :responding,
+                  :after => :restore_last_question
+    end
+
+    event :confirm do
+      transitions :from => :confirmation, :to => :idle,
+                  :after => :register_last_questionnaire_response,
+                  :guard => :is_last_questionnaire?
+      transitions :from => :confirmation, :to => :questionnaires,
+                  :after => :register_last_response
+    end
+
+    event :cancel_confirmation do
+      transitions :from => :confirmation, :to => :responding,
+                  :after => :ask_again_after_negative_confirmation
+    end
+
+
     ###################################################################
-    
-    
+
+
+
     ########## Cancel from each state to idle ########################
     event :cancel do
       transitions :from => :activities, :to => :idle,
                   :after => :send_menu_from_activities
       transitions :from => :messages, :to => :idle,
                   :after => :send_menu_from_messages
+
       transitions :from => :questionnaires, :to => :idle,
                   :after => :send_menu_from_questionnaires
+      transitions :from => :responding, :to => :idle,
+                  :after => :send_menu_from_questionnaires
+      transitions :from => :confirmation, :to => :idle,
+                  :after => :send_menu_from_questionnaires
+
       transitions :from => :responding, :to => :idle,
                   :after => :send_menu_from_questionnaires
       transitions :from => :feedback_plans, :to => :idle,
@@ -182,10 +233,13 @@ cifre'}
                   :after => :send_menu_from_feedbacks
       transitions :from => :feedbacking, :to => :idle,
                   :after => :send_menu_from_feedbacks
+      transitions :from => :confirm, :to => :idle,
+                  :after => :send_menu_from_feedbacks
     end
     ###################################################################
-    
-    
+
+
+
     ########## Send Details for Activities and Feedbacks ############
     event :get_details do
       transitions :from => :activities, :to => :idle,
@@ -193,40 +247,147 @@ cifre'}
       transitions :from => :feedback_plans, :to => :feedback_plans,
                   :after => :send_feedbacks_details
     end
-    
+
     event :no_action do
       transitions :from => :idle, :to => :idle,
                   :after => :send_no_action_received
     end
     ###################################################################
-  
+
   end
-  
-  
+
+
   private
-  
+
+  ############### Questionnaires Methods ######################################################################################
+
+  def restore_last_question
+    QuestionnaireManager.new(self, command_data).restore_last_question
+  end
+
+  def ask_confirmation(response)
+    QuestionnaireManager.new(self, command_data).ask_confirmation(response)
+  end
+
+  def register_last_questionnaire_response
+    bot_command_data = command_data
+    manager = QuestionnaireManager.new(self, bot_command_data)
+    manager.register_response(bot_command_data['recover_data']['response'])
+    invitation = Invitation.find(bot_command_data['recover_data']['invitation_id'])
+    invitation.completed = true
+    invitation.save
+    manager.send_profiling_finished
+    questionnaire = Questionnaire.find(bot_command_data['recover_data']['questionnaire_id'])
+    questionnaire.completed = true
+    questionnaire.save!
+    features_manager = FeaturesManager.new
+    features_manager.communicate_profiling_done! self
+    features_manager.save_features_to_csv self
+    system 'rake python_clustering &'
+  end
+
+  def is_last_question_and_last_questionnaire?
+    (QuestionnaireManager.new(self, command_data).is_last_questionnaire? && is_last_question_and_is_response?) ? true : false
+  end
+
+  def is_last_questionnaire?
+    QuestionnaireManager.new(self, command_data).is_last_questionnaire?
+  end
+
+  def register_last_response
+    bot_command_data = command_data
+    response = bot_command_data['recover_data']['response']
+    manager = QuestionnaireManager.new(self, bot_command_data)
+    manager.register_response(response)
+    invitation = Invitation.find(bot_command_data['recover_data']['invitation_id'])
+    invitation.completed = true
+    invitation.save
+    manager.send_questionnaire_finished
+    questionnaire = Questionnaire.find(bot_command_data['recover_data']['questionnaire_id'])
+    questionnaire.completed = true
+    questionnaire.save!
+  end
+
+  def is_last_question_and_is_response?(response)
+    (is_response?(response) && QuestionnaireManager.new(self, command_data).is_last_question?) ? true : false
+  end
+
+  def ask_next_question
+    bot_command_data = command_data
+    QuestionnaireManager.new(self, bot_command_data).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title, true)
+  end
+
+  def ask_again_after_negative_confirmation
+    QuestionnaireManager.new(self, command_data).ask_again_after_negative_confirmation
+  end
+
+  def ask_last_question_again
+    manager = QuestionnaireManager.new(self, command_data)
+    manager.inform_wrong_response
+    manager.ask_last_question_again(false)
+  end
+
+  def register_response(response)
+    QuestionnaireManager.new(self, command_data).register_response(response)
+    ask_next_question
+  end
+
+  def is_response?(response)
+    QuestionnaireManager.new(self, command_data).is_response?(response)
+  end
+
+  def inform_wrong_questionnaire(text)
+    QuestionnaireManager.new(self, nil).inform_wrong_questionnaire(text)
+  end
+
+  def ask_question(questionnaire)
+    QuestionnaireManager.new(self, command_data).ask_question(questionnaire, false)
+  end
+
+  def questionnaire_is_not_finished?(questionnaire)
+    QuestionnaireManager.new(self, command_data).questionnaire_is_not_finished?(questionnaire)
+  end
+
+  def show_questionnaires
+    QuestionnaireManager.new(self, command_data).show_questionnaires
+  end
+
+  def has_questionnaires?
+    QuestionnaireManager.new(self, command_data).has_questionnaires?
+  end
+
+  def send_no_action_received
+    QuestionnaireManager.new(self, command_data).inform_no_action_received
+  end
+
+  def inform_no_questionnaires
+    QuestionnaireManager.new(self, command_data).inform_no_questionnaires
+  end
+
+  def send_menu_from_questionnaires
+    QuestionnaireManager.new(self, command_data).send_menu
+  end
+
+  ####################################################################################################################################
+
   ########## Feedback Methods ##################################################################################
-  
+
   def is_last_feedback_and_last_question?(answer)
     manager = FeedbackManager.new(self)
-    if manager.is_answer?(answer) && manager.is_last_question? && manager.is_last_feedback?
-      true
-    else
-      false
-    end
+    (manager.is_answer?(answer) && manager.is_last_question? && manager.is_last_feedback?) ? true : false
   end
-  
+
   def register_last_feedback(answer)
     manager = FeedbackManager.new(self)
     manager.register_last_answer(answer)
     actuator = GeneralActions.new(self, nil)
     actuator.send_reply_with_keyboard("Non hai piu' feedback da dare per oggi! Prosegui con le attivita'.", GeneralActions.menu_keyboard)
   end
-  
+
   def inform_wrong_answer
     FeedbackManager.new(self).inform_wrong_answer
   end
-  
+
   def register_last_answer(answer)
     manager = FeedbackManager.new(self)
     manager.register_last_answer(answer)
@@ -234,7 +395,7 @@ cifre'}
     actuator.send_reply('Con che piano vuoi proseguire il feedback?')
     manager.send_plans_to_feedback
   end
-  
+
   def is_last_question_and_is_answer?(answer)
     manager = FeedbackManager.new(self)
     if manager.is_answer?(answer) && manager.is_last_question?
@@ -243,223 +404,126 @@ cifre'}
       false
     end
   end
-  
+
   def register_answer_and_continue(answer)
     FeedbackManager.new(self).register_answer_and_continue(answer)
   end
-  
+
   def is_answer?(answer)
     FeedbackManager.new(self).is_answer?(answer)
   end
-  
+
   def inform_wrong_activity_name
     FeedbackManager.new(self).inform_wrong_activity
   end
-  
+
   def start_asking(activity_name)
     FeedbackManager.new(self).ask(activity_name)
   end
-  
+
   def valid_activity_name?(activity_name)
     FeedbackManager.new(self).valid_activity_name?(activity_name)
   end
-  
+
   def inform_wrong_plan_name
     FeedbackManager.new(self).inform_wrong_plan
   end
-  
+
   def send_activities_that_need_feedback(plan_name)
     FeedbackManager.new(self).send_activities_that_need_feedback(plan_name)
   end
-  
+
   def valid_plan_name?(plan_name)
     FeedbackManager.new(self).valid_plan_name?(plan_name)
   end
-  
+
   def inform_no_plans_to_feedback
     FeedbackManager.new(self).inform_no_plans_to_feedback
   end
-  
+
   def send_plans_to_feedback
     FeedbackManager.new(self).send_plans_to_feedback
   end
-  
+
   def has_plans_to_feedback?
     FeedbackManager.new(self).has_plans_to_feedback?
   end
-  
+
   def send_feedbacks_details
     feedback_manager = FeedbackManager.new(self)
     feedback_manager.send_feedback_details(feedback_manager.plans_to_feedback)
     feedback_manager.send_plans_to_feedback
   end
-  
+
   def send_menu_from_feedbacks
     GeneralActions.new(self, nil).back_to_menu_with_menu
   end
-  
+
   #############################################################################################################################
-  
-  
+
+
+
+
+
   ############### Activities Methods ##########################################################################################
   def send_activities_details
     ActivityInformer.new(self, nil).send_details
   end
-  
+
   def send_activities
     ActivityInformer.new(self, nil).send_activities
   end
-  
+
   def inform_no_activities
     ActivityInformer.new(self, nil).inform_no_activities
   end
-  
+
   def send_menu_from_activities
     ActivityInformer.new(self, nil).send_menu
   end
-  
+
   def activities_present?
     ActivityInformer.new(self, nil).activities_present?
   end
-  
   ###########################################################################################################################
-  
-  
+
+
+
+
   ############### Messages Methods ##########################################################################################
   def send_messages
     Messenger.new(self, nil).inform
   end
-  
+
   def messages_present?
     Messenger.new(self, nil).messages_present?
   end
-  
+
   def inform_no_messages
     Messenger.new(self, nil).inform_no_messages
   end
-  
+
   def send_menu_from_messages
     Messenger.new(self, nil).send_menu
   end
-  
+
   def register_patient_response(response)
     Messenger.new(self, nil).register_patient_response(response)
   end
-  
   #############################################################################################################################
-  
-  
-  ############### Questionnaires Methods ######################################################################################
-  
-  def register_last_questionnaire_response(response)
-    bot_command_data = command_data
-    manager = QuestionnaireManager.new(self, bot_command_data)
-    manager.register_response(response)
-    invitation = Invitation.find(bot_command_data['responding']['invitation_id'])
-    invitation.completed = true
-    invitation.save
-    manager.send_profiling_finished
-    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    questionnaire.completed = true
-    questionnaire.save!
-    features_manager = FeaturesManager.new
-    features_manager.communicate_profiling_done! self
-    features_manager.save_features_to_csv self
-    #features_manager.save_telegram_profile_img self
-    system 'rake python_clustering &'
-  end
-  
-  def is_last_question_and_last_questionnaire?(response)
-    if QuestionnaireManager.new(self, command_data).is_last_questionnaire? && is_last_question_and_is_response?(response)
-      true
-    else
-      false
-    end
-  end
-  
-  def register_last_response(response)
-    bot_command_data = command_data
-    manager = QuestionnaireManager.new(self, bot_command_data)
-    manager.register_response(response)
-    invitation = Invitation.find(bot_command_data['responding']['invitation_id'])
-    invitation.completed = true
-    invitation.save
-    manager.send_questionnaire_finished
-    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    questionnaire.completed = true
-    questionnaire.save!
-  end
-  
-  def is_last_question_and_is_response?(response)
-    if is_response?(response) && QuestionnaireManager.new(self, command_data).is_last_question?
-      true
-    else
-      false
-    end
-  end
-  
-  def ask_next_question
-    bot_command_data = command_data
-    QuestionnaireManager.new(self, bot_command_data).ask_question(Questionnaire.find(bot_command_data['responding']['questionnaire_id']).title)
-  end
-  
-  def ask_last_question_again
-    QuestionnaireManager.new(self, command_data).ask_last_question_again
-  end
-  
-  def register_response(response)
-    QuestionnaireManager.new(self, command_data).register_response(response)
-    ask_next_question
-  end
-  
-  def is_response?(response)
-    QuestionnaireManager.new(self, command_data).is_response?(response)
-  end
-  
-  def inform_wrong_questionnaire(text)
-    QuestionnaireManager.new(self, nil).inform_wrong_questionnaire(text)
-  end
-  
-  def ask_question(questionnaire)
-    QuestionnaireManager.new(self, command_data).ask_question(questionnaire)
-  end
-  
-  def questionnaire_is_not_finished?(questionnaire)
-    QuestionnaireManager.new(self, command_data).questionnaire_is_not_finished?(questionnaire)
-  end
-  
-  def show_questionnaires
-    QuestionnaireManager.new(self, command_data).show_questionnaires
-  end
-  
-  def has_questionnaires?
-    QuestionnaireManager.new(self, command_data).has_questionnaires?
-  end
-  
-  def send_no_action_received
-    QuestionnaireManager.new(self, command_data).inform_no_action_received
-  end
-  
-  def inform_no_questionnaires
-    QuestionnaireManager.new(self, command_data).inform_no_questionnaires
-  end
-  
-  def send_menu_from_questionnaires
-    QuestionnaireManager.new(self, command_data).send_menu
-  end
-  
-  ####################################################################################################################################
-  
+
+
+
+
   def back_to_menu
     GeneralActions.new(self, nil).back_to_menu_with_menu
   end
-  
-  
+
   # will be called if any event fails
   def aasm_event_failed(event_name, old_state_name)
     # use custom exception/messages, report metrics, etc
   end
-  
+
   def command_data
     JSON.parse(BotCommand.where(user: self).last.data)
   end

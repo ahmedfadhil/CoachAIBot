@@ -8,28 +8,65 @@ class QuestionnaireManager
     @bot_command_data = bot_command_data
   end
 
+  def restore_last_question
+    manager = GeneralActions.new(@user, nil)
+    reply1 = "OK #{@user.first_name}, Ti rifaccio la domanda precedente!"
+
+    manager.send_reply(reply1)
+
+    invitation = Invitation.find(@bot_command_data['recover_data']['invitation_id'])
+    question = QuestionnaireQuestion.find(@bot_command_data['recover_data']['question_id'])
+    answer = QuestionnaireAnswer.find(@bot_command_data['recover_data']['answer_id'])
+    answer.destroy!
+
+    ask(question, invitation, false)
+  end
+
+  def ask_confirmation(response)
+    actuator = GeneralActions.new(@user, nil)
+    @bot_command_data['recover_data'] = {'question_id' => @bot_command_data['responding']['question_id'],
+                                         'invitation_id' => @bot_command_data['responding']['invitation_id'],
+                                         'questionnaire_id' => @bot_command_data['responding']['questionnaire_id'],
+                                         'response' => response}
+    actuator.save_bot_command_data(@bot_command_data)
+    reply = "Confermi l'ultima domanda?"
+    actuator.send_reply_with_keyboard reply, GeneralActions.custom_keyboard(['Si', 'No'])
+  end
+
   def is_last_questionnaire?
-    Invitation.where(user: @user, completed: true).size == 3 ? true : false
+    Invitation.where(user: @user, completed: true).size == Questionnaire.count-1 ? true : false
   end
 
   def is_last_question?
     questionnaire = Questionnaire.find(@bot_command_data['responding']['questionnaire_id'])
     invitation = Invitation.find(@bot_command_data['responding']['invitation_id'])
-    if questionnaire.questionnaire_questions.count-1 == invitation.questionnaire_answers.count
+    if questionnaire.questionnaire_questions.count-1 == invitation.questionnaire_answers.distinct.count(:questionnaire_question_id)
       true
     else
       false
     end
   end
 
-  def ask_last_question_again
+  def ask_last_question_again(back_button)
     question = QuestionnaireQuestion.find(@bot_command_data['responding']['question_id'])
-    inform_wrong_response
-    ask_question(question.questionnaire.title)
+    ask_question(question.questionnaire.title, back_button)
+  end
+
+  def ask_again_after_negative_confirmation
+    GeneralActions.new(@user, nil).send_reply("Ok #{@user.last_name}, ti rifaccio l'ultima domanda.")
+    question = QuestionnaireQuestion.find(@bot_command_data['recover_data']['question_id'])
+    ask_question(question.questionnaire.title, false)
   end
 
   def register_response(response)
-    QuestionnaireAnswer.create(invitation_id: @bot_command_data['responding']['invitation_id'], questionnaire_question_id: @bot_command_data['responding']['question_id'], text: response)
+    answer = QuestionnaireAnswer.create(invitation_id: @bot_command_data['responding']['invitation_id'], questionnaire_question_id: @bot_command_data['responding']['question_id'], text: response)
+    actuator = GeneralActions.new(@user, nil)
+    @bot_command_data['recover_data'] = {'question_id' => @bot_command_data['responding']['question_id'],
+                                         'invitation_id' => @bot_command_data['responding']['invitation_id'],
+                                         'questionnaire_id' => @bot_command_data['responding']['questionnaire_id'],
+                                         'answer_id' => answer.id,
+                                         'response' => response}
+    actuator.save_bot_command_data(@bot_command_data)
   end
 
   def is_response?(response)
@@ -38,11 +75,11 @@ class QuestionnaireManager
     options.include?(response) ? true : false
   end
 
-  def ask_question(q_name)
+  def ask_question(q_name, back_button)
     invitation = Invitation.joins(:questionnaire).where('questionnaires.title = ? AND invitations.completed = ? AND invitations.user_id = ?', q_name, false, @user.id).first
     questionnaire = invitation.questionnaire
-    question = questionnaire.questionnaire_questions[invitation.questionnaire_answers.count]
-    ask(question, invitation)
+    question = questionnaire.questionnaire_questions[invitation.questionnaire_answers.distinct.count(:questionnaire_question_id)]
+    ask(question, invitation, back_button)
   end
 
   def questionnaire_is_not_finished?(q_name)
@@ -58,18 +95,22 @@ class QuestionnaireManager
     send_questionnaires(questionnaires)
   end
 
-  def ask(question, invitation)
+  def ask(question, invitation, back_button)
     # first lets save question data invitation on bot_command_data
     actuator = GeneralActions.new(@user, nil)
     questionnaire = question.questionnaire
     @bot_command_data['responding'] = {'question_id' => question.id,
-                                      'invitation_id' => invitation.id,
-                                      'questionnaire_id' => questionnaire.id}
+                                       'invitation_id' => invitation.id,
+                                       'questionnaire_id' => questionnaire.id}
     actuator.save_bot_command_data(@bot_command_data)
     options = question.options.map(&:text)
+    if back_button
+      options.push('Torna alla domanda precedente')
+    end
+    options.push(GeneralActions.back_button_text)
     reply = question.text
 
-    actuator.send_reply_with_keyboard reply, GeneralActions.custom_keyboard(options.push(GeneralActions.back_button_text))
+    actuator.send_reply_with_keyboard reply, GeneralActions.custom_keyboard(options)
   end
 
   def send_questionnaires(questionnaires)
@@ -80,7 +121,7 @@ class QuestionnaireManager
     actuator.save_bot_command_data(bot_command_data)
 
     reply1 = "I questionari che hai da fare sono: \n\t-#{list.join("\n\t-")}"
-    reply2 = 'Scegli un questionario per rispondere alle domande.'
+    reply2 = "Quale questionario vuoi compilare?"
 
     # then send bot's answer to patient
     actuator.send_reply reply1
@@ -88,7 +129,7 @@ class QuestionnaireManager
   end
 
   def inform_no_questionnaires
-    reply = "Non hai Questionario da completare oggi! Torna piu' tardi per ricontrollare."
+    reply = "Non hai Questionari da completare oggi! Torna piu' tardi per ricontrollare."
     GeneralActions.new(@user,nil).send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
 
@@ -99,7 +140,7 @@ class QuestionnaireManager
 
 
   def inform_wrong_questionnaire(text)
-    reply1 = "Oups! '#{text}' non è il titolo di nessun questionario che hai da fare."
+    reply1 = "Oups! '#{text}' non e' il titolo di un questionario che hai da fare."
     reply2 = "I questionari che hai da fare sono: \n\t-#{@bot_command_data['questionnaires'].join("\n\t-")} \n Scegli uno dei questionari indicati per rispondere alle domande."
     actuator = GeneralActions.new(@user,nil)
     actuator.send_reply(reply1)
@@ -119,21 +160,24 @@ class QuestionnaireManager
   def send_questionnaire_finished
     bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
     questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    reply = "Hai finito il questionario '#{questionnaire.title}'. Con che questionario vuoi proseguire?"
+    reply = "Hai finito il questionario '#{questionnaire.title}'."
     GeneralActions.new(@user, nil).send_reply reply
     show_questionnaires
   end
 
   def send_menu
-    reply = "Va bene #{@user.last_name}, puoi proseguire dopo, ma ricorda che prima finisci prima riceverai il tuo piano da combattimento!"
+    reply = "OK #{@user.last_name}, proseguiamo piu tardi! \nA presto!"
     GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.custom_keyboard(['Questionari'])
   end
 
   def send_profiling_finished
-    bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
-    questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    reply = "Il questionario '#{questionnaire.title}' era l'ultimo e lo hai finito. Ora rimani in attesa che il coach ti mandi delle attivita' da fare."
-    GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.menu_keyboard
+    reply1 = "Hai finito di compilare l'ultimo questionario!"
+    reply2 = "Sulla base delle tue domande e di altre informazioni sul tuo stato di salute uno specialista che ti segue definirà un piano il quale conterrà delle attività che sarai invitato a seguire secondo le indicazioni che riceverai.\n\n"
+    + "Quando verrà definito un piano per te verrai notificato e potrai accedere al piano attraverso il bottone ATTIVITÀ. Inoltre potrai richiedere di scaricare in formato PDF il documento contenente tutti i dettagli relativi al piano.\n\n"
+    reply3 = "Rimani in attesa del piano! A presto #{@user.last_name}"
+    GeneralActions.new(@user, nil).send_reply(reply1)
+    GeneralActions.new(@user, nil).send_reply(reply2)
+    GeneralActions.new(@user, nil).send_reply_with_keyboard(reply3, GeneralActions.menu_keyboard)
   end
 
 end
