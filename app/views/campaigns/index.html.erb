@@ -1,0 +1,45 @@
+<%= cell(:navigation, {email: current_user.email, title: "Benvenuto utente"}.to_dot.freeze).(:navigation) do %>
+	<% capture do %>
+		<%= render "layouts/notice" %>
+		<div style="padding-bottom: 25px;">
+			<nav aria-label="breadcrumb" role="navigation">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item active" aria-current="page">Indagini</li>
+				</ol>
+			</nav>
+		</div>
+		<div style="padding-bottom: 25px;">
+			<%= link_to 'Nuova indagine', new_campaign_path, class: "btn btn-success" %>
+		</div>
+		<% if @campaigns.empty? %>
+			<div class="alert alert-warning" role="alert">
+				Non è ancora iniziata nessuna indagine. Per crearne una nuova usa il bottone 'Nuova indagine'
+			</div>
+		<% else %>
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th>Data creazione</th>
+						<th>Titolo questionario</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @campaigns.each do |campaign| %>
+					<tr>
+						<td>
+							<%= l campaign.created_at, format: :long %>
+						</td>
+						<td>
+							<%= campaign.questionnaire.title %>
+						</td>
+						<td>
+							<%= link_to "Mostra", campaign_path(campaign), class: "badge badge-primary" %>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
+	<% end %>
+<% end %>

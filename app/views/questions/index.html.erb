@@ -1,0 +1,31 @@
+<%= render "layouts/notice" %>
+
+<h1>Questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Text</th>
+      <th>Questionnaire</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%= question.category %></td>
+        <td><%= question.text %></td>
+        <td><%= question.questionnaire %></td>
+        <td><%= link_to 'Show', question %></td>
+        <td><%= link_to 'Edit', edit_question_path(question) %></td>
+        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_question_path %>

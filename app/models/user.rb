@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :chats, dependent: :destroy
   has_many :daily_logs, dependent: :destroy
   has_many :plans, dependent: :destroy
+  has_many :activities, through: :plans
   belongs_to :coach_user, optional: true
   has_many :invitations, dependent: :destroy
   has_many :bot_commands, dependent: :destroy

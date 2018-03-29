@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   # crono jobs route
   mount Crono::Web, at: '/crono'
   
+  # Building the questionnaire from web
+  resources :questionnaires
+  resources :campaigns
+  resources :invitations
+  
+  
   resources :communications do
     collection do
       get 'lasts/:id', to: 'communications#lasts', as: 'lasts'

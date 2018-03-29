@@ -1,0 +1,53 @@
+<%= form_for questionnaire do |form| %>
+    <% if questionnaire.errors.any? %>
+        <div id="error_explanation">
+          <h2>Gli <b>errori</b> che non hanno permesso di salvare il questionario:</h2>
+
+          <ul>
+            <% questionnaire.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :title, 'Titolo* (tutti i questionari devono avere titoli diversi)' %>
+      <%= form.text_field :title, id: :questionnaire_title, class: 'form-control', placeholder: 'Inserisci Titolo' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.nested_fields_for :questionnaire_questions do |f| %>
+          <div class="fields-for form-group">
+            <div class="questions-area">
+              <%= f.label :text, 'Testo Domanda*' %><br>
+              <%= f.text_area :text, :rows => 3, class: 'question-text-area' %>
+              <%= f.remove_nested_fields_link 'Cancella Domanda', class: 'badge badge-danger'%>
+              <div class="options-area">
+                <%= f.nested_fields_for :options do |ff| %>
+                    <div class="fields-for form-group">
+                      <%= ff.label :text, 'Risposta*' %><br>
+                      <%= ff.text_field :text %>
+                      <%= ff.remove_nested_fields_link 'Cancella Risposta', class: 'badge badge-danger'%>
+                    </div>
+                <% end %>
+                <%= f.add_nested_fields_link :options, 'Aggiungi Risposta', class: 'badge badge-success' %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <%= form.add_nested_fields_link :questionnaire_questions, 'Aggiungi Domanda', class: 'badge badge-success' %>
+    </div>
+
+    <small id="emailHelp" class="form-text text-muted">I campi segnati con * sono obbligatori!</small>
+    <br>
+
+    <div class="actions">
+      <% if questionnaire.new_record? %>
+          <%= form.submit 'Crea Questionnario', class: 'btn btn-success' %>
+      <% else %>
+          <%= form.submit 'Modifica Questionnario', class: 'btn btn-success' %>
+      <% end %>
+    </div>
+    <%#= link_to_add_fields('Aggiungi Domanda', form, :questions) %>
+<% end %>

@@ -74,6 +74,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @plans = @user.plans.where(:delivered => 4)
   end
+
+ 
   
   def get_charts_data
     user = User.find(params[:id])

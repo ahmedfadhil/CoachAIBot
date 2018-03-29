@@ -1,0 +1,19 @@
+
+    <% capture do %>
+        <%= render "layouts/notice" %>
+        <div style="padding-bottom: 25px;">
+          <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">
+                <%= link_to "Questionari", questionnaires_path %>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Nuovo
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div style="max-width: 800px">
+          <%= render 'form', questionnaire: @questionnaire %>
+        </div>
+    <% end %>

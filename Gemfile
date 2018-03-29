@@ -18,8 +18,6 @@ gem 'aasm', '~> 4.12', '>= 4.12.3'
 # A discard gem to be used in archived users
 gem 'discard'
 
-gem 'record_tag_helper', '~> 1.0'
-
 # Custom error page
 # #Gemfile
 # gem 'exception_handler', '~> 0.7.7.0'
@@ -35,6 +33,7 @@ gem 'xport'
 gem 'crono'
 gem 'daemons' #used by crono
 
+gem 'record_tag_helper', '~> 1.0'
 # cron jobs web ui
 gem 'haml'
 gem 'sinatra', require: nil
@@ -131,7 +130,13 @@ gem 'rails-assets-jquery'
 gem 'material_design_lite-rails', '~> 1.3'
 gem 'rails-assets-mdl-selectfield'
 gem 'rails-assets-polyfills'
+# Act As Taggable
+gem 'acts-as-taggable-on', '~> 5.0'
 
+# handle exceptions in models
+gem 'exception_handler', '~> 0.7.7.0'
+# Nested Form Fields
+gem 'nested_form_fields'
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
