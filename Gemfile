@@ -8,6 +8,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Nested Form Fields
+gem 'nested_form_fields'
+
 # use svg files in views
 #gem 'inline_svg'
 
@@ -135,8 +138,7 @@ gem 'acts-as-taggable-on', '~> 5.0'
 
 # handle exceptions in models
 gem 'exception_handler', '~> 0.7.7.0'
-# Nested Form Fields
-gem 'nested_form_fields'
+
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'

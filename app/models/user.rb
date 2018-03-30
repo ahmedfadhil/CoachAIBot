@@ -30,6 +30,8 @@ class User < ApplicationRecord
   
   GenderType = ['maschio', 'femmina']
   validates_inclusion_of :gender, in: GenderType
+
+    acts_as_taggable
   
   def age_has_to_be_positive
     unless self.age.nil?

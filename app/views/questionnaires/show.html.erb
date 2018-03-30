@@ -1,16 +1,21 @@
-<%= cell(:navigation, {email: current_user.email, title: "Benvenuto utente"}.to_dot.freeze).(:navigation) do %>
-	<% capture do %>
-	<%= render "layouts/notice" %>
-		<div style="padding-bottom: 25px;">
-			<nav aria-label="breadcrumb" role="navigation">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item active" aria-current="page">
-						<%= link_to "Questionari", questionnaires_path %>
-					</li>
-					<li class="breadcrumb-item active" aria-current="page"><%= @questionnaire.title %></li>
-				</ol>
-			</nav>
-		</div>
-		<%= cell(:questionnaire, @questionnaire).(:show) %>
-	<% end %>
-<% end %>
+
+    <% @questionnaire.questionnaire_questions.each do |question| %>
+      <div style="padding-bottom: 32px">
+        <div style="width: -moz-fit-content; width: -webkit-fit-content; width: fit-content; padding-bottom: 8px">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <%= question.text %>
+            </li>
+          </ul>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <% question.options.each do |option| %>
+            <button type="button" class="btn btn-primary">
+              <%= option.text %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+

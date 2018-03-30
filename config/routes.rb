@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   
   # Building the questionnaire from web
   resources :questionnaires
-  resources :campaigns
+  
   resources :invitations
   
   

@@ -1,29 +1,27 @@
-<%= render "layouts/notice" %>
-
-<h1>Invitations</h1>
-
-<table>
-  <thead>
+<% if @campaigns.nil? %>
+  Non ci sono campagne
+<% else %>
+  <table>
+    <thead>
     <tr>
-      <th>Patient</th>
-      <th>Campaign</th>
+      <th>Nome Campagna</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
-    <% @invitations.each do |invitation| %>
+    <tbody>
+    <% @campaigns.each do |c| %>
       <tr>
-        <td><%= invitation.patient %></td>
-        <td><%= invitation.campaign %></td>
-        <td><%= link_to 'Show', invitation %></td>
-        <td><%= link_to 'Edit', edit_invitation_path(invitation) %></td>
-        <td><%= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= c %></td>
+        <td><%= link_to 'Show', invitation_path(id: 0, title: c) %></td>
+        <td><%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
+
+<% end %>
 
 <%= link_to 'New Invitation', new_invitation_path %>

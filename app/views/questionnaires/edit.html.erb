@@ -1,20 +1,13 @@
-<%= cell(:navigation, {email: current_user.email, title: "Benvenuto utente"}.to_dot.freeze).(:navigation) do %>
-    <% capture do %>
-        <%= render "layouts/notice" %>
-        <div style="padding-bottom: 25px;">
-          <nav aria-label="breadcrumb" role="navigation">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item active" aria-current="page">
-                <%= link_to "Questionari", questionnaires_path %>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Modifica Questionario <%= @questionnaire.title %>
-              </li>
-            </ol>
-          </nav>
-        </div>
-        <div style="max-width: 800px">
-          <%= render 'form', questionnaire: @questionnaire %>
-        </div>
-    <% end %>
-<% end %>
+<%= provide(:title, "Modifica Questionario") %>
+<div>
+  <%#= cell(:user_menu, nil) %>
+  <div>
+    <%= render 'form', questionnaire: @questionnaire %>
+  </div>
+</div>
+</div>
+
+
+
+
+

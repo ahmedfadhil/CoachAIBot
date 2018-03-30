@@ -28,6 +28,8 @@
                     <div class="fields-for form-group">
                       <%= ff.label :text, 'Risposta*' %><br>
                       <%= ff.text_field :text %>
+                      <%= ff.label :score, 'Punteggio*' %><br>
+                      <%= ff.number_field :score, in: 1.0..20.0, step: 1 %>
                       <%= ff.remove_nested_fields_link 'Cancella Risposta', class: 'badge badge-danger'%>
                     </div>
                 <% end %>

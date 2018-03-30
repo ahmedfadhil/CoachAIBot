@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def index
     @users = User.where('coach_user_id = ? AND state <> ?', current_coach_user.id, ARCHIVED)
     @users = @users.paginate(:page => params[:page], per_page: 12).order('created_at DESC')
-    
+  
   end
   
   def new
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-   
+  
   end
   
   def features
@@ -74,8 +74,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @plans = @user.plans.where(:delivered => 4)
   end
-
- 
+  
   
   def get_charts_data
     user = User.find(params[:id])
@@ -151,19 +150,37 @@ class UsersController < ApplicationController
   end
   
   
+  # Download data into csv
+  # def saveAllData
+  #   csv = UserExport.allData.to_csv.string
+  #   send_data(csv,
+  #             filename: 'allData.csv',
+  #             type: 'text/csv',
+  #             disposition: 'attachment')
+  # end
+  
   private
   
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :cellphone, :age,:patient_objective,:gender)
+    params.require(:user).permit(:first_name, :last_name, :email, :cellphone, :age, :patient_objective, :gender,
+                                 :height, :weight, :blood_type, :tag_list)
   end
   
   def assign_questionnaires(user)
-    Questionnaire.where(initial: true).each do |questionnaire|
-      Invitation.create(user: user, questionnaire: questionnaire, completed: false)
+    params[:questionnaires_ids].each do |id|
+      questionnaire = Questionnaire.find(id)
+      if Questionnaire.where(initial: false)
+        Invitation.create(user: user, questionnaire: questionnaire, completed: false)
+      else
+        Questionnaire.where(initial: true).each do |questionnaire|
+          Invitation.create(user: user, questionnaire: questionnaire, completed: false)
+        end
+      end
     end
   end
   
-  def create_command_data(user)
+  
+    def create_command_data(user)
     BotCommand.create(data: {}.to_json, user: user)
   end
 

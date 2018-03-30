@@ -9,6 +9,15 @@ class Notifier
   def init
     puts 'Ready to notify!'
   end
+
+  def notify_new_questionnaire(user)
+    ap 'Looking for users to be notified for progress...'
+    if user.state == REGISTERED
+      message = "Ciao #{user.first_name}! C'è un nuovo questionnario che devi compilare! Controlla la sezione
+Questionari!"
+    end
+    send_message(user, message)
+  end
   
   # Notify user progress every 10 days
   # User.humans.where("? <= created_at AND created_at <= ?", 10.days.ago.beginning_of_day, 10.days.ago.end_of_day)

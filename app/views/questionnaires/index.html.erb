@@ -1,16 +1,32 @@
-<%= cell(:navigation, {email: current_user.email, title: "Benvenuto utente"}.to_dot.freeze).(:navigation) do %>
-	<% capture do %>
-		<%= render "layouts/notice" %>
-		<div style="padding-bottom: 25px;">
-			<nav aria-label="breadcrumb" role="navigation">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item active" aria-current="page">Questionari</li>
-				</ol>
-			</nav>
-		</div>
-    <div style="padding-bottom: 25px;">
-      <%= link_to 'Nuovo Questionario', new_questionnaire_path, class: "btn btn-success" %>
-    </div>
-		<%= cell(:questionnaire_table, @questionnaires).(:show) %>
-	<% end %>
-<% end %>
+
+<table class="table">
+  <thead class="thead-light">
+  <tr>
+    <th>Titolo</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% Questionnaire.all.each do |questionnaire| %>
+    <tr>
+      <td>
+        <%= questionnaire.title %>
+      </td>
+      <td>
+        <%= link_to "Mostra", questionnaire_path(questionnaire), class: "badge badge-primary" %>
+      </td>
+      <td>
+        <%= link_to "Modifica", edit_questionnaire_path(questionnaire), class: "badge badge-success" %>
+      </td>
+      <td>
+        <%= link_to "Elimina", questionnaire_path(questionnaire), class: "badge badge-danger", method: :delete,
+                    data: {confirm: "Sei sicuro di voler eliminare il Questionario #{questionnaire.title}?" +
+                        "Una volta cancellato non potrai più ripristinarlo!"}%>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
