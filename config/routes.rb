@@ -10,7 +10,13 @@ Rails.application.routes.draw do
   resources :questionnaires
   
   resources :invitations
-  
+#   do
+#   collection do
+#     get 'save_all_questionnaire_data', to: 'invitations#save_all_questionnaire_data', as: 'save_all_questionnaire_data'
+#     # get 'saveUserData/:id', to: 'activities#saveUserData', as: 'saveUserData'
+#   end
+# end
+#
   
   resources :communications do
     collection do
@@ -64,7 +70,7 @@ Rails.application.routes.draw do
       get 'get_scores', to: 'users#get_scores', as: 'get_scores'
       get 'get_images', to: 'users#get_images', as: 'get_images'
       get 'archive/:id', to: 'users#archive', as: 'archive'
-      get 'restore/:id', to: 'users#restore', as: 'restore'
+    
     end
   end
   

@@ -5,11 +5,21 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires
   def index
     @questionnaires = Questionnaire.all
+
+    respond_to do |format|
+      format.html
+      format.csv {send_data @questionnaires.to_csv}
+    end
   end
   
   # GET /questionnaires/1
   def show
     @questionnaire = Questionnaire.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.csv {send_data @questionnaire.to_csv}
+    end
   end
   
   # GET /questionnaires/new

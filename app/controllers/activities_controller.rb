@@ -6,7 +6,7 @@ class ActivitiesController < ApplicationController
   def show
     @activity = Activity.find(params[:id])
   
-    
+  
   end
   
   def index
@@ -20,7 +20,7 @@ class ActivitiesController < ApplicationController
   def create
     activity = Activity.new activity_params
     if activity.save
-      flash[:OK] = 'La tua attivita\' e\' stata AGGIUNTA con successo!'
+      flash[:OK] = 'La tua attività è stata AGGIUNTA con successo!'
     else
       flash[:err] = "L'Attivita NON E' STATA INSERITA"
       flash[:errors] = activity.errors.messages
@@ -76,16 +76,21 @@ class ActivitiesController < ApplicationController
   
   # Download data into csv
   def saveAllData
+    
     csv = UserExport.allData.to_csv.string
+    User.find_each do |user|
+    csv << "\n Username: #{user.first_name} #{user.last_name} [User TAG: #{user.tag_list}]"
+    end
     send_data(csv,
               filename: 'allData.csv',
               type: 'text/csv',
               disposition: 'attachment')
   end
-
+  
   def saveUserData
-    user= User.find(params[:id])
+    user = User.find(params[:id])
     csv = UserExport.userData(user).to_csv.string
+    csv << "\n Username: #{user.first_name} #{user.last_name}[User TAG: #{user.tag_list}]"
     send_data(csv,
               filename: 'userData.csv',
               type: 'text/csv',

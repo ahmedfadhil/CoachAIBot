@@ -10,6 +10,13 @@ class UsersController < ApplicationController
   def index
     @users = User.where('coach_user_id = ? AND state <> ?', current_coach_user.id, ARCHIVED)
     @users = @users.paginate(:page => params[:page], per_page: 12).order('created_at DESC')
+    # @users = User.find(params[:id]).invitations.last.questionnaire.questionnaire_questions.last.options.last.score
+    
+    
+    respond_to do |format|
+      format.html
+      format.csv {send_data @users.to_csv}
+    end
   
   end
   
@@ -39,11 +46,24 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    
+    
+   
+    
+    # @user = User.find(params[:id]).invitations
+    
+    
+    respond_to do |format|
+      format.html
+      format.csv {send_data @user.to_csv}
+    end
   
   end
   
   def features
     @user = User.find(params[:id])
+  
+  
   end
   
   #archived users
@@ -159,6 +179,7 @@ class UsersController < ApplicationController
   #             disposition: 'attachment')
   # end
   
+  
   private
   
   def user_params
@@ -180,7 +201,7 @@ class UsersController < ApplicationController
   end
   
   
-    def create_command_data(user)
+  def create_command_data(user)
     BotCommand.create(data: {}.to_json, user: user)
   end
 

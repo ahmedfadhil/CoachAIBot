@@ -22,6 +22,19 @@ class UserExport < Xport::Export
     column :user_patient_objective do |row|
       row.user_patient_objective ? row.user_patient_objective : "Sconosciuto"
     end
+    column :user_height do |row|
+      row.user_height ? row.user_height : "Nullo"
+    end
+    column :user_weight do |row|
+      row.user_weight ? row.user_weight : "Nullo"
+    end
+    column :user_blood_type do |row|
+      row.user_blood_type ? row.user_blood_type : "Nullo"
+    end
+    
+
+    
+    
     # Plan data
     column :plan_id
     column :plan_name
@@ -56,6 +69,9 @@ class UserExport < Xport::Export
       users.email as user_email,
       users.py_cluster as user_cluster,
       users.patient_objective as user_patient_objective,
+      users.height as user_height,
+      users.weight as user_weight,
+      users.blood_type as user_blood_type,
       plans.id as plan_id,
       plans.name as plan_name,
       plans.desc as plan_desc,
@@ -75,7 +91,7 @@ class UserExport < Xport::Export
   
   def self.allData
     # activites = Activity.joins(:plans, :users).select(select_options)
-    activites = Activity.joins(:plans, :users).select(SELECT_OPTIONS).order('users.id','plans.id','activities.id')
+    activites = Activity.joins(:plans, :users).select(SELECT_OPTIONS).order('users.id', 'plans.id', 'activities.id')
     new activites
   end
   
@@ -83,7 +99,8 @@ class UserExport < Xport::Export
     # activites = Activity.joins(:plans, :users).select(select_options)
     activites = Activity.joins(:plans, :users).select(SELECT_OPTIONS).where(users: {
         id: user.id
-    }).order('users.id','plans.id','activities.id')
+    }).order('users.id', 'plans.id', 'activities.id')
+    
     new activites
   end
 

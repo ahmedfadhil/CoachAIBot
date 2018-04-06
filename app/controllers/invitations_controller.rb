@@ -1,3 +1,4 @@
+require 'csv_data/user_export'
 class InvitationsController < ApplicationController
   layout 'profile'
   before_action :set_attributes, only: [:create]
@@ -5,8 +6,30 @@ class InvitationsController < ApplicationController
   # GET /invitations
   def index
     @campaigns = Invitation.where('campaign IS NOT NULL').map(&:campaign).uniq
+    @campaigns = Invitation.all
+    
+
+    respond_to do |format|
+      format.html
+      format.csv {send_data @campaigns.to_csv}
+      
+    end
+
+    
   end
 
+
+
+  #invitation = Invitation.find(params[:id]).questionnaire.questionnaire_questions
+  # Invitation.last.user
+  # Invitation.last.questionnaire_answers.last.questionnaire_question
+  # Invitation.last.questionnaire.questionnaire_questions.last.options
+  # Invitation.last.user.tag_list
+  #
+
+  
+  
+  
   # GET /invitations/1
   def show
     @campaign = {}
@@ -42,6 +65,31 @@ class InvitationsController < ApplicationController
   
   end
 
+
+  # Download data into csv
+  def save_all_questionnaire_data
+  
+    csv = QuestionnaireExport.all_questionnaire_data.to_csv.string
+    # User.find_each do |user|
+    #   csv << "\n Username: #{user.first_name} #{user.last_name} [User TAG: #{user.tag_list}]"
+    # end
+    send_data(csv,
+              filename: 'allQuestionnaireData.csv',
+              type: 'text/csv',
+              disposition: 'attachment')
+  end
+
+  # def saveUserData
+  #   user = User.find(params[:id])
+  #   csv = UserExport.userData(user).to_csv.string
+  #   csv << "\n Username: #{user.first_name} #{user.last_name}[User TAG: #{user.tag_list}]"
+  #   send_data(csv,
+  #             filename: 'userData.csv',
+  #             type: 'text/csv',
+  #             disposition: 'attachment')
+  # end
+  
+  
   private
   
   def set_attributes
