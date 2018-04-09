@@ -1,12 +1,12 @@
 class Questionnaire < ApplicationRecord
   has_many :invitations, dependent: :destroy
   has_many :questionnaire_questions, dependent: :destroy
-  belongs_to :user, dependent: :destroy
-  
+  #belongs_to :user, dependent: :destroy
+
   validates_uniqueness_of :title, message: "Esiste gia' un questionario con questo nome. Scegli un'atro nome!"
   accepts_nested_attributes_for :questionnaire_questions, allow_destroy: true, :reject_if => lambda {|attributes| attributes[:text].blank?}
-  
-  
+
+
   #
   # # Saving user data into a csv
   # def self.to_csv
@@ -20,11 +20,11 @@ class Questionnaire < ApplicationRecord
   #   end
   # end
   #
-  
-  
+
+
   # Saving user data into a csv
   CSV_HEADER = %w[id title desc completed initial]
-  
+
   def self.to_csv
     CSV.generate do |csv|
       csv << CSV_HEADER
@@ -37,7 +37,7 @@ class Questionnaire < ApplicationRecord
             questionniare.completed,
             questionniare.initial,
             "XXX #{questionniare.questionnaire_question_ids.join(';')}",
-        
+
         # user.hobbies.pluck(:title).join(', ')
         ].uniq
         csv << CSV_HEADER
