@@ -12,6 +12,7 @@ question_hash = {
 }
 
 questionnaire = Questionnaire.create(title: title, initial: true)
+questionnaire.save!
 
 question_hash.each { |key, value|
   question = questionnaire.questionnaire_questions.create(text: key)

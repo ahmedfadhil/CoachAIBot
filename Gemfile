@@ -8,6 +8,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'dotenv-rails', groups: [:development, :test]
+
 # Nested Form Fields
 gem 'nested_form_fields'
 
@@ -159,7 +161,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  
+
   # Refactoring classes names
    gem 'rails_refactor', '~> 1.3'
 
