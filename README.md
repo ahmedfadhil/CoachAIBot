@@ -100,3 +100,5 @@ password:   12345678
 Print the erd schema:
 ```rake erd```
 And visualize erd.pdf
+
+Fitbit task to run every hour or so to pull the data from the fitbit server: ```rake fitbit:pull_data```

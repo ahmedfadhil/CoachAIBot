@@ -1,5 +1,1 @@
-<%= cell(:layout, section: "Dispositivi Indossabili", title: "Rapporto settimanale: #{@user.first_name} #{@user.last_name}").() do %>
-	<% capture do %>
-		<%= cell(:weekly_report, @user).(:chart) %>
-	<% end %>
-<% end %>
+<%= cell(:weekly_report, @user).(:chart) %>

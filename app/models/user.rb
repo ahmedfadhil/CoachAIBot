@@ -46,6 +46,7 @@ class User < ApplicationRecord
   validates_inclusion_of :gender, in: GenderType
 
 	enum fitbit_status: {fitbit_disabled: 0, fitbit_invited: 1, fitbit_enabled: 2}
+	serialize :access_token, JSON
 
   acts_as_taggable
   # Saving user data into a csv

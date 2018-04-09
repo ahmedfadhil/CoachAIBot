@@ -18,5 +18,13 @@ Crono.perform(NotifierJob).every 1.day, at: {hour: 11, min: 10}
 # Notify Reminder for Feedback --> in the evening
 Crono.perform(FeedbackReminderJob).every 1.day, at: {hour: 20, min: 10}
 
+class FitbitPullData
+  def perform
+    Rake::Task['fitbit:pull_data'].invoke
+  end
+end
+
+Crono.perform(FitbitPullData).every 2.hour
+
 # in order to start crono as a daemon
 # bundle exec crono start RAILS_ENV=development
