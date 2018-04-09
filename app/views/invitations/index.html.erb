@@ -12,8 +12,8 @@
     <tbody>
     <% @campaigns.each do |c| %>
       <tr>
-        <td><%= c %></td>
-        <td><%= link_to 'Show', invitation_path(id: 0, title: c) %></td>
+        <td><%= c.campaign || "Non definito" %></td>
+        <td><%= link_to 'Show', invitation_path(c) %></td>
         <td><%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -25,5 +25,3 @@
 <% end %>
 
 <%= link_to 'New Invitation', new_invitation_path %><br>
-
-

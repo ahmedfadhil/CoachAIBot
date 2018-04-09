@@ -7,15 +7,15 @@ class InvitationsController < ApplicationController
   def index
     @campaigns = Invitation.where('campaign IS NOT NULL').map(&:campaign).uniq
     @campaigns = Invitation.all
-    
+
 
     respond_to do |format|
       format.html
       format.csv {send_data @campaigns.to_csv}
-      
+
     end
 
-    
+
   end
 
 
@@ -27,15 +27,15 @@ class InvitationsController < ApplicationController
   # Invitation.last.user.tag_list
   #
 
-  
-  
-  
+
+
+
   # GET /invitations/1
   def show
     @campaign = {}
-    @campaign[:title] = params[:title]
+    #@campaign[:title] = params[:title]
     push_users(@campaign)
-    @campaign[:tag_list] = Invitation.where(campaign: @campaign[:title]).first.tag_list
+    @campaign[:tag_list] = Invitation.find(params[:id]).tag_list
   end
 
   # GET /invitations/new
@@ -49,7 +49,7 @@ class InvitationsController < ApplicationController
   # POST /invitations
   def create
     User.tagged_with(@tag_list).each do |user|
-      
+
       invitation = Invitation.new(campaign: @title,questionnaire_id: @q_id,
                                   user_id: user.id, completed: false)
       invitation.tag_list = @tag_list
@@ -61,14 +61,16 @@ class InvitationsController < ApplicationController
   end
 
   # DELETE /invitations/1
-  def destroy
-  
-  end
+	def destroy
+	 # Remove the user id from the session
+	 @campaign = Invitation.find(params[:id]).destroy
+	 redirect_to invitations_path
+ end
 
 
   # Download data into csv
   def save_all_questionnaire_data
-  
+
     csv = QuestionnaireExport.all_questionnaire_data.to_csv.string
     # User.find_each do |user|
     #   csv << "\n Username: #{user.first_name} #{user.last_name} [User TAG: #{user.tag_list}]"
@@ -88,21 +90,21 @@ class InvitationsController < ApplicationController
   #             type: 'text/csv',
   #             disposition: 'attachment')
   # end
-  
-  
+
+
   private
-  
+
   def set_attributes
     @title = params[:campaign_title]
     @tag_list = params[:tag_list]
     @q_id = Questionnaire.where(title: params[:questionnaire_name]).first.id
   end
-  
+
   def push_users(campaign_hash)
     campaign_hash[:users] = []
     User.joins(:invitations).where('invitations.campaign = ?', @campaign[:title]).each do |user|
       campaign_hash[:users].push({'user_id' => user.id, 'name' => "#{user.first_name} #{user.last_name}"})
     end
   end
-  
+
 end
