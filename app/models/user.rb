@@ -235,9 +235,8 @@ gender height weight blood_type tag_list]
             "#{invitation.title}",
             "#{invitation.desc}",
             "#{invitation.completed}",
-
-           
-
+        
+        
         ].uniq
       
       end
@@ -250,10 +249,10 @@ gender height weight blood_type tag_list]
             " #{invitation.q_type}",
             " #{invitation.text}",
             " #{invitation.option_ids.join(';')}",
+        
+        
         # user_csv << ["#{first_name}s Answer"]
-      
-         
-      
+        
         
         # invitation.options.each do |option|
         # user_csv << [
@@ -264,12 +263,11 @@ gender height weight blood_type tag_list]
         
         ].uniq
         user_csv << ["Options & Score"]
-        invitation.options.each_with_index do |qq,index|
-          user_csv << ["Option #{index}"=> qq.text ,"Score" =>qq.score]
+        invitation.options.each_with_index do |qq, index|
+          user_csv << ["Option #{index}" => qq.text, "Score" => qq.score]
         end
-        
-        
-        
+      
+      
       end
       
       user_csv << ["Questionnaire options for: #{first_name} #{last_name}"]
@@ -278,20 +276,22 @@ gender height weight blood_type tag_list]
         user_csv << [
             "#{invitation.questionnaire_question_id}",
             "#{invitation.text}",
-            "#{invitation.score}"
+            "#{invitation.score}",
+            
+        
         ].uniq
+       
       end
       user_csv << [" Options for: #{first_name} #{last_name}s Answers"]
       user_csv << ["#{first_name}s answers"]
       questionnaire_answers.each_with_index do |invitation, index|
         
-        user_csv << ["Campaign"=>invitation.invitation_id,"Answer #{index}" =>invitation.text]
+        user_csv << ["Campaign" => invitation.invitation_id, "Answer #{index}" => invitation.text]
         # questionnaire_answers.each.questionnaire_question.options.score
-
+      
       end
     end
   end
-
   
   
   #   def self.to_csv
