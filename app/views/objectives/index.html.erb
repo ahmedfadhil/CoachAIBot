@@ -3,7 +3,7 @@
 	<section class="row text-center placeholders">
 		<% User.all.each do |user| %>
 			<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
-				<%= cell(:wearable, user).(:card) %>
+				<%= cell(:objectives, user).(:card) %>
 			</div>
 		<% end %>
 	</section>

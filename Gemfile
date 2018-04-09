@@ -19,6 +19,9 @@ gem 'nested_form_fields'
 # finite state machine for user <-> bot interaction
 # gem 'state_machines'
 gem 'aasm', '~> 4.12', '>= 4.12.3'
+# State Machines adds support for creating state machines for attributes on any Ruby class.
+gem 'state_machines'
+
 
 # A discard gem to be used in archived users
 gem 'discard'

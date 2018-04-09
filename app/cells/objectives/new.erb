@@ -1,0 +1,53 @@
+<div class="container" style="max-width: 800px">
+	<h1>
+		Nuovo allenamento:
+		<%= model.first_name %>
+		<%= " " %>
+		<%= model.last_name %>
+	</h1>
+	<%= form_for objective, url: create_user_objective_path(model), method: 'post' do |f| %>
+		<div class="form-group">
+			<%= f.label "Data inizo" %><br>
+			<%= f.text_field :start_date, type: "date", class: class_for(objective, :start_date) %>
+			<%= errors_for objective, :start_date %>
+		</div>
+		<div class="form-group">
+			<%= f.label "Data fine" %><br>
+			<%= f.text_field :end_date, type: "date", class: class_for(objective, :end_date) %>
+			<%= errors_for objective, :end_date %>
+		</div>
+		<div class="form-group">
+			<%= f.label "Attivita" %><br>
+			<%= f.select :activity, {"Passi" => "steps", "Distanza" => "distance"}, {}, class: "custom-select", style: "width: 100%" %>
+		</div>
+		<div class="form-group">
+			<%= f.label "Numero passi" %><br>
+			<%= f.text_field :steps, class: class_for(objective, :steps) %>
+			<%= errors_for objective, :steps %>
+		</div>
+		<div class="form-group">
+			<label>Distanza (Km)</label><br>
+			<%= f.text_field :distance, class: class_for(objective, :distance) %>
+			<%= errors_for objective, :distance %>
+		</div>
+		<br>
+		<%= f.submit "Crea allenamento", class: 'btn btn-primary' %>
+	<% end %>
+</div>
+
+<script>
+function toggle() {
+	activity = $('#objective_activity').val()
+	if (activity === "steps") {
+		$('#objective_distance').parents('div.form-group').hide()
+		$('#objective_steps').parents('div.form-group').show()
+	} else {
+		$('#objective_steps').parents('div.form-group').hide()
+		$('#objective_distance').parents('div.form-group').show()
+	}
+}
+
+$(toggle)
+$('#objective_activity').change(toggle)
+
+</script>

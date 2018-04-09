@@ -142,6 +142,29 @@ ActiveRecord::Schema.define(version: 20180330092727) do
     t.index ["planning_id"], name: "index_notifications_on_planning_id"
   end
 
+  create_table "objective_logs", force: :cascade do |t|
+    t.integer "steps"
+    t.decimal "distance"
+    t.bigint "objective_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["objective_id"], name: "index_objective_logs_on_objective_id"
+  end
+
+  create_table "objectives", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "scheduler"
+    t.integer "activity"
+    t.integer "steps"
+    t.integer "distance"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "fitbit_integration"
+    t.index ["user_id"], name: "index_objectives_on_user_id"
+  end
+
   create_table "options", force: :cascade do |t|
     t.string "text"
     t.bigint "questionnaire_question_id"
@@ -289,6 +312,7 @@ ActiveRecord::Schema.define(version: 20180330092727) do
   add_foreign_key "invitations", "questionnaires"
   add_foreign_key "invitations", "users"
   add_foreign_key "notifications", "plannings"
+  add_foreign_key "objective_logs", "objectives"
   add_foreign_key "options", "questionnaire_questions"
   add_foreign_key "plannings", "activities"
   add_foreign_key "plannings", "plans"

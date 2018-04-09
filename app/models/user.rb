@@ -13,6 +13,9 @@ class User < ApplicationRecord
 	#belongs_to :coach_user, optional: true
 	#has_many :invitations, dependent: :destroy
 	#has_many :bot_commands, dependent: :destroy
+	has_many :objectives
+	has_many :daily_logs
+
   has_many :communications, dependent: :destroy
   has_many :chats, dependent: :destroy
   has_many :daily_logs, dependent: :destroy
@@ -41,6 +44,8 @@ class User < ApplicationRecord
 
   GenderType = ['maschio', 'femmina']
   validates_inclusion_of :gender, in: GenderType
+
+	enum fitbit_status: {fitbit_disabled: 0, fitbit_invited: 1, fitbit_enabled: 2}
 
   acts_as_taggable
   # Saving user data into a csv
@@ -334,6 +339,25 @@ gender height weight blood_type tag_list]
   def has_delivered_plans?
     self.plans.where(:delivered => 1).count > 0
   end
+
+	def active_objective
+		objectives.find { |objective|
+			objective.start_date <= Date.today && Date.today <= objective.end_date
+		}
+	end
+
+	def scheduled_objectives
+		objectives.select { |objective|
+			objective.start_date > Date.today
+		}
+	end
+
+	def terminated_objectives
+		objectives.select { |objective|
+			objective.end_date < Date.today
+		}
+	end
+
 
   include AASM # Act As State Machine
 

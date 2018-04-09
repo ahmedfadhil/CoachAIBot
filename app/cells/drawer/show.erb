@@ -36,9 +36,12 @@
           <i class="material-icons">bubble_chart</i> COMUNICAZIONE
         <% end %>
     <hr width="50%" style="border-style: dotted;">
-    <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+    <%= link_to wearables_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
       <i class="material-icons">devices_other</i> INDOSSABILE
     <% end %>
+		<%= link_to objectives_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">devices_other</i> INDOSSABILE
+		<% end %>
     <hr width="50%" style="border-style: dotted;">
     <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
       <i class="material-icons">nature_people</i> APPUNTAMENTI
@@ -67,6 +70,3 @@
 
   </nav>
 </div>
-
-
-

@@ -1,0 +1,89 @@
+<div class="container" style="max-width: 800px">
+	<h1>
+		Allenamento #<%= model.id %>
+		:
+		<%= model.user.first_name %>
+		<%= " " %>
+		<%= model.user.last_name %>
+	</h1>
+	<% if active? %>
+		<div class="alert alert-primary" role="alert">
+			Stai visualizzando l'allenamento corrente per questo utente.<br>
+		</div>
+	<% elsif scheduled? %>
+		<div class="alert alert-warning" role="alert">
+			Questo allenamento è in programma e sarà attivato una volta raggiunta la data di inizio.
+		</div>
+	<% elsif terminated? %>
+		<div class="alert alert-warning" role="alert">
+			Questo allenamento è stato terminato.
+		</div>
+	<% end %>
+	<p><b>Impostazioni allenamento:</b></p>
+	<ul>
+		<li>
+			Metodo rilevazione progressi:
+			<% if model.fitbit_enabled? %>
+				Dispositivo indossabile
+			<% else %>
+				autonoma, tramite bot
+			<% end %>
+		</li>
+		<li>Data inizio: <%= formatted_start_date %></li>
+		<li>Data termine: <%= formatted_end_date %></li>
+		<li>Numero giornate: <%= length_in_days %></li>
+		<li>Tipologia obiettivo: <%= activity %></li>
+		<li>Quantità totale: <%= quantity %></li>
+		<% if model.activity == "steps" %>
+			<li>Media giornaliera: <%= daily_steps %></li>
+		<% end %>
+		<% if model.activity == "distance" %>
+			<li>Media giornaliera: <%= daily_distance %> Km</li>
+		<% end %>
+	</ul>
+	<hr>
+	<p><b>Aderenza utente:</b></p>
+	<ul>
+		<% if model.activity == "steps" %>
+			<li>Media passi giornaliera rilevata: <%= model.daily_steps_progress %></li>
+			<li>Totale passi rilevati: <%= model.steps_progress %></li>
+		<% end %>
+		<% if model.activity == "distance" %>
+			<li>Media distanza giornaliera rilevata: <%= model.daily_distance_progress %></li>
+			<li>Totale distanza rilevata: <%= model.distance_progress %></li>
+		<% end %>
+	</ul>
+	<hr>
+	<p><b>Attivita':</b></p>
+	<% if model.fitbit_enabled? %>
+		I progressi dell'utente rispetto agli obiettivi di questo allenamento vengono registrati tramite il dispositivo indossabile dell'utente.<br><br>
+		<%= link_to "Visualizza rapporto", show_wearable_path(model.user), class: 'btn btn-success' %>
+	<% else %>
+		<% if model.objective_logs.empty? %>
+			Non e' registrata nessuna attivita'
+		<% else %>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Data e ora</th>
+						<th scope="col">Quantita'</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% model.objective_logs.each do |log| %>
+					<tr>
+						<td><%= l(log.created_at, format: :long) %></td>
+						<td>
+							<% if model.steps? %>
+								<%= log.steps %>
+							<% else %>
+								<%= log.distance %>
+							<% end %>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
+	<% end %>
+</div>

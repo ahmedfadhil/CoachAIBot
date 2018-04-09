@@ -1,0 +1,21 @@
+<h1>
+	Rapporto:
+	<%= model.first_name %>
+	<%= " " %>
+	<%= model.last_name %>
+</h1>
+<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<%= nav_item "Rapporto settimanale", show_wearable_path(model), :week_repo %>
+	</li>
+	<li class="nav-item">
+		<%= nav_item "Rapporto mensile", monthly_report_path(model), :month_repo %>
+	</li>
+	<li class="nav-item">
+		<%= nav_item "Grafici settimanali", weekly_chart_path(model), :week_chart %>
+	</li>
+	<li class="nav-item">
+		<%= nav_item "Grafici mensili", monthly_chart_path(model), :month_chart %>
+	</li>
+</ul>
+<br>
