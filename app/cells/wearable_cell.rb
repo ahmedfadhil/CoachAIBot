@@ -27,13 +27,17 @@ class WearableCell < Cell::ViewModel
 
 	def show_button
 		if model.fitbit_enabled? && model.daily_logs.where("created_at >= ?", Time.zone.now.beginning_of_day).any?
-			link_to "Mostra", show_wearable_path(model), class: 'btn btn-primary'
+			link_to "Mostra", show_wearable_path(model), class: 'card-link btn-sm'
 		else
-			link_to "Mostra", show_wearable_path(model), class: 'btn btn-secondary disabled'
+			link_to "Mostra", show_wearable_path(model), class: 'card-link btn-sm disabled'
 		end
 	end
 
 	def edit_button
-		link_to "Modifica", edit_wearable_path(model), class: 'btn btn-warning'
+		link_to "Modifica", edit_wearable_path(model), class: 'card-link btn-sm'
+	end
+
+	def objectives_button
+		link_to "Obiettivi", user_objectives_path(model), class: 'card-link btn-sm'
 	end
 end

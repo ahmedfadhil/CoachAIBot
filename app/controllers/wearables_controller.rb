@@ -47,14 +47,14 @@ class WearablesController < ApplicationController
 			ga.send_reply(message2)
 			ga.send_reply(url)
 		}
-		redirect_to wearables_url(@user)
+		redirect_to wearables_url
 
 	end
 
 	def disable
 		@user = User.find(params[:id])
 		@user.fitbit_disabled!
-		redirect_to edit_wearable_url(@user)
+		redirect_to wearables_url
 		Thread.new {
 			message1 = "Gentile utente, l'integrazione con il tuo dispositivo indossabile è stata disabilitata"
 			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data || "{}"))

@@ -77,3 +77,17 @@ question_hash.each { |key, value|
     question.options.create(text: e)
   }
 }
+
+title = %Q(Registrazione Iniziale)
+question_hash = {
+    %Q(Sei in possesso di un dispositivo indossabile FITBIT?) => ["si","no"],
+}
+
+questionnaire = Questionnaire.create(title: title, initial: true)
+
+question_hash.each { |key, value|
+  question = questionnaire.questionnaire_questions.create(text: key)
+  value.each { |e|
+    question.options.create(text: e)
+  }
+}

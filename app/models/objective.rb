@@ -105,7 +105,7 @@ class Objective < ApplicationRecord
 		logs = user.daily_logs.select { |log|
 			log.date <= end_date && start_date <= log.date
 		}
-		return logs.map{ |e| e.distance }.inject(:+).floor(2) || 0
+		return (logs.map{ |e| e.distance }.inject(:+) || 0).floor(2) || 0
 	end
 
 	def distance_progress_log

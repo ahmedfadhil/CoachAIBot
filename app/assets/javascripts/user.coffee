@@ -390,9 +390,10 @@ $ ->
   addTips()
 
 
-  $ ->
-    flashCallback = ->
-      $(".alert").fadeOut()
-    $(".alert").bind 'click', (ev) =>
-      $(".alert").fadeOut()
-    setTimeout flashCallback, 9000
+
+#$ ->
+#  flashCallback = ->
+#    $(".alert").fadeOut()
+#  $(".alert").bind 'click', (ev) =>
+#    $(".alert").fadeOut()
+#  setTimeout flashCallback, 9000
