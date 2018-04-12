@@ -1,5 +1,7 @@
 require 'oauth2'
 require 'base64'
+require 'fitbit/client'
+require 'bot/general'
 
 class WearablesController < ApplicationController
 	before_action :authenticate_coach_user!, only: [:index, :show, :invite]
@@ -7,28 +9,57 @@ class WearablesController < ApplicationController
   layout 'profile'
 
 	def index
-		render layout: 'cell_application'
+		render layout: 'profile'
 	end
 
 	def show
 		@user = User.find(params[:id])
 	end
 
+	def monthly_report
+		@user = User.find(params[:id])
+	end
+
+	def weekly_chart
+		@user = User.find(params[:id])
+	end
+
+	def monthly_chart
+		@user = User.find(params[:id])
+	end
+
+	def edit
+		@user = User.find(params[:id])
+	end
+
 	def invite
 		@user = User.find(params[:id])
-
 		# create a new identity token for the selected user
 		@user.identity_token = SecureRandom.hex
 		@user.save!
-
+		@user.fitbit_invited!
 		url = wearables_fitbit_connect_url(token: @user.identity_token)
-		message1 = "Hai ricevuto un invito dal coach a collegare il tuo dispositivo indossabile"
-		message2 = "Perfavore visita il seguente indirizzo per continuare: #{url}"
+		Thread.new {
+			message1 = "Hai ricevuto un invito dal coach a collegare il tuo dispositivo indossabile"
+			message2 = "Perfavore visita il seguente indirizzo per continuare:"
+			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data || "{}"))
+			ga.send_reply(message1)
+			ga.send_reply(message2)
+			ga.send_reply(url)
+		}
+		redirect_to wearables_url
 
-		ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data))
-		ga.send_reply(message1)
-		ga.send_reply(message2)
-		redirect_to wearables_show_url(@user)
+	end
+
+	def disable
+		@user = User.find(params[:id])
+		@user.fitbit_disabled!
+		redirect_to wearables_url
+		Thread.new {
+			message1 = "Gentile utente, l'integrazione con il tuo dispositivo indossabile è stata disabilitata"
+			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data || "{}"))
+			ga.send_reply(message1)
+		}
 	end
 
 	def connect
@@ -39,9 +70,9 @@ class WearablesController < ApplicationController
 			cookies[:user_id] = user.id
 
 			# XXX move into .env file
-			client_id = '228M5L'
-			client_secret = 'ecec79fbdfec04ba40ba419186a3b25d'
-			redirect_uri = 'http://localhost:3000/users/auth/fitbit/callback'
+			client_id = Rails.application.secrets.fitbit_client_id
+			client_secret = Rails.application.secrets.fitbit_client_secret
+			redirect_uri = "#{request.protocol}#{request.host_with_port}/users/auth/fitbit/callback"
 
 			# make sure you point the client to /oauth2/authorize otherwise it won't work!
 			client = OAuth2::Client.new(client_id, client_secret, site: 'https://www.fitbit.com', authorize_url: '/oauth2/authorize')
@@ -61,20 +92,30 @@ class WearablesController < ApplicationController
 		if user_id.nil?
 			raise "Missing auth cookie, can't authenticate user"
 		end
-		user = User.find(user_id)
 
-		# XXX move into .env file and configuration
-		client_id = '228M5L'
-		client_secret = 'ecec79fbdfec04ba40ba419186a3b25d'
-		redirect_uri = 'http://localhost:3000/users/auth/fitbit/callback'
-		site = 'https://api.fitbit.com'
+		#Thread.new {
+			user = User.find(user_id)
+			user.fitbit_enabled!
 
-		client = OAuth2::Client.new(client_id, client_secret, site: site, authorize_url: '/oauth2/authorize', token_url: '/oauth2/token')
-		secret = encode_secret(client_id, client_secret)
-		access_token = client.auth_code.get_token(code, headers: {'Authorization' => "Basic #{secret}"}, redirect_uri: redirect_uri)
+			message1 = "Gentile utente, grazie per avere abilitato l'integrazione con il tuo dispositivo indossabile"
+			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data || "{}"))
+			ga.send_reply(message1)
 
-		user.access_token = access_token.to_hash
-		user.save!
+			# XXX move into .env file and configuration
+			client_id = Rails.application.secrets.fitbit_client_id
+			client_secret = Rails.application.secrets.fitbit_client_secret
+			redirect_uri = "#{request.protocol}#{request.host_with_port}/users/auth/fitbit/callback"
+			site = 'https://api.fitbit.com'
+
+			client = OAuth2::Client.new(client_id, client_secret, site: site, authorize_url: '/oauth2/authorize', token_url: '/oauth2/token')
+			secret = encode_secret(client_id, client_secret)
+			access_token = client.auth_code.get_token(code, headers: {'Authorization' => "Basic #{secret}"}, redirect_uri: redirect_uri)
+
+			user.access_token = access_token.to_hash
+			user.save!
+
+			#Fitbit::Client.pull_data("1m")
+		#}
 	end
 
 	private

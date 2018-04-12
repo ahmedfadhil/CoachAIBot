@@ -1,5 +1,10 @@
-<%= cell(:layout, "wearables").() do %>
-	<% capture do %>
-		<!--<p>What is this <b>bullshit?!</b></p>-->
-	<% end %>
-<% end %>
+<div class="container" style="max-width: 1200px">
+	<h1>Tutti gli utenti</h1>
+	<section class="row text-center placeholders">
+		<% User.all.sort_by { |e| User.fitbit_statuses[e.fitbit_status] }.reverse.each do |user| %>
+		<div class="col-6 col-sm-3 placeholder" style="padding-bottom: 30px">
+			<%= cell(:wearable, user).(:card) %>
+		</div>
+		<% end %>
+	</section>
+</div>

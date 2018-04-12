@@ -1,72 +1,41 @@
 <div class="drawer mdl-layout__drawer ">
-  <header class="drawer-header">
-    <%= link_to profile_index_path do %>
-      <%= image_tag 'logo.png', class: 'avatar head_sizing' %>
-      <br>
-      <a class="logo_text">CoachAI</a>
-    <% end %>
+	<header class="drawer-header">
+		<%= link_to profile_index_path do %>
+			<%= image_tag 'logo.png', class: 'avatar head_sizing' %>
+			<br>
+			<a class="logo_text">CoachAI</a>
+		<% end %>
+	</header>
+	<nav class="navigation mdl-navigation side_background icons">
+		<%= link_to profile_index_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons"> dashboard</i>DASHBOARD
+		<% end %>
+		<!--hr width="50%" style="border-style: dotted;"-->
+		<%= link_to users_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">people</i>PAZIENTI
+		<% end %>
+		<%= link_to activities_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">library_books</i> ATTIVITÀ
+		<% end %>
+		<%= link_to all_communications_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">bubble_chart</i> COMUNICAZIONE
+		<% end %>
+		<%= link_to wearables_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">devices_other</i> INDOSSABILE
+		<% end %>
+		<%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">nature_people</i> APPUNTAMENTI
+		<% end %>
+		<%= link_to questionnaires_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">forum</i> QUESTIONARI
+		<% end %>
+		<%= link_to show_coach_users_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900',	id: 'drawer-btn' do %>
+			<i class="material-icons">format_shapes</i>  ADMIN
+		<% end %>
 
-    <!--<div class="avatar-dropdown">-->
-      <!--<span id="admin-name"><#%= "#{coach.first_name} #{coach.last_name}" %></span>-->
-      <!--<div class="mdl-layout-spacer"></div>-->
-      <!--<button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button&#45;&#45;icon">-->
-        <!--<i class="material-icons" role="presentation">arrow_drop_down</i>-->
-        <!--<span class="visuallyhidden">Accounts</span>-->
-      <!--</button>-->
-      <!--<ul class="mdl-menu mdl-menu&#45;&#45;bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">-->
-        <!--<li class="mdl-menu__item"><i class="material-icons">email</i><#%= coach.email %> </li>-->
-      <!--</ul>-->
-    <!--</div>-->
-
-  </header>
-  <nav class="navigation mdl-navigation side_background icons">
-        <%= link_to profile_index_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons"> dashboard</i>DASHBOARD
-        <% end %>
-    <hr width="50%" style="border-style: dotted;">
-        <%= link_to users_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons">people</i>PAZIENTI
-        <% end %>
-    <hr width="50%" style="border-style: dotted;">
-        <%= link_to activities_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons">library_books</i> ATTIVITÀ
-        <% end %>
-    <hr width="50%" style="border-style: dotted;">
-        <%= link_to all_communications_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-          <i class="material-icons">bubble_chart</i> COMUNICAZIONE
-        <% end %>
-    <hr width="50%" style="border-style: dotted;">
-    <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-      <i class="material-icons">devices_other</i> INDOSSABILE
-    <% end %>
-    <hr width="50%" style="border-style: dotted;">
-    <%= link_to "#", class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-      <i class="material-icons">nature_people</i> APPUNTAMENTI
-    <% end %>
-    <hr width="50%" style="border-style: dotted;">
-    <%= link_to questionnaires_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id:
-        'drawer-btn' do %>
-      <i class="material-icons">forum</i> QUESTIONARI
-    <% end %>
-    <hr width="50%" style="border-style: dotted;">
-    <%= link_to show_coach_users_path(coach), class: 'drawer-link-text-size mdl-navigation__link
-    mdl-color-text--grey-900',
-                id: 'drawer-btn' do %>
-      <i class="material-icons">format_shapes</i>  ADMIN
-    <% end %>
-    <hr width="50%" style="border-style: dotted;">
-
-
-    <div class="mdl-layout-spacer"></div>
-    <hr width="50%" style="border-style: dotted;">
-    <%= link_to root_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id:
-        'drawer-btn' do %>
-      <i class="material-icons">home</i> HOME
-    <% end %>
-
-
-  </nav>
+		<div class="mdl-layout-spacer"></div>
+		<%= link_to root_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">home</i> HOME
+		<% end %>
+	</nav>
 </div>
-
-
-
