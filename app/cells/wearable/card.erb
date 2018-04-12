@@ -1,7 +1,12 @@
 <div class="card">
 	<%= image_tag profile_image, class: "card-img-top" %>
 	<div class="card-body">
-		<h4 class="card-title"><%= title %></h4>
+		<h4 class="card-title">
+			<%= title %>
+		</h4>
+		<% if fitbit_questionnaire_response %>
+			<i class="material-icons">watch</i>
+		<% end %>
 	</div>
 	<div class="card-body">
 		<%= status %>

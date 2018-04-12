@@ -40,4 +40,12 @@ class WearableCell < Cell::ViewModel
 	def objectives_button
 		link_to "Obiettivi", user_objectives_path(model), class: 'card-link btn-sm'
 	end
+
+	def fitbit_questionnaire_response
+		find_questionnaire_response("Registrazione Iniziale", "Sei in possesso di un dispositivo indossabile FITBIT?") == "si"
+	end
+
+	def find_questionnaire_response(title, question)
+		model.invitations.find { |e| e.questionnaire.title == title }.questionnaire_answers.find { |e| e.questionnaire_question.text == question }.text
+	end
 end
