@@ -19,6 +19,8 @@
 //= require mdl-selectfield
 //= require rails-ujs
 //= require nested_form_fields
+//= require moment
+//= require fullcalendar
 //= require_tree ./third_party
 //= require_tree ./third_party/bpopup
 //= require_tree ./third_party/tipped

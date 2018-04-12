@@ -131,6 +131,11 @@ gem 'hash_dot'
 # oauth2 client
 gem 'oauth2'
 
+
+# Full calender
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 ####
 gem 'rails-assets-eq.js'
 gem 'rails-assets-jquery'

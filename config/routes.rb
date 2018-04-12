@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'calendar/index'
+
+  resources :events
+  
   get 'errors/not_found'
 
   get 'errors/internal_server_error'
