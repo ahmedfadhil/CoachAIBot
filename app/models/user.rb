@@ -16,7 +16,7 @@ class User < ApplicationRecord
   has_many :bot_commands, dependent: :destroy
   has_many :questionnaires, through: :invitations, dependent: :destroy
   has_many :questionnaire_questions, through: :questionnaires, dependent: :destroy
-  # has_many :options, through: :questionnaire_questions, dependent: :destroy
+  has_many :options, through: :questionnaire_questions, dependent: :destroy
   has_many :questionnaire_answers, through: :questionnaire_questions, dependent: :destroy
   
   validates :telegram_id, uniqueness: true, allow_nil: true
