@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 # end
 #
 
+
+ 
+
   resources :communications do
     collection do
       get 'lasts/:id', to: 'communications#lasts', as: 'lasts'
@@ -110,7 +113,9 @@ Rails.application.routes.draw do
     collection do
       get 'coach_users/:id', to: 'coach_users#show', as: 'show'
     end
-    end
+  end
+
+ 
 
   # Webhooks
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'

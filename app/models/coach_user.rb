@@ -20,6 +20,7 @@ class CoachUser < ApplicationRecord
   validates :email, presence: { message: 'Email obbligatoria.' }, length: { maximum: 255, message: 'Email troppo lunga, massimo 255 caratteri' }, format: { with: VALID_EMAIL_REGEX, message: 'Email non valida, scegliere un email della forma esempio@myemail.org' }
   has_many :users
   has_many :chats
+  has_many :events
   has_many :communications, dependent: :destroy
 
 

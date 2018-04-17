@@ -14,6 +14,8 @@
 //= require eq.js.js
 //= require jquery
 //= require jquery-ui
+//= require jquery_ujs
+//= require turbolinks
 //= require highstock
 //= require material
 //= require mdl-selectfield
@@ -21,8 +23,11 @@
 //= require nested_form_fields
 //= require moment
 //= require fullcalendar
+//= require daterangepicker
 //= require_tree ./third_party
 //= require_tree ./third_party/bpopup
 //= require_tree ./third_party/tipped
 //= require_tree ./my_modules
 //= require_tree .
+
+

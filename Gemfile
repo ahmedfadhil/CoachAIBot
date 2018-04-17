@@ -71,7 +71,11 @@ gem 'prawn', '~> 2.2', '>= 2.2.2'
 gem 'highstock-rails'
 
 # jquery-UI
+gem 'jquery-rails'
 gem 'jquery-ui-rails'
+
+
+gem 'simple_form'
 
 # for polling service in notification task
 gem 'polling'
@@ -106,7 +110,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'coffee-rails', '~> 4.2'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5.x'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -132,9 +136,12 @@ gem 'hash_dot'
 gem 'oauth2'
 
 
-# Full calender
-gem 'fullcalendar-rails'
-gem 'momentjs-rails'
+
+
+# # Full calender
+# gem 'fullcalendar-rails'
+# gem 'momentjs-rails'
+
 
 ####
 gem 'rails-assets-eq.js'
