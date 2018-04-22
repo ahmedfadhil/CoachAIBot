@@ -5,6 +5,7 @@ class Activity < ApplicationRecord
   validates :a_type, presence: { message: 'Tipologia obbligatoria' }
   validates :n_times, presence: { message: 'Numero di volte obbligatoria' }
 
+  belongs_to :coach_user, optional: false, dependent: :destroy
   has_many :plannings, dependent: :destroy
   has_many :plans, :through => :plannings
   has_many :users, :through => :plans

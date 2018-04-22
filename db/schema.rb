@@ -20,9 +20,11 @@ ActiveRecord::Schema.define(version: 20180412150916) do
     t.string "desc"
     t.string "a_type"
     t.integer "n_times"
+    t.bigint "coach_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category"
+    t.index ["coach_user_id"], name: "index_activities_on_coach_user_id"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -309,6 +311,7 @@ ActiveRecord::Schema.define(version: 20180412150916) do
     t.index ["coach_user_id"], name: "index_users_on_coach_user_id"
   end
 
+  add_foreign_key "activities", "coach_users"
   add_foreign_key "answers", "questions"
   add_foreign_key "bot_commands", "users"
   add_foreign_key "chats", "coach_users"

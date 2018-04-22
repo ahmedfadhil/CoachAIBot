@@ -1,4 +1,6 @@
 CoachUser.create first_name: 'Admin', last_name: 'Admin', password: '12345678', email: 'user@example.com'
+CoachUser.create first_name: 'Admin2', last_name: 'Admin2', password: '12345678', email: 'user2@example.com'
+
 
 ### Creates Initial questionnaires
 

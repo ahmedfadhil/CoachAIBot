@@ -5,6 +5,7 @@ class CreateActivities < ActiveRecord::Migration[5.1]
       t.string :desc
       t.string :type
       t.integer :n_times
+      t.references :coach_user, foreign_key: true
 
       t.timestamps
     end

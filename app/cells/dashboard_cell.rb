@@ -29,7 +29,7 @@ class DashboardCell < Cell::ViewModel
   end
   
   def all_users
-    User.all.count
+    User.where(coach_user_id: model.id).count
   end
   
   def users_with_no_plan_count
@@ -57,11 +57,11 @@ class DashboardCell < Cell::ViewModel
   end
   
   def global_activities_count
-    Activity.all.count
+    Activity.where(coach_user_id: model.id).count
   end
   
   def activities_count(user)
-    Activity.joins(:plans).where(:plans => {:user_id => user.id}).count
+    Activity.where(coach_user_id: model.id).joins(:plans).where(:plans => {:user_id => user.id}).count
   end
   
   def user_id_link(user)

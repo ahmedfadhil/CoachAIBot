@@ -81,6 +81,7 @@ class PlanningsController < ApplicationController
       Activity.find(params['a_id'])
     else
       activity = Activity.new(params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times))
+      activity.coach_user = current_coach_user
       unless activity.save
         flash[:err] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
         flash[:errors] = activity.errors.messages

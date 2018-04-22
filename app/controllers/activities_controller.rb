@@ -10,7 +10,7 @@ class ActivitiesController < ApplicationController
   end
   
   def index
-    @activities = Activity.all
+    @activities = Activity.where(coach_user: current_coach_user)
   end
   
   def new
@@ -19,6 +19,7 @@ class ActivitiesController < ApplicationController
   
   def create
     activity = Activity.new activity_params
+    activity.coach_user = current_coach_user
     if activity.save
       flash[:OK] = 'La tua attività è stata AGGIUNTA con successo!'
     else
@@ -54,23 +55,23 @@ class ActivitiesController < ApplicationController
   end
   
   def diets
-    @activities = Activity.where(:category => 0)
+    @activities = Activity.where(:category => 0, coach_user: current_coach_user)
   end
   
   def physicals
-    @activities = Activity.where(:category => 1)
+    @activities = Activity.where(:category => 1, coach_user: current_coach_user)
   end
   
   def mentals
-    @activities = Activity.where(:category => 2)
+    @activities = Activity.where(:category => 2, coach_user: current_coach_user)
   end
   
   def medicinals
-    @activities = Activity.where(:category => 3)
+    @activities = Activity.where(:category => 3, coach_user: current_coach_user)
   end
   
   def others
-    @activities = Activity.where(:category => 4)
+    @activities = Activity.where(:category => 4, coach_user: current_coach_user)
   end
   
   
