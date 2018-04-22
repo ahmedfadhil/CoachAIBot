@@ -34,7 +34,7 @@ class QuestionnaireManager
   end
 
   def is_last_questionnaire?
-    Invitation.where(user: @user, completed: true).size == Questionnaire.count-1 ? true : false
+    Invitation.where(user: @user, completed: true).size == Invitation.where(user: @user).size-1 ? true : false
   end
 
   def is_last_question?
