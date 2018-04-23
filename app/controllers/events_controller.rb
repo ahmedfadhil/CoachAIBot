@@ -30,12 +30,16 @@ class EventsController < ApplicationController
     @event.destroy
   end
 
+	def reminders
+		@events = Event.where("start >= ?", Time.current - 10.minutes).where(coach_user: current_coach_user)
+	end
+
   private
   def set_event
     @event = Event.find(params[:id])
   end
 
   def event_params
-    params.require(:event).permit(:title, :date_range, :start, :end, :color)
+    params.require(:event).permit(:title, :date_range, :start, :end, :color, :reminder_type, :reminder_range)
   end
 end

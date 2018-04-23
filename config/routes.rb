@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get 'calendar/index'
-
+	get 'events/reminders'
   resources :events
-  
+
   get 'errors/not_found'
 
   get 'errors/internal_server_error'
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 #
 
 
- 
+
 
   resources :communications do
     collection do
@@ -115,7 +115,7 @@ Rails.application.routes.draw do
     end
   end
 
- 
+
 
   # Webhooks
   post '/webhooks/telegram_vbc43edbf1614a075954dvd4bfab34l1' => 'webhooks#callback'
