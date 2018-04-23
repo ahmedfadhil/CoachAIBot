@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412150916) do
+ActiveRecord::Schema.define(version: 20180423142637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(version: 20180412150916) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "coach_user_id"
+    t.index ["coach_user_id"], name: "index_events_on_coach_user_id"
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -319,6 +321,7 @@ ActiveRecord::Schema.define(version: 20180412150916) do
   add_foreign_key "communications", "coach_users"
   add_foreign_key "communications", "users"
   add_foreign_key "daily_logs", "users"
+  add_foreign_key "events", "coach_users"
   add_foreign_key "feedbacks", "notifications"
   add_foreign_key "feedbacks", "questions"
   add_foreign_key "invitations", "questionnaires"
