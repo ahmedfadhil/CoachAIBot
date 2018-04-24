@@ -31,7 +31,7 @@ class EventsController < ApplicationController
   end
 
 	def reminders
-		@events = Event.where("start >= ?", Time.current - 10.minutes).where(coach_user: current_coach_user)
+		@events = Event.where("start >= ?", Time.current - 10.minutes).where(coach_user: current_coach_user).where.not(reminder_type: 'disabled')
 	end
 
   private
