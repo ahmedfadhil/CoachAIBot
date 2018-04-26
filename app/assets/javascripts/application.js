@@ -14,8 +14,6 @@
 //= require eq.js.js
 //= require jquery
 //= require jquery-ui
-//= require jquery_ujs
-//= require turbolinks
 //= require highstock
 //= require material
 //= require mdl-selectfield

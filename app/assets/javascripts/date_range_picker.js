@@ -11,4 +11,5 @@ date_range_picker = function() {
         });
     })
 };
-$(document).on('turbolinks:load', date_range_picker);
+// $(document).on('turbolinks:load', date_range_picker);
+jQuery(document).ready(date_range_picker);
