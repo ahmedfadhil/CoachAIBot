@@ -14,3 +14,9 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+# def humanize(capitalize: false, keep_id_suffix: false)
+#   ActiveSupport::Inflector.humanize(self, capitalize: capitalize, keep_id_suffix: keep_id_suffix)
+# end
+#
+#
+#

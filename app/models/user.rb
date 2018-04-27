@@ -41,7 +41,6 @@ class User < ApplicationRecord
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: {message: "Email non puo' essere vuota."}, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX, message: "Formato dell'email non valido. Usare email della forma esempio@myemail.org"}
-
   GenderType = ['maschio', 'femmina']
   validates_inclusion_of :gender, in: GenderType
 

@@ -127,7 +127,7 @@ gem 'api-ai-ruby'
 gem 'telegram-bot-ruby'
 
 # chatscript wrapper
-gem 'chatscript'
+# gem 'chatscript'
 
 # very usefull for hash dot notation
 gem 'hash_dot'

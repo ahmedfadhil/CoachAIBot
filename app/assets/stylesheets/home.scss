@@ -109,7 +109,6 @@
   background-size: cover;
 }
 
-
 .miniback {
   //background: url('38.jpg') no-repeat center;
   background: url('17.jpg') no-repeat center;
@@ -449,9 +448,14 @@
 .user_card {
   width: 33% !important;
 }
-.notification_space{
-  top: calc(95% - 16px) !important;
+
+.notification_space {
+  margin-left: 56px;
+  margin-top: 17px;
+  z-index: -1;
+  position: relative;
 }
+
 .sub_menu_image {
   background-color: #eb982f;
   background: url("20.jpg") no-repeat !important;
@@ -558,7 +562,6 @@
 
 }
 
-
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
   border-bottom: 1px solid;
   border-top: 1px solid;
@@ -655,6 +658,12 @@
   background-color: #d46739 !important;
   color: #FFFFFF;
 }
+
+.button_questionnaire.btn-large {
+  background-color: #d46739 !important;
+  color: #FFFFFF;
+}
+
 
 .button_mentale.btn-large {
   background-color: #ff4a62 !important;

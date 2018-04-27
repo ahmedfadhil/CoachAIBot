@@ -1,3 +1,7 @@
+
+
+
+
 <div class="card card-profile user_card">
   <div class="card-avatar">
     <%= image_tag profile_photo_url, alt: 'paziente', class: 'img' %>
@@ -12,45 +16,65 @@
       <div class="card-content table-responsive">
         <table class="table table-hover">
           <thead>
-          <th>Età</th>
+          <th><i class="material-icons">cake</i></th>
           <th><%= user.age %></th>
           </thead>
           <tbody>
           <tr>
-            <td> Sesso</td>
+            <td> <i class="material-icons">wc</i></td>
             <td><%= user.gender %></td>
           </tr>
           <tr>
-            <% if user.patient_objective==nil %>
-            <td>Obiettivo del paziente</td>
-            <td>Non assegnato</td>
-              <% else %>
+            <% if user.patient_objective == nil %>
               <td>Obiettivo del paziente</td>
-            <td><%= user.patient_objective %></td>
-            <%end %>
+              <td>Non assegnato</td>
+            <% else %>
+              <td><i class="material-icons">golf_course</i></td>
+              <td><%= user.patient_objective %></td>
+            <% end %>
           </tr>
 
 
           <tr>
-            <td>Numero Cellulare</td>
+            <td><i class="material-icons">phone</i></td>
             <td><%= user.cellphone %></td>
           </tr>
           <tr>
-            <td> Email</td>
+            <td> <i class="material-icons">mail</i></td>
             <td><%= user.email %></td>
+          </tr>
+          <tr>
+            <td> <i class="material-icons">watch</i></td>
+            <% if user.fitbit_status = "fitbit_disabled" %>
+              <td>Disabilitato</td>
+            <% elsif user.fitbit_status = "fitbit_invited" %>
+              <td>invitato</td>
+            <% else %>
+              <td>abilitato</td>
+            <% end %>
 
-
+          </tr>
+          <tr>
+            <td> <i class="material-icons">border_vertical</i></td>
+            <td><%= "#{user.height} CM"%></td>
+          </tr>
+          <tr>
+            <td> <i class="material-icons">slow_motion_video</i></td>
+            <td><%= "#{user.weight} KG"%></td>
+          </tr>
+          <tr>
+            <td><i class="material-icons">add_location</i></td>
+            <td><%= user.blood_type %></td>
           </tr>
 
           <% unless user.py_cluster.nil? %>
             <tr>
 
-              <td>Classificazione del paziente</td>
+              <td><i class="material-icons">directions_run</i></td>
               <td class="font_style"><%= cluster %></td>
             </tr>
           <% end %>
 
-          <%= link_to 'Download CSV list', user_path(format: :csv) %>
           </tbody>
         </table>
 
@@ -58,8 +82,5 @@
     </div>
   </div>
 </div>
-
-
-
 
 
