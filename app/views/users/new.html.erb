@@ -91,7 +91,7 @@
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <i class="material-icons">wc</i>
                         <%= f.select(:blood_type) do %>
-                          <% [['O Negativo', 'o negativo'], ['O Positivo', 'o positivo']].each do |c| -%>
+                          <% [['O Negativo', 'o negativo'], ['O Positivo', 'o positivo'], ['A Negativo', 'a negativo'], ['A Positivo', 'a positivo'], ['B Negativo', 'b negativo'], ['B Positivo', 'b positivo'], ['AB Negativo', 'ab negativo'], ['AB Positivo', 'ab positivo'],].each do |c| -%>
                             <%= content_tag(:option, c.first, value: c.last) %>
                           <% end %>
                         <% end %>
@@ -118,12 +118,15 @@
                       da virgola', value: @user.tag_list.to_s %>
                     </div>
 
+                    <%#= f.collection_check_boxes :questionnaire_ids, Questionnaire.all, :id, :title %>
+
                     <div class="questionnaires-list">
                       <% Questionnaire.all.each do |questionnaire| %>
-                        <%= f.label questionnaire.title %> <br />
+                        <%= questionnaire.title %> <br />
                         <tr>
                           <td>
-                            <%= check_box_tag "questionnaires_ids[]", questionnaire.id %><br />
+
+                            <%= check_box_tag "questionnaires_ids[]", questionnaire.id, inline_label: questionnaire.title %><br />
                           </td>
                         </tr>
                       <% end %>

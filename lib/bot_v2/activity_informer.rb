@@ -55,10 +55,10 @@ class ActivityInformer
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', delivered_plans)
-    doc_name = "Piano di #{user.first_name} #{user.last_name}.pdf"
+    doc_name = "Piano di #{user.first_name} #{user.last_name}.pdfs"
 
     pdf = WickedPdf.new.pdf_from_string(
-        controller.render_to_string('users/user_plans', layout: 'layouts/pdf.html'),
+        controller.render_to_string('users/user_plans', layout: 'layouts/pdfs.html'),
         dpi: '250',
         # orientation: 'Landscape',
         viewport: '1280x1024',

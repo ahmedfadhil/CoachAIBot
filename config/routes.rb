@@ -71,12 +71,13 @@ Rails.application.routes.draw do
       get 'active'
       get 'archived'
       get 'suspended'
-      get ':id/get_plans.pdf', to: 'users#get_plans_pdf', as: 'get_plans_pdf'
-      get ':id/get_feedbacks_to_do_pdf.pdf', to: 'users#get_feedbacks_to_do_pdf', as: 'get_feedbacks_to_do_pdf'
+      get ':id/get_plans.pdfs', to: 'users#get_plans_pdf', as: 'get_plans_pdf'
+      get ':id/get_feedbacks_to_do_pdf.pdfs', to: 'users#get_feedbacks_to_do_pdf', as: 'get_feedbacks_to_do_pdf'
       get ':id/get_charts_data', to: 'users#get_charts_data', as: 'get_charts_data'
       get 'get_scores', to: 'users#get_scores', as: 'get_scores'
       get 'get_images', to: 'users#get_images', as: 'get_images'
       get 'archive/:id', to: 'users#archive', as: 'archive'
+      get 'restore/:id', to: 'users#restore', as: 'restore'
 
     end
   end
@@ -98,8 +99,8 @@ Rails.application.routes.draw do
     end
   end
 
-  # pdf
-  get '/pdf/user_plans_pdf', to: 'pdf#user_plans_pdf', as: 'user_plans_pdf'
+  # pdfs
+  get '/pdfs/user_plans_pdf', to: 'pdfs#user_plans_pdf', as: 'user_plans_pdf'
 
   get 'profile/index'
   get 'static_pages/help'

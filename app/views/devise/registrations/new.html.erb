@@ -1,12 +1,15 @@
 
 <%= form_for(resource, as: resource_name, url: coach_user_registration_path, html: { multipart: true }) do |f| %>
 
-  <%= devise_error_messages! %>
   <div class="section section-full-screen section-signup miniback">
     <div class="container">
+      <%#= devise_error_messages! %>
       <div class="row">
+
         <div class="col-md-4 col-md-offset-4">
+
           <div class="card card-signup login_card">
+
             <form class="form" method="" action="">
               <div class="header header-primary text-center">
                 <h2>CoachAI</h2>
@@ -68,7 +71,7 @@
 
               </div>
               <div class="footer text-center actions">
-                <%= f.submit "Sign up", class: 'btn btn-success btn-lg' %>
+                <%= f.submit "Sign up", class: 'btn btn-info btn-lg' %>
               </div>
             </form>
           </div>
@@ -78,13 +81,7 @@
     </div>
   </div>
 
-  <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col">
-      <div class="mdl-color-text--primary" style="float: right">
-        <%= render "devise/shared/links" %>
-      </div>
-    </div>
-  </div>
+
 <% end %>
 
 

@@ -41,7 +41,7 @@ class GeneralActions
 
 
   def send_doc(file_path)
-    @api.call('sendDocument', chat_id: @user.telegram_id, document: Faraday::UploadIO.new(file_path, 'pdf'))
+    @api.call('sendDocument', chat_id: @user.telegram_id, document: Faraday::UploadIO.new(file_path, 'pdfs'))
   end
 
   ######################

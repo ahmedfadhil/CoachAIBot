@@ -4,7 +4,7 @@
       <div class="row active-with-click">
         <div class="col-md-4 col-sm-6 col-xs-12 card_height">
           <article class="material-card Red">
-            <h2>
+            <h2 class="notification_space">
           <span class="card_center"> <%= user.last_name %> <%= " #{user.first_name}" %>
 </span>
               <%= link_to features_users_path(user), class: 'btn btn-info' do %>
@@ -121,28 +121,31 @@
 
       </div>
 
-      <div class="user-level container col-md-offset-3">
+      <div>
         <div class="user-card-n">
           <% if user.profiled? %>
             <% if user.py_cluster == 'HIGH' %>
               <a href="<%= features_users_path(user) %>">
 
-                <i class="material-icons md-36 molto">mood</i>
+                <i class="material-icons md-24 molto">mood</i>
                 Molto Attivo
 
               </a>
-              <#% elsif user.py_cluster == 'MEDIUM' %>
+              <% elsif user.py_cluster == 'MEDIUM' %>
               <a href="<%= features_users_path(user) %>">
 
-                <i class="material-icons md-36 moderate">sentiment_neutral</i>Moderatamente Attivo
+                <i class="material-icons md-24 moderate">sentiment_neutral</i>Moderatamente Attivo
 
               </a>
             <% elsif user.py_cluster == 'LOW' %>
               <a href="<%= features_users_path(user) %>">
 
-                <i class="material-icons md-36 pocco">mood_bad</i>Poco Attivo
+                <i class="material-icons md-24 pocco">mood_bad</i>Poco Attivo
+              </a>
+            <% else %>
+              <a href="<%= features_users_path(user) %>">
 
-
+                <i class="material-icons md-24">all_inclusive</i> Non definito
               </a>
             <% end %>
           <% end %>
@@ -151,7 +154,7 @@
 
 
           <button class="btn btn-danger btn-round btn-xs">
-            <div class='notification_count'> <%= user.communications.where(read_at: nil).count %> <i id="communications-badge" class="material-icons mdl-badge md-36">notifications</i></div>
+            <div class='notification_count'> <%= user.communications.where(read_at: nil).count %> <i id="communications-badge" class="material-icons mdl-badge md-24">notifications</i></div>
           </button>
 
 

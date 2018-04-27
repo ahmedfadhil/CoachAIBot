@@ -191,11 +191,11 @@ class FeedbackManager
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', plans)
-    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdf"
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdfs"
 
 
     pdf = WickedPdf.new.pdf_from_string(
-        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdf.html'),
+        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdfs.html'),
         dpi: '250',
         # orientation: 'Landscape',
         viewport: '1280x1024',

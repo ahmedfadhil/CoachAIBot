@@ -109,8 +109,10 @@
   background-size: cover;
 }
 
+
 .miniback {
-  background: url('38.jpg') no-repeat center;
+  //background: url('38.jpg') no-repeat center;
+  background: url('17.jpg') no-repeat center;
   background-size: cover;
   background-position: top center;
   min-height: 700px;
@@ -121,6 +123,7 @@
   opacity: 1;
   display: block;
   right: 0px;
+  padding-top: 13vh !important;
 }
 
 ///* Header */
@@ -148,17 +151,17 @@
 
 }
 
-.second_banner {
-  background: linear-gradient(#ffa32e, #dd3f5c, #39dd53), url('37.jpg') no-repeat center;
-  background-size: cover;
-  color: white;
-
-  //background: url('38.jpg');
-  margin-bottom: 0px;
-
-  background-position: 0% 25%;
-
-}
+//.second_banner {
+//  background: linear-gradient(#ffa32e, #dd3f5c, #39dd53), url('37.jpg') no-repeat center;
+//  background-size: cover;
+//  color: white;
+//
+//  //background: url('38.jpg');
+//  margin-bottom: 0px;
+//
+//  background-position: 0% 25%;
+//
+//}
 
 .card_image {
   background: url("dots-bg@2x copy.jpg") no-repeat center;
@@ -189,7 +192,7 @@
 .btn-banner {
   text-align: -webkit-center;
   /* margin-bottom: 22px; */
-  margin: auto;
+  //margin: auto;
   background: url("dots-bg@2x copy.jpg") no-repeat center;
   background-size: cover;
 
@@ -446,10 +449,12 @@
 .user_card {
   width: 33% !important;
 }
-
+.notification_space{
+  top: calc(95% - 16px) !important;
+}
 .sub_menu_image {
   background-color: #eb982f;
-  background: url("22.jpg") no-repeat !important;
+  background: url("20.jpg") no-repeat !important;
   background-size: cover !important;
 }
 
@@ -553,6 +558,7 @@
 
 }
 
+
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
   border-bottom: 1px solid;
   border-top: 1px solid;
@@ -579,7 +585,7 @@
 }
 
 .side_background {
-  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('37.jpg') no-repeat center;
+  background: linear-gradient(#ffffff, rgba(80, 87, 255, 0.5), #dd7625), url('28.jpg') no-repeat center;
   background-size: cover;
   background-position: center center;
 
@@ -602,6 +608,7 @@
 
 .login_card {
   margin-top: -118px !important;
+  line-height: 0px;
 }
 
 .dashboard_img_thumb {
@@ -747,7 +754,7 @@
 .dash_header {
   background-color: #FF9324 !important;
   font-size: larger;
-  background: url('15.jpg') center no-repeat;
+  background: url('17.jpg') center no-repeat;
   background-size: cover;
 }
 
@@ -844,7 +851,7 @@ a img {
 .android-header {
   overflow: visible;
   background-color: #FF9324;
-  background: url('8.jpg') center no-repeat;
+  background: url('17.jpg') center no-repeat;
   background-size: cover;
 
 }

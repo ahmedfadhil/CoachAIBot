@@ -1,57 +1,35 @@
 <% provide(:title, 'Home') %>
-
-
-
 <div class="wrapper">
   <div class="page-header section-dark">
     <div class="filter"></div>
     <div class="content-center">
       <div class="container">
-
       </div>
     </div>
-
-
   </div>
 </div>
-
 <div class="btn-banner">
   <div class="section">
+
   <% if coach_user_signed_in? %>
       <%= link_to profile_index_path, class: 'mdl-navigation__link' do %>
         <button  class="button main_button">
-          <i class="material-icons">chat</i> Accessi Dashboard
+          <i class="material-icons">chat</i> Accesso Dashboard
         </button>
       <% end %>
-
   <% else %>
-
-
-
-
       <button class="button" id="btn_login_1">
-        <span><a  data-toggle="tab" class="main_button"><i class="material-icons">chat</i> Accessi CoachAI</a></span>
+        <span><a  data-toggle="tab" class="main_button"><i class="material-icons">chat</i> Accesso CoachAI</a></span>
       </button>
-
-
-
     <!--</button>-->
     <!-- Element to pop up -->
     <div id="login_pop_up">
       <%= render 'home/login_form' %>
     </div>
-
   <% end %>
-
-
-</div>
 </div>
 
-
-<div class="banner">
-
 </div>
-
 <div class="section section-tabs home_bottom">
   <div class="container">
 

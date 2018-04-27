@@ -117,23 +117,23 @@
         <thead class="text-warning">
         <th>#</th>
         <th>Profilo</th>
-        <th>Piani</th>
+<!--        <th>Piani</th>-->
 
         </thead>
         <tbody>
-        <% users_with_plans[0..10].each_with_index do |user,index| %>
+        <% users_with_plans[0..9].each_with_index do |user,index| %>
           <tr>
             <td class="naming">
-              <%= link_to "#{index}", features_users_path(user) %>
+              <%= link_to "#{index+1}", features_users_path(user) %>
             </td>
             <td class="naming">
               <%= link_to "#{user.first_name} #{user.last_name}", features_users_path(user) %>
             </td>
-            <td>
-              <button class="btn btn-success btn-fab btn-round">
-                some
-              </button>
-            </td>
+<!--            <td>-->
+<!--              <button class="btn btn-success btn-fab btn-round">-->
+<!--                some-->
+<!--              </button>-->
+<!--            </td>-->
 
 
           </tr>
@@ -157,24 +157,25 @@
         <thead class="text-warning">
         <th>#</th>
         <th>Profilo</th>
-        <th>Piani</th>
+<!--        <th>Piani</th>-->
 
         </thead>
         <tbody>
-        <% users_with_no_plan[0..10].each_with_index do |user,index| %>
+        <% users_with_no_plan[0..9].each_with_index do |user,index| %>
+
           <tr>
 
             <td class="naming">
-              <%= link_to "#{index}", features_users_path(user) %>
+              <%= link_to "#{index+1}", features_users_path(user) %>
             </td>
             <td class="naming">
               <%= link_to "#{user.first_name} #{user.last_name}", features_users_path(user) %>
             </td>
-            <td>
-              <button class="btn btn-success btn-fab btn-round">
-                some
-              </button>
-            </td>
+<!--            <td>-->
+<!--              <button class="btn btn-success btn-fab btn-round">-->
+<!--                some-->
+<!--              </button>-->
+<!--            </td>-->
 
 
           </tr>

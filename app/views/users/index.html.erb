@@ -29,8 +29,16 @@
         <%= link_to new_user_path, class: 'mdl-navigation__link' do %>
           <button id="new-users" class="btn btn-success btn-lg">
             <i class="material-icons">create</i> &nbsp Nuovo Paziente
+
           </button>
         <% end %>
+
+        <%= link_to users_path(format: :csv), class: 'mdl-navigation__link' do %>
+          <button class="btn btn-info btn-lg">
+            <i class="material-icons">vertical_align_bottom</i> &nbsp scarica i dati degli utenti
+          </button>
+        <% end %>
+
 
         <!-- also here -->
       </div>
@@ -47,12 +55,14 @@
       <% end %>
 
 
-        <%= link_to 'Download CSV list', users_path(format: :csv) %>
+
     </div>
     </div>
 
+
   </div>
   <div class="mdl-grid mdl-cell--3-col">
+
     <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
   </div>
 

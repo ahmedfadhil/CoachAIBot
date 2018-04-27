@@ -4,17 +4,17 @@
 
   <body>
   <!--div class="se-pre-con"></div-->
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div class="mdl-js-layout mdl-layout--fixed">
 
       <%= cell(:home_header, coach_user_signed_in?) %>
-
-      <div class="mdl-layout__content">
+<!--Removed the extra scroll-->
+<!--    <div class="mdl-layout__content">-->
 
         <%= yield %>
 
+<!--    </div>-->
 
 
-      </div>
 
       <%= cell(:footer, 'footer') %>
 

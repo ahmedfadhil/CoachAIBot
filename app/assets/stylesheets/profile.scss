@@ -28,7 +28,8 @@
   padding: 3rem;
   background-color: #FF9324;
   text-align: center;
-  background: url('6.jpg') no-repeat center;
+  background: url('17.jpg') no-repeat center;
+  //background: url('6.jpg') no-repeat center;
   background-size: cover;
 }
 
@@ -138,6 +139,10 @@ html, body {
 }
 .mdl-layout__drawer .avatar {
   margin-bottom: 16px;
+}
+
+.extra_scroll_disabled{
+  overflow-y: -webkit-paged-x !important;
 }
 .drawer {
   border: none;

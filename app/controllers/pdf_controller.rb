@@ -1,5 +1,5 @@
 class PdfController < ApplicationController
-  layout 'pdf'
+  layout 'pdfs'
 
   def user_plans_pdf
 
@@ -8,9 +8,9 @@ class PdfController < ApplicationController
 
 =begin
 =end
-    pdf = WickedPdf.new.pdf_from_string(render_to_string('pdf/user_plans_pdf', layout: 'layouts/pdf.html'))
+    pdf = WickedPdf.new.pdf_from_string(render_to_string('pdfs/user_plans_pdf', layout: 'layouts/pdfs.html'))
     # save to a file
-    save_path = Rails.root.join('tmp','filename.pdf')
+    save_path = Rails.root.join('tmp','filename.pdfs')
     File.open(save_path, 'wb') do |file|
       file << pdf
     end
@@ -18,7 +18,7 @@ class PdfController < ApplicationController
 
 
     #save
-    render 'pdf/user_plans_pdf', layout: 'pdf'
+    render 'pdfs/user_plans_pdf', layout: 'pdfs'
 
   end
 
@@ -31,11 +31,11 @@ class PdfController < ApplicationController
   def save
     pdf = WickedPdf.new.pdf_from_string(
         render_to_string(
-            template: 'pdf/plans.pdf.erb',
-            layout: 'layouts/application.pdf.erb'))
+            template: 'pdfs/plans.pdfs.erb',
+            layout: 'layouts/application.pdfs.erb'))
     send_data(pdf,
-              filename: 'example.pdf',
-              type: 'application/pdf',
+              filename: 'example.pdfs',
+              type: 'application/pdfs',
               disposition: 'attachment')
   end
 

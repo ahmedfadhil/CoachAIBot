@@ -58,10 +58,10 @@ class GeneralActions
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', delivered_plans)
-    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-plans.pdf"
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-plans.pdfs"
 
     pdf = WickedPdf.new.pdf_from_string(
-        controller.render_to_string('users/user_plans', layout: 'layouts/pdf.html'),
+        controller.render_to_string('users/user_plans', layout: 'layouts/pdfs.html'),
         dpi: '250',
         # orientation: 'Landscape',
         viewport: '1280x1024',
@@ -81,11 +81,11 @@ class GeneralActions
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', plans)
-    doc_name = "#{user.last_name}#{user.first_name}-feedbacka.pdf"
+    doc_name = "#{user.last_name}#{user.first_name}-feedbacka.pdfs"
 
 
     pdf = WickedPdf.new.pdf_from_string(
-        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdf.html'),
+        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdfs.html'),
         dpi: '250',
         # orientation: 'Landscape',
         viewport: '1280x1024',
@@ -106,7 +106,7 @@ class GeneralActions
 
   def send_doc(file_path)
     @api.call('sendDocument', chat_id: @user.telegram_id,
-              document: Faraday::UploadIO.new(file_path, 'pdf'), reply_markup: GeneralActions.menu_keyboard)
+              document: Faraday::UploadIO.new(file_path, 'pdfs'), reply_markup: GeneralActions.menu_keyboard)
   end
 
   # static methods
