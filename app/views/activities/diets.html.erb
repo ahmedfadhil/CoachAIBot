@@ -1,0 +1,152 @@
+<div class="container">
+<h2>Diete</h2>
+
+
+
+
+  <div class="card-content">
+  <div class="tab-content">
+    <div class="tab-pane active" id="profile">
+      <table class="table card-content content_align table-responsive table-hover">
+        <thead class="text-warning">
+        <th>Nome Attività</th>
+        <th>Categoria</th>
+        <th>Tipologia</th>
+        <th>Modifica</th>
+        <th>Elimina</th>
+        </thead>
+        <tbody>
+        <% @activities.each do |a| %>
+          <tr>
+            <td><%= a.name %></td>
+            <td> <%= match_category(a.category) %> </td>
+            <td> <%= match_a_type(a.a_type) %> </td>
+            <td> <%= link_to activity_path(a), class: 'mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect' do %>
+                <button class="btn btn-sm btn-success">
+                  <i class="material-icons">important_devices</i> &nbsp Modifica
+                </button>
+              <% end %> </td>
+            <td> <%= link_to activity_path(a), method: 'delete',
+                             data: {confirm: 'Sei sicuro di voler eliminare l\'attivita\'? L\'attivita\'
+                                   potrebbe essere gia\' stata assegnata ad un paziente!'} do %>
+                <button class="btn btn-sm btn-danger">
+                  <i class="material-icons">delete</i> &nbsp Elimina
+                </button>
+              <% end %> </td>
+
+
+            </td>
+          </tr>
+        <% end %>
+
+        </tbody>
+      </table>
+    </div>
+    <% @activities.each do |a| %>
+      <div class="tab-pane " id="messages">
+        <table class="table table-responsive table-hover content_align">
+          <thead class="text-warning">
+
+          <th>Categoria</th>
+          <th>Count</th>
+          <th>Modifica</th>
+          <th>Elimina</th>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <div class="checkbox">
+                <label>
+                  <% if a.category = "0" %>
+                    <%= match_category(a.category) %>
+                  <% elsif a.category = "1" %>
+                    <%= match_category(a.category) %>
+                  <% elsif a.category = "2" %>
+                    <%= match_category(a.category) %>
+                  <% elsif a.category = "3" %>
+                    <%= match_category(a.category) %>
+                  <% else %>
+                    <%= match_category(a.category) %>
+                  <% end %>
+                </label>
+              </div>
+            </td>
+            <td>
+              <button class="btn btn-info btn-fab btn-round">
+                <%= Activity.count(a.category) %></button>
+            </td>
+            <td class="td-actions text-right">
+              <%= link_to activity_path(a) do %>
+                <button type="button" rel="tooltip" title="Modifica attività" class="btn btn-warning btn-fab btn-round">
+                  <i class="material-icons">edit</i>
+                </button>
+              <% end %>
+
+            </td>
+            <td><%= link_to activity_path(a), method: 'delete',
+                            data: {confirm: 'Sei sicuro di voler eliminare l\'attivita\'? L\'attivita\'
+                                                     potrebbe essere gia\' stata assegnata ad un paziente!'} do %>
+                <button type="button" rel="tooltip" title="Elimina attività" class="btn btn-danger btn-fab btn-round">
+                  <i class="material-icons">close</i>
+                </button>
+              <% end %></td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+    <% @activities.each do |a| %>
+      <div class="tab-pane" id="settings">
+        <table class="table table-responsive table-hover content_align">
+          <thead class="text-warning">
+
+          <th>Tipologia</th>
+          <th>Count</th>
+          <th>Modifica</th>
+          <th>Elimina</th>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <div class="checkbox">
+                <label>
+                  <% if a.a_type = "0" %>
+                    <%= match_a_type(a.a_type) %>
+                  <% elsif a.a_type = "1" %>
+                    <%= match_a_type(a.a_type) %>
+                  <% else %>
+                    <%= match_category(a.category) %>
+                  <% end %>
+
+                </label>
+              </div>
+            </td>
+            <td>
+              <button class="btn btn-info btn-fab btn-round">
+                <%= Activity.count(a.a_type) %></button>
+            </td>
+            <td class="td-actions text-right">
+              <%= link_to activity_path(a) do %>
+                <button type="button" rel="tooltip" title="Modifica attività" class="btn btn-warning btn-fab btn-round">
+                  <i class="material-icons">edit</i>
+                </button>
+              <% end %>
+
+            </td>
+            <td> <%= link_to activity_path(a), method: 'delete',
+                             data: {confirm: 'Sei sicuro di voler eliminare l\'attività? L\'attività
+                                                     potrebbe essere gia\' stata assegnata ad un paziente!'} do %>
+                <button type="button" rel="tooltip" title="Elimina attività" class="btn btn-danger btn-fab btn-round">
+                  <i class="material-icons">close</i>
+                </button>
+              <% end %></td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>

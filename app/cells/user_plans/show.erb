@@ -11,6 +11,9 @@
   <% end %>
 </div>
 
+
+
+
 <div class="col-lg-12 col-md-12">
 
 
@@ -45,6 +48,8 @@
       </div>
 
 
+
+
       <div id="user-plans-grid" class="mdl-grid" data-panel="true">
         <% plans.each do |plan| %>
           <div class="mdl-cell--12-col">
@@ -64,6 +69,17 @@
                 <%= cell(:plan_description, plan) %>
               </div>
 
+
+
+
+
+
+
+
+
+
+
+
               <% if plan.plannings.empty? %>
                 <i>Non sono presenti attivita' per questo piano al momento.</i>
               <% end %>
@@ -71,6 +87,18 @@
               <div class="plan-activities-container">
                 <div class="accordion">
                   <% plan.plannings.each do |planning| %>
+
+
+
+
+
+
+
+
+
+
+
+
                     <h3 data-position="id_<%= planning.id %>" class="activity_style">Attività:&nbsp;&nbsp;<b><%= planning.activity.name %></b>
 
 
@@ -151,3 +179,11 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+

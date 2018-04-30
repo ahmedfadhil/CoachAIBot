@@ -1,14 +1,46 @@
 <table class="description" id="activity-desc-table">
   <tr>
-    <td> <i>Descrizione: </i> </td>
-    <td> <b><%= planning.activity.desc %></b> </td>
+    <td><i>Descrizione: </i></td>
+    <td><b><%= planning.activity.desc %></b></td>
   </tr>
   <tr>
-    <td> <i>Categria: </i> </td>
-    <td> <b><%= ita_category(planning.activity.category) %></b> </td>
+    <td><i>Categria: </i></td>
+    <td><b><%= ita_category(planning.activity.category) %></b></td>
   </tr>
   <tr>
-    <td> <i>Frequenza: </i> </td>
-    <td> <b><%= planning.activity.n_times %> / <%= ita_type(planning.activity.a_type) %></b> </td>
+    <td><i>Frequenza: </i></td>
+    <td><b><%= planning.activity.n_times %> / <%= ita_type(planning.activity.a_type) %></b></td>
   </tr>
 </table>
+
+
+
+
+<!--<section class="mdl-grid" id="my-table">-->
+<!--  <div class="mdl-layout-spacer"></div>-->
+<!--  <div class="mdl-cell mdl-cell--6-col-tablet mdl-cell--10-col-desktop mdl-cell--stretch">-->
+
+<!--    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="activity-desc-table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th>Descrizione</th>-->
+<!--        <th>Categria</th>-->
+<!--        <th>Frequenza</th>-->
+
+
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr>-->
+<!--        <td><%#= planning.activity.desc %></td>-->
+<!--        <td><%#= ita_category(planning.activity.category) %></td>-->
+<!--        <td><%#= planning.activity.n_times %> / <%#= ita_type(planning.activity.a_type) %></td>-->
+
+
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--    <br>-->
+<!--  </div>-->
+<!--  <div class="mdl-layout-spacer"></div>-->
+<!--</section>-->
