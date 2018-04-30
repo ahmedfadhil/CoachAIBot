@@ -1,32 +1,66 @@
 
-<table class="table">
-  <thead class="thead-light">
-  <tr>
-    <th>Titolo</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
 
-  <tbody>
-  <% Questionnaire.all.each do |questionnaire| %>
-    <tr>
-      <td>
-        <%= questionnaire.title %>
-      </td>
-      <td>
-        <%= link_to "Mostra", questionnaire_path(questionnaire), class: "badge badge-primary" %>
-      </td>
-      <td>
-        <%= link_to "Modifica", edit_questionnaire_path(questionnaire), class: "badge badge-success" %>
-      </td>
-      <td>
-        <%= link_to "Elimina", questionnaire_path(questionnaire), class: "badge badge-danger", method: :delete,
-                    data: {confirm: "Sei sicuro di voler eliminare il Questionario #{questionnaire.title}?" +
-                        "Una volta cancellato non potrai più ripristinarlo!"}%>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+
+  <div class="container">
+    <h1>Questionario</h1>
+    <div class="row">
+      <div class="col-md-12 list-group">
+        <table class="table">
+          <tr class="table-header">
+            <th class="cell">#</th>
+            <th class="cell">Titolo</th>
+            <th class="cell">Mostra</th>
+            <th class="cell">Modifica</th>
+            <th class="cell">Elimina</th>
+            <th class="cell">Data di creazione</th>
+          </tr>
+          <% Questionnaire.all.each_with_index  do |questionnaire,index| %>
+          <tr  class="active">
+            <td><%= index+1 %></td>
+            <td>   <%= questionnaire.title %></td>
+            <td> <%= link_to "Mostra", questionnaire_path(questionnaire), class: "btn btn-sm btn-primary" %></td>
+            <td> <%= link_to "Modifica", edit_questionnaire_path(questionnaire), class: "btn btn-sm btn-success" %></td>
+            <td> <%= link_to "Elimina", questionnaire_path(questionnaire), class: "btn btn-sm btn-danger", method: :delete,
+                             data: {confirm: "Sei sicuro di voler eliminare il Questionario #{questionnaire.title}?" +
+                                 "Una volta cancellato non potrai più ripristinarlo!"} %></td>
+            <td><%= questionnaire.created_at.strftime("%D") %></td>
+          </tr>
+
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+ <style>
+   h1 {
+     font-size: 30px;
+   }
+
+   /*Table Style One*/
+   .table .table-header {
+     background: #FEC107;
+     color: #333;
+   }
+
+   .table .table-header .cell {
+     padding: 20px;
+   }
+
+   @media screen and (max-width: 640px) {
+     table {
+       overflow-x: auto;
+       display: block;
+     }
+
+     .table .table-header .cell {
+       padding: 20px 5px;
+     }
+   }
+ </style>
