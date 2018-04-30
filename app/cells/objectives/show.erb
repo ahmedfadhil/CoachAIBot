@@ -1,37 +1,88 @@
+<header class="profile_content_header mdl-layout__header sub_menu_image">
+
+
+  <nav class="mdl-navigation">
+
+
+    <div class="container">
+
+      <!--  buttons -->
+      <div id="buttons" class="cd-section">
+
+        <div class="row">
+          <div class="col-md-10 ml-auto mr-auto">
+
+
+
+
+
+            <%= link_to  weekly_chart_path(model), class: 'mdl-navigation__link' do %>
+              <button class="btn btn-success btn-large button_fisiche">
+                <i class="material-icons">device_hub</i> &nbsp Grafico settimanale dell'utente
+              </button>
+            <% end %>
+
+            <%= link_to monthly_chart_path(model), class: 'mdl-navigation__link' do %>
+              <button   class="btn btn-success btn-large button_fisiche">
+                <i class="material-icons">device_hub</i> &nbsp Grafico mensile dell'utente
+              </button>
+            <% end %>
+
+            <%= link_to monthly_report_path(model), class: 'mdl-navigation__link' do %>
+              <button   class="btn btn-success btn-large button_fisiche">
+                <i class="material-icons">devices_other</i> &nbsp Rapporto mensile dell'utente
+              </button>
+            <% end %>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+
 <div class="container" style="max-width: 800px">
-	<h1>
-		Allenamenti:
-		<%= model.first_name %>
-		<%= " " %>
-		<%= model.last_name %>
-	</h1>
-	<p>Allenamento corrente:</p>
-	<% if model.active_objective %>
-		<%= cell(:objective, model.active_objective).(:table) %>
-	<% else %>
-		<div class="alert alert-warning" role="alert">
-			Non vi è nessuno allenamento corrente al momento per questo utente.
-		</div>
-	<% end %>
-	<hr>
-	<p>Allenamenti programmati:</p>
-	<% if !model.scheduled_objectives.empty? %>
-		<%= cell(:objectives, model, objectives: model.scheduled_objectives).(:table) %>
-	<% else %>
-		<div class="alert alert-warning" role="alert">
-			Non vi è nessuno allenamento programmato al momento per questo utente.
-		</div>
-	<% end %>
-	<hr>
-	<p>Allenamento terminati:</p>
-	<% if !model.terminated_objectives.empty? %>
-		<%= cell(:objectives, model, objectives: model.terminated_objectives).(:table) %>
-	<% else %>
-		<div class="alert alert-warning" role="alert">
-			Non vi è nessuno allenamento terminato al momento per questo utente. Un allenamento sarà terminato nel momento in cui
-			la data di scadenza per quell'allenamento è superata.
-		</div>
-	<% end %>
-	<hr>
-	<%= link_to "Nuovo allenamento", new_user_objective_path(model), class: 'btn btn-primary' %>
+  <h1>
+    Allenamenti
+    (<%= model.first_name %>
+    <%= " " %>
+    <%= model.last_name %>)
+  </h1>
+  <p>Allenamento corrente:</p>
+  <% if model.active_objective %>
+    <%= cell(:objective, model.active_objective).(:table) %>
+  <% else %>
+    <div role="alert">
+      Non vi è nessuno allenamento corrente al momento per questo utente.
+    </div>
+  <% end %>
+  <hr>
+  <p>Allenamenti programmati:</p>
+  <% if !model.scheduled_objectives.empty? %>
+    <%= cell(:objectives, model, objectives: model.scheduled_objectives).(:table) %>
+  <% else %>
+    <div role="alert">
+      Non vi è nessuno allenamento programmato al momento per questo utente.
+    </div>
+  <% end %>
+  <hr>
+  <p>Allenamento terminati:</p>
+  <% if !model.terminated_objectives.empty? %>
+    <%= cell(:objectives, model, objectives: model.terminated_objectives).(:table) %>
+  <% else %>
+    <div role="alert">
+      Non vi è nessuno allenamento terminato al momento per questo utente. Un allenamento sarà terminato nel momento in
+      cui
+      la data di scadenza per quell'allenamento è superata.
+    </div>
+  <% end %>
+  <hr>
+  <%= link_to "Nuovo allenamento", new_user_objective_path(model), class: 'btn btn-primary' %>
+
 </div>

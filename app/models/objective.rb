@@ -55,7 +55,9 @@ class Objective < ApplicationRecord
 
 	def daily_steps
 		days = TimeDifference.between(start_date, end_date).in_days.to_i
-		return steps / days
+		# (total == 0 ? 1 : total) "Which is another way"
+		return (steps|| 1) / (days || 1)
+
 	end
 
 	def daily_distance
@@ -75,7 +77,7 @@ class Objective < ApplicationRecord
 		days_obj = TimeDifference.between(start_date, end_date).in_days.to_i
 		days_now = TimeDifference.between(start_date, Time.now).in_days.to_i
 		days = [days_obj, days_now].min
-		return steps_progress / days
+		return steps_progress|| 1 / days
 	end
 
 	def steps_progress

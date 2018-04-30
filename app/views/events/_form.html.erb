@@ -10,29 +10,27 @@
 		</div>
 	<% end %>
 
-  <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %>
-    <%= f.input_field :start, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
-    <%= f.input_field :end, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
-    <%= f.input :color, as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']] %>
-		<%= f.input :reminder_type, as: :select, collection: [['Minuti','minutes'], ['Ore','hours'], ['Giorni','days'], ['Non notificare','disabled']] %>
-		<%= f.input :reminder_range %>
+  <div class="form-group form-group-lg">
+    <%= f.input :title ,label:'Titolo: ', class: 'form-control input-md end_hidden'%><br>
+    <%= f.input :date_range,label:'Intervallo di date: ', input_html: { class: "form-control input-sm date-range-picker" } %><br>
+    <%= f.input_field :start,label:'Inizio: ', as: :hidden, value: Date.today, class: 'form-control input-md start_hidden' %><br>
+    <%= f.input_field :end,label:'Fine: ', as: :hidden, value: Date.today, class: 'form-control input-md end_hidden' %><br>
+    <%= f.input :color,label:'Colore: ', as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']] %><br>
+		<%= f.input :reminder_type,label:'Tipo di promemoria: ', as: :select, collection: [['Minuti','minutes'], ['Ore','hours'], ['Giorni','days'], ['Non notificare','disabled']] %><br>
+		<%= f.input :reminder_range,label:'Durata: ', class: 'form-control input-md end_hidden' %>
   </div>
 
-  <div class="form-actions">
+  <div class="form-group form-group-lg">
 
     <%= link_to 'Delete',
                 event,
                 method: :delete,
                 class: 'btn btn-danger',
-                data: { confirm: 'Are you sure?' },
+                data: { confirm: 'Sei sicuro?' },
                 remote: true unless @event.new_record? %>
   </div>
-  <%= f.button :submit %>
+  <%= f.button :submit, 'Crea promemoria', class:"btn btn-md btn-success" %>
 <% end %>
-
-
 
 
 

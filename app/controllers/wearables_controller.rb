@@ -10,6 +10,9 @@ class WearablesController < ApplicationController
 
 	def index
 		render layout: 'profile'
+		# @wearables = Wearable.find(params[:id])
+		# @users = User.find(params[:id])
+		# @users = @users.paginate(:page => params[:page], per_page: 12).order('created_at DESC')
 	end
 
 	def show

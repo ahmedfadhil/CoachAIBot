@@ -103,8 +103,8 @@ Rails.application.routes.draw do
   get '/pdfs/user_plans_pdf', to: 'pdfs#user_plans_pdf', as: 'user_plans_pdf'
 
   get 'profile/index'
-  get 'static_pages/help'
-  get 'static_pages/about'
+  # get 'static_pages/help'
+  # get 'static_pages/about'
 
   devise_for :coach_users #, :controllers => {sessions: 'sessions'}
   get 'home/index'

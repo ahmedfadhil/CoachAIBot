@@ -30,24 +30,6 @@
                   </div>
 
                   <div id="name">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <i class="material-icons">wc</i>
-                    <%= f.select(:gender) do %>
-                      <% [['Maschio', 'maschio'], ['Femmina', 'femmina']].each do |c| -%>
-                        <%= content_tag(:option, c.first, value: c.last) %>
-                      <% end %>
-                    <% end %>
-                  </div>
-
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <i class="material-icons">edit_location</i>
-                      <%= f.text_field :patient_objective, class: 'mdl-textfield__input', placeholder: 'Obiettivo' %>
-                    </div>
-                  </div>
-
-
-                  <div id ="contact">
-
                     <div id="age">
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <i class="material-icons">cake</i>
@@ -56,6 +38,13 @@
                       </div>
                     </div>
 
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <i class="material-icons">edit_location</i>
+                      <%= f.text_field :patient_objective, class: 'mdl-textfield__input', placeholder: 'Obiettivo' %>
+                    </div>
+                  </div>
+
+                  <div id="name">
                     <div id="phone">
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <i class="material-icons">phonelink_ring</i>
@@ -71,11 +60,12 @@
                         <span class="mdl-textfield__error">Inserire un indirizzo email valido!</span>
                       </div>
                     </div>
-
+                  </div>
+                  <div id="name">
                     <div id="height">
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <%= f.label :height, 'Altezza*' %><br>
-                        <%= f.number_field :height, in: 0..3, step: 0.1 %>
+                        <%= f.number_field :height, in: 0..200, step: 0.1 %>
                       </div>
                     </div>
 
@@ -85,11 +75,22 @@
                         <%= f.number_field :weight, in: 0..300, step: 0.5 %>
                       </div>
                     </div>
+                  </div>
+
+                  <div id="name">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <i class="material-icons">wc</i>
+                      <%= f.select(:gender) do %>
+                        <% [['Maschio', 'maschio'], ['Femmina', 'femmina']].each do |c| -%>
+                          <%= content_tag(:option, c.first, value: c.last) %>
+                        <% end %>
+                      <% end %>
+                    </div>
 
 
                     <div id="blood_type">
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <i class="material-icons">wc</i>
+                        <i class="material-icons">add_location</i>
                         <%= f.select(:blood_type) do %>
                           <% [['O Negativo', 'o negativo'], ['O Positivo', 'o positivo'], ['A Negativo', 'a negativo'], ['A Positivo', 'a positivo'], ['B Negativo', 'b negativo'], ['B Positivo', 'b positivo'], ['AB Negativo', 'ab negativo'], ['AB Positivo', 'ab positivo'],].each do |c| -%>
                             <%= content_tag(:option, c.first, value: c.last) %>
@@ -97,12 +98,16 @@
                         <% end %>
                       </div>
                     </div>
+                  </div>
 
-                    <div class="alert alert-success" role="alert">
+<hr>
+                  <div id ="contact">
+
+                    <div role="alert">
                       Ad ogni nuovo paziente puoi associare dei TAG scegliendoli dalla lista sottostante oppure inventandotene di nuovi.
                     </div>
                     <!-- Ignore this shitty style in view! -->
-                    <ul class="list-group" style="clear: both; display: block; content: '';">
+                    <ul style="clear: both; display: block; content: '';">
                       <% if ActsAsTaggableOn::Tag.count == 0 %>
                         <li class="list-group-item list-group-item-success" >Non sono ancora presenti TAG nel sistema. Inizia ad inserirne con questo nuovo paziente.</li>
                       <% else %>
@@ -114,24 +119,65 @@
 
                     <br>
                     <div class="form-group">
-                      <%= f.text_field :tag_list, class: 'form-control', placeholder: 'Inserisci qui i TAG separati
-                      da virgola', value: @user.tag_list.to_s %>
+                      <%= f.text_field :tag_list, class: 'form-control', placeholder: 'Inserisci qui i TAG separati da virgola', value: @user.tag_list.to_s %>
                     </div>
 
                     <%#= f.collection_check_boxes :questionnaire_ids, Questionnaire.all, :id, :title %>
 
-                    <div class="questionnaires-list">
-                      <% Questionnaire.all.each do |questionnaire| %>
-                        <%= questionnaire.title %> <br />
-                        <tr>
-                          <td>
 
-                            <%= check_box_tag "questionnaires_ids[]", questionnaire.id, inline_label: questionnaire.title %><br />
-                          </td>
-                        </tr>
-                      <% end %>
+
+
+
+
+                    <div class="questionnaires-list">
+                      <!------ Include the above in your HEAD tag ---------->
+
+                      <main class="container pt-5 list-group">
+                        <div class="card mb-5">
+                          <div class="card-header">Questionari</div>
+                          <div class="card-block p-0">
+                            <table class="table table-bordered table-sm m-0">
+                              <thead class="">
+                              <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <!--                                  <th>Description</th>-->
+                                <th>Creato</th>
+
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <% Questionnaire.all.each do |questionnaire| %>
+                                <tr>
+                                  <td>
+                                    <label class="custom-control custom-checkbox ">
+
+
+                                      <%= check_box_tag "questionnaires_ids[]", questionnaire.id, inline_label: questionnaire.title, type: "checkbox", class: "custom-control-indicator custom-control-input" %>
+
+                                    </label>
+                                  </td>
+                                  <td>  <%= questionnaire.title %> </td>
+
+                                  <!--                                  <td><%#= questionnaire.desc %></td>-->
+                                  <td><%= questionnaire.created_at.strftime("%D") %></td>
+
+                                </tr>
+                              <% end %>
+
+                              </tbody>
+                            </table>
+                          </div>
+
+                        </div>
+
+
+                      </main>
+
 
                     </div>
+
+
 
                   </div>
                   <button type="submit" class="btn btn-primary btn-large pull-right "><i
@@ -151,4 +197,4 @@
 
   </div>
 
-
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

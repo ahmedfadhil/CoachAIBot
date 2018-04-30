@@ -23,7 +23,7 @@
  *= require internal_server_error
  *= require page_not_found
  *= require fullcalendar
-
+ *= require daterangepicker
  *= require_tree .
  *= require_tree ./third_party
  *= require_tree ./third_party/tipped

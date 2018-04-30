@@ -34,11 +34,11 @@ class WearableCell < Cell::ViewModel
   end
   
   def edit_button
-    link_to "Modifica", edit_wearable_path(model), class: 'card-link btn-sm'
+    link_to "Integra", edit_wearable_path(model), class: 'btn btn-warning btn-xs'
   end
   
   def objectives_button
-    link_to "Obiettivi", user_objectives_path(model), class: 'card-link btn-sm'
+    link_to "Obiettivi", user_objectives_path(model), class: 'btn btn-info btn-xs'
   end
   
   def fitbit_questionnaire_response

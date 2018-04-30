@@ -1,17 +1,19 @@
 <div class="container" style="max-width: 800px">
 	<h1>
-		Modifica utente: <%= @user.first_name + " " + @user.last_name %>
+		Modifica Utente (<%= @user.first_name + " " + @user.last_name %>)
 	</h1>
 	<p>
 		<% if @user.fitbit_disabled? %>
 			Integrazione con dispositivo indossabile <span class="badge badge-danger">disabilitata</span><br>
-			Se lo desideri, puoi abilitare l'utente all'utilizzo del dispositivo indossabile utilizzando il seguente bottone
-			<%= form_for(@user, url: wearable_invite_url(@user), method: 'POST') do |f| %>
+			Se lo desideri, puoi abilitare l'utente <%= @user.first_name + " " + @user.last_name %> all'utilizzo del dispositivo indossabile utilizzando il seguente bottone
+			<div class="col-md-offset-5">
+      <%= form_for(@user, url: wearable_invite_url(@user), method: 'POST') do |f| %>
 				<%= f.submit 'Invita', class: 'btn btn-success' %>
 			<% end %>
+      </div>
 		<% end %>
 		<% if @user.fitbit_invited? %>
-			L'invito a collegare il dispositivo indossabile e' stato inviato<br>
+			L'invito a collegare il dispositivo indossabile é stato inviato<br>
 			Per disabilitare l'integrazione con il dispositivo indossabile, utilizzare il seguente bottone:
 			<%= form_for(@user, url: wearable_disable_url(@user), method: 'POST') do |f| %>
 				<%= f.submit 'Disabilita', class: 'btn btn-danger' %>
