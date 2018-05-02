@@ -76,8 +76,8 @@
 
   <div class="container">
     <div class="user-profile">
-      <div class="profile-header-background">
-        <img src="https://image.ibb.co/duZLB7/7.png" alt="Profile Header Background">
+      <div class="profile-header-background admin_image">
+
       </div>
       <div class="row">
         <div class="col-md-4">
@@ -85,9 +85,28 @@
             <div class="text-center">
 
               <%= image_tag coach.avatar.url, :class => "avatar img-circle" %>
-              <h2> <%= coach.first_name %> <%= coach.last_name %></h2>
-              <h5> <%= coach.email %></h5>
-              <p> Ultimo accesso: <%= coach.last_sign_in_at.strftime("%D") %></p>
+
+              <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col"><%= coach.first_name %> <%= coach.last_name %></th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <th scope="row"> <%= coach.email %></th>
+
+
+                </tr>
+                <tr>
+                  <th scope="row">Ultimo accesso: <%= coach.last_sign_in_at.strftime("%D") %></th>
+
+
+                </tr>
+                </tbody>
+              </table>
 
             </div>
             <div class="section">
@@ -109,852 +128,829 @@
                       <i class="material-icons">people</i> PAZIENTI
                     <% end %>
                   </div>
-                    <div class="col-xs-6">
-                      <%= link_to activities_path, class: 'btn btn-info btn-block' do %>
-                        <i class="material-icons">library_books</i> ATTIVITÀ
-                      <% end %>
-                    </div>
-                      <div class="col-xs-6">
-                        <%= link_to wearables_path, class: 'btn btn-info btn-block' do %>
-                          <i class="material-icons">devices_other</i> INDOSSABILE
-                        <% end %>
-                      </div>
-                      <div class="col-xs-6">
-                        <%= link_to calendar_index_path, class: 'btn btn-info btn-block' do %>
-                          <i class="material-icons">nature_people</i> APPUNTAMENTI
-                        <% end %>
-                      </div>
-                      <div class="col-xs-6">
-                        <%= link_to questionnaires_path, class: 'btn btn-info btn-block' do %>
-                          <i class="material-icons">forum</i> QUESTIONARI
-                        <% end %>
-
-                      </div>
-                      <div class="col-xs-12">
-                        <%= link_to root_path(coach), class: 'btn btn-success btn-block' do %>
-                          <i class="material-icons">home</i> HOME
-                        <% end %>
-
-                      </div>
-
-
-                      <div class="col-xs-6">
-                        <%= link_to edit_coach_user_registration_path, class: 'btn btn-warning btn-block' do %>
-                          <i class="material-icons">create</i> MODIFICA
-                        <% end %>
-
-                      </div>
-                      <div class="col-xs-6">
-                        <%= link_to destroy_coach_user_session_path, method: :delete, class: 'btn btn-danger btn-block' do %>
-                          <i class="material-icons">input</i> LOGOUT
-                        <% end %>
-
-                      </div>
-
-                    </div>
+                  <div class="col-xs-6">
+                    <%= link_to activities_path, class: 'btn btn-info btn-block' do %>
+                      <i class="material-icons">library_books</i> ATTIVITÀ
+                    <% end %>
                   </div>
-                </div>
-
-                <div class="section">
-                  <h3>Scarica Dati</h3>
-                  <p>È possibile scaricare tutti i piani del paziente e i dati relativi all'attività.</p>
-                  <div class="action-buttons">
-
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <%= link_to saveAllData_activities_path, class: 'btn btn-success btn-block' do %>
-                          <i class="material-icons">cloud_download</i> scarica tutti i dati
-                        <% end %>
-
-                      </div>
-
-                      <div class="col-xs-12">
-                        <%= link_to users_path, class: 'btn btn-success btn-block' do %>
-                          <i class="material-icons">cloud_done</i> scarica i dati per un paziente
-                        <% end %>
-
-                      </div>
-                    </div>
+                  <div class="col-xs-6">
+                    <%= link_to wearables_path, class: 'btn btn-info btn-block' do %>
+                      <i class="material-icons">devices_other</i> INDOSSABILE
+                    <% end %>
                   </div>
+                  <div class="col-xs-6">
+                    <%= link_to calendar_index_path, class: 'btn btn-info btn-block' do %>
+                      <i class="material-icons">nature_people</i> APPUNTAMENTI
+                    <% end %>
+                  </div>
+                  <div class="col-xs-6">
+                    <%= link_to questionnaires_path, class: 'btn btn-info btn-block' do %>
+                      <i class="material-icons">forum</i> QUESTIONARI
+                    <% end %>
+
+                  </div>
+                  <div class="col-xs-12">
+                    <%= link_to root_path(coach), class: 'btn btn-success btn-block' do %>
+                      <i class="material-icons">home</i> HOME
+                    <% end %>
+
+                  </div>
+
+
+                  <div class="col-xs-6">
+                    <%= link_to edit_coach_user_registration_path, class: 'btn btn-warning btn-block' do %>
+                      <i class="material-icons">create</i> MODIFICA
+                    <% end %>
+
+                  </div>
+                  <div class="col-xs-6">
+                    <%= link_to destroy_coach_user_session_path, method: :delete, class: 'btn btn-danger btn-block' do %>
+                      <i class="material-icons">input</i> LOGOUT
+                    <% end %>
+
+                  </div>
+
                 </div>
-
-                <div class="section">
-                  <h3>Statistica</h3>
-                  <% greens.each do |green_user| %>
-                    <% if green_user.nil? %>
-                      <p><span class="label label-success">0</span> PAZIENTI ATTIVI</p>
-                    <% else %>
-                      <p><span class="label label-success"><%= green_count %></span> PAZIENTI ATTIVI</p>
-                    <% end %>
-                  <% end %>
-
-                  <% yellows.each do |yellow_user| %>
-                    <% if yellow_user.nil? %>
-                      <p><span class="label label-warning">0</span> PAZIENTI MODERATI</p>
-                    <% else %>
-                      <p><span class="label label-warning"><%= yellow_count %></span> PAZIENTI MODERATI</p>
-                    <% end %>
-                  <% end %>
-                  <% reds.each do |red_user| %>
-                    <% if red_user.nil? %>
-                      <p><span class="label label-danger">0</span> PAZIENTI PASSIVI</p>
-                    <% else %>
-                      <p><span class="label label-danger"><%= red_count %></span> PAZIENTI PASSIVI</p>
-
-                    <% end %>
-                  <% end %>
-                </div>
-
-
               </div>
             </div>
-            <div class="col-md-8">
-              <div class="profile-info-right">
-                <ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
-                  <li class="active"><a href="#patients" data-toggle="tab">PAZIENTI</a></li>
-                  <li><a href="#plans" data-toggle="tab">PIANI</a></li>
-                  <li><a href="#activities" data-toggle="tab">ATTIVITÀ</a></li>
+
+            <div class="section">
+              <h3>Scarica Dati</h3>
+              <p>È possibile scaricare tutti i piani del paziente e i dati relativi all'attività.</p>
+              <div class="action-buttons">
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= link_to saveAllData_activities_path, class: 'btn btn-success btn-block' do %>
+                      <i class="material-icons">cloud_download</i> scarica tutti i dati
+                    <% end %>
+
+                  </div>
+
+                  <div class="col-xs-12">
+                    <%= link_to users_path, class: 'btn btn-success btn-block' do %>
+                      <i class="material-icons">cloud_done</i> scarica i dati per un paziente
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h3>Statistica</h3>
+              <% greens.each do |green_user| %>
+                <% if green_user.nil? %>
+                  <p><span class="label label-success">0</span> PAZIENTI ATTIVI</p>
+                <% else %>
+                  <p><span class="label label-success"><%= green_count %></span> PAZIENTI ATTIVI</p>
+                <% end %>
+              <% end %>
+
+              <% yellows.each do |yellow_user| %>
+                <% if yellow_user.nil? %>
+                  <p><span class="label label-warning">0</span> PAZIENTI MODERATI</p>
+                <% else %>
+                  <p><span class="label label-warning"><%= yellow_count %></span> PAZIENTI MODERATI</p>
+                <% end %>
+              <% end %>
+              <% reds.each do |red_user| %>
+                <% if red_user.nil? %>
+                  <p><span class="label label-danger">0</span> PAZIENTI PASSIVI</p>
+                <% else %>
+                  <p><span class="label label-danger"><%= red_count %></span> PAZIENTI PASSIVI</p>
+
+                <% end %>
+              <% end %>
+            </div>
 
 
-                </ul>
-                <div class="tab-content">
-                  <!-- end activities -->
-                  <!-- followers -->
-                  <div class="tab-pane fade in active" id="patients">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="profile-info-right">
+            <ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
+              <li class="active"><a href="#patients" data-toggle="tab">PAZIENTI</a></li>
+              <li><a href="#plans" data-toggle="tab">PIANI</a></li>
+              <li><a href="#activities" data-toggle="tab">ATTIVITÀ</a></li>
 
 
-                    <% reds.each do |red_user| %>
+            </ul>
+            <div class="tab-content">
+              <!-- end activities -->
+              <!-- followers -->
+              <div class="tab-pane fade in active" id="patients">
 
 
-                      <div class="media user-follower">
-                        <%= image_tag user_profile_image(red_user), alt: 'paziente', class: ' media-object pull-left' %>
-                        <div class="media-body">
-                          <a><%= user_name_link(red_user) %><br>
-                            <% if red_user.patient_objective == nil %>
+                <% reds.each do |red_user| %>
+
+
+                  <div class="media user-follower">
+                    <%= image_tag user_profile_image(red_user), alt: 'paziente', class: ' media-object pull-left' %>
+                    <div class="media-body">
+                      <a><%= user_name_link(red_user) %><br>
+                        <% if red_user.patient_objective == nil %>
                       <span class="text-muted username">
                         Obbiettivo: non impostato
                       </span></a>
-                            <% else %>
+                        <% else %>
 
                           <span class="text-muted username">
                       Obbiettivo: <%= red_user.patient_objective %>
                           </span></a>
 
 
-                              <button type="button" class="btn btn-sm btn-toggle-following">
-                                <i class="fa fa-checkmark-round"></i> <span>STdasdsad</span></button>
-                              <button type="button" class="btn btn-sm btn-toggle-following">
-                                <i class="fa fa-checkmark-round"></i> <span>sdadasdTO</span></button>
-
-                            <% end %>
-
-                            <% if red_user %>
-
-                              <button type="button" class="btn btn-danger btn-round btn-xs pull-right">
-                                <i class="material-icons md-40">sentiment_very_dissatisfied</i></button>
-
-                              <!--<button type="button" class="btn btn-sm btn-toggle-following pull-right">-->
-                              <!--<i class="fa fa-checkmark-round"></i> <span>STATO</span></button>-->
 
 
-                              <div class="row">
-                                <div class="user-card-n">
-                                  <a href="<%= archive_users_path(red_user) %>">
-                                    Archivio:
-                                    <i class="material-icons archive-user" role="presentation">theaters</i>
+                        <% end %>
 
-                                  </a>
-                                </div>
-                              </div>
+                        <% if red_user %>
+
+                          <button type="button" class="btn btn-danger btn-round btn-xs pull-right">
+                            <i class="material-icons md-40">sentiment_very_dissatisfied</i></button>
+
+                          <!--<button type="button" class="btn btn-sm btn-toggle-following pull-right">-->
+                          <!--<i class="fa fa-checkmark-round"></i> <span>STATO</span></button>-->
 
 
-                            <% end %>
+                          <div class="row">
+                            <div class="user-card-n">
+                              <a href="<%= archive_users_path(red_user) %>">
+                                Archivio:
+                                <i class="material-icons archive-user" role="presentation">theaters</i>
+
+                              </a>
                             </div>
-                      </div>
-
-                    <% end %>
+                          </div>
 
 
+                        <% end %>
+                        </div>
+                  </div>
 
-                    <% yellows.each do |yellow_user| %>
+                <% end %>
 
 
-                      <div class="media user-follower">
-                        <%= image_tag user_profile_image(yellow_user), alt: 'paziente', class: ' media-object pull-left' %>
-                        <div class="media-body">
-                          <a><%= user_name_link(yellow_user) %><br>
-                            <% if yellow_user.patient_objective == nil %>
+
+                <% yellows.each do |yellow_user| %>
+
+
+                  <div class="media user-follower">
+                    <%= image_tag user_profile_image(yellow_user), alt: 'paziente', class: ' media-object pull-left' %>
+                    <div class="media-body">
+                      <a><%= user_name_link(yellow_user) %><br>
+                        <% if yellow_user.patient_objective == nil %>
                       <span class="text-muted username">
                         Obbiettivo: non impostato
                       </span></a>
-                            <% else %>
+                        <% else %>
 
                           <span class="text-muted username">
                       Obbiettivo: <%= yellow_user.patient_objective %>
 
                           </span></a>
 
-                            <% end %>
+                        <% end %>
 
-                            <% if yellow_user %>
+                        <% if yellow_user %>
 
-                              <button type="button" class="btn btn-warning btn-round btn-xs pull-right">
-                                <i class="material-icons md-40">sentiment_neutral</i></button>
-
-
-                              <!--to archive users-->
-                              <!--<button type="button" class="btn btn-sm btn-toggle-following pull-right">-->
-                              <!--<i class="fa fa-checkmark-round"></i> <span>STATO</span></button>-->
+                          <button type="button" class="btn btn-warning btn-round btn-xs pull-right">
+                            <i class="material-icons md-40">sentiment_neutral</i></button>
 
 
-                              <div class="row">
-                                <div class="user-card-n">
-                                  Archivio:
-                                  <a href="<%= archive_users_path(yellow_user) %>">
-
-                                    <i class="material-icons archive-user" role="presentation">theaters</i>
-
-                                  </a>
-                                </div>
-                              </div>
+                          <!--to archive users-->
+                          <!--<button type="button" class="btn btn-sm btn-toggle-following pull-right">-->
+                          <!--<i class="fa fa-checkmark-round"></i> <span>STATO</span></button>-->
 
 
+                          <div class="row">
+                            <div class="user-card-n">
+                              Archivio:
+                              <a href="<%= archive_users_path(yellow_user) %>">
 
-                            <% end %>
+                                <i class="material-icons archive-user" role="presentation">theaters</i>
+
+                              </a>
                             </div>
-                      </div>
-
-                    <% end %>
-                    <% greens.each do |green_user| %>
+                          </div>
 
 
-                      <div class="media user-follower">
-                        <%= image_tag user_profile_image(green_user), alt: 'paziente', class: ' media-object pull-left' %>
-                        <div class="media-body">
-                          <a><%= user_name_link(green_user) %><br>
-                            <% if green_user.patient_objective == nil %>
+                        <% end %>
+                        </div>
+                  </div>
+
+                <% end %>
+                <% greens.each do |green_user| %>
+
+
+                  <div class="media user-follower">
+                    <%= image_tag user_profile_image(green_user), alt: 'paziente', class: ' media-object pull-left' %>
+                    <div class="media-body">
+                      <a><%= user_name_link(green_user) %><br>
+                        <% if green_user.patient_objective == nil %>
                       <span class="text-muted username">
                         Obbiettivo: non impostato
                       </span></a>
-                            <% else %>
+                        <% else %>
 
                           <span class="text-muted username">
                      Obbiettivo: <%= green_user.patient_objective %>
                           </span></a>
-                            <% end %>
-                            <% if green_user %>
+                        <% end %>
+                        <% if green_user %>
 
-                              <button type="button" class="btn btn-success btn-round btn-xs pull-right">
-                                <i class="material-icons md-40">sentiment_very_satisfied</i></button>
+                          <button type="button" class="btn btn-success btn-round btn-xs pull-right">
+                            <i class="material-icons md-40">sentiment_very_satisfied</i></button>
 
-                              <!--<button type="button" class="btn btn-sm btn-toggle-following pull-right">-->
-                              <!--<i class="fa fa-checkmark-round"></i> <span>STATO</span></button>-->
+                          <!--<button type="button" class="btn btn-sm btn-toggle-following pull-right">-->
+                          <!--<i class="fa fa-checkmark-round"></i> <span>STATO</span></button>-->
 
 
-                              <div class="row">
-                                <div class="user-card-n">
-                                  <a href="<%= archive_users_path(green_user) %>">
-                                    Archivio:
-                                    <i class="material-icons archive-user" role="presentation">theaters</i>
+                          <div class="row">
+                            <div class="user-card-n">
+                              <a href="<%= archive_users_path(green_user) %>">
+                                Archivio:
+                                <i class="material-icons archive-user" role="presentation">theaters</i>
 
-                                  </a>
-                                </div>
-                              </div>
-
-                              <!--<button class="btn btn-warning btn-fab btn-round">-->
-                              <!--<#%= plans_count(yellow_user) %>-->
-                              <!--</button>-->
-                              <!---->
-                              <!--<button class="btn btn-warning btn-fab btn-round">-->
-                              <!--<#%= activities_count(yellow_user) %>-->
-                              <!--</button>-->
-
-                            <% end %>
+                              </a>
                             </div>
-                      </div>
+                          </div>
 
-                    <% end %>
+                          <!--<button class="btn btn-warning btn-fab btn-round">-->
+                          <!--<#%= plans_count(yellow_user) %>-->
+                          <!--</button>-->
+                          <!---->
+                          <!--<button class="btn btn-warning btn-fab btn-round">-->
+                          <!--<#%= activities_count(yellow_user) %>-->
+                          <!--</button>-->
 
-
-                  </div>
-                  <!-- activities -->
-                  <div class="tab-pane fade" id="plans">
-
-                    <div class="media activity-item">
-
-                      <div class="media-body">
-                        <h4>Dettagli del piano</h4>
-
-                      </div>
-                      <div class="btn-group pull-right activity-actions">
-                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                          <i class="fa fa-th"></i>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                          <li><a> Assegnati:
-                            <button type="button" class="btn btn-xs btn-info"><%= global_plans_count %></button>
-                          </a></li>
-                        </ul>
-                      </div>
-                    </div>
-
-
+                        <% end %>
+                        </div>
                   </div>
 
-                  <!-- end followers -->
-                  <!-- following -->
-                  <div class="tab-pane fade" id="activities">
-                    <div class="media activity-item">
+                <% end %>
 
-                      <div class="media-body">
-                        <h4>Dettagli del attività</h4>
 
-                      </div>
-                      <div class="btn-group pull-right activity-actions">
-                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                          <i class="fa fa-th"></i>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                          <li><a> Assegnati:
-                            <button type="button" class="btn btn-xs btn-success"><%= global_activities_count
-                            %></button>
-                          </a></li>
-
-                        </ul>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!-- end following -->
-                </div>
               </div>
+              <!-- activities -->
+              <div class="tab-pane fade" id="plans">
+
+                <div class="media activity-item">
+
+                  <div class="media-body">
+                    <h4>Dettagli del piano</h4>
+
+                  </div>
+                  <div class="btn-group pull-right activity-actions">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a> Assegnati:
+                        <button type="button" class="btn btn-xs btn-info"><%= global_plans_count %></button>
+                      </a></li>
+                    </ul>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <!-- end followers -->
+              <!-- following -->
+              <div class="tab-pane fade" id="activities">
+                <div class="media activity-item">
+
+                  <div class="media-body">
+                    <h4>Dettagli del attività</h4>
+
+                  </div>
+                  <div class="btn-group pull-right activity-actions">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a> Assegnati:
+                        <button type="button" class="btn btn-xs btn-success"><%= global_activities_count
+                        %></button>
+                      </a></li>
+
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+              <!-- end following -->
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
 
 
 
 
-    <main class="mdl-layout__content">
+<main class="mdl-layout__content">
 
 
-      <div class="mdl-sheet__container">
-        <div class="mdl-sheet mdl-shadow--2dp">
+  <div class="mdl-sheet__container">
+    <div class="mdl-sheet mdl-shadow--2dp">
 
-          <i class="material-icons mdl-sheet__icon">flash_auto</i>
+      <i class="material-icons mdl-sheet__icon">flash_auto</i>
 
-          <div class="mdl-sheet__content">
+      <div class="mdl-sheet__content">
 
-            <div class="mdl-list">
+        <div class="mdl-list">
 
-              <div class="mdl-layout__content">
-                Pazienti in attesa di piano
-              </div>
+          <div class="mdl-layout__content">
+            Pazienti in attesa di piano
+          </div>
 
-              <% users_with_no_plan[0..5].each_with_index do |user| %>
-                <div class="mdl-list__item">
+          <% users_with_no_plan[0..5].each_with_index do |user| %>
+            <div class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
 
               <%= image_tag user_profile_image(user), alt: 'paziente', class: 'mdl-list__item-avatar' %>
 
               <span><%= link_to "#{user.first_name} #{user.last_name}", features_users_path(user) %></span>
             </span>
-                  <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">wb_iridescent</i></a>
-                </div>
-              <% end %>
+              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">wb_iridescent</i></a>
             </div>
-          </div>
+          <% end %>
         </div>
       </div>
-    </main>
-
-
+    </div>
   </div>
+</main>
 
 
-  <style>
+</div>
 
-    .material-icons.md-40 {
-      font-size: 48px;
-    }
 
-    body {
-      background: #ECEFF1;
-    }
+<style>
+  body {
 
-    .mdl-layout__content {
-      padding: 24px 12px;
-    }
+    background-repeat: repeat;
+    min-height: 1585px;
+  }
 
-    .mdl-layout__content h1 {
-      font-size: 30px;
-      margin: 0 0 .3em;
-    }
+  /*------------------------------------------------*/
+  /*    Profile Page
+  /*------------------------------------------------*/
+  .user-profile {
+    padding-bottom: 30px;
+  }
 
-    .mdl-sheet__container {
-      position: fixed;
-      right: 32px;
-      bottom: 32px;
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
+  .profile-header-background {
+    margin: -30px -30px 0 -30px;
+  }
 
-    .mdl-sheet {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      background: #FF5722;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      cursor: pointer;
-      -webkit-transition: all 180ms;
-      transition: all 180ms;
-    }
+  .profile-header-background img {
+    width: 100%;
+    height: 100%;
+  }
 
-    .mdl-sheet .mdl-sheet__content {
-      display: none;
-    }
+  .profile-info-left {
+    position: relative;
+    top: -92px;
+  }
 
-    .mdl-sheet__icon {
-      color: #fff;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -webkit-transform: translate(-12px, -12px);
-      transform: translate(-12px, -12px);
-      font-size: 24px;
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-    }
+  .profile-info-left img.avatar {
+    border: 2px solid #fff;
+  }
 
-    .mdl-sheet--opened {
-      background: #fff;
-      color: #263238;
-      border-radius: 2px;
-      width: 240px;
-      height: auto;
-      min-height: 150px;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
+  .profile-info-left h2 {
+    font-family: "josefinslab-semibold";
+    margin-bottom: 30px;
+  }
 
-    .mdl-sheet--opened .mdl-sheet__icon {
-      display: none;
-    }
+  .profile-info-left .section {
+    margin-top: 50px;
+  }
 
-    .mdl-sheet--opened .mdl-sheet__content {
-      display: block;
-    }
+  .profile-info-left .section h3 {
+    font-size: 1.1em;
+    font-weight: 700;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
 
-    .avatar {
-      /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
+  .profile-info-left ul.list-social > li {
+    line-height: 2.3;
+  }
 
-      /* make a square container */
-      width: 150px;
-      height: 150px;
+  .profile-info-left ul.list-social > li i {
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    *zoom: 1;
+    *display: inline;
+    position: relative;
+    top: 1px;
+    font-size: 16px;
+    min-width: 16px;
+    line-height: 1;
+  }
 
-      /* fill the container, preserving aspect ratio, and cropping to fit */
-      background-size: cover;
+  .profile-info-left ul.list-social > li a {
+    color: #696565;
+  }
 
-      /* center the image vertically and horizontally */
-      background-position: top center;
+  .profile-info-right .tab-content {
+    padding: 30px 0;
+    background-color: transparent;
+  }
 
-      /* round the edges to a circle with border radius 1/2 container size */
-      border-radius: 50%;
-    }
-  </style>
-  <style>
-
-    body {
-
-      background-repeat: repeat;
-      min-height: 1585px;
-    }
-
-    /*------------------------------------------------*/
-    /*    Profile Page
-    /*------------------------------------------------*/
-    .user-profile {
-      padding-bottom: 30px;
-    }
-
-    .profile-header-background {
-      margin: -30px -30px 0 -30px;
-    }
-
-    .profile-header-background img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .profile-info-left {
+  @media screen and (max-width: 768px) {
+    .profile-info-right {
       position: relative;
-      top: -92px;
+      top: -70px;
     }
+  }
 
-    .profile-info-left img.avatar {
-      border: 2px solid #fff;
-    }
+  .user-follower,
+  .user-following {
+    position: relative;
+    margin-bottom: 40px;
+  }
 
-    .profile-info-left h2 {
-      font-family: "josefinslab-semibold";
-      margin-bottom: 30px;
-    }
+  .user-follower img,
+  .user-following img {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    width: 40px;
+  }
 
-    .profile-info-left .section {
-      margin-top: 50px;
-    }
+  .user-follower a,
+  .user-following a {
+    font-size: 1.1em;
+    line-height: 1;
+  }
 
-    .profile-info-left .section h3 {
-      font-size: 1.1em;
-      font-weight: 700;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 10px;
-    }
+  .user-follower .username,
+  .user-following .username {
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
 
-    .profile-info-left ul.list-social > li {
-      line-height: 2.3;
-    }
+  .user-follower .btn,
+  .user-following .btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 92px;
+  }
 
-    .profile-info-left ul.list-social > li i {
-      display: inline-block;
-      vertical-align: middle;
-      *vertical-align: auto;
-      *zoom: 1;
-      *display: inline;
-      position: relative;
-      top: 1px;
-      font-size: 16px;
-      min-width: 16px;
-      line-height: 1;
-    }
+  .btn-toggle-following {
+    background-color: #7bae16;
+    color: #fff;
+  }
 
-    .profile-info-left ul.list-social > li a {
-      color: #696565;
-    }
+  .btn-toggle-following:hover {
+    background-color: #ef2020;
+    color: #fff;
+  }
 
-    .profile-info-right .tab-content {
-      padding: 30px 0;
-      background-color: transparent;
-    }
+  .btn-toggle-following:hover span {
+    display: none;
+  }
 
-    @media screen and (max-width: 768px) {
-      .profile-info-right {
-        position: relative;
-        top: -70px;
-      }
-    }
+  .btn-toggle-following:hover:after {
+    content: 'Unfollow';
+    display: inline;
+  }
 
-    .user-follower,
-    .user-following {
-      position: relative;
-      margin-bottom: 40px;
-    }
+  .btn-toggle-following:hover i:before {
+    content: '\f129';
+  }
 
-    .user-follower img,
-    .user-following img {
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      width: 40px;
-    }
+  /* list icons */
+  .list-icons-demo li {
+    margin-bottom: 20px;
+    text-align: center;
+  }
 
-    .user-follower a,
-    .user-following a {
-      font-size: 1.1em;
-      line-height: 1;
-    }
+  .list-icons-demo li i {
+    font-size: 24px;
+  }
 
-    .user-follower .username,
-    .user-following .username {
-      font-size: 0.9em;
-      line-height: 1.5;
-    }
+  .list-icons-demo2 li {
+    margin-bottom: 10px;
+  }
 
-    .user-follower .btn,
-    .user-following .btn {
-      position: absolute;
-      top: 0;
-      right: 0;
-      min-width: 92px;
-    }
+  .activity-item {
+    overflow: visible;
+    position: relative;
+    margin: 15px 0;
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+  }
 
-    .btn-toggle-following {
-      background-color: #7bae16;
-      color: #fff;
-    }
+  .activity-item:first-child {
+    border-top: none;
+  }
 
-    .btn-toggle-following:hover {
-      background-color: #ef2020;
-      color: #fff;
-    }
+  .activity-item .avatar {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    width: 32px;
+  }
 
-    .btn-toggle-following:hover span {
-      display: none;
-    }
+  .activity-item > i {
+    font-size: 18px;
+    line-height: 1;
+  }
 
-    .btn-toggle-following:hover:after {
-      content: 'Unfollow';
-      display: inline;
-    }
+  .activity-item .media-body {
+    position: relative;
+  }
 
-    .btn-toggle-following:hover i:before {
-      content: '\f129';
-    }
+  .activity-item .activity-title {
+    margin-bottom: 0;
+    line-height: 1.3;
+  }
 
-    /* list icons */
-    .list-icons-demo li {
-      margin-bottom: 20px;
-      text-align: center;
-    }
+  .activity-item .activity-attachment {
+    padding-top: 20px;
+  }
 
-    .list-icons-demo li i {
-      font-size: 24px;
-    }
+  .activity-item .well {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    border-left: 2px solid #cfcfcf;
+    background: #fff;
+    margin-left: 20px;
+    font-size: 0.85em;
+  }
 
-    .list-icons-demo2 li {
-      margin-bottom: 10px;
-    }
+  .activity-item .thumbnail {
+    display: inline;
+    border: none;
+    padding: 0;
+  }
 
-    .activity-item {
-      overflow: visible;
-      position: relative;
-      margin: 15px 0;
-      border-top: 1px dashed #ccc;
-      padding-top: 15px;
-    }
+  .activity-item .thumbnail img {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    width: auto;
+    margin: 0;
+  }
 
-    .activity-item:first-child {
-      border-top: none;
-    }
+  .activity-item .activity-actions {
+    position: absolute;
+    top: 15px;
+    right: 0;
+  }
 
-    .activity-item .avatar {
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      width: 32px;
-    }
+  .activity-item .activity-actions .btn i {
+    margin: 0;
+  }
 
-    .activity-item > i {
-      font-size: 18px;
-      line-height: 1;
-    }
+  .activity-item .activity-actions .dropdown-menu > li > a {
+    font-size: 0.9em;
+    padding: 3px 10px;
+  }
 
-    .activity-item .media-body {
-      position: relative;
-    }
+  .activity-item + .btn {
+    margin-bottom: 15px;
+  }
 
-    .activity-item .activity-title {
-      margin-bottom: 0;
-      line-height: 1.3;
-    }
+  .nav-tabs > li > a {
+    -moz-border-radius-topleft: 2px;
+    -webkit-border-top-left-radius: 2px;
+    border-top-left-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    -webkit-border-top-right-radius: 2px;
+    border-top-right-radius: 2px;
+  }
 
-    .activity-item .activity-attachment {
-      padding-top: 20px;
-    }
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    cursor: pointer;
+  }
 
-    .activity-item .well {
-      -moz-border-radius: 0;
-      -webkit-border-radius: 0;
-      border-radius: 0;
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-      border: none;
-      border-left: 2px solid #cfcfcf;
-      background: #fff;
-      margin-left: 20px;
-      font-size: 0.85em;
-    }
+  .nav-pills > li > a {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+  }
 
-    .activity-item .thumbnail {
-      display: inline;
-      border: none;
-      padding: 0;
-    }
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #1688ae;
+  }
 
-    .activity-item .thumbnail img {
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      width: auto;
-      margin: 0;
-    }
+  .nav-tabs.tabs-iconized > li a,
+  .nav-pills.tabs-iconized > li a {
+    padding-top: 0;
+    padding-bottom: 5px;
+  }
 
-    .activity-item .activity-actions {
-      position: absolute;
-      top: 15px;
-      right: 0;
-    }
+  .nav-tabs.tabs-iconized > li i,
+  .nav-pills.tabs-iconized > li i {
+    position: relative;
+    margin-right: 3px;
+    top: 4px;
+    font-size: 24px;
+  }
 
-    .activity-item .activity-actions .btn i {
-      margin: 0;
-    }
+  .tab-content {
+    padding: 30px 15px 15px 15px;
+    background-color: #fff;
+  }
 
-    .activity-item .activity-actions .dropdown-menu > li > a {
-      font-size: 0.9em;
-      padding: 3px 10px;
-    }
+  .nav.nav-tabs-custom-colored > li > a {
+    border-color: #ccc;
+    border-bottom: transparent;
+  }
 
-    .activity-item + .btn {
-      margin-bottom: 15px;
-    }
+  .nav.nav-tabs-custom-colored > li > a:hover, .nav.nav-tabs-custom-colored > li > a:focus {
+    background-color: #1688ae;
+  }
 
-    .nav-tabs > li > a {
-      -moz-border-radius-topleft: 2px;
-      -webkit-border-top-left-radius: 2px;
-      border-top-left-radius: 2px;
-      -moz-border-radius-topright: 2px;
-      -webkit-border-top-right-radius: 2px;
-      border-top-right-radius: 2px;
-    }
+  .nav-tabs.nav-tabs-custom-colored {
+    border-bottom-color: #1688ae;
+  }
 
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-      cursor: pointer;
-    }
+  .nav-tabs.nav-tabs-custom-colored > li {
+    z-index: 0;
+    margin-bottom: 0;
+    background-color: #fff;
+  }
 
-    .nav-pills > li > a {
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-    }
+  .nav-tabs.nav-tabs-custom-colored > li > a {
+    -moz-border-radius-topleft: 2px;
+    -webkit-border-top-left-radius: 2px;
+    border-top-left-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    -webkit-border-top-right-radius: 2px;
+    border-top-right-radius: 2px;
+    color: #696565;
+    margin-right: 0;
+  }
 
-    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-      background-color: #1688ae;
-    }
+  .nav-tabs.nav-tabs-custom-colored > li > a:hover, .nav-tabs.nav-tabs-custom-colored > li > a:focus {
+    color: #fff;
+    border-color: #1688ae;
+  }
 
-    .nav-tabs.tabs-iconized > li a,
-    .nav-pills.tabs-iconized > li a {
-      padding-top: 0;
-      padding-bottom: 5px;
-    }
+  .nav-tabs.nav-tabs-custom-colored > li.active > a, .nav-tabs.nav-tabs-custom-colored > li.active > a:hover, .nav-tabs.nav-tabs-custom-colored > li.active > a:focus {
+    color: #fff;
+    background-color: #1688ae;
+    border-color: #1688ae;
+    border-bottom: transparent;
+  }
 
-    .nav-tabs.tabs-iconized > li i,
-    .nav-pills.tabs-iconized > li i {
-      position: relative;
-      margin-right: 3px;
-      top: 4px;
-      font-size: 24px;
-    }
+  .nav-tabs > li.active {
+    z-index: 1;
+  }
 
-    .tab-content {
-      padding: 30px 15px 15px 15px;
-      background-color: #fff;
-    }
+  .nav-pills-custom-minimal {
+    border-bottom: 1px solid #ccc;
+  }
 
-    .nav.nav-tabs-custom-colored > li > a {
-      border-color: #ccc;
-      border-bottom: transparent;
-    }
+  .nav-pills-custom-minimal > li > a {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    padding: 10px;
+    border-top: 4px solid transparent;
+    color: #696565;
+  }
 
-    .nav.nav-tabs-custom-colored > li > a:hover, .nav.nav-tabs-custom-colored > li > a:focus {
-      background-color: #1688ae;
-    }
+  .nav-pills-custom-minimal > li > a:hover, .nav-pills-custom-minimal > li > a:focus {
+    background-color: transparent;
+    color: #4f4c4c;
+  }
 
-    .nav-tabs.nav-tabs-custom-colored {
-      border-bottom-color: #1688ae;
-    }
+  .nav-pills-custom-minimal > li.active > a, .nav-pills-custom-minimal > li.active > a:hover, .nav-pills-custom-minimal > li.active > a:focus {
+    background-color: transparent;
+    border-top-color: #94c632;
+    color: #696565;
+  }
 
-    .nav-tabs.nav-tabs-custom-colored > li {
-      z-index: 0;
-      margin-bottom: 0;
-      background-color: #fff;
-    }
+  .nav-pills-custom-minimal > li + li {
+    margin-left: 30px;
+  }
 
-    .nav-tabs.nav-tabs-custom-colored > li > a {
-      -moz-border-radius-topleft: 2px;
-      -webkit-border-top-left-radius: 2px;
-      border-top-left-radius: 2px;
-      -moz-border-radius-topright: 2px;
-      -webkit-border-top-right-radius: 2px;
-      border-top-right-radius: 2px;
-      color: #696565;
-      margin-right: 0;
-    }
-
-    .nav-tabs.nav-tabs-custom-colored > li > a:hover, .nav-tabs.nav-tabs-custom-colored > li > a:focus {
-      color: #fff;
-      border-color: #1688ae;
-    }
-
-    .nav-tabs.nav-tabs-custom-colored > li.active > a, .nav-tabs.nav-tabs-custom-colored > li.active > a:hover, .nav-tabs.nav-tabs-custom-colored > li.active > a:focus {
-      color: #fff;
-      background-color: #1688ae;
-      border-color: #1688ae;
-      border-bottom: transparent;
-    }
-
-    .nav-tabs > li.active {
-      z-index: 1;
-    }
-
-    .nav-pills-custom-minimal {
-      border-bottom: 1px solid #ccc;
-    }
-
-    .nav-pills-custom-minimal > li > a {
-      -moz-border-radius: 0;
-      -webkit-border-radius: 0;
-      border-radius: 0;
-      padding: 10px;
-      border-top: 4px solid transparent;
-      color: #696565;
-    }
-
-    .nav-pills-custom-minimal > li > a:hover, .nav-pills-custom-minimal > li > a:focus {
-      background-color: transparent;
-      color: #4f4c4c;
-    }
-
-    .nav-pills-custom-minimal > li.active > a, .nav-pills-custom-minimal > li.active > a:hover, .nav-pills-custom-minimal > li.active > a:focus {
-      background-color: transparent;
-      border-top-color: #94c632;
-      color: #696565;
-    }
-
+  @media screen and (max-width: 480px) {
     .nav-pills-custom-minimal > li + li {
-      margin-left: 30px;
+      margin-left: 0;
     }
+  }
 
-    @media screen and (max-width: 480px) {
-      .nav-pills-custom-minimal > li + li {
-        margin-left: 0;
-      }
-    }
+  .nav-pills-custom-minimal.custom-minimal-bottom > li a {
+    border-top: none;
+    border-bottom: 4px solid transparent;
+  }
 
-    .nav-pills-custom-minimal.custom-minimal-bottom > li a {
-      border-top: none;
-      border-bottom: 4px solid transparent;
-    }
+  .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:hover, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:focus {
+    border-bottom-color: #94c632;
+  }
+</style>
+<style>
+  .material-icons.md-40 {
+    font-size: 48px;
+  }
 
-    .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:hover, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:focus {
-      border-bottom-color: #94c632;
-    }
-  </style>
+  body {
+    background: #ECEFF1;
+  }
 
-  <script>
-      var $sheet = $('.mdl-sheet');
+  .mdl-layout__content {
+    padding: 24px 12px;
+  }
 
-      if ($sheet.length > 0) {
-          $('html').on('click', function () {
-              $sheet.removeClass('mdl-sheet--opened')
-          });
+  .mdl-layout__content h1 {
+    font-size: 30px;
+    margin: 0 0 .3em;
+  }
 
-          $sheet.on('click', function (event) {
-              event.stopPropagation();
+  .mdl-sheet__container {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
 
-              $sheet.addClass('mdl-sheet--opened');
-          });
-      }
-  </script>
+  .mdl-sheet {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: #FF5722;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition: all 180ms;
+    transition: all 180ms;
+  }
 
+  .mdl-sheet .mdl-sheet__content {
+    display: none;
+  }
+
+  .mdl-sheet__icon {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-12px, -12px);
+    transform: translate(-12px, -12px);
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  .mdl-sheet--opened {
+    background: #fff;
+    color: #263238;
+    border-radius: 2px;
+    width: 240px;
+    height: auto;
+    min-height: 150px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .mdl-sheet--opened .mdl-sheet__icon {
+    display: none;
+  }
+
+  .mdl-sheet--opened .mdl-sheet__content {
+    display: block;
+  }
+
+  .avatar {
+    /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
+
+    /* make a square container */
+    width: 150px;
+    height: 150px;
+
+    /* fill the container, preserving aspect ratio, and cropping to fit */
+    background-size: cover;
+
+    /* center the image vertically and horizontally */
+    background-position: top center;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+  }
+</style>
 
 
 

@@ -762,6 +762,16 @@
   background-size: cover;
 }
 
+.admin_image{
+  background: url(7.png);
+  /* Full height */
+  height: 300px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .mdl-layout__header-row {
   color: white !important;
 }
@@ -794,7 +804,7 @@
 .login_group {
   border: 73px;
   background: #c1202000;
-  padding: 9px 50px 65px 20px;
+  padding: 0px 50px 65px 20px;
 }
 
 .login_img {
