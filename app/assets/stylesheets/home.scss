@@ -744,7 +744,11 @@
 .mdl-layout__header .mdl-layout__drawer-button {
   position: absolute;
   color: rgb(255, 255, 255);
-  background-color: #dd7625;
+  //background-color: #dd7625;
+}
+
+.mdl-layout__header_admin{
+  background:rgb(125, 181, 63) !important;
 }
 
 .mdl-layout__drawer .avatar {

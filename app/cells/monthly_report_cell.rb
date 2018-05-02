@@ -40,64 +40,110 @@ class MonthlyReportCell < Cell::ViewModel
   end
 
   def most_active_day
-    l(weekly_logs.max_by(&:calories).date, format: "%A %d %B")
+    retrived_date = weekly_logs.max_by(&:calories)&.date
+    alternative_message = "Such day doesn't exist"
+    if retrived_date
+      return l(retrived_date, format: "%A %d %B")
+    else
+      alternative_message
+    end
   end
 
+# def most_active_day
+#   l(weekly_logs.max_by(&:calories).date, format: "%A %d %B")
+# end
   def least_active_day
-    l(weekly_logs.min_by(&:calories).date, format: "%A %d %B")
+    retrived_date = weekly_logs.min_by(&:calories)&.date
+    alternative_message = "Such day doesn't exist"
+    if retrived_date
+      return l(retrived_date, format: "%A %d %B")
+    else
+      alternative_message
+    end
   end
+
+
+# def least_active_day
+#   l(weekly_logs.min_by(&:calories).date, format: "%A %d %B")
+# end
 
   def total_steps
     weekly_logs.map {|e| e.steps}.inject(:+)
   end
 
   def daily_steps_average
-    total_steps / weekly_logs.length
+    (total_steps||1) / (weekly_logs.length.nonzero? || 1)
+end
+
+def record_steps
+
+
+  retrived_date = weekly_logs.max_by(&:steps)&.steps
+  alternative_message = "Such day doesn't exist"
+  if retrived_date
+    return retrived_date
+  else
+    alternative_message
   end
 
-  def record_steps
-    weekly_logs.max_by(&:steps).steps
+
+
+  # weekly_logs.max_by(&:steps).steps
+end
+
+def total_distance
+
+  retrived_date = weekly_logs.map {|e| e.distance}.inject(:+)
+  alternative_message = "Such day doesn't exist"
+  if retrived_date
+    return retrived_date.floor(2)
+  else
+    alternative_message
   end
 
-  def total_distance
-    weekly_logs.map {|e| e.distance}.inject(:+).floor(2)
-  end
 
-  def daily_distance_average
-    (total_distance / weekly_logs.length).floor(2)
-  end
 
-  def record_distance
-    weekly_logs.max_by(&:distance).distance.floor(2)
-  end
+  # weekly_logs.map {|e| e.distance}.inject(:+).floor(2)
+end
 
-  def total_calories
-    weekly_logs.map {|e| e.calories}.inject(:+)
-  end
+def daily_distance_average
+rescue (total_distance / weekly_logs.length).floor(2)
+ end
 
-  def daily_calories_average
-    total_calories / weekly_logs.length
-  end
+def record_distance
+rescue weekly_logs.max_by(&:distance).distance.floor(2)
 
-  def record_calories
-    weekly_logs.max_by(&:calories).calories
-  end
 
-  def sleep_length_h
-    sleep_length / 60
-  end
+end
 
-  def sleep_length_min
-    sleep_length % 60
-  end
+def total_calories
+  weekly_logs.map {|e| e.calories}.inject(:+)
+end
 
-  private
+def daily_calories_average
+rescue total_calories / weekly_logs.length
+end
 
-  def weekly_logs
-    model.daily_logs.where("date >= ? AND date <= ?", begin_day, end_day)
-  end
+def record_calories
+rescue weekly_logs.max_by(&:calories).calories
+end
 
-  def sleep_length
-    weekly_logs.map {|e| e.sleep || 0}.inject(:+) / 36000 / weekly_logs.length
-  end
+def sleep_length_h
+rescue  sleep_length / 60
+end
+
+def sleep_length_min
+rescue  sleep_length % 60
+end
+
+private
+
+def weekly_logs
+  model.daily_logs.where("date >= ? AND date <= ?", begin_day, end_day)
+end
+
+def sleep_length
+rescue weekly_logs.map {|e| e.sleep || 0}.inject(:+) / 36000 / weekly_logs.length
+end
+
 end

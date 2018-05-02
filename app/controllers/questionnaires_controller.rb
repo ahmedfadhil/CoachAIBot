@@ -1,4 +1,5 @@
 class QuestionnairesController < ApplicationController
+  before_action :check_for_cancel, :only => [:create, :update]
   before_action :set_questionnaire, only: [:show, :edit, :update, :destroy]
   layout 'profile'
   
@@ -56,7 +57,14 @@ class QuestionnairesController < ApplicationController
     @questionnaire.destroy
     redirect_to questionnaires_url, notice: 'Questionnaire was successfully destroyed.'
   end
-  
+
+
+
+  def check_for_cancel
+    if params[:commit] == "Cancel"
+      redirect_to questionnaires_path
+    end
+  end
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_questionnaire

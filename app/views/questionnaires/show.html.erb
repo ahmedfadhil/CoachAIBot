@@ -1,21 +1,33 @@
+<%= provide(:title, "Mostra Questionario") %>
 
-    <% @questionnaire.questionnaire_questions.each do |question| %>
-      <div style="padding-bottom: 32px">
-        <div style="width: -moz-fit-content; width: -webkit-fit-content; width: fit-content; padding-bottom: 8px">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <%= question.text %>
-            </li>
-          </ul>
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <% question.options.each do |option| %>
-            <button type="button" class="btn btn-primary">
-              <%= option.text %>
-            </button>
+
+
+    <div class="container">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-12">
+        <div class="card container">
+          <div class="card-header">  <h2><%=@questionnaire.title %></h2></div><br>
+          <% @questionnaire.questionnaire_questions.each do |question| %>
+
+              <div>
+                <ul>
+                  <li class="list-group-item">
+                    <i class="material-icons">comment</i>
+                    <%= question.text %>
+                  </li>
+                </ul>
+              </div>
+              <div class="btn-toolbar">
+                <% question.options.each do |option| %>
+                  <button type="button" class="btn btn-info  btn-xs">
+                    <%= option.text %>
+                  </button>
+                <% end %>
+              </div>
+
           <% end %>
         </div>
       </div>
-    <% end %>
-
+    </div>
 
