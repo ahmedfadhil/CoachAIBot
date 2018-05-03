@@ -9,16 +9,16 @@
     <ul id="communications" class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="notificationsButton" data-url="<%= lasts_communications_path(coach) %>">
       <li class="mdl-menu__item">
         <div class="all_communications">
-          Non hai nessuna nuova notifica
+          <i class="material-icons">notifications_off</i> Non hai nessuna nuova notifica
         </div>
       </li>
-      <li class="mdl-menu__item">
-        <%= link_to all_communications_path(coach) do %>
-          <div class="all_communications">
-            Vedi tutte le notifiche
-          </div>
-        <% end %>
-      </li>
+<!--      <li class="mdl-menu__item">-->
+        <%#= link_to all_communications_path(coach) do %>
+<!--          <div class="all_communications">-->
+<!--            Vedi tutte le notifiche-->
+<!--          </div>-->
+        <%# end %>
+<!--      </li>-->
     </ul>
 
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="moreButton">

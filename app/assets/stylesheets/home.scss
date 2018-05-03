@@ -765,12 +765,13 @@
 .admin_image{
   background: url(7.png);
   /* Full height */
-  height: 300px;
-
+  width: 100%;
+  height: 350px;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
 }
 .mdl-layout__header-row {
   color: white !important;

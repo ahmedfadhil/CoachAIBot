@@ -89,6 +89,7 @@
               <table class="table">
                 <thead>
                 <tr>
+                  <th><i class="material-icons">person</i></th>
                   <th scope="col"><%= coach.first_name %> <%= coach.last_name %></th>
 
 
@@ -96,11 +97,13 @@
                 </thead>
                 <tbody>
                 <tr>
+                  <th><i class="material-icons">add_location</i></th>
                   <th scope="row"> <%= coach.email %></th>
 
 
                 </tr>
                 <tr>
+                  <td><i class="material-icons">access_alarms</i></td>
                   <th scope="row">Ultimo accesso: <%= coach.last_sign_in_at.strftime("%D") %></th>
 
 
@@ -109,6 +112,7 @@
               </table>
 
             </div>
+
             <div class="section">
               <h3>Configurazione</h3>
               <p>È possibile visitare il pannello principale, creare una finestra di dialogo, modificare l'account e il
@@ -258,9 +262,6 @@
                           <span class="text-muted username">
                       Obbiettivo: <%= red_user.patient_objective %>
                           </span></a>
-
-
-
 
                         <% end %>
 
