@@ -5,11 +5,11 @@
 	<section class="row text-center placeholders list-group">
 
 		<% User.all.sort_by { |e| User.fitbit_statuses[e.fitbit_status] }.reverse.each do |user| %>
-      <div class="col-xs-3 placeholder" style="padding-bottom: 30px">
+      <div class="col-xs-3 placeholder"  >
 
 			<%= cell(:wearable, user).(:card) %>
 
-        Registrato: <%= user.created_at.strftime("%D") %>
+
       </div>
 
 		<% end %>

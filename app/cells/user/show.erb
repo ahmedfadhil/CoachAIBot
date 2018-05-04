@@ -133,17 +133,17 @@
 
                 <i class="material-icons md-18 pocco">mood_bad</i> Poco Attivo
               </a>
-            <% else %>
-              <a href="<%= features_users_path(user) %>">
+            <%# else %>
+<!--              <a href="<%#= features_users_path(user) %>">-->
 
-                <i class="material-icons md-18">all_inclusive</i> Non Definito
-              </a>
+<!--                <i class="material-icons md-18">all_inclusive</i> Non Definito-->
+<!--              </a>-->
             <% end %>
           <% end %>
-          <button class="btn btn-danger btn-xs">
-            <div class='notification_count'> <%= user.communications.where(read_at: nil).count %>
-              <i id="communications-badge" class="material-icons md-18">notifications</i></div>
-          </button>
+<!--          <button class="btn btn-danger btn-xs">-->
+<!--            <div class='notification_count'> <%#= user.communications.where(read_at: nil).count %>-->
+<!--              <i id="communications-badge" class="material-icons md-18">notifications</i></div>-->
+<!--          </button>-->
         </div>
       </div>
     </div>

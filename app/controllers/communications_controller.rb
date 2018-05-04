@@ -1,4 +1,5 @@
 class CommunicationsController < ApplicationController
+
   layout 'profile'
   
   # used to pool coach's communications

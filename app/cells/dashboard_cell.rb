@@ -23,17 +23,16 @@ class DashboardCell < Cell::ViewModel
     User.joins(:plans).where(:plans => {:delivered => 1}, :coach_user_id => model.id, :cluster => 2).uniq
   end
   
-  def users_with_no_plan
-    User.left_outer_joins(:plans).where("plans.user_id is null")
-    # User.all.count - User.joins(:plans).where(coach_user: coach).uniq.count
-  end
-  
   def all_users
     User.where(coach_user_id: model.id).count
   end
   
   def users_with_no_plan_count
     User.all.count - User.joins(:plans).where(coach_user: coach).uniq.count
+  end
+  def users_with_no_plan
+    User.left_outer_joins(:plans).where("plans.user_id is null").where(coach_user: coach).uniq
+    # User.all.count - User.joins(:plans).where(coach_user: coach).uniq.count
   end
   
   def users_with_plans

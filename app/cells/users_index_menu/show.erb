@@ -14,14 +14,14 @@
               <div class="col-md-8 ml-auto mr-auto">
                 <%= link_to users_path,  class: 'mdl-navigation__link' do %>
                   <button id="all-users" class="btn btn-primary btn-large button_attivi">
-                    <i class="material-icons">insert_emoticon</i>&nbsp Attivi ( <%= registered %> )
+                    <i class="material-icons">flash_auto</i>&nbsp Attivi ( <%= registered %> )
                   </button>
                 <% end %>
 
 
                 <%= link_to archived_users_path, class: 'mdl-navigation__link', remote: true do %>
                   <button id="archived-users" class="btn btn-warning btn-large button_medicinali" >
-                    <i class="material-icons">supervisor_account</i>&nbsp Archiviati ( <%= archived %> )
+                    <i class="material-icons">flash_off</i>&nbsp Archiviati ( <%= archived %> )
                   </button>
                 <% end %>
 

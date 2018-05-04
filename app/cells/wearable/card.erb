@@ -1,21 +1,20 @@
 
-<div class="thumb_height card ">
+<div class="thumb_height card">
 
-	<%= image_tag profile_image, class: "card-img-top" %>
-	<div class="card-body">
-		<h4 class="card-title">
-			<%= title %>
-		</h4>
-		<% if fitbit_questionnaire_response %>
-			<i class="material-icons">watch</i>
-		<% end %>
-	</div>
-	<div class="card-body">
+  <%= image_tag profile_image, class: " image_up" %>
 
-		<%= status %>
-		<hr>
-		<%= show_button %>
-		<%= edit_button %>
-		<%= objectives_button %>
-	</div>
-</div>
+    <div class="card-body">
+      <h4 class="card-title">
+        <%= title %>
+      </h4>
+      <% if fitbit_questionnaire_response %>
+        <i class="material-icons">watch</i>
+      <% end %>
+      <%= status %>
+      <hr>
+      <%= show_button %>
+      <%= edit_button %>
+      <%= objectives_button %>
+    </div>
+  </div>
+

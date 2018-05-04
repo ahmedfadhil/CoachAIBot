@@ -4,7 +4,8 @@ require 'fitbit/client'
 require 'bot/general'
 
 class WearablesController < ApplicationController
-	before_action :authenticate_coach_user!, only: [:index, :show, :invite]
+	before_action :authenticate_coach_user!
+
   respond_to :html
   layout 'profile'
 
@@ -13,6 +14,7 @@ class WearablesController < ApplicationController
 		# @wearables = Wearable.find(params[:id])
 		# @users = User.find(params[:id])
 		# @users = @users.paginate(:page => params[:page], per_page: 12).order('created_at DESC')
+		#  @users = User.where(coach_id: current_coach_user.id)
 	end
 
 	def show

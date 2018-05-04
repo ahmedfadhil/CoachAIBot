@@ -1,4 +1,5 @@
 class QuestionnairesController < ApplicationController
+  before_action :authenticate_coach_user!
   before_action :check_for_cancel, :only => [:create, :update]
   before_action :set_questionnaire, only: [:show, :edit, :update, :destroy]
   layout 'profile'

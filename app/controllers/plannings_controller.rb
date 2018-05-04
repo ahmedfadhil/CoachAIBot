@@ -1,4 +1,5 @@
 class PlanningsController < ApplicationController
+
   layout 'profile'
 
   def new

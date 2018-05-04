@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def index
     @users = User.where('coach_user_id = ? AND state <> ?', current_coach_user.id, ARCHIVED)
     @users = @users.paginate(:page => params[:page], per_page: 12).order('created_at DESC')
+
     # @users = User.find(params[:id]).invitations.last.questionnaire.questionnaire_questions.last.options.last.score
 
 

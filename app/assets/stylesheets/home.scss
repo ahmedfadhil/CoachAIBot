@@ -27,7 +27,18 @@
   background: url('CoachAI Graphics/im2.png') no-repeat center;
   background-size: cover;
 }
+.thumb_image {
+  background: url('thumb.png') no-repeat center;
+  background-size: cover;
+  height: 8em;
 
+
+}
+
+.image_up {
+  margin-bottom: -30px;
+
+}
 .fitbit_user_disabled {
   pointer-events: none; /* Disables the button completely. Better than just cursor: default; */
   //@include opacity(0.7);

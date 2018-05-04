@@ -1,6 +1,7 @@
 require 'csv_data/user_export'
 
 class ActivitiesController < ApplicationController
+
   layout 'profile'
   
   def show

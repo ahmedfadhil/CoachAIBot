@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_coach_user!
   layout 'profile'
 
   def new
