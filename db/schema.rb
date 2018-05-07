@@ -109,13 +109,6 @@ ActiveRecord::Schema.define(version: 20180423150953) do
     t.index ["user_id"], name: "index_daily_logs_on_user_id"
   end
 
-  create_table "event_reminders", force: :cascade do |t|
-    t.integer "reminderPeriod"
-    t.string "reminderType"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.datetime "start"
@@ -126,8 +119,6 @@ ActiveRecord::Schema.define(version: 20180423150953) do
     t.bigint "coach_user_id"
     t.string "reminder_type"
     t.integer "reminder_range"
-    t.string "remindertype"
-    t.integer "reminderperiod"
     t.index ["coach_user_id"], name: "index_events_on_coach_user_id"
   end
 

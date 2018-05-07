@@ -167,7 +167,7 @@ class QuestionnaireManager
 
   def send_menu
     reply = "OK #{@user.last_name}, proseguiamo piu tardi! \nA presto!"
-    GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.custom_keyboard(['Questionari'])
+    GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.menu_keyboard
   end
 
   def send_profiling_finished
