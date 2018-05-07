@@ -120,7 +120,7 @@ class GeneralActions
   end
 
   def self.plans_names(delivered_plans)
-    delivered_plans.map(&:name).push('Ulteriori Dettagli').push('Torna al Menu')
+    delivered_plans.map(&:name).push('Scarica Dettagli').push('Torna al Menu')
   end
 
   def self.custom_keyboard(keyboard_values)

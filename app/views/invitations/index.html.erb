@@ -1,27 +1,70 @@
 <% if @campaigns.nil? %>
   Non ci sono campagne
 <% else %>
-  <table>
-    <thead>
-    <tr>
-      <th>Nome Campagna</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
+<%= provide(:title, "Lista di Indagine") %>
 
-    <tbody>
-    <% @campaigns.each do |c| %>
-      <tr>
-        <td><%= c.campaign || "Non definito" %></td>
-        <td><%= link_to 'Show', invitation_path(c) %></td>
-        <td><%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+<div class="container">
 
-  <br>
+  <h1>Indagine</h1>
+  <div class="row">
 
+    <div class="col-md-12 list-group">
+
+      <table class="table">
+        <tr class="table-header">
+
+          <th class="cell">Titolo</th>
+
+          <th class="cell">Mostra</th>
+          <th class="cell">Elimina</th>
+          <th class="cell">Data di creazione</th>
+          <th class="cell">Tag</th>
+        </tr>
+        <% @campaigns.each do |c| %>
+          <tr class="active">
+
+            <td>   <%= c.campaign || "Non definito" %></td>
+
+
+            <td> <%= link_to "Mostra", invitation_path(c), class: "btn btn-xs btn-primary" %></td>
+            <td> <%= link_to "Elimina", c, class: "btn btn-xs btn-danger", method: :delete,
+                             data: {confirm: "Sei sicuro di voler eliminare l'Indagine?" +
+                                 "Una volta cancellato non potrai più ripristinarlo!"} %></td>
+            <td><%= c.created_at.strftime("%D") %></td>
+            <td><%=  c[:tag_list] %></td>
+          </tr>
+
+        <% end %>
+      </table>
+      <%= link_to "Crea un nuovo Indagine", new_invitation_path, class: "btn btn-md btn-success" %>
+    </div>
+  </div>
+</div>
 <% end %>
 
-<%= link_to 'New Invitation', new_invitation_path %><br>
+<style>
+  h1 {
+    font-size: 30px;
+  }
+
+  /*Table Style One*/
+  .table .table-header {
+    background: #FEC107;
+    color: #333;
+  }
+
+  .table .table-header .cell {
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 640px) {
+    table {
+      overflow-x: auto;
+      display: block;
+    }
+
+    .table .table-header .cell {
+      padding: 20px 5px;
+    }
+  }
+</style>

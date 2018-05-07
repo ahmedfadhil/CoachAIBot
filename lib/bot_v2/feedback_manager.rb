@@ -118,7 +118,7 @@ class FeedbackManager
     command_data = {'plans_to_feedback' => plan_names}
     BotCommand.create(user_id: @user.id, data: command_data.to_json)
     actuator.send_reply "I piani che hanno bisogno di feedback sono:\n\t-#{plan_names.join("\n\t-")}"
-    actuator.send_reply_with_keyboard 'Per che piano vuoi fornire feedback?', (GeneralActions.custom_keyboard (plan_names.push('Ulteriori Dettagli').push('Rispondi piu\' tardi/Torna al Menu')))
+    actuator.send_reply_with_keyboard 'Per che piano vuoi fornire feedback?', (GeneralActions.custom_keyboard (plan_names.push('Scarica Dettagli').push('Rispondi piu\' tardi/Torna al Menu')))
   end
 
   def has_plans_to_feedback?

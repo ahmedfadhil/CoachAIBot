@@ -1,22 +1,60 @@
-<div class="form-group">
-  Titolo Indagine:
-  <%= label :campaign_title, @campaign[:title] %><br>
+<%= provide(:title, "Mostra Indagine") %>
+
+<div class="container">
+<div>
+  <ul>
+    <li class="list-group-item">
+
+      Titolo Indagine:
+      <%= label :campaign_title, @campaign[:title] %><br>
+    </li>
+  </ul>
+</div>
+<div>
+  <ul>
+    <li class="list-group-item">
+
+      Tag dell'Indagine:
+      <%= label :tag_list, @campaign[:tag_list].join(", ") %><br>
+    </li>
+  </ul>
 </div>
 
-<div class="form-group">
-  Tag dell'Indagine
-  <%= label :tag_list, @campaign[:tag_list].join(", ")  %><br>
-</div>
-
-<ul>
+<div class="btn-toolbar">
   <% @campaign[:users].each do |user| %>
     <li><%= user['name'] %></li>
-  <% end %>
-</ul>
 
-<div class="actions">
-  <%= submit_tag "Crea indagine", class: "btn btn-success" %>
+  <% end %>
 </div>
+</div>
+
+
+
+
+
+<!--<div class="form-group">-->
+<!--  Titolo Indagine:-->
+<!--  <%#= label :campaign_title, @campaign[:title] %><br>-->
+<!--</div>-->
+
+<!--<div class="form-group">-->
+<!--  Tag dell'Indagine-->
+<!--  <%#= label :tag_list, @campaign[:tag_list].join(", ") %><br>-->
+<!--</div>-->
+
+<!--<ul>-->
+  <%# @campaign[:users].each do |user| %>
+<!--    <li><%#= user['name'] %></li>-->
+  <%# end %>
+<!--</ul>-->
+
+<!--<div class="actions">-->
+  <%#= submit_tag "Crea indagine", class: "btn btn-success" %>
+<!--</div>-->
+
+
+
+
 
 
 

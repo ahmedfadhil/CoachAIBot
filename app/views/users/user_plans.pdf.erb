@@ -1,7 +1,7 @@
 <div class="container">
   <div class="pdf_background col-xs-12">
 
-    <%= image_tag wicked_pdf_asset_base64('logobanner.png'), class: 'logo_sizer' %><br>
+    <%= image_tag wicked_pdf_asset_base64('1212.png'), class: 'logo_sizer' %><br>
     <div class="col-xs-offset-3">
       <h1>Piani ed Attività di <b> <%= "#{@plans[0].user.last_name} #{@plans[0].user.first_name}" %> </b></h1>
       <p>
@@ -21,22 +21,22 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="jumbotron">
-    <div class="container">
-      <div class="col-xs-offset-4">
-        <%= image_tag wicked_pdf_asset_base64('logo.png'), class: 'header-img' %><br>
-      </div>
-      <div class="logo_title">
+<!--<div class="container">-->
+<!--  <div class="jumbotron">-->
+<!--    <div class="container">-->
+<!--      <div class="col-xs-offset-4">-->
+<!--        <%#= image_tag wicked_pdf_asset_base64('logo.png'), class: 'header-img' %><br>-->
+<!--      </div>-->
+<!--      <div class="logo_title">-->
 
-        <h1> Rapporto per piani e attività</h1><br>
-        <p>Ciao <%= " #{@plans[0].user.first_name}" %>, ecco i tuoi piani con le attività e la tua adesione generale a
-          CoachAI.</p><br>
-      </div>
+<!--        <h1> Rapporto per piani e attività</h1><br>-->
+<!--        <p>Ciao <%#= " #{@plans[0].user.first_name}" %>, ecco i tuoi piani con le attività e la tua adesione generale a-->
+<!--          CoachAI.</p><br>-->
+<!--      </div>-->
 
-    </div>
-  </div>
-</div>
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 <div class="container alwaysbreak">
 
@@ -48,12 +48,12 @@
         <div class="row">
 
 
-          <div class="col-xs-12 cards_back">
-            <%= image_tag wicked_pdf_asset_base64('piano.jpg'), class: 'plan_img' %>
+          <div class="col-xs-12">
+            <%#= image_tag wicked_pdf_asset_base64('piano.jpg'), class: 'plan_img' %>
             <div class="piano">
               <h1> I tuoi piani e attività come elencati di seguito</h1>
-              <div class="col-xs-offset-2 piano_font">Piano (<%= plan.name %>
-                ) <%= image_tag wicked_pdf_asset_base64('piano_logo.png'), class: 'plan_logo' %>
+              <div class="col-xs-offset-2 piano_font">Piano (<%= plan.name %>)
+<!--                 <%#= image_tag wicked_pdf_asset_base64('piano_logo.png'), class: 'plan_logo' %>-->
               </div>
               <div class="plan_title cards container">
                 <h2>Descrizione</h2>
@@ -70,7 +70,7 @@
 
           <!-- Main jumbotron for a primary marketing message or call to action -->
           <div class="activity_back">
-            <%= image_tag wicked_pdf_asset_base64('activities.jpg'), class: 'activity' %>
+            <%#= image_tag wicked_pdf_asset_base64('activities.jpg'), class: 'activity' %>
             <div class="container">
               <div class="col-lg-8 col-lg-offset-0">
                 <h1>Attività sotto questo piano</h1>
@@ -133,36 +133,36 @@
   </div>
 </div>
 
-<br>
-<div class="container">
+<!--<br>-->
+<!--<div class="container">-->
 
 
-  <div class="col-xs-12 cards_back">
-    <%= image_tag wicked_pdf_asset_base64('piano.jpg'), class: 'plan_img' %>
-    <div class="piano">
-      <h1> I tuoi dati di indossabile</h1>
-      <div class="col-xs-offset-2 piano_font">Dati di indossabile <%= image_tag wicked_pdf_asset_base64('piano_logo.png'), class: 'plan_logo' %>
-      </div>
-      <div class="plan_title cards container">
-        <h2>Descrizione</h2>
-        <p>wearable description</p>
-        <h2>Durata</h2>
-        <p>duration</p>
-      </div>
-    </div>
+<!--  <div class="col-xs-12">-->
+    <%#= image_tag wicked_pdf_asset_base64('piano.jpg'), class: 'plan_img' %>
+<!--    <div class="piano">-->
+<!--      <h1> I tuoi dati di indossabile</h1>-->
+<!--      <div class="col-xs-offset-2 piano_font"> -->
+        <%#= image_tag wicked_pdf_asset_base64('piano_logo.png'), class: 'plan_logo' %>
+<!--      </div>-->
+<!--      <div class="plan_title cards container">-->
 
-  </div>
+<!--        <h2>Durata</h2>-->
+<!--        <p>duration</p>-->
+<!--      </div>-->
+<!--    </div>-->
 
-  <button type="button" class="btn btn-primary btn-large">Wearable data</button>
+<!--  </div>-->
 
-  <button type="button" class="btn btn-success btn-large">Wearable data</button>
-  <button type="button" class="btn btn-danger btn-large">Wearable data</button>
-  <button type="button" class="btn btn-warning btn-large">Wearable data</button>
-  <button type="button" class="btn btn-info btn-large">Wearable data</button>
-  <button type="button" class="btn btn-light btn-large">Wearable data</button>
+<!--  <button type="button" class="btn btn-primary btn-large">Wearable data</button>-->
+
+<!--  <button type="button" class="btn btn-success btn-large">Wearable data</button>-->
+<!--  <button type="button" class="btn btn-danger btn-large">Wearable data</button>-->
+<!--  <button type="button" class="btn btn-warning btn-large">Wearable data</button>-->
+<!--  <button type="button" class="btn btn-info btn-large">Wearable data</button>-->
+<!--  <button type="button" class="btn btn-light btn-large">Wearable data</button>-->
 
 
-</div>
+<!--</div>-->
 
 
 
@@ -170,7 +170,7 @@
   <p> **Non dimenticare di seguire i piani e segnalarli al chatbot**</p>
 </div>
 <footer class="copyright_font">
-  <%= image_tag wicked_pdf_asset_base64('blog-header-generic.png'), class: 'footer-img' %>
-  <p>&copy; 2018 CoachAI. All rights reserved. <%= Date.today.to_s(:long) %></p>
+  <%= image_tag wicked_pdf_asset_base64('footing.png'), class: 'footer-img' %>
+  <p>&copy; CoachAI. All rights reserved. <%= Date.today.to_s(:long) %></p>
 
 </footer>

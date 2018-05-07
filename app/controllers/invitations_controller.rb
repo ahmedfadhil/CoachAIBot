@@ -6,7 +6,7 @@ class InvitationsController < ApplicationController
   # GET /invitations
   def index
     @campaigns = Invitation.where('campaign IS NOT NULL').map(&:campaign).uniq
-    @campaigns = Invitation.all
+    @campaigns = Invitation.all.order('created_at DESC').limit(10)
 
 
     respond_to do |format|
@@ -40,6 +40,7 @@ class InvitationsController < ApplicationController
 
   # GET /invitations/new
   def new
+
   end
 
   # GET /invitations/1/edit
@@ -52,6 +53,8 @@ class InvitationsController < ApplicationController
 
       invitation = Invitation.new(campaign: @title,questionnaire_id: @q_id,
                                   user_id: user.id, completed: false)
+
+
       invitation.tag_list = @tag_list
       invitation.save!
       #notify user that there is a new questionnaire to fulfill
@@ -106,5 +109,8 @@ class InvitationsController < ApplicationController
       campaign_hash[:users].push({'user_id' => user.id, 'name' => "#{user.first_name} #{user.last_name}"})
     end
   end
+
+
+
 
 end

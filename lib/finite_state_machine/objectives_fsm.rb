@@ -125,10 +125,10 @@ module FSM
 			end_date = l(objective.end_date, format: "%-d %B %Y")
 			if current_objective_is_steps?
 				objective = user.active_objective
-				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' totalizzare #{objective.steps} passi, "
+				response[:text] << "Benvenuto utente, al momento il tuo obiettivo é totalizzare #{objective.steps} passi, "
 				response[:text] << "entro il giorno #{end_date}. "
 			elsif current_objective_is_distance?
-				response[:text] << "Benvenuto utente, al momento il tuo obiettivo e' percorrere #{objective.distance} km a piedi, "
+				response[:text] << "Benvenuto utente, al momento il tuo obiettivo é percorrere #{objective.distance} km a piedi, "
 				response[:text] << "entro il giorno #{end_date}. "
 			end
 
@@ -146,7 +146,7 @@ module FSM
 			else
 				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
 				response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile."
-				response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Allenamenti']]
+				response[:keyboard] += [['Attivita', 'Feedback'],['Consigli','Messaggi'],['Allenamenti'],['Questionari']]
 			end
 		end
 

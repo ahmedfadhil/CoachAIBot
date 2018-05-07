@@ -229,7 +229,7 @@ class Dispatcher
   end
 
   def tell_me_more_strings
-    ['Dimmi di piu', 'ulteriori dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
+    ['Dimmi di piu', 'ulteriori dettagli','Scarica Dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
   end
 
   def activities_strings

@@ -19,7 +19,7 @@ class ActivityInformer
     actuator.send_chat_action 'typing'
     reply = "In breve hai da seguire i seguenti piani: \n\n"
     reply += "\t-#{delivered_plans_names.join("\n\t-")}"
-    actuator.send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(['Ulteriori Dettagli', 'Torna al Menu']))
+    actuator.send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(['Scarica Dettagli', 'Torna al Menu']))
   end
 
   def inform_no_activities
@@ -55,7 +55,7 @@ class ActivityInformer
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', delivered_plans)
-    doc_name = "Piano di #{user.first_name} #{user.last_name}.pdfs"
+    doc_name = "Piano di #{user.first_name} #{user.last_name}.pdf"
 
     pdf = WickedPdf.new.pdf_from_string(
         controller.render_to_string('users/user_plans', layout: 'layouts/pdfs.html'),

@@ -1,14 +1,22 @@
-<h1> Nuova Indagine </h1>
+<%= provide(:title, "Nuova Indagine") %>
+
+
+<div class="container">
+  <div class="col-md-4">
+  </div>
+  <div class="card container">
+<h2> Nuova Indagine </h2>
 
 <%= form_tag(controller: 'invitations', action: 'create', method: :post) do %>
 
   <div class="form-group">
     Titolo:
     <%= text_field_tag :campaign_title%>
+
   </div>
 
   <div class="form-group">
-    <div class="alert alert-success" role="alert">
+    <div role="alert">
       Quando crei una campagna, devi scegliere i TAG alla quale vuoi che sia inviata.
     </div>
     <ul class="list-group" style="clear: both; display: block; content: '';">
@@ -36,4 +44,10 @@
     <%= submit_tag "Crea indagine", class: "btn btn-success" %>
   </div>
 <% end %>
+
+
+</div></div>
+
+
+
 
