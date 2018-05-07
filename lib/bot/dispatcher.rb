@@ -1,14 +1,7 @@
-require 'bot/activity_informer'
-require 'bot/feedback_manager'
-require 'bot/profiling_manager'
-require 'bot/monitoring_manager'
-require 'bot/general'
-require 'bot/answer_checker'
-require 'bot/api_ai_redirecter'
-require 'bot/login_manager'
-require 'bot/chatscript_compiler'
-require 'bot/messenger'
-require 'bot/tips'
+# da cambiare tutti i require
+require 'bot_v2/api_ai_redirecter'
+require 'bot_v2/login_manager'
+require 'finite_state_machine/objectives_fsm'
 
 class Dispatcher
   attr_reader :message, :user
@@ -26,111 +19,204 @@ class Dispatcher
       LoginManager.new(@message, @user).manage
     else
 
-      # dispatch in function of user state
-      hash_state = JSON.parse(user.get_bot_command_data)
-      dot_state = hash_state.to_dot
-      state = dot_state.state
+      # dispatch in function of user state and text input
+      aasm_state = @user.aasm_state
+      ap "CURRENT USER: #{@user.id} STATE: #{aasm_state}"
 
-      if text == ':build mine' || text == ':reset'
-        ChatscriptCompiler.new(text, @user, hash_state).manage
-      else
-        case state
+      case aasm_state
+        when 'idle'
+          manage_idle_state_ext(text)
 
-          when 0, '0'
-            ap '--------PROFILING--------'
-            # dispatch to profiling
-            ProfilingManager.new(text, @user, hash_state).manage
+        when 'activities'
+          manage_activities_state(text)
 
-          when 1, '1'
-            ap '--------MENU--------'
+        when 'messages'
+          manage_messages_state(text)
 
-            case text
-              # Activities & Plans
-              when /(\w|\s|.)*(([Aa]+[Tt]+[Ii]+[Vv]+[Ii]*[Tt]+[AaÀà]*)|([Pp]+[Ii]+[Aa]+[Nn]+([Ii]+|[Oo]+)))+(\w|\s|.)*/
-                ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
-                ActivityInformer.new(@user, hash_state).check
-                # Feedbacks
-              when /(\w|\s|.)*([Ff]+[Ee]+[Dd]+[Bb]+[Aa]*([Cc]+|[Kk]+))+(\w|\s|.)*/
-                ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
-                FeedbackManager.new(@user, hash_state).check
-                # Messages
-              when /(\w|\s|.)*([Mm]+[Ee]+[Ss]+[Aa]+[Gg]*[Ii])+(\w|\s|.)*/
-                ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
-                Messenger.new(@user, hash_state).inform
-                # Hints
-              when /(\w|\s|.)*(([Cc]+[Oo]+[Nn]*[Ss]+[Ii]+[Gg]+[Ll]+[Ii]*)|([Ss]+[Uu]+[Gg]+[Ee]*[Rr]+[Ii]*[Mm]+[Ee]*[Nn]+[Tt]+[Ii]+))+(\w|\s|.)*/
-                ap "---------PREPARING TIPS FOR USER: #{@user.id}---------"
-                Tips.new(text, @user, hash_state).enter_tips
+        when 'feedback_plans'
+          manage_feedback_plans_state(text)
 
-              else
-                ApiAIRedirector.new(text, @user, hash_state).redirect
+        when 'feedback_activities'
+          manage_feedback_activities_state(text)
 
-            end
+        when 'feedbacking'
+          manage_feedbacking_state(text)
 
-          when 2, '2'
-            ap "--------FEEDBACKING USER: #{@user.id} --------"
-            # dispatch to feedback
-            general_actions = GeneralActions.new(@user, hash_state)
-            feedback_manager = FeedbackManager.new(@user, hash_state)
-            names = GeneralActions.plans_names(general_actions.plans_needing_feedback)
+        when 'questionnaires'
+          manage_questionnaires_state(text)
 
-            ap hash_state
-            if hash_state['plan_name'].nil?
-              case text
-                when *tell_me_more_strings
-                  feedback_manager.send_details
+        when 'responding'
+          manage_responding_state(text)
 
-                when *back_strings
-                  general_actions.back_to_menu_with_menu
+        when 'confirmation'
+          manage_confirmation_state(text)
 
-                when *names
-                  plan_name = text
-                  ap "---------ASKING FEEDBACK FOR PLAN: #{plan_name} BY USER: #{@user.id}---------"
-                  feedback_manager.ask(plan_name)
-
-                else
-                  feedback_manager.please_choose_plan(names)
-              end
-              ap "bot_command_data="
-              ap JSON.parse(user.get_bot_command_data)
-            else
-              case text
-                when *back_strings
-                  general_actions.back_to_menu_with_menu
-
-                else
-                  AnswerChecker.new(@user, hash_state).respond(text)
-              end
-            end
-
-          when 3, '3'
-            ap "---------RECEIVING RESPONSE FOR COACH MESSAGE BY USER: #{@user.id}---------"
-            general_actions = GeneralActions.new(@user, hash_state)
-
-            case text
-              when *back_strings
-                general_actions.back_to_menu_with_menu
-              else
-                Messenger.new(@user, hash_state).register_patient_response(text)
-            end
-
-          when 4, '4'
-            ap "---------SENDING TIPS TO USER: #{@user.id}---------"
-            Tips.new(text, @user, hash_state).manage
-
-
-          else # when 5, '5'
-            ap "---------INFORMING ABOUT ACTIVITIES USER: #{@user.id}---------"
-            case text
-              when *back_strings
-                GeneralActions.new(@user, hash_state).back_to_menu_with_menu
-              else # when 'Ulteriori Dettagli'
-                ActivityInformer.new(@user, hash_state).send_details
-            end
-
-
-        end
+        else
+          GeneralActions.new(@user,nil).send_reply 'Penso di non aver capito, potresti ripetere per favore?'
       end
+
+    end
+  end
+
+
+	def manage_idle_state_ext(text)
+		hash_state = JSON.parse(BotCommand.where(user: @user).last&.data || "{}")
+		ap hash_state
+		if hash_state['state'] == 'objectives'
+			ap "--- objectives ---"
+			fsm = FSM::ObjectivesFSM.from_model(@user, hash_state)
+			actuator = GeneralActions.new(@user, nil)
+			response = fsm.talk(text)
+			fsm.advance_state
+			if fsm.state != "terminated"
+				fsm.update_model!(hash_state)
+				#@user.set_user_state(hash_state)
+				#@user.save!
+				BotCommand.create(user: @user, data: hash_state.to_json)
+			else
+				hash_state['state'] = 0
+				#@user.set_user_state(hash_state)
+				#@user.save!
+				BotCommand.create(user: @user, data: hash_state.to_json)
+			end
+			actuator.send_reply_with_keyboard_hash response[:text], response[:keyboard]
+		else
+			manage_idle_state(text)
+		end
+	end
+
+  def manage_idle_state(text)
+    case text
+      # Activities & Plans
+      when *activities_strings
+        ap "---------CHECKING ACTIVITIES FOR USER: #{@user.id} ----------"
+        @user.get_activities!
+
+      # Feedbacks
+      when *feedback_strings
+        ap "---------CHECKING FOR FEEDBACK USER: #{@user.id}---------"
+        @user.show_plans_to_feedback!
+
+      # Messages
+      when *messages_strings
+        ap "---------CHECKING MESSAGES FOR USER: #{@user.id}---------"
+        @user.get_messages!
+
+      # Questionnaires
+      when *questionnaires_strings
+        ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
+        @user.start_questionnaires!
+			when 'Allenamento', 'allenamento', 'Allenamenti', 'allenamenti', '/allenamenti'
+				ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
+				fsm = FSM::ObjectivesFSM.new @user
+
+				actuator = GeneralActions.new(@user, nil)
+				response = fsm.talk
+				fsm.advance_state
+				if fsm.state != "terminated"
+					#hash_state['state'] = 'objectives'
+					#hash_state = JSON.parse(BotCommand.where(user: @user).last.data)
+					hash_state = {'state' => 'objectives'}
+					fsm.update_model!(hash_state)
+					BotCommand.create(user: @user, data: hash_state.to_json)
+					#@user.set_user_state(hash_state)
+					#@user.save!
+				end
+				actuator.send_reply_with_keyboard_hash response[:text], response[:keyboard]
+      else
+        #ApiAIRedirector.new(text, @user).redirect
+        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
+    end
+  end
+
+  def manage_activities_state(text)
+    ap "---------INFORMING ABOUT ACTIVITIES USER: #{@user.id}---------"
+    case text
+      when *back_strings
+        @user.cancel!
+
+      when *tell_me_more_strings
+        @user.get_details!
+
+      else
+        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
+    end
+  end
+
+  def manage_messages_state(text)
+    case text
+      # Respond Later
+      when *back_strings
+        ap "---------USER #{@user.id} CANCELLED MESSAGES RESPONDING ACTION---------"
+        @user.cancel!
+
+      else
+        ap "---------RECEIVING RESPONSE FOR COACH MESSAGE BY USER: #{@user.id}---------"
+        @user.respond!(text)
+    end
+  end
+
+
+  def manage_feedback_plans_state(text)
+    case text
+      when *tell_me_more_strings
+        @user.get_details!
+
+      when *back_strings
+        @user.cancel!
+
+      else
+        @user.show_activities_to_feedback!(text)
+    end
+  end
+
+  def manage_feedback_activities_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+
+      else
+        @user.start_feedbacking!(text)
+    end
+  end
+
+  def manage_feedbacking_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+
+      else
+        @user.feedback!(text)
+    end
+  end
+
+
+  def manage_questionnaires_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+      else
+        @user.start_responding!(text)
+    end
+  end
+
+  def manage_responding_state(text)
+    case text
+      when *back_strings
+        @user.cancel!
+      when 'Torna alla domanda precedente'
+        @user.cancel_last_answer!
+      else
+        @user.respond_questionnaire!(text)
+    end
+  end
+
+  def manage_confirmation_state(text)
+    case text
+      when 'Si'
+        @user.confirm!
+      when 'No'
+        @user.cancel_confirmation!
     end
   end
 
@@ -143,7 +229,23 @@ class Dispatcher
   end
 
   def tell_me_more_strings
-    ['Dimmi di piu', 'ulteriori dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
+    ['Dimmi di piu', 'ulteriori dettagli','Scarica Dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
+  end
+
+  def activities_strings
+    ['attivita', 'Attivita', 'attività', 'Attività']
+  end
+
+  def questionnaires_strings
+    ['questionari', 'Questionari', 'Prosegui con i questionari']
+  end
+
+  def messages_strings
+    ['messaggi', 'Messaggi']
+  end
+
+  def feedback_strings
+    ['feedback', 'Feedback']
   end
 
 end

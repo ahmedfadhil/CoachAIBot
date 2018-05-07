@@ -1,8 +1,8 @@
-require "#{Rails.root}/lib/bot_v2/messenger"
-require "#{Rails.root}/lib/bot_v2/activity_informer"
-require "#{Rails.root}/lib/bot_v2/feedback_manager"
-require "#{Rails.root}/lib/bot_v2/questionnaire_manager"
-require "#{Rails.root}/lib/bot_v2/general"
+require "#{Rails.root}/lib/bot/messenger"
+require "#{Rails.root}/lib/bot/activity_informer"
+require "#{Rails.root}/lib/bot/feedback_manager"
+require "#{Rails.root}/lib/bot/questionnaire_manager"
+require "#{Rails.root}/lib/bot/general"
 require "#{Rails.root}/lib/modules/features_manager"
 
 class User < ApplicationRecord

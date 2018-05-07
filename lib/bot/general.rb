@@ -1,4 +1,5 @@
 require 'telegram/bot'
+#require 'JSON'
 
 class GeneralActions
   attr_reader :user, :state, :api
@@ -10,28 +11,10 @@ class GeneralActions
     @state = state
   end
 
-  def back_to_menu
-    @state['state'] = 1
-    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
-    @user.save
-  end
-
   def back_to_menu_with_menu
-    back_to_menu
     @api.call('sendMessage', chat_id: @user.telegram_id,
-              text: 'Scegli con cosa vuoi continuare.', reply_markup: GeneralActions.menu_keyboard)
-  end
-
-  def clean_state
-    @user.set_bot_command_data (@state.except 'plan_name', 'notification_id', 'question_id')
-    @user.save
-    @user
-  end
-
-  def set_state(state)
-    @state['state'] = state
-    @user.set_bot_command_data @state
-    @user
+              text: "Va bene #{@user.first_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup:
+                  GeneralActions.menu_keyboard)
   end
 
   def send_reply(reply)
@@ -43,60 +26,13 @@ class GeneralActions
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: keyboard)
   end
 
-  def set_plan_name(plan_name)
-    @state['plan_name'] = plan_name
-    @user.set_bot_command_data @state
-  end
+	def send_reply_with_keyboard_hash(reply, keyboard)
+		answer = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: keyboard, one_time_keyboard: true)
+		@api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: answer)
+	end
 
   def send_chat_action(action)
     @api.call('sendChatAction', chat_id: @user.telegram_id, action: action)
-  end
-
-  def send_plans_details(delivered_plans)
-    send_reply "#{@user.last_name} ti sto inviando un documento che contiene tutti i dettagli relativi alle attivita' che hai da fare. Leggilo con attenzione!"
-    send_chat_action 'upload_document'
-
-    controller = UsersController.new
-    controller.instance_variable_set(:'@plans', delivered_plans)
-    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-plans.pdfs"
-
-    pdf = WickedPdf.new.pdf_from_string(
-        controller.render_to_string('users/user_plans', layout: 'layouts/pdfs.html'),
-        dpi: '250',
-        # orientation: 'Landscape',
-        viewport: '1280x1024',
-        footer: { right: '[page] of [topage]'}
-    )
-    save_path = Rails.root.join('pdfs',doc_name)
-    File.open(save_path, 'wb') do |file|
-      file << pdf
-    end
-
-    send_doc "pdfs/#{doc_name}"
-  end
-
-  def send_feedback_details(plans)
-    send_reply "#{@user.last_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi! Leggilo con Attenzione"
-    send_chat_action 'upload_document'
-
-    controller = UsersController.new
-    controller.instance_variable_set(:'@plans', plans)
-    doc_name = "#{user.last_name}#{user.first_name}-feedbacka.pdfs"
-
-
-    pdf = WickedPdf.new.pdf_from_string(
-        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdfs.html'),
-        dpi: '250',
-        # orientation: 'Landscape',
-        viewport: '1280x1024',
-        footer: { right: '[page] of [topage]'}
-    )
-    save_path = Rails.root.join('pdfs',doc_name)
-    File.open(save_path, 'wb') do |file|
-      file << pdf
-    end
-
-    send_doc "pdfs/#{doc_name}"
   end
 
   def plans_needing_feedback
@@ -105,14 +41,34 @@ class GeneralActions
 
 
   def send_doc(file_path)
-    @api.call('sendDocument', chat_id: @user.telegram_id,
-              document: Faraday::UploadIO.new(file_path, 'pdfs'), reply_markup: GeneralActions.menu_keyboard)
+    @api.call('sendDocument', chat_id: @user.telegram_id, document: Faraday::UploadIO.new(file_path, 'pdfs'))
   end
+
+  ######################
+  # FOR QUESTIONNAIRES #
+  ######################
+
+  #######################
+
+  # data.class has to be Hash
+  def save_bot_command_data(data)
+    BotCommand.create(user_id: @user.id, data: data.to_json)
+  end
+
+  def bot_command_data
+    JSON.parse(BotCommand.where(user: @user).last.data)
+  end
+
+
 
   # static methods
 
+  def self.back_button_text
+    'Rispondi piu\' tardi/Torna al Menu'
+  end
+
   def self.menu_buttons
-    %w[Attivita Feedback Consigli Messaggi]
+    %w[Attività Feedback Messaggi Allenamenti Questionari]
   end
 
   def self.answers_from_question(question)
@@ -125,7 +81,8 @@ class GeneralActions
 
   def self.custom_keyboard(keyboard_values)
     kb = GeneralActions.slice_keyboard keyboard_values
-    Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
+    k = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
+    k
   end
 
   def self.slice_keyboard(values)
@@ -133,7 +90,7 @@ class GeneralActions
   end
 
   def self.menu_keyboard
-    custom_keyboard menu_buttons
+    custom_keyboard GeneralActions.menu_buttons
   end
 
 end

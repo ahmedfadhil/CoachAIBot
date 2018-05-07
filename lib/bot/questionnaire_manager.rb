@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/bot_v2/general"
+require "#{Rails.root}/lib/bot/general"
 
 class QuestionnaireManager
   attr_reader :user, :bot_command_data

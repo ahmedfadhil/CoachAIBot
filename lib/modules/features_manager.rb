@@ -1,5 +1,5 @@
 require "#{Rails.root}/lib/modules/communicator"
-require "#{Rails.root}/lib/bot_v2/image_solver"
+require "#{Rails.root}/lib/bot/image_solver"
 require 'csv'
 
 class FeaturesManager

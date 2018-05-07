@@ -1,91 +1,214 @@
-require 'telegram/bot'
-require 'bot/general'
+require 'bot_v2/general'
 
 class FeedbackManager
-  attr_reader :user, :state, :api
+  attr_reader :user
 
-  def initialize(user, state)
+  def initialize(user)
     @user = user
-    token = Rails.application.secrets.bot_token
-    @api = ::Telegram::Bot::Api.new(token)
-    @state = state
   end
 
-  def send_details
-    actuator = GeneralActions.new(@user, @state)
-    plans = actuator.plans_needing_feedback
-    actuator.send_feedback_details(plans)
-    check
+  def inform_wrong_answer
+    GeneralActions.new(@user, nil).send_reply("Oups! Sembra che tu abbia scelto una risposta non valida. Perfavore, scegli una delle risposte disponibili!")
+    ask(command_data['in_feedback_activities']['activity_chosen'])
   end
 
-  def check
-    delivered_plans = GeneralActions.new(@user, @state).plans_needing_feedback
-    plan_names = GeneralActions.plans_names delivered_plans
-    if delivered_plans.size > 0 && !delivered_plans.nil?
-      actuator = GeneralActions.new(@user, @state)
-      actuator.send_reply should_feedback delivered_plans
-      @user = actuator.clean_state  # delete info about feedbacking from user's bot_command_data
-      actuator.send_reply_with_keyboard 'Per che piano vuoi fornire il feedback?', (GeneralActions.custom_keyboard plan_names)
-      GeneralActions.new(@user, JSON.parse(@user.bot_command_data)).set_state 2 # set user state to feedback
+  def is_last_feedback?
+    (Notification.joins(planning: :plan).where('plans.user_id = ? AND notifications.done = ? AND notifications.date <= ?', @user.id, 0, Date.today).size == 1)
+  end
+
+  def register_last_answer(answer)
+    bot_command_data = command_data
+    planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
+    plan = Plan.where(name: bot_command_data['in_feedback_plans']['plan_chosen']).first
+    notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
+    notification.done = 1
+    notification.save
+    Feedback.create(answer: answer, date: Date.today,
+                    notification: Notification.find(bot_command_data['in_feedback_activities']['notification_id']),
+                    question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
+    actuator = GeneralActions.new(@user, nil)
+    actuator.send_reply("OK #{@user.first_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attività '#{planning.activity.name}' del piano '#{plan.name}'")
+  end
+
+  def is_last_question?
+    bot_command_data = command_data
+    planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
+    plan = Plan.where(name: bot_command_data['in_feedback_plans']['plan_chosen']).first
+    notifications = Notification.joins(:planning).where('plannings.plan_id = ? AND plannings.activity_id = ? AND notifications.date <= ?', plan.id, planning.activity.id, Date.today)
+    current_notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
+    last_notification = notifications.last
+    if current_notification.id == last_notification.id && current_notification.feedbacks.count == planning.questions.count-1
+      return true
+    end
+    false
+  end
+
+  def register_answer_and_continue(answer)
+    bot_command_data = command_data
+    planning = Planning.find(bot_command_data['in_feedback_activities']['planning_id'])
+    notification = Notification.find(bot_command_data['in_feedback_activities']['notification_id'])
+    question = Question.find(bot_command_data['in_feedback_activities']['question_id'])
+    Feedback.create(answer: answer, date: Date.today, notification: notification, question: question)
+    GeneralActions.new(@user, nil).send_reply('OK!')
+    if planning.questions.count == notification.feedbacks.count
+      notification.done = 1
+      notification.save
+    end
+    ask(bot_command_data['in_feedback_activities']['activity_chosen'])
+  end
+
+  def is_answer?(answer)
+    command_data['in_feedback_activities']['answers'].include?(answer)
+  end
+
+  def inform_wrong_activity
+    GeneralActions.new(@user, nil).send_reply_with_keyboard("Hai scelto un attività che non conosco. Per favore, scegli una delle attivita' indicate!",GeneralActions.custom_keyboard(command_data['in_feedback_plans']['activities_that_need_feedback']))
+  end
+
+  def ask(activity_name)
+    bot_command_data = command_data
+    plan = Plan.where(:name => bot_command_data['in_feedback_plans']['plan_chosen']).first
+    activity = Activity.where(:name => activity_name).first
+    notification = Notification.joins(:planning).where('plannings.plan_id = ? AND plannings.activity_id =? and notifications.date <= ? AND notifications.done = ?', plan.id, activity.id, Date.today, 0).first
+    planning = notification.planning
+    question = planning.questions[notification.feedbacks.count]
+    bot_command_data['in_feedback_activities'] = {'activity_chosen' => activity_name, 'notification_id' => notification.id, 'question_id' => question.id, 'planning_id' => planning.id, 'answers' => question.answers.map(&:text)}
+    BotCommand.create(user: @user, data: bot_command_data.to_json)
+    reply = "#{question_header(notification)}: \n\n\t#{question.text}"
+    GeneralActions.new(@user, nil).send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(question.answers.map(&:text).push('Rispondi piu\' tardi/Torna al Menu')))
+  end
+
+  def valid_activity_name?(activity_name)
+    command_data['in_feedback_plans']['activities_that_need_feedback'].include?(activity_name)
+  end
+
+  def inform_wrong_plan
+    GeneralActions.new(@user, nil).send_reply_with_keyboard('Hai scelto un piano che non conosco. Per favore, scegli uno dei piani indicati!', GeneralActions.custom_keyboard(command_data['plans_to_feedback']))
+  end
+
+  def send_activities_that_need_feedback(plan_name)
+    plan = Plan.where(:user => @user.id, :name => plan_name).first
+    activities_names = Activity.joins(plannings: :notifications).where('plannings.plan_id = ? AND notifications.date<=? AND notifications.done=?', plan.id, Date.today, 0).uniq.map(&:name)
+    bot_command_data = command_data
+    bot_command_data['in_feedback_plans'] = {'plan_chosen' => plan_name, 'activities_that_need_feedback' => activities_names}
+    BotCommand.create(user: @user, data: bot_command_data.to_json)
+    actuator = GeneralActions.new(@user, nil)
+    actuator.send_reply "Le attivita' del piano '#{plan_name}' che hanno bisogno di feedback sono:\n\n\t-#{activities_names.join("\n\t-")}"
+    actuator.send_reply_with_keyboard "Per quale attivita' vuoi fornire feedback?",(GeneralActions.custom_keyboard activities_names.push('Rispondi piu\' tardi/Torna al Menu'))
+  end
+
+  def valid_plan_name?(plan_name)
+    command_data['plans_to_feedback'].include?(plan_name)
+  end
+
+  def inform_no_plans_to_feedback
+    if @user.profiled?
+      reply = "Per ora non c'e' feedback da dare. Prosegui con le attività se ne hai da fare oppure attendi che il coach te ne dia."
     else
-      actuator = GeneralActions.new(@user, @state)
-      actuator.back_to_menu
-      actuator.send_reply_with_keyboard 'Per ora non c\'e\' piu\' feedback da dare. Prosegui con le attivita e potrai dare feedback su di esse.', GeneralActions.menu_keyboard
-     end
+      reply = "Per ora non c'è feedback da dare. Completa prima i questionari presenti nella sezione QUESTIONARI."
+    end
+    GeneralActions.new(@user, nil)
+        .send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
 
-  def ask(plan_name)
-    notification = Notification.joins(planning: :plan)
-        .where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.name=?', Date.today, 0, 1, plan_name)
-        .limit(1)[0]
+  def send_plans_to_feedback
+    plans = plans_to_feedback
+    plan_names = plans.map(&:name)
+    actuator = GeneralActions.new(@user, nil)
+    command_data = {'plans_to_feedback' => plan_names}
+    BotCommand.create(user_id: @user.id, data: command_data.to_json)
+    actuator.send_reply "I piani che hanno bisogno di feedback sono:\n\t-#{plan_names.join("\n\t-")}"
+    actuator.send_reply_with_keyboard 'Per che piano vuoi fornire feedback?', (GeneralActions.custom_keyboard (plan_names.push('Scarica Dettagli').push('Rispondi piu\' tardi/Torna al Menu')))
+  end
 
-    if notification.nil?
-      actuator = GeneralActions.new(@user, @state)
-      actuator.send_reply(finished(plan_name))
-      @user = actuator.clean_state
-      FeedbackManager.new(@user, JSON.parse(@user.bot_command_data)).check
-    else
-      if !(notification.feedbacks.size == notification.planning.activity.questions.size)
-        question = notification.planning.activity.questions[notification.feedbacks.size]
-        prepare_state_for_feedback(notification, question, plan_name)
-        actuator = GeneralActions.new(@user, @state)
-        answers = GeneralActions.answers_from_question question
-        actuator.send_reply_with_keyboard("In data #{notification.date}, \n\n\t #{question.text}?", GeneralActions.custom_keyboard(answers))
+  def has_plans_to_feedback?
+    plans = plans_to_feedback
+    (plans.size > 0 && !plans.nil?)
+  end
+
+  def plans_to_feedback
+    Plan.joins(plannings: :notifications).where('notifications.date<=? AND notifications.done=? AND plans.delivered=? AND plans.user_id=?', Date.today, 0, 1, @user.id).uniq
+  end
+
+  def command_data
+    JSON.parse(BotCommand.where(user: @user).last.data)
+  end
+
+  def send_menu
+    actuator = GeneralActions.new(@user, nil)
+    actuator.send_reply_with_keyboard("Va bene! Quando vorrai sapere di più sul feedback che devi fornire, torna alla sezione FEEDBACK.", GeneralActions.menu_keyboard)
+  end
+
+  def question_header(notification)
+    planning = notification.planning
+    activity = planning.activity
+    case activity.a_type
+      when '0'
+        "Il giorno #{notification.date.strftime('%d.%m.%Y')}"
+      when '1'
+        week, turn = week_and_order('week', planning.plan, planning, notification)
+        "Per la #{turn} volta durante la #{week} settimana"
       else
-        notification.done = 1
-        notification.save
-        @user = GeneralActions.new(@user, @state).clean_state
-        FeedbackManager.new(@user, JSON.parse(@user.bot_command_data)).check
+        month, turn = week_and_order('month', planning.plan, planning, notification)
+        "Per la #{turn} volta durante il #{month} mese"
+    end
+  end
+
+  def week_and_order(by, plan, planning, notification)
+    # looping through months
+    date = notification.date
+    from = plan.from_day
+    to = plan.to_day
+    interval = by
+    start = from
+    week_number = 1
+    while start < to
+      stop  = start.send("end_of_#{interval}")
+      if stop > to
+        stop = to
       end
+
+      interval_start = Date.parse(start.inspect)
+      interval_end = Date.parse(stop.inspect)
+      if interval_start<=date && interval_end>=date
+        return week_number, Notification.where('planning_id = (?) AND date >= (?) AND date <= (?)', planning.id, interval_start, interval_end).index(notification)+1
+      end
+
+      start = stop.send("beginning_of_#{interval}")
+      start += 1.send(interval)
+      week_number = week_number + 1
     end
   end
 
-  def please_choose_plan(plans)
+  def time_format(datetime)
+    datetime.strftime('%H:%M') unless datetime.blank?
+  end
+
+  def send_feedback_details(plans)
     actuator = GeneralActions.new(@user, @state)
-    if plans.size==0
-      actuator.back_to_menu
-    else
-      actuator.send_reply_with_keyboard('Per favore, scegli uno dei piani indicati, per fornire feedback sulla meno recente attivita che cera da fare.', GeneralActions.custom_keyboard(plans))
+    actuator.send_reply "#{@user.first_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi!"
+    actuator.send_chat_action 'upload_document'
+
+    controller = UsersController.new
+    controller.instance_variable_set(:'@plans', plans)
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdfs"
+
+
+    pdf = WickedPdf.new.pdf_from_string(
+        controller.render_to_string('users/user_feedbacks', layout: 'layouts/pdfs.html'),
+        dpi: '250',
+        # orientation: 'Landscape',
+        viewport: '1280x1024',
+        footer: { right: '[page] of [topage]'}
+    )
+    save_path = Rails.root.join('pdfs',doc_name)
+    File.open(save_path, 'wb') do |file|
+      file << pdf
     end
-  end
 
-  private
-  def should_feedback(plan_names)
-    "Dovresti fornire feedback per i seguenti PIANI:\n\t-#{plan_names.map(&:name).join("\n\t-")}"
-  end
-
-  def finished(plan_name)
-   "Abbiamo tutti i feedback per il piano''#{plan_name}'' dall'inizio fino ad oggi."
-  end
-
-  def prepare_state_for_feedback(notification, question, plan_name)
-    @state['notification_id'] = notification.id
-    @state['question_id'] = question.id
-    @state['plan_name'] = plan_name
-    @user.set_user_state @state
-  end
-
-  def send_reply(reply)
-    @api.call('sendMessage', chat_id: @user.telegram_id, text: reply)
+    file_path = "pdfs/#{doc_name}"
+    actuator.send_doc file_path
+    actuator.send_reply_with_keyboard 'Leggilo con attenzione!', GeneralActions.menu_keyboard
+    File.delete(file_path) if File.exist?(file_path)
   end
 end
