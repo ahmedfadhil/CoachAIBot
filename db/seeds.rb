@@ -13,12 +13,15 @@ question_hash = {
     %Q(Quanto spesso vai in bici o a piedi?) => ["A volte","Raramente","Spesso"]
 }
 
-questionnaire = Questionnaire.create(title: title, initial: true)
+questionnaire = Questionnaire.new(title: title, initial: true)
+questionnaire.save!
 
 question_hash.each { |key, value|
-  question = questionnaire.questionnaire_questions.create(text: key)
+  question = QuestionnaireQuestion.new(text: key, questionnaire: questionnaire)
+  question.save!
   value.each { |e|
-    question.options.create(text: e)
+    option = Option.new(text: e, questionnaire_question: question, score: 0)
+    option.save!
   }
 }
 
@@ -35,12 +38,15 @@ question_hash = {
     %Q(Quale è il tuo orario migliore durante la sera per ricevere le notifiche sulle attività?) => ["7 PM", "8 PM","9 PM","10 PM"]
 }
 
-questionnaire = Questionnaire.create(title: title, initial: true)
+questionnaire = Questionnaire.new(title: title, initial: true)
+questionnaire.save!
 
 question_hash.each { |key, value|
-  question = questionnaire.questionnaire_questions.create(text: key)
+  question = QuestionnaireQuestion.new(text: key, questionnaire: questionnaire)
+  question.save!
   value.each { |e|
-    question.options.create(text: e)
+    option = Option.new(text: e, questionnaire_question: question, score: 0)
+    option.save!
   }
 }
 
@@ -52,12 +58,15 @@ question_hash = {
     %Q(Come è il tuo livello di energia durante il giorno?) => ["basso","normale", "alto"]
 }
 
-questionnaire = Questionnaire.create(title: title, initial: true)
+questionnaire = Questionnaire.new(title: title, initial: true)
+questionnaire.save!
 
 question_hash.each { |key, value|
-  question = questionnaire.questionnaire_questions.create(text: key)
+  question = QuestionnaireQuestion.new(text: key, questionnaire: questionnaire)
+  question.save!
   value.each { |e|
-    question.options.create(text: e)
+    option = Option.new(text: e, questionnaire_question: question, score: 0)
+    option.save!
   }
 }
 
@@ -71,12 +80,15 @@ question_hash = {
 
 }
 
-questionnaire = Questionnaire.create(title: title, initial: true)
+questionnaire = Questionnaire.new(title: title, initial: true)
+questionnaire.save!
 
 question_hash.each { |key, value|
-  question = questionnaire.questionnaire_questions.create(text: key)
+  question = QuestionnaireQuestion.new(text: key, questionnaire: questionnaire)
+  question.save!
   value.each { |e|
-    question.options.create(text: e)
+    option = Option.new(text: e, questionnaire_question: question, score: 0)
+    option.save!
   }
 }
 
@@ -85,11 +97,14 @@ question_hash = {
     %Q(Sei in possesso di un dispositivo indossabile FITBIT?) => ["si","no"],
 }
 
-questionnaire = Questionnaire.create(title: title, initial: true)
+questionnaire = Questionnaire.new(title: title, initial: true)
+questionnaire.save!
 
 question_hash.each { |key, value|
-  question = questionnaire.questionnaire_questions.create(text: key)
+  question = QuestionnaireQuestion.new(text: key, questionnaire: questionnaire)
+  question.save!
   value.each { |e|
-    question.options.create(text: e)
+    option = Option.new(text: e, questionnaire_question: question, score: 0)
+    option.save!
   }
 }
