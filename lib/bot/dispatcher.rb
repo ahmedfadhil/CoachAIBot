@@ -1,6 +1,6 @@
 # da cambiare tutti i require
-require 'bot_v2/api_ai_redirecter'
-require 'bot_v2/login_manager'
+require 'bot/api_ai_redirecter'
+require 'bot/login_manager'
 require 'finite_state_machine/objectives_fsm'
 
 class Dispatcher

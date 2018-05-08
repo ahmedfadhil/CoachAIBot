@@ -182,8 +182,9 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :cellphone, :age, :patient_objective, :gender,
                                  :height, :weight, :blood_type, :tag_list)
-  end
+    end
 
+=begin
   def assign_questionnaires(user)
     (params[:questionnaires_ids] || []).each do |id|
       questionnaire = Questionnaire.find(id)
@@ -196,7 +197,15 @@ class UsersController < ApplicationController
       end
     end
   end
+=end
 
+  def assign_questionnaires(user)
+    (params[:questionnaires_ids] || []).each do |id|
+
+      Invitation.create(user: user, questionnaire_id: id, completed: false)
+
+    end
+  end
 
   def create_command_data(user)
     BotCommand.create(data: {}.to_json, user: user)

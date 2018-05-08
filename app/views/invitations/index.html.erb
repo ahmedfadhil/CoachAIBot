@@ -24,11 +24,11 @@
         <% @campaigns.each do |c| %>
           <tr class="active">
 
-            <td>   <%= c.campaign || "Non definito" %></td>
+            <td>   <%= c.name || "Non definito" %></td>
 
 
             <td> <%= link_to "Mostra", invitation_path(c), class: "btn btn-xs btn-primary" %></td>
-            <td> <%= link_to "Elimina", c, class: "btn btn-xs btn-danger", method: :delete,
+            <td> <%= link_to "Elimina", invitation_path(c), class: "btn btn-xs btn-danger", method: :delete,
                              data: {confirm: "Sei sicuro di voler eliminare l'Indagine?" +
                                  "Una volta cancellato non potrai più ripristinarlo!"} %></td>
             <td><%= c.created_at.strftime('%a %d, %b %Y') %></td>

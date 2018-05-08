@@ -1,27 +1,23 @@
 class Invitation < ApplicationRecord
   belongs_to :user
   belongs_to :questionnaire
+  belongs_to :campaign, optional: true
   has_many :questionnaire_answers, dependent: :destroy
   acts_as_taggable
-
 
 
   # Saving user data into a csv
   def self.to_csv
     attributes = %w{id user_id questionnaire_id completed campaign}
-
     CSV.generate(headers: true) do |csv|
       csv << attributes
       all.each do |invitation|
-        csv << attributes.map{ |attr| invitation.send(attr) || "null" }.uniq
+        csv << attributes.map{ |attr| invitation.send(attr) || 'null' }.uniq
       end
     end
   end
-  
-  
 
 
-  #
   # # Saving user data into a csv
   # CSV_HEADER = %w[first_name]
   #

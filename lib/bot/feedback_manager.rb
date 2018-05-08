@@ -1,4 +1,4 @@
-require 'bot_v2/general'
+require 'bot/general'
 
 class FeedbackManager
   attr_reader :user

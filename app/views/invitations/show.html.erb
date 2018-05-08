@@ -6,7 +6,7 @@
     <li class="list-group-item">
 
       Titolo Indagine:
-      <%= label :campaign_title, @campaign[:campaign_title] %><br>
+      <%= label :campaign_title, @campaign.name %><br>
     </li>
   </ul>
 </div>
@@ -15,14 +15,14 @@
     <li class="list-group-item">
 
       Tag dell'Indagine:
-      <%= label :tag_list, @campaign[:tag_list].join(", ") %><br>
+      <%= label :tag_list, @campaign.tag_list.join(", ") %><br>
     </li>
   </ul>
 </div>
 
 <div class="btn-toolbar">
-  <% @campaign[:users].each do |user| %>
-    <li><%= user['name'] %></li>
+  <% @campaign.users.each do |user| %>
+    <li><%= " #{user.first_name} #{user.last_name}" %></li>
 
   <% end %>
 </div>

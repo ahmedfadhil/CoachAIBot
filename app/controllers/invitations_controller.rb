@@ -5,16 +5,12 @@ class InvitationsController < ApplicationController
 
   # GET /invitations
   def index
-    @campaigns = Invitation.where('campaign IS NOT NULL').map(&:campaign).uniq
-    @campaigns = Invitation.all.order('created_at DESC').limit(10)
+    @campaigns = Campaign.all
 
-
-    respond_to do |format|
-      format.html
-      format.csv {send_data @campaigns.to_csv}
-
-    end
-
+ #   respond_to do |format|
+ #     format.html
+ #     format.csv {send_data @campaigns.to_csv}
+ #   end
 
   end
 
@@ -32,17 +28,12 @@ class InvitationsController < ApplicationController
 
   # GET /invitations/1
   def show
-    @campaign = {}
-    #@campaign[:title] = params[:title]
-    push_users(@campaign)
-    invitation = Invitation.find(params[:id])
-    @campaign[:tag_list] = invitation.tag_list
-    @campaign[:campaign_title] = invitation.campaign
+    @campaign = Campaign.find(params[:id])
   end
 
   # GET /invitations/new
   def new
-
+    @campaign = Campaign.new
   end
 
   # GET /invitations/1/edit
@@ -51,12 +42,12 @@ class InvitationsController < ApplicationController
 
   # POST /invitations
   def create
+    campaign = Campaign.new(name: @title)
+    campaign.tag_list = @tag_list
+    campaign.save!
     User.tagged_with(@tag_list).each do |user|
-
-      invitation = Invitation.new(campaign: @title,questionnaire_id: @q_id,
+      invitation = Invitation.new(campaign_id: campaign.id ,questionnaire_id: @q_id,
                                   user_id: user.id, completed: false)
-
-
       invitation.tag_list = @tag_list
       invitation.save!
       #notify user that there is a new questionnaire to fulfill
@@ -68,7 +59,9 @@ class InvitationsController < ApplicationController
   # DELETE /invitations/1
 	def destroy
 	 # Remove the user id from the session
-	 @campaign = Invitation.find(params[:id]).destroy
+	 @campaign = Campaign.find(params[:id])
+   @campaign.invitations.destroy_all
+   @campaign.destroy!
 	 redirect_to invitations_path
  end
 
@@ -100,9 +93,13 @@ class InvitationsController < ApplicationController
   private
 
   def set_attributes
-    @title = params[:campaign_title]
-    @tag_list = params[:tag_list]
-    @q_id = Questionnaire.where(title: params[:questionnaire_name]).first.id
+    @title = create_params[:campaign_title]
+    @tag_list = create_params[:tag_list]
+    @q_id = Questionnaire.where(title: create_params[:questionnaire_name]).first.id
+  end
+
+  def create_params
+    params.permit!
   end
 
   def push_users(campaign_hash)

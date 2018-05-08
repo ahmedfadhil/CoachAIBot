@@ -3,8 +3,7 @@ class Questionnaire < ApplicationRecord
   has_many :questionnaire_questions, dependent: :destroy
 
   validates_uniqueness_of :title, message: "Esiste gia' un questionario con questo nome. Scegli un'atro nome!"
-  # validates :questionnaire_questions, presence: true
-  validates :questionnaire_questions, presence: true
+  #validates :questionnaire_questions, presence: true
   validates :title, presence: true
 
 

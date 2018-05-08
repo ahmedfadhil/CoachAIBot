@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20180423150953) do
     t.index ["user_id"], name: "index_bot_commands_on_user_id"
   end
 
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "chats", force: :cascade do |t|
     t.bigint "coach_user_id"
     t.bigint "user_id"
@@ -136,10 +143,11 @@ ActiveRecord::Schema.define(version: 20180423150953) do
   create_table "invitations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "questionnaire_id"
+    t.bigint "campaign_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
-    t.string "campaign"
+    t.index ["campaign_id"], name: "index_invitations_on_campaign_id"
     t.index ["questionnaire_id"], name: "index_invitations_on_questionnaire_id"
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
@@ -326,6 +334,7 @@ ActiveRecord::Schema.define(version: 20180423150953) do
   add_foreign_key "events", "coach_users"
   add_foreign_key "feedbacks", "notifications"
   add_foreign_key "feedbacks", "questions"
+  add_foreign_key "invitations", "campaigns"
   add_foreign_key "invitations", "questionnaires"
   add_foreign_key "invitations", "users"
   add_foreign_key "notifications", "plannings"

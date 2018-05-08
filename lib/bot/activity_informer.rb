@@ -1,6 +1,5 @@
-
 require 'telegram/bot'
-require 'bot_v2/general'
+require 'bot/general'
 
 class ActivityInformer
   attr_reader :user, :api, :state
