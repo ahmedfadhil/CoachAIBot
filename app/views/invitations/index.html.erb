@@ -6,6 +6,7 @@
 <div class="container">
 
   <h1>Indagine</h1>
+
   <div class="row">
 
     <div class="col-md-12 list-group">
@@ -18,7 +19,7 @@
           <th class="cell">Mostra</th>
           <th class="cell">Elimina</th>
           <th class="cell">Data di creazione</th>
-          <th class="cell">Tag</th>
+          <th class="cell">Tag dell'Indagine</th>
         </tr>
         <% @campaigns.each do |c| %>
           <tr class="active">
@@ -30,8 +31,15 @@
             <td> <%= link_to "Elimina", c, class: "btn btn-xs btn-danger", method: :delete,
                              data: {confirm: "Sei sicuro di voler eliminare l'Indagine?" +
                                  "Una volta cancellato non potrai più ripristinarlo!"} %></td>
-            <td><%= c.created_at.strftime("%D") %></td>
-            <td><%=  c[:tag_list] %></td>
+            <td><%= c.created_at.strftime('%a %d, %b %Y') %></td>
+            <td>
+
+
+              <%= c.tag_list.join(",")%>
+
+             Tags here
+
+            </td>
           </tr>
 
         <% end %>

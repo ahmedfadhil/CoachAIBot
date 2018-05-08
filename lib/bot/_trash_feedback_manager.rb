@@ -1,5 +1,5 @@
 require 'bot_v2/general'
-require 'bot_v2/general'
+
 
 class FeedbackManager
   attr_reader :user, :state
