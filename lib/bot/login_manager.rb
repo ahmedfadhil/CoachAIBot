@@ -29,9 +29,9 @@ class LoginManager
   
   def welcome
     @api.call('sendMessage', chat_id: chat_id,
-              text: 'Benvenuto in CoachAI! \u{1F38F}')
+              text: "Benvenuto in CoachAI! \u{1F38F}")
     @api.call('sendMessage', chat_id: chat_id,
-              text: '\u{1F449} Fornisci il tuo numero di telefono attraverso il bottone per continuare \u{1F4F2}',
+              text: "\u{1F449} Fornisci il tuo numero di telefono attraverso il bottone per continuare \u{1F4F2}",
               reply_markup: contact_request_markup)
   end
   
@@ -54,7 +54,7 @@ modo che il tuo coach sappia i tuoi progressi"
 QUESTIONARI. Non dimenticartelo!\n\n" +
           "Questa cosa è fondamentale per capire bene qual'è il tuo stato attuale."
       @api.call('sendMessage', chat_id: chat_id,
-                text: reply, reply_markup: GeneralActions.custom_keyboard(['Questionari']))
+                text: reply, reply_markup: GeneralActions.menu_keyboard)
     end
   end
   
