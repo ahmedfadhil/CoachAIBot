@@ -191,7 +191,7 @@ class FeedbackManager
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', plans)
-    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdfs"
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdf"
 
 
     pdf = WickedPdf.new.pdf_from_string(
