@@ -68,7 +68,7 @@ class GeneralActions
   end
 
   def self.menu_buttons
-    %w[Attività Feedback Messaggi Allenamenti]
+    %w[Attività Feedback Messaggi Allenamenti Questionari]
   end
 
   def self.answers_from_question(question)

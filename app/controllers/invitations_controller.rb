@@ -35,7 +35,9 @@ class InvitationsController < ApplicationController
     @campaign = {}
     #@campaign[:title] = params[:title]
     push_users(@campaign)
-    @campaign[:tag_list] = Invitation.find(params[:id]).tag_list
+    invitation = Invitation.find(params[:id])
+    @campaign[:tag_list] = invitation.tag_list
+    @campaign[:campaign_title] = invitation.campaign
   end
 
   # GET /invitations/new
