@@ -29,10 +29,12 @@ class LoginManager
   
   def welcome
     @api.call('sendMessage', chat_id: chat_id,
-              text: 'Benvenuto in CoachAI!')
+              text: "Benvenuto in CoachAI! \u{1F38F}")
     @api.call('sendMessage', chat_id: chat_id,
-              text: 'Fornisci il tuo nr di telefono attraverso il bottone per continuare.',
+              text: "\u{1F449} Fornisci il tuo numero di telefono attraverso il bottone per continuare \u{1F4F2}",
               reply_markup: contact_request_markup)
+
+
   end
   
   def init_user
