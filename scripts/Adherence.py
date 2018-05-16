@@ -40,6 +40,7 @@ def main():
     df['Adherence'] = df.apply(f, axis=1)
 
     df = df.fillna(2)
+    df = df[:-1]
 
     x = np.array(df.drop(['Adherence'],1))
     y = np.array(df['Adherence'])
