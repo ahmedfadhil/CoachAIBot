@@ -116,13 +116,6 @@ ActiveRecord::Schema.define(version: 20180423150953) do
     t.index ["user_id"], name: "index_daily_logs_on_user_id"
   end
 
-  create_table "event_reminders", force: :cascade do |t|
-    t.integer "reminderPeriod"
-    t.string "reminderType"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.datetime "start"
@@ -133,8 +126,6 @@ ActiveRecord::Schema.define(version: 20180423150953) do
     t.bigint "coach_user_id"
     t.string "reminder_type"
     t.integer "reminder_range"
-    t.string "remindertype"
-    t.integer "reminderperiod"
     t.index ["coach_user_id"], name: "index_events_on_coach_user_id"
   end
 
@@ -152,10 +143,11 @@ ActiveRecord::Schema.define(version: 20180423150953) do
   create_table "invitations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "questionnaire_id"
+    t.bigint "campaign_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
-    t.string "campaign"
+    t.index ["campaign_id"], name: "index_invitations_on_campaign_id"
     t.index ["questionnaire_id"], name: "index_invitations_on_questionnaire_id"
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
@@ -342,6 +334,7 @@ ActiveRecord::Schema.define(version: 20180423150953) do
   add_foreign_key "events", "coach_users"
   add_foreign_key "feedbacks", "notifications"
   add_foreign_key "feedbacks", "questions"
+  add_foreign_key "invitations", "campaigns"
   add_foreign_key "invitations", "questionnaires"
   add_foreign_key "invitations", "users"
   add_foreign_key "notifications", "plannings"
