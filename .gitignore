@@ -19,8 +19,6 @@ public/system/*
 !/log/.keep
 
 /tmp/*
-/csvs/result.csv
-/csvs/features.csv
 
 telegram_webhook_req
 
