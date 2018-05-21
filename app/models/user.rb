@@ -685,7 +685,7 @@ gender height weight blood_type tag_list]
     manager = FeedbackManager.new(self)
     manager.register_last_answer(answer)
     actuator = GeneralActions.new(self, nil)
-    actuator.send_reply_with_keyboard("Non hai piu' feedback da dare per oggi! Prosegui con le attivita'.", GeneralActions.menu_keyboard)
+    actuator.send_reply_with_keyboard("Non hai più feedback da dare per oggi! Prosegui con le attività 🚀.", GeneralActions.menu_keyboard)
   end
 
   def inform_wrong_answer

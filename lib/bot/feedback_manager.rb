@@ -8,7 +8,7 @@ class FeedbackManager
   end
 
   def inform_wrong_answer
-    GeneralActions.new(@user, nil).send_reply("Oups! Sembra che tu abbia scelto una risposta non valida. Perfavore, scegli una delle risposte disponibili!")
+    GeneralActions.new(@user, nil).send_reply("Oops! Sembra che tu abbia scelto una risposta non valida. Perfavore, scegli una delle risposte disponibili!")
     ask(command_data['in_feedback_activities']['activity_chosen'])
   end
 
@@ -27,7 +27,7 @@ class FeedbackManager
                     notification: Notification.find(bot_command_data['in_feedback_activities']['notification_id']),
                     question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply("OK #{@user.first_name}, mi hai fornito tutto il feedback necessario fino ad oggi per l'attività '#{planning.activity.name}' del piano '#{plan.name}'")
+    actuator.send_reply("Ottimo lavoro #{@user.first_name} 👏, mi hai fornito tutto il feedback necessario fino ad oggi per l'attività 📌[#{planning.activity.name}] del piano '#{plan.name}'")
   end
 
   def is_last_question?
@@ -75,7 +75,7 @@ class FeedbackManager
     bot_command_data['in_feedback_activities'] = {'activity_chosen' => activity_name, 'notification_id' => notification.id, 'question_id' => question.id, 'planning_id' => planning.id, 'answers' => question.answers.map(&:text)}
     BotCommand.create(user: @user, data: bot_command_data.to_json)
     reply = "#{question_header(notification)}: \n\n\t#{question.text}"
-    GeneralActions.new(@user, nil).send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(question.answers.map(&:text).push('Rispondi piu\' tardi/Torna al Menu')))
+    GeneralActions.new(@user, nil).send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(question.answers.map(&:text).push('🔄 Rispondi più tardi')))
   end
 
   def valid_activity_name?(activity_name)
@@ -93,8 +93,8 @@ class FeedbackManager
     bot_command_data['in_feedback_plans'] = {'plan_chosen' => plan_name, 'activities_that_need_feedback' => activities_names}
     BotCommand.create(user: @user, data: bot_command_data.to_json)
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply "Le attivita' del piano '#{plan_name}' che hanno bisogno di feedback sono:\n\n\t-#{activities_names.join("\n\t-")}"
-    actuator.send_reply_with_keyboard "Per quale attivita' vuoi fornire feedback?",(GeneralActions.custom_keyboard activities_names.push('Rispondi piu\' tardi/Torna al Menu'))
+    actuator.send_reply "Le attività del piano 📌[#{plan_name}] che hanno bisogno di feedback sono👇:\n\n\t✔ #{activities_names.join("\n\t✔ ")}"
+    actuator.send_reply_with_keyboard "Per quale attività vuoi fornire feedback?",(GeneralActions.custom_keyboard activities_names.push('🔄 Rispondi più tardi'))
   end
 
   def valid_plan_name?(plan_name)
@@ -103,9 +103,9 @@ class FeedbackManager
 
   def inform_no_plans_to_feedback
     if @user.profiled?
-      reply = "Per ora non c'e' feedback da dare. Prosegui con le attività se ne hai da fare oppure attendi che il coach te ne dia."
+      reply = "Per ora non c'è feedback da dare❗. \nProsegui con le attività se ne hai da fare oppure attendi che il coach te ne dia💡."
     else
-      reply = "Per ora non c'è feedback da dare. Completa prima i questionari presenti nella sezione QUESTIONARI."
+      reply = "Per ora non c'è feedback da dare❗. \nCompleta prima i questionari presenti nella sezione Questionari💡."
     end
     GeneralActions.new(@user, nil)
         .send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
@@ -117,8 +117,8 @@ class FeedbackManager
     actuator = GeneralActions.new(@user, nil)
     command_data = {'plans_to_feedback' => plan_names}
     BotCommand.create(user_id: @user.id, data: command_data.to_json)
-    actuator.send_reply "I piani che hanno bisogno di feedback sono:\n\t-#{plan_names.join("\n\t-")}"
-    actuator.send_reply_with_keyboard 'Per che piano vuoi fornire feedback?', (GeneralActions.custom_keyboard (plan_names.push('Scarica Dettagli').push('Rispondi piu\' tardi/Torna al Menu')))
+    actuator.send_reply "I piani che hanno bisogno di feedback sono:\n\t✔ #{plan_names.join("\n\t✔ ")}"
+    actuator.send_reply_with_keyboard "Per che piano vuoi fornire feedback?. Puoi rispondere anche dopo 😊\n\t✔ #{plan_names.join("\n\t✔ ")}", (GeneralActions.custom_keyboard (plan_names.push('💾Scarica Dettagli').push('🔄 Rispondi più tardi')))
   end
 
   def has_plans_to_feedback?
@@ -136,7 +136,7 @@ class FeedbackManager
 
   def send_menu
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply_with_keyboard("Va bene! Quando vorrai sapere di più sul feedback che devi fornire, torna alla sezione FEEDBACK.", GeneralActions.menu_keyboard)
+    actuator.send_reply_with_keyboard("Va bene❗. Quando vorrai sapere di più sul feedback che devi fornire, torna alla sezione FEEDBACK 😊.", GeneralActions.menu_keyboard)
   end
 
   def question_header(notification)
@@ -186,12 +186,12 @@ class FeedbackManager
 
   def send_feedback_details(plans)
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply "#{@user.first_name} ti sto inviando un documento nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi!"
+    actuator.send_reply "#{@user.first_name} ti sto inviando un documento 📃 nel quale ci sono tutti i dettagli relativi al feedback che devi fornire fino ad oggi👇"
     actuator.send_chat_action 'upload_document'
 
     controller = UsersController.new
     controller.instance_variable_set(:'@plans', plans)
-    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdfs"
+    doc_name = "#{@user.id}-#{user.first_name}#{user.last_name}-feedbacks.pdf"
 
 
     pdf = WickedPdf.new.pdf_from_string(

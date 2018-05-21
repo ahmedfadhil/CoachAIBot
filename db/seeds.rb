@@ -94,7 +94,7 @@ question_hash.each { |key, value|
 
 title = %Q(Registrazione Iniziale)
 question_hash = {
-    %Q(Sei in possesso di un dispositivo indossabile FITBIT?) => ["si","no"],
+    %Q(Sei in possesso di un dispositivo indossabile FITBIT ⌚?) => ["si","no"],
 }
 
 questionnaire = Questionnaire.new(title: title, initial: true)

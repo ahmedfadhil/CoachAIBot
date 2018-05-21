@@ -84,7 +84,7 @@ class PlanningsController < ApplicationController
       activity = Activity.new(params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times))
       activity.coach_user = current_coach_user
       unless activity.save
-        flash[:err] = 'C\'e\' stato un problema durante la creazione dell\'attivit\a\'. Ci scusiamo e la invitiamo a riprovare piu\' tardi!'
+        flash[:err] = 'C\'é stato un problema durante la creazione dell\'attivit\á. Ci scusiamo e la invitiamo a riprovare più tardi!'
         flash[:errors] = activity.errors.messages
       end
       activity
@@ -92,7 +92,7 @@ class PlanningsController < ApplicationController
   end
 
   def completeness_question(planning)
-    question = Question.new text: "Hai portato a termine l'attivita'  ''#{planning.activity.name}'' ?", q_type: 'completeness'
+    question = Question.new text: "Hai portato a termine l'attività  📌[#{planning.activity.name}] ?", q_type: 'completeness'
     question.planning = planning
     if question.save
       answer1 = Answer.new text: 'Si'

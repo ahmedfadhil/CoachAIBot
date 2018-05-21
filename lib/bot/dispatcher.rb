@@ -106,7 +106,7 @@ class Dispatcher
       when *questionnaires_strings
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
-			when 'Allenamento', 'allenamento', 'Allenamenti', 'allenamenti', '/allenamenti'
+			when 'Allenamento', 'allenamento', 'Allenamenti', 'allenamenti', '/allenamenti','⛹️‍♀️Allenamenti'
 				ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
 				fsm = FSM::ObjectivesFSM.new @user
 
@@ -225,27 +225,27 @@ class Dispatcher
   end
 
   def back_strings
-    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu', 'Rispondi piu\' tardi/Torna al Menu']
+    ['Indietro', 'indietro', 'basta', 'Torna Indietro', 'Basta', 'back', 'Torna al Menu', '🔄 Rispondi più tardi','◀ Torna al Menu']
   end
 
   def tell_me_more_strings
-    ['Dimmi di piu', 'ulteriori dettagli','Scarica Dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli']
+    ['Dimmi di piu', 'ulteriori dettagli','Scarica Dettagli', 'dettagli', 'di piu', 'Ulteriori Dettagli','💾Scarica Dettagli']
   end
 
   def activities_strings
-    ['attivita', 'Attivita', 'attività', 'Attività']
+    ['attivita', 'Attivita', 'attività', 'Attività','🚀Attività']
   end
 
   def questionnaires_strings
-    ['questionari', 'Questionari', 'Prosegui con i questionari']
+    ['questionari', 'Questionari', 'Prosegui con i questionari','💬Questionari']
   end
 
   def messages_strings
-    ['messaggi', 'Messaggi']
+    ['messaggi', 'Messaggi','📨Messaggi']
   end
 
   def feedback_strings
-    ['feedback', 'Feedback']
+    ['feedback', 'Feedback','🎭Feedback']
   end
 
 end

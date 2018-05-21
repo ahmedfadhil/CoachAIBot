@@ -38,21 +38,22 @@ class LoginManager
   def init_user
     user.telegram_id = chat_id
     if user.save
-      reply = "Ciao #{user.first_name}! Io sono CoachAI, il bot che ti tiene in contatto con il tuo coach. Attraverso
+      reply = " \u{1F513} Accesso è concesso a CoachAI"
+      @api.call('sendMessage', chat_id: chat_id, text: reply)
+      reply = "Ciao #{user.last_name}! Io sono CoachAI, il bot che ti tiene in contatto con il tuo coach. Attraverso
 me potrai fare le seguenti cose:"
       @api.call('sendMessage', chat_id: chat_id, text: reply)
-      
-      reply = "- \u{1F603} Ricevere e visualizzare le attività che ti vengono assegnate dal coach #{@user.coach_user.first_name}."
+
+      reply = "\u{2714} Ricevere e visualizzare le attività che ti vengono assegnate dal coach #{@user.coach_user.first_name}."
           @api.call('sendMessage', chat_id: chat_id, text: reply)
-      reply = "- \u{1F603} Fornire feedback sulle attivita' che avevi da fare mano a mano che le fai, per fare in
+      reply = "\u{2714} Fornire feedback sulle attivita' che avevi da fare mano a mano che le fai, per fare in
 modo che il tuo coach sappia i tuoi progressi"
       @api.call('sendMessage', chat_id: chat_id, text: reply)
-      reply = "- \u{1F603} Ricevere messaggi diretti dal tuo coach e rispondergli con facilità"
+      reply = "\u{2714} Ricevere messaggi diretti dal tuo coach e rispondergli con facilità"
       @api.call('sendMessage', chat_id: chat_id, text: reply)
       
-      reply = "Prima di poter utilizzarmi in questo modo però devi completare i questionari presenti nella sezione
-QUESTIONARI. Non dimenticartelo!\n\n" +
-          "Questa cosa è fondamentale per capire bene qual'è il tuo stato attuale."
+      reply = "Prima di poter utilizzarmi in questo modo però devi completare i questionari presenti nella sezione \u{1F4AC}Questionari.
+ Non dimenticartelo!\n\n" + "Questa cosa è fondamentale per capire bene qual'è il tuo stato attuale \u{1F609}."
       @api.call('sendMessage', chat_id: chat_id,
                 text: reply, reply_markup: GeneralActions.menu_keyboard)
     end
@@ -60,9 +61,9 @@ QUESTIONARI. Non dimenticartelo!\n\n" +
   
   def not_allowed
     @api.call('sendMessage', chat_id: chat_id,
-              text: 'Numero di telefono non abilitato.')
+              text: '\u{1F4F5} Numero di telefono non abilitato.')
     @api.call('sendMessage', chat_id: chat_id,
-              text: 'Fornisci il tuo nr di telefono attraverso il bottone per continuare.',
+              text: '\u{1F447} Fornisci il tuo numero di telefono attraverso il bottone per continuare.',
               reply_markup: contact_request_markup)
   end
   
@@ -77,7 +78,7 @@ QUESTIONARI. Non dimenticartelo!\n\n" +
   end
   
   def contact_request_markup
-    kb = [Telegram::Bot::Types::KeyboardButton.new(text: 'Condividi numero cellulare', request_contact: true)]
+    kb = [Telegram::Bot::Types::KeyboardButton.new(text: 'Condividi il tuo numero di telefono📱', request_contact: true)]
     Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb, one_time_keyboard: true)
   end
   

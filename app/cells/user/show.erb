@@ -114,37 +114,37 @@
       </div>
 
       <div>
-        <div class="notification_space">
-          <% if user.profiled? %>
-            <% if user.py_cluster == 'HIGH' %>
-              <a href="<%= features_users_path(user) %>">
+<!--        <div class="notification_space">-->
+          <%# if user.profiled? %>
+            <%# if user.py_cluster == 'HIGH' %>
+<!--              <a href="<%#= features_users_path(user) %>">-->
 
-                <i class="material-icons md-18 molto">mood</i> Molto Attivo
+<!--                <i class="material-icons md-18 molto">mood</i> Molto Attivo-->
 
-              </a>
-            <% elsif user.py_cluster == 'MEDIUM' %>
-              <a href="<%= features_users_path(user) %>">
+<!--              </a>-->
+            <%# elsif user.py_cluster == 'MEDIUM' %>
+<!--              <a href="<%#= features_users_path(user) %>">-->
 
-                <i class="material-icons md-18 moderate">sentiment_neutral</i> Moderatamente Attivo
+<!--                <i class="material-icons md-18 moderate">sentiment_neutral</i> Moderatamente Attivo-->
 
-              </a>
-            <% elsif user.py_cluster == 'LOW' %>
-              <a href="<%= features_users_path(user) %>">
+<!--              </a>-->
+            <%# elsif user.py_cluster == 'LOW' %>
+<!--              <a href="<%#= features_users_path(user) %>">-->
 
-                <i class="material-icons md-18 pocco">mood_bad</i> Poco Attivo
-              </a>
+<!--                <i class="material-icons md-18 pocco">mood_bad</i> Poco Attivo-->
+<!--              </a>-->
             <%# else %>
 <!--              <a href="<%#= features_users_path(user) %>">-->
 
 <!--                <i class="material-icons md-18">all_inclusive</i> Non Definito-->
 <!--              </a>-->
-            <% end %>
-          <% end %>
+            <%# end %>
+          <%# end %>
 <!--          <button class="btn btn-danger btn-xs">-->
 <!--            <div class='notification_count'> <%#= user.communications.where(read_at: nil).count %>-->
 <!--              <i id="communications-badge" class="material-icons md-18">notifications</i></div>-->
 <!--          </button>-->
-        </div>
+<!--        </div>-->
       </div>
     </div>
   </div>

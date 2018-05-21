@@ -14,20 +14,20 @@ class ActivityInformer
   def send_activities
     delivered_plans = @user.plans.where(:delivered => 1)
     delivered_plans_names = delivered_plans.map(&:name)
-    actuator = GeneralActions.new(@user,@state)
+    actuator = GeneralActions.new(@user, @state)
     actuator.send_chat_action 'typing'
     reply = "In breve hai da seguire i seguenti piani: \n\n"
-    reply += "\t-#{delivered_plans_names.join("\n\t-")}"
-    actuator.send_reply_with_keyboard(reply,GeneralActions.custom_keyboard(['Scarica Dettagli', 'Torna al Menu']))
+    reply += "\t✔ #{delivered_plans_names.join("\n\t✔ ")}"
+    actuator.send_reply_with_keyboard(reply, GeneralActions.custom_keyboard(['💾Scarica Dettagli', '◀ Torna al Menu']))
   end
 
   def inform_no_activities
-    actuator = GeneralActions.new(@user,@state)
+    actuator = GeneralActions.new(@user, @state)
     actuator.send_chat_action 'typing'
     if @user.profiled?
-      reply = 'Momentaneamente non ci sono attivita\' da fare. Ricontrolla piu\' tardi.'
+      reply = "Momentaneamente non ci sono attività da fare❗.\nRicontrolla più tardi💡."
     else
-      reply = 'Momentaneamente non ci sono attivita\' da fare. Completa prima i questionari presenti nella sezione QUESTIONARI.'
+      reply = "Momentaneamente non ci sono attività da fare❗.\nCompleta prima i questionari presenti nella sezione Questionari💡."
     end
     actuator.send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
@@ -49,7 +49,7 @@ class ActivityInformer
 
   def send_plans_details(delivered_plans)
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply "#{@user.first_name} ti sto inviando il documento con tutti i dettagli relativi alle tua attività..."
+    actuator.send_reply "#{@user.last_name} ti sto inviando il documento 📃 con tutti i dettagli relativi alle tua attività..."
     actuator.send_chat_action 'upload_document'
 
     controller = UsersController.new
@@ -61,16 +61,16 @@ class ActivityInformer
         dpi: '250',
         # orientation: 'Landscape',
         viewport: '1280x1024',
-        footer: { right: '[page] of [topage]'}
+        footer: {right: '[page] of [topage]'}
     )
-    save_path = Rails.root.join('pdfs',doc_name)
+    save_path = Rails.root.join('pdfs', doc_name)
     File.open(save_path, 'wb') do |file|
       file << pdf
     end
 
     file_path = "pdfs/#{doc_name}"
     actuator.send_doc file_path
-    actuator.send_reply_with_keyboard 'Leggilo con attenzione!', GeneralActions.menu_keyboard
+    actuator.send_reply_with_keyboard 'Leggilo con attenzione 🙂', GeneralActions.menu_keyboard
     File.delete(file_path) if File.exist?(file_path)
   end
 

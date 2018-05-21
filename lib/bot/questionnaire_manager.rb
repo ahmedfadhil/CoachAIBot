@@ -10,7 +10,7 @@ class QuestionnaireManager
 
   def restore_last_question
     manager = GeneralActions.new(@user, nil)
-    reply1 = "OK #{@user.first_name}, Ti rifaccio la domanda precedente!"
+    reply1 = "OK #{@user.first_name}, Ti rifaccio la domanda precedente!👌"
 
     manager.send_reply(reply1)
 
@@ -29,7 +29,7 @@ class QuestionnaireManager
                                          'questionnaire_id' => @bot_command_data['responding']['questionnaire_id'],
                                          'response' => response}
     actuator.save_bot_command_data(@bot_command_data)
-    reply = "Confermi l'ultima domanda?"
+    reply = "Confermi l'ultima domanda? 👍"
     actuator.send_reply_with_keyboard reply, GeneralActions.custom_keyboard(['Si', 'No'])
   end
 
@@ -105,7 +105,7 @@ class QuestionnaireManager
     actuator.save_bot_command_data(@bot_command_data)
     options = question.options.map(&:text)
     if back_button
-      options.push('Torna alla domanda precedente')
+      options.push('◀ Torna alla domanda precedente')
     end
     options.push(GeneralActions.back_button_text)
     reply = question.text
@@ -120,8 +120,8 @@ class QuestionnaireManager
     actuator = GeneralActions.new(@user, nil)
     actuator.save_bot_command_data(bot_command_data)
 
-    reply1 = "I questionari che hai da fare sono: \n\t-#{list.join("\n\t-")}"
-    reply2 = "Quale questionario vuoi compilare?"
+    reply1 = "I questionari che hai da fare sono: \n\t✔ #{list.join("\n\t✔ ")}"
+    reply2 = "Quale questionario vuoi compilare?📢"
 
     # then send bot's answer to patient
     actuator.send_reply reply1
@@ -129,7 +129,7 @@ class QuestionnaireManager
   end
 
   def inform_no_questionnaires
-    reply = "Non hai Questionari da completare oggi! Torna piu' tardi per ricontrollare."
+    reply = "Non hai Questionari da completare oggi❗. \nTorna più tardi per ricontrollare💡."
     GeneralActions.new(@user,nil).send_reply_with_keyboard(reply, GeneralActions.menu_keyboard)
   end
 
@@ -140,8 +140,8 @@ class QuestionnaireManager
 
 
   def inform_wrong_questionnaire(text)
-    reply1 = "Oups! '#{text}' non e' il titolo di un questionario che hai da fare."
-    reply2 = "I questionari che hai da fare sono: \n\t-#{@bot_command_data['questionnaires'].join("\n\t-")} \n Scegli uno dei questionari indicati per rispondere alle domande."
+    reply1 = "Oups❗ '#{text}' non é il titolo di un questionario che hai da fare."
+    reply2 = "I questionari che hai da fare sono: \n\t✔ #{@bot_command_data['questionnaires'].join("\n\t✔ ")} \n Scegli uno dei questionari indicati per rispondere alle  domande.📢"
     actuator = GeneralActions.new(@user,nil)
     actuator.send_reply(reply1)
     actuator.send_reply_with_keyboard(reply2, GeneralActions.custom_keyboard(@bot_command_data['questionnaires'].push(GeneralActions.back_button_text)))
@@ -160,21 +160,21 @@ class QuestionnaireManager
   def send_questionnaire_finished
     bot_command_data = JSON.parse(BotCommand.where(user: @user).last.data)
     questionnaire = Questionnaire.find(bot_command_data['responding']['questionnaire_id'])
-    reply = "Hai finito il questionario '#{questionnaire.title}'."
+    reply = "Hai finito il questionario '✔ #{questionnaire.title}'😊."
     GeneralActions.new(@user, nil).send_reply reply
     show_questionnaires
   end
 
   def send_menu
-    reply = "OK #{@user.last_name}, proseguiamo piu tardi! \nA presto!"
+    reply = "OK #{@user.last_name}, proseguiamo piu tardi⌛ \nA presto🙋"
     GeneralActions.new(@user, nil).send_reply_with_keyboard reply, GeneralActions.menu_keyboard
   end
 
   def send_profiling_finished
-    reply1 = "Hai finito di compilare l'ultimo questionario!"
+    reply1 = "complimenti, hai finito di compilare l'ultimo questionario 🎏"
     reply2 = "Sulla base delle tue domande e di altre informazioni sul tuo stato di salute uno specialista che ti segue definirà un piano il quale conterrà delle attività che sarai invitato a seguire secondo le indicazioni che riceverai.\n\n"
     + "Quando verrà definito un piano per te verrai notificato e potrai accedere al piano attraverso il bottone ATTIVITÀ. Inoltre potrai richiedere di scaricare in formato PDF il documento contenente tutti i dettagli relativi al piano.\n\n"
-    reply3 = "Rimani in attesa del piano! A presto #{@user.last_name}"
+    reply3 = "Rimani in attesa del piano! A presto #{@user.last_name} 🙋"
     GeneralActions.new(@user, nil).send_reply(reply1)
     GeneralActions.new(@user, nil).send_reply(reply2)
     GeneralActions.new(@user, nil).send_reply_with_keyboard(reply3, GeneralActions.menu_keyboard)

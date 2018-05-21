@@ -19,7 +19,7 @@ class Messenger
     communicator = Communicator.new
     communicator.communicate_new_message(@user)
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard('Il tuo messaggio e\' stato inviato al coach. Ti notificheremo se ci dovessero essere nuovi messaggi per te.',
+    actuator.send_reply_with_keyboard("Il tuo messaggio è stato inviato al coach #{@user.coach_user.first_name} #{@user.coach_user.last_name}👍. Ti notificheremo se ci dovessero essere nuovi messaggi 😉.",
                                       GeneralActions.menu_keyboard)
   end
 
@@ -30,12 +30,12 @@ class Messenger
 
   def inform_no_messages
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard('Non hai nessun messaggio in attesa di una risposta.', GeneralActions.menu_keyboard)
+    actuator.send_reply_with_keyboard('Non hai nessun messaggio in attesa di una risposta❗.', GeneralActions.menu_keyboard)
   end
 
   def send_menu
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply_with_keyboard('Va bene puoi rispondere in un altro momento se vuoi.', GeneralActions.menu_keyboard)
+    actuator.send_reply_with_keyboard('Va bene puoi rispondere in un altro momento se vuoi😊.', GeneralActions.menu_keyboard)
   end
 
   private
@@ -56,14 +56,14 @@ class Messenger
 
   def forward messages
     actuator = GeneralActions.new(@user, @state)
-    actuator.send_reply 'Il medico che ti segue ti ha inviato i seguenti messaggi:'
+    actuator.send_reply "Il medico #{@user.coach_user.first_name} #{@user.coach_user.last_name} che ti segue ti ha inviato i seguenti messaggi:"
 
     messages.find_each do |message|
       actuator.send_reply "#{message.created_at.strftime('%d.%m.%Y - %H:%M')} \n\t #{message.text}"
     end
 
-    actuator.send_reply_with_keyboard("\nPer rispondere ai messaggi ti basta inserire la tua risposta e inviarla. Fai attenzione che puoi rispondere una sola volta a tutti i messaggi.\nSe non vuoi ripondere ora puoi tornare al menu con il bottone 'Torna al Menu' e rispondere piu tardi",
-                                      GeneralActions.custom_keyboard(['Rispondi piu\' tardi/Torna al Menu']))
+    actuator.send_reply_with_keyboard("\nPer rispondere ai messaggi ti basta inserire la tua risposta e inviarla👇. \nFai attenzione che puoi rispondere una sola volta a tutti i messaggi❗.\nSe non vuoi ripondere ora puoi tornare al menu con il bottone [🔄 Rispondi più tardi] e rispondere più tardi",
+                                      GeneralActions.custom_keyboard(['🔄 Rispondi più tardi']))
 
   end
 end

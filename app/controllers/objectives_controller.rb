@@ -21,7 +21,7 @@ class ObjectivesController < ApplicationController
 		@objective.fitbit_integration = :fitbit_enabled if @user.fitbit_enabled?
 		if @objective.save
 			Thread.new {
-				message1 = "Cordiale utente, il tuo coach ha pianificato un nuovo programma di allenamento. Visita la sezione ALLENAMENTO per ulteriori informazioni."
+				message1 = "Cordiale #{@user.last_name}, il tuo coach #{@user.coach_user.first_name} ha pianificato un nuovo programma di allenamento. Visita la sezione ALLENAMENTO per ulteriori informazioni."
 				ga = GeneralActions.new(@user, nil)
 				ga.send_reply(message1)
 			}

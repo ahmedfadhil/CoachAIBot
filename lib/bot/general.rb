@@ -13,7 +13,7 @@ class GeneralActions
 
   def back_to_menu_with_menu
     @api.call('sendMessage', chat_id: @user.telegram_id,
-              text: "Va bene #{@user.first_name}. Quando avrai piu' tempo torna in questa sezione.", reply_markup:
+              text: "Va bene #{@user.first_name}. Quando avrai più tempo torna in questa sezione 😊.", reply_markup:
                   GeneralActions.menu_keyboard)
   end
 
@@ -64,11 +64,11 @@ class GeneralActions
   # static methods
 
   def self.back_button_text
-    'Rispondi piu\' tardi/Torna al Menu'
+    '🔄 Rispondi più tardi'
   end
 
   def self.menu_buttons
-    %w[Attività Feedback Messaggi Allenamenti Questionari]
+    %w[🚀Attività 🎭Feedback 📨Messaggi ⛹️‍♀️Allenamenti 💬Questionari]
   end
 
   def self.answers_from_question(question)
