@@ -52,7 +52,7 @@ class Dispatcher
           manage_confirmation_state(text)
 
         else
-          GeneralActions.new(@user,nil).send_reply 'Penso di non aver capito, potresti ripetere per favore?'
+          GeneralActions.new(@user,nil).send_reply 'Penso di non aver capito, potresti ripetere per favore?🤔'
       end
 
     end
@@ -106,7 +106,7 @@ class Dispatcher
       when *questionnaires_strings
         ap "---------CHECKING QUESTIONNAIRES FOR USER: #{@user.id}---------"
         @user.start_questionnaires!
-			when 'Allenamento', 'allenamento', 'Allenamenti', 'allenamenti', '/allenamenti','⛹️‍♀️Allenamenti'
+			when '🎯Esercizi', 'allenamento', 'Allenamenti', 'allenamenti', '/allenamenti', 'esercizio'
 				ap "---USER OBJECTIVES FOR USER: #{@user.id}---"
 				fsm = FSM::ObjectivesFSM.new @user
 
@@ -125,7 +125,7 @@ class Dispatcher
 				actuator.send_reply_with_keyboard_hash response[:text], response[:keyboard]
       else
         #ApiAIRedirector.new(text, @user).redirect
-        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
+        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore❗👇'
     end
   end
 
@@ -139,7 +139,7 @@ class Dispatcher
         @user.get_details!
 
       else
-        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore!'
+        GeneralActions.new(@user,nil).send_reply 'Non ho capito❗\n Usa i bottoni per interagire per favore❗👇'
     end
   end
 
