@@ -58,8 +58,8 @@ module Fitbit
 		end
 
 		def self.refresh_access_token(user, &block)
-			client_id = '228M5L'
-			client_secret = 'ecec79fbdfec04ba40ba419186a3b25d'
+			client_id = '22CT5X'
+			client_secret = '72fc5ff7836a0b8cd1af7e7af2bec8c4'
 			redirect_uri = 'http://localhost:3000/users/auth/fitbit/callback'
 			site = 'https://api.fitbit.com'
 			client = OAuth2::Client.new(client_id, client_secret, site: site, authorize_url: '/oauth2/authorize', token_url: '/oauth2/token')

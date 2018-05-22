@@ -68,7 +68,7 @@ class GeneralActions
   end
 
   def self.menu_buttons
-    %w[🚀Attività 🎭Feedback 📨Messaggi ⛹️‍♀️Allenamenti 💬Questionari]
+    %w[🚀Attività 🎭Feedback 📨Messaggi 🎯Esercizi 💬Questionari]
   end
 
   def self.answers_from_question(question)
