@@ -56,8 +56,13 @@ module Fitbit
 		end
 
 		def self.refresh_access_token(user, &block)
+<<<<<<< HEAD
 			client_id = Rails.application.secrets.fitbit_client_id
 			client_secret = Rails.application.secrets.fitbit_client_secret
+=======
+			client_id = '22CT5X'
+			client_secret = '72fc5ff7836a0b8cd1af7e7af2bec8c4'
+>>>>>>> af391f18fdf93a06747da318636896b9ce961b44
 			redirect_uri = 'http://localhost:3000/users/auth/fitbit/callback'
 			site = 'https://api.fitbit.com'
 			client = OAuth2::Client.new(client_id, client_secret, site: site, authorize_url: '/oauth2/authorize', token_url: '/oauth2/token')

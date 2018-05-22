@@ -125,28 +125,28 @@ module FSM
 			end_date = l(objective.end_date, format: "%-d %B %Y")
 			if current_objective_is_steps?
 				objective = user.active_objective
-				response[:text] << "Benvenuto utente, al momento il tuo obiettivo é totalizzare #{objective.steps} passi, "
+				response[:text] << "Benvenuto #{user.last_name}, al momento il tuo obiettivo é totalizzare:\n✔ #{objective.steps} passi, "
 				response[:text] << "entro il giorno #{end_date}. "
 			elsif current_objective_is_distance?
-				response[:text] << "Benvenuto utente, al momento il tuo obiettivo é percorrere #{objective.distance} km a piedi, "
+				response[:text] << "Benvenuto #{user.last_name}, al momento il tuo obiettivo é percorrere:\n✔  #{objective.distance} km a piedi, "
 				response[:text] << "entro il giorno #{end_date}. "
 			end
 
 			if objective.steps?
-				response[:text] << "La media giornaliera di passi da compiere sara' #{objective.daily_steps}. "
+				response[:text] << "La media giornaliera di passi da compiere sarà🚩 #{objective.daily_steps}. "
 				response[:text] << "Al momento hai totalizzato #{objective.steps_progress} passi."
 			else
-				response[:text] << "La media giornaliera di km da percorrere sara' #{objective.daily_distance}. "
-				response[:text] << "La distanza che hai totalizzato fino a questo momento e' di #{objective.distance_progress} km."
+				response[:text] << "La media giornaliera di km da percorrere sarà🚩 #{objective.daily_distance}. "
+				response[:text] << "La distanza che hai totalizzato fino a questo momento è di🚩 #{objective.distance_progress} km."
 			end
 
 			if !objective.fitbit_enabled?
-				response[:text] << "Se desideri puoi comunicarmi adesso i tuoi progressi, oppure usa il bottone ANNULLA per tornare al menu' principale"
+				response[:text] << "Se desideri puoi comunicarmi adesso i tuoi progressi, oppure usa il bottone ANNULLA per tornare al menù principale❗."
 				response[:keyboard] << ['Annulla']
 			else
-				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
-				response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile."
-				response[:keyboard] += [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '⛹️‍♀️Allenamenti'],['💬Questionari']]
+				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi ⌚, "
+				response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile 🤳."
+				response[:keyboard] << ['Annulla']
 			end
 		end
 
@@ -156,27 +156,27 @@ module FSM
 				scheduled_objective = user.scheduled_objectives.first
 				start_date = l(scheduled_objective.start_date, format: "%-d %B %Y")
 				end_date = l(scheduled_objective.end_date, format: "%-d %B %Y")
-				response[:text] << "Il prossimo obiettivo in programma per te avrà inizio il giorno #{start_date} "
-				response[:text] << "e avrà termine il giorno #{end_date}. "
+				response[:text] << "Il prossimo obiettivo in programma per te avrà inizio il giorno [#{start_date}] "
+				response[:text] << "e avrà termine il giorno [#{end_date}]❗. "
 				if scheduled_objective.steps?
 					response[:text] << "Dovrai totalizzare #{scheduled_objective.steps} passi in #{scheduled_objective.days} giorni, "
 					response[:text] << "la media giornaliera di passi da compiere sarà #{scheduled_objective.daily_steps}. "
 				else
-					response[:text] << "Dovrai totalizzare #{scheduled_objective.distance} km a piedi, "
-					response[:text] << "la media giornaliera di km da percorrere sarà #{scheduled_objective.daily_distance}. "
+					response[:text] << "Dovrai totalizzare [#{scheduled_objective.distance}] km a piedi, "
+					response[:text] << "la media giornaliera di km da percorrere sarà [#{scheduled_objective.daily_distance}]❗. "
 				end
 				if user.fitbit_disabled?
 					response[:text] << "Potrai registrare i tuoi progressi accedendo a questo stesso menu, "
-					response[:text] << "per tenere traccia dei tuoi progressi utilizza un dispositivo contapassi!"
+					response[:text] << "per tenere traccia dei tuoi progressi utilizza un dispositivo contapassi❗."
 				else
-					response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi, "
-					response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile."
+					response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi⌚, "
+					response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile🤳."
 				end
 				response[:text] << "A presto🙋"
 			else
 				response[:text] << "Ripassa più tardi🙋"
 			end
-			response[:keyboard] += [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '⛹️‍♀️Allenamenti'],['💬Questionari']]
+			response[:keyboard] += [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '🎯Esercizi'],['💬Questionari']]
 		end
 
 		def current_objective_is_distance?
@@ -223,17 +223,17 @@ module FSM
 		end
 
 		def response_valid(response)
-			response[:text] << "OK. Perfavore ricontrolla il dato che hai inserito e verifica che sia corretto"
+			response[:text] << "OK. Perfavore ricontrolla il dato che hai inserito e verifica che sia corretto⛔."
 			response[:keyboard] << ['Si'] << ['No']
 		end
 
 		def response_abort(response)
-			response[:text] << "OK. Ripassa quando vuoi"
+			response[:text] << "OK. Ripassa quando vuoi🙋."
 			response[:keyboard] << ['🚀Attivita', '🎭Feedback'] << ['📨Messaggi', '⛹️‍♀️Allenamenti'] << ['💬Questionari']
 		end
 
 		def response_malformed(response)
-			response[:text] << "Non ho capito, potresti ripetere per favore?"
+			response[:text] << "⚠Non ho capito, potresti ripetere per favore?"
 			response[:keyboard] << ['Annulla']
 		end
 
@@ -279,8 +279,8 @@ module FSM
 		end
 
 		def response_yes(response)
-			response[:text] << "Molto bene. Il dato che hai inserito e' stato salvato"
-			response[:keyboard] += [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '⛹️‍♀️Allenamenti'],['💬Questionari']]
+			response[:text] << "Molto bene. Il dato che hai inserito è stato salvato👍"
+			response[:keyboard] += [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '🎯Esercizi'],['💬Questionari']]
 		end
 
 		def response_no(response)

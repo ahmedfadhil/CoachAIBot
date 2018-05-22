@@ -13,7 +13,7 @@ class Notifier
   def notify_new_questionnaire(user)
     ap 'Looking for users to be notified for progress...'
     if user.state == REGISTERED
-      message = "Ciao #{user.last_name}! C'è un nuovo questionnario che devi compilare! Controlla la sezione Questionari!"
+      message = "🔔 Ciao #{user.first_name}❗\n✔ C'è un nuovo questionnario che devi compilare❗\n Controlla la sezione Questionari!"
     end
     send_message(user, message)
   end
@@ -24,7 +24,7 @@ class Notifier
   def notify_user_progress(user)
     ap 'Looking for users to be notified for progress...'
     if user.state == REGISTERED and user.has_delivered_plans?
-      message = "Ciao #{user.last_name}! Ecco i tuoi piani e attività ricevuto negli ultimi 10 giorni:\n Piani:#{user.plans.count}, Attivita:#{user.activities.count}"
+      message = "🔔 Ciao #{user.first_name}❗\n✔ Ecco i tuoi piani e attività ricevuto negli ultimi 10 giorni:\n Piani[#{user.plans.count}] \nAttivita[#{user.activities.count}]"
  
     end
     send_message(user, message)
@@ -36,36 +36,35 @@ class Notifier
       mental_score = binder.score(user, MENTAL)
       physical_score = binder.score(user, PHYSICAL)
       diet_score = binder.score(user, DIET)
-      message = "Ciao #{user.last_name}! Ecco a che punto sei arrivato fin'ora! \n\n-Attivita' Fisica: #{physical_score}% \n-Dieta: #{diet_score}% \n-Salute Mentale: #{mental_score}% \n\n\t Alcuni score potrebbero essere 0% se non hai nessuna attivita' inerente."
+      message = "🔔 Ciao #{user.first_name}❗\n✔ Ecco a che punto sei arrivato fin'ora! \n✔ Attività Fisica[#{physical_score}%] \n✔ Dieta[#{diet_score}%] \n✔ Salute Mentale[#{mental_score}%] \n\n\t Alcuni score potrebbero essere 0% se non hai nessuna attività inerente."
       send_message(user, message)
     end
   end
   
   def notify_deleted_plan(plan_name, user)
-    message = "Ciao #{user.last_name}, ti informo che il coach ha ELIMINATO il piano #{plan_name}. Rimani in attesa
-per altri piani!"
+    message = "🔔 Ciao #{user.first_name}❗\n❌ Ti informo che il coach #{user.coach_user.first_name} #{user.coach_user.last_name} ha ELIMINATO il piano #{plan_name}. Rimani in attesa per altri piani😉"
     send_message(user, message)
   end
   
   def notify_plan_finished(plan)
-    message = "Molto bene #{plan.user.last_name}! Hai portato a termine il piano #{plan.name} e hai anche fornito tutto il feedback necessario! Complimenti😉 "
+    message = "Molto bene #{plan.user.first_name}👏\n✅ Hai portato a termine il piano #{plan.name} e hai anche fornito tutto il feedback necessario! Complimenti😉"
     send_message(plan.user, message)
   end
   
   def notify_plan_missing_feedback(plan)
-    message = "Il piano #{plan.last_name} è stato portato a termine ma non ho ancora ricevuto tutto il feedback necessario per capire come sono andate le attività."
+    message = "Il piano #{plan.first_name} è stato portato a termine ma non ho ancora ricevuto tutto il feedback necessario per capire come sono andate le attività❗."
     send_message(plan.user, message)
-    send_message(plan.user, "Ti consiglio di fornirli al più presto.")
+    send_message(plan.user, "Ti consiglio di fornirli al più presto‼.")
   end
   
   def notify_for_new_messages(user)
-    message = "Ciao #{user.last_name}, il coach #{user.coach_user.first_name} #{user.coach_user.last_name} ti ha inviato dei nuovi messaggi. Vai nella sezione MESSAGGI per visualizzarli e rispondere."
+    message = "🔔 Ciao #{user.first_name}❗\n✔ Il coach #{user.coach_user.first_name} #{user.coach_user.last_name} ti ha inviato dei nuovi messaggi. Vai nella sezione MESSAGGI per visualizzarli e rispondere."
     send_message(user, message)
   end
   
   def notify_for_new_activities(plan)
     user = plan.user
-    message = "Nuove attività sono state definite per te #{user.last_name}. Vai nella sezione attività per avere ulteriori dettagli👇."
+    message = "🔔 Nuove attività sono state definite per te #{user.first_name}. Vai nella sezione attività per avere ulteriori dettagli👇."
     send_message(user, message)
   end
   
@@ -81,7 +80,7 @@ per altri piani!"
   end
   
   def need_to_be_notified?(user)
-    message = "Ciao #{user.last_name}! Ti ricordo che hai le seguenti attività programmate per oggi \n\n"
+    message = "🔔 Ciao #{user.first_name}❗\n✔ Ti ricordo che hai le seguenti attività programmate per oggi \n\n"
     flag = false
     plans = user.plans.where(:delivered => 1)
     plans.each do |plan|
@@ -90,12 +89,12 @@ per altri piani!"
         notifications.find_each do |notification|
           notification.sent = true
           notification.save
-          message += " \t- #{planning.activity.name}\n"
+          message += " \t✔ #{planning.activity.name}\n"
           flag = true
         end
       end
     end
-    message += "\nNon dimenticarti di portare a termine e poi fornire feedback!"
+    message += "\nNon dimenticarti di portare a termine e poi fornire feedback❗."
     flag ? message : nil
   end
   
@@ -104,7 +103,7 @@ per altri piani!"
     users = User.joins(:plans).where(:plans => {:delivered => 1}).uniq
     users.each do |user|
       flag = false
-      message = "Ciao #{user.last_name}! Non hai ancora fornito feedback per le seguenti attività:\n\n"
+      message = "🔔 Ciao #{user.first_name}❗\n Non hai ancora fornito feedback per le seguenti attività‼:\n\n"
       plans = user.plans.where(:delivered => 1)
       plans.each do |plan|
         plan.plannings.each do |planning|
@@ -112,12 +111,12 @@ per altri piani!"
           notifications.find_each do |notification|
             unless planning.questions.size == notification.feedbacks.size
               flag = true
-              message += " \t-#{planning.activity.name}\n"
+              message += " \t✔ #{planning.activity.name}\n"
             end
           end
         end
       end
-      message += "\nFornisci feedback Appena puoi!"
+      message += "\nFornisci feedback Appena puoi👇"
       if flag == true
         send_message(user, message)
       end

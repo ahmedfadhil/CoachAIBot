@@ -171,7 +171,7 @@ class QuestionnaireManager
   end
 
   def send_profiling_finished
-    reply1 = "complimenti, hai finito di compilare l'ultimo questionario 🎏"
+    reply1 = "Complimenti, hai finito di compilare l'ultimo questionario 🎏"
     reply2 = "Sulla base delle tue domande e di altre informazioni sul tuo stato di salute uno specialista che ti segue definirà un piano il quale conterrà delle attività che sarai invitato a seguire secondo le indicazioni che riceverai.\n\n"
     + "Quando verrà definito un piano per te verrai notificato e potrai accedere al piano attraverso il bottone ATTIVITÀ. Inoltre potrai richiedere di scaricare in formato PDF il documento contenente tutti i dettagli relativi al piano.\n\n"
     reply3 = "Rimani in attesa del piano! A presto #{@user.last_name} 🙋"
