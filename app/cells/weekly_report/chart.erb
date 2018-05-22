@@ -1,166 +1,170 @@
 <div class="container" style="max-width: 800px">
 	<%= cell(:weekly_report, model, tab: :week_chart).(:navigation)%>
-	<p>Dal <%= l(begin_day)  %> al <%= l(end_day) %></p>
-	<br><br>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<div id="container-steps" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
-	<div id="container-distance" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
-	<div id="container-calories" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
-	<div id="container-sleep" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
-	<style>.highcharts-credits{display:none}</style>
-	<script>
-	Highcharts.chart('container-steps', {
-		chart: {
-			type: 'area'
-		},
-		title: {
-			text: null
-		},
-		xAxis: {
-			type: 'datetime'
-		},
-		yAxis: {
+	<% if data_available? %>
+		<p>Dal <%= l(begin_day)  %> al <%= l(end_day) %></p>
+		<br><br>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<div id="container-steps" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
+		<div id="container-distance" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
+		<div id="container-calories" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
+		<div id="container-sleep" style="min-width: 310px; height: 400px; margin: 0 auto"></div><br><br>
+		<style>.highcharts-credits{display:none}</style>
+		<script>
+		Highcharts.chart('container-steps', {
+			chart: {
+				type: 'area'
+			},
 			title: {
 				text: null
 			},
-			labels: {
-				formatter: function () {
-					return this.value / 1000 + 'k';
+			xAxis: {
+				type: 'datetime'
+			},
+			yAxis: {
+				title: {
+					text: null
+				},
+				labels: {
+					formatter: function () {
+						return this.value / 1000 + 'k';
+					}
 				}
-			}
-		},
-		tooltip: {
-			pointFormat: '{series.name} made: <b>{point.y:,.0f}</b>'
-		},
-		plotOptions: {
-			area: {
-				pointStart: <%= begin_day_utc %>,
-				pointInterval: 24 * 3600 * 1000
-			}
-		},
-		series: [{
-			name: 'passi',
-			data: <%= steps_json %>,
-			}]
-		});
-
-	Highcharts.chart('container-distance', {
-		chart: {
-			type: 'area'
-		},
-		title: {
-			text: null
-		},
-		xAxis: {
-			type: 'datetime'
-		},
-		yAxis: {
-			title: {
-				text: null
 			},
-			labels: {
-				formatter: function () {
-					return this.value + ' Km';
+			tooltip: {
+				pointFormat: '{series.name} made: <b>{point.y:,.0f}</b>'
+			},
+			plotOptions: {
+				area: {
+					pointStart: <%= begin_day_utc %>,
+					pointInterval: 24 * 3600 * 1000
 				}
-			}
-		},
-		tooltip: {
-			pointFormat: '{series.name} traveled: <b>{point.y:.2f} Km</b>'
-		},
-		plotOptions: {
-			area: {
-				pointStart: <%= begin_day_utc %>,
-				pointInterval: 24 * 3600 * 1000
-			}
-		},
-		series: [{
-			name: 'distanza',
-			data: <%= distance_json %>,
-			}]
-		});
+			},
+			series: [{
+				name: 'passi',
+				data: <%= steps_json %>,
+				}]
+			});
 
-	Highcharts.chart('container-calories', {
-		chart: {
-			type: 'area'
-		},
-		title: {
-			text: null
-		},
-		xAxis: {
-			type: 'datetime'
-		},
-		yAxis: {
+		Highcharts.chart('container-distance', {
+			chart: {
+				type: 'area'
+			},
 			title: {
 				text: null
 			},
-			labels: {
-				formatter: function () {
-					return this.value / 1000 + 'K cal';
+			xAxis: {
+				type: 'datetime'
+			},
+			yAxis: {
+				title: {
+					text: null
+				},
+				labels: {
+					formatter: function () {
+						return this.value + ' Km';
+					}
 				}
-			}
-		},
-		tooltip: {
-			pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
-		},
-		plotOptions: {
-			area: {
-				pointStart: <%= begin_day_utc %>,
-				pointInterval: 24 * 3600 * 1000
-			}
-		},
-		series: [{
-			name: 'calorie',
-			data: <%= calories_json %>,
-			}]
-		});
+			},
+			tooltip: {
+				pointFormat: '{series.name} traveled: <b>{point.y:.2f} Km</b>'
+			},
+			plotOptions: {
+				area: {
+					pointStart: <%= begin_day_utc %>,
+					pointInterval: 24 * 3600 * 1000
+				}
+			},
+			series: [{
+				name: 'distanza',
+				data: <%= distance_json %>,
+				}]
+			});
 
-	Highcharts.chart('container-sleep', {
-		chart: {
-			type: 'area'
-		},
-		title: {
-			text: null
-		},
-		xAxis: {
-			type: 'datetime'
-		},
-		yAxis: {
+		Highcharts.chart('container-calories', {
+			chart: {
+				type: 'area'
+			},
 			title: {
 				text: null
 			},
-			labels: {
+			xAxis: {
+				type: 'datetime'
+			},
+			yAxis: {
+				title: {
+					text: null
+				},
+				labels: {
+					formatter: function () {
+						return this.value / 1000 + 'K cal';
+					}
+				}
+			},
+			tooltip: {
+				pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
+			},
+			plotOptions: {
+				area: {
+					pointStart: <%= begin_day_utc %>,
+					pointInterval: 24 * 3600 * 1000
+				}
+			},
+			series: [{
+				name: 'calorie',
+				data: <%= calories_json %>,
+				}]
+			});
+
+		Highcharts.chart('container-sleep', {
+			chart: {
+				type: 'area'
+			},
+			title: {
+				text: null
+			},
+			xAxis: {
+				type: 'datetime'
+			},
+			yAxis: {
+				title: {
+					text: null
+				},
+				labels: {
+					formatter: function () {
+						var time = this.value;
+						var hours1=parseInt(time/3600000);
+						var mins1=parseInt((parseInt(time%3600000))/60000);
+						return hours1 + 'h ' + mins1 + 'min';
+					}
+				}
+			},
+			tooltip: {
+				//pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
 				formatter: function () {
-					var time = this.value;
+					var time = this.y;
 					var hours1=parseInt(time/3600000);
 					var mins1=parseInt((parseInt(time%3600000))/60000);
-					return hours1 + 'h ' + mins1 + 'min';
+					var x = hours1 + 'h ' + mins1 + 'min';
+					return x + " spent sleeping";
 				}
-			}
-		},
-		tooltip: {
-			//pointFormat: '{series.name} burned: <b>{point.y} cal</b>'
-			formatter: function () {
-				var time = this.y;
-				var hours1=parseInt(time/3600000);
-				var mins1=parseInt((parseInt(time%3600000))/60000);
-				var x = hours1 + 'h ' + mins1 + 'min';
-				return x + " spent sleeping";
-			}
-		},
-		plotOptions: {
-			area: {
-				pointStart: <%= begin_day_utc %>,
-				pointInterval: 24 * 3600 * 1000
-			}
-		},
-		series: [{
-			name: 'durata del sonno',
-			data: <%= sleep_json %>,
-			}]
-		});
+			},
+			plotOptions: {
+				area: {
+					pointStart: <%= begin_day_utc %>,
+					pointInterval: 24 * 3600 * 1000
+				}
+			},
+			series: [{
+				name: 'durata del sonno',
+				data: <%= sleep_json %>,
+				}]
+			});
 
 
-	</script>
-	<br><br>
+		</script>
+		<br><br>
+	<% else %>
+		<h1>Non ci sono dati disponibili al momento</h1>
+	<% end %>
 </div>

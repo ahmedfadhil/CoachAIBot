@@ -21,6 +21,10 @@ class WeeklyReportCell < Cell::ViewModel
 		end
 	end
 
+	def data_available?
+		weekly_logs.any?
+	end
+
 	def begin_day
 		Date.today.at_beginning_of_week - 7.days
 	end
@@ -106,7 +110,7 @@ class WeeklyReportCell < Cell::ViewModel
 	private
 
 	def weekly_logs
-	 	model.daily_logs.where("date >= ? AND date <= ?", begin_day, end_day)
+		model.daily_logs.where("date >= ? AND date <= ?", begin_day, end_day)
 	end
 
 	def sleep_length

@@ -1,77 +1,81 @@
 <div class="container" style="max-width: 800px">
 	<%= cell(:weekly_report, model, tab: :week_repo).(:navigation) %>
-	<p>Dal <%= l(begin_day) %> al <%= l(end_day) %></p>
-	<div class="row">
-		<div class="col-sm">
-			<div class="card text-white bg-success mb-3">
-				<div class="card-header">GIORNO PIU' ATTIVO DELLA SETTIMANA</div>
-				<div class="card-body">
-					<h4 class="card-title"><%= most_active_day %></h4>
-					<!--p class="card-text">mer 13 set</p-->
+	<% if data_available? %>
+		<p>Dal <%= l(begin_day) %> al <%= l(end_day) %></p>
+		<div class="row">
+			<div class="col-sm">
+				<div class="card text-white bg-success mb-3">
+					<div class="card-header">GIORNO PIU' ATTIVO DELLA SETTIMANA</div>
+					<div class="card-body">
+						<h4 class="card-title"><%= most_active_day %></h4>
+						<!--p class="card-text">mer 13 set</p-->
+					</div>
+				</div>
+			</div>
+			<div class="col-sm">
+				<div class="card text-white bg-danger mb-3">
+					<div class="card-header">GIORNO MENO ATTIVO DELLA SETTIMANA</div>
+					<div class="card-body">
+						<h4 class="card-title"><%= least_active_day %></h4>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm">
-			<div class="card text-white bg-danger mb-3">
-				<div class="card-header">GIORNO MENO ATTIVO DELLA SETTIMANA</div>
+		<div class="card-group">
+			<div class="card text-white bg-primary mb-3">
+				<div class="card-header">PASSI TOTALIZZATI</div>
 				<div class="card-body">
-					<h4 class="card-title"><%= least_active_day %></h4>
+					<h4 class="card-title"><%= total_steps %> passi</h4>
+				</div>
+			</div>
+			<div class="card text-white bg-primary mb-3">
+				<div class="card-header">-</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item list-group-item-primary">MEDIA GIORNALIERA: <%= daily_steps_average %> passi</li>
+					<li class="list-group-item list-group-item-primary">GIORNATA RECORD: <%= record_steps %> passi</li>
+				</ul>
+			</div>
+		</div>
+		<div class="card-group">
+			<div class="card text-white bg-primary mb-3">
+				<div class="card-header">DISTANZA TOTALIZZATA</div>
+				<div class="card-body">
+					<h4 class="card-title"><%= total_distance %> Km</h4>
+				</div>
+			</div>
+			<div class="card text-white bg-primary mb-3">
+				<div class="card-header">-</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item list-group-item-primary">MEDIA GIORNALIERA: <%= daily_distance_average %> Km</li>
+					<li class="list-group-item list-group-item-primary">GIORNATA RECORD: <%= record_distance %> Km</li>
+				</ul>
+			</div>
+		</div>
+		<div class="card-group">
+			<div class="card text-white bg-primary mb-3">
+				<div class="card-header">CALORIE BRUCIATE</div>
+				<div class="card-body">
+					<h4 class="card-title"><%= total_calories %> cal.</h4>
+				</div>
+			</div>
+			<div class="card text-white bg-primary mb-3">
+				<div class="card-header">-</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item list-group-item-primary">MEDIA GIORNALIERA: <%= daily_calories_average %> cal.</li>
+					<li class="list-group-item list-group-item-primary">GIORNATA RECORD: <%= record_calories %> cal.</li>
+				</ul>
+			</div>
+		</div>
+		<div class="card-group">
+			<div class="card text-white bg-primary mb-3">
+				<div class="card-header">DURATA MEDIA DEL SONNO</div>
+				<div class="card-body">
+					<h4 class="card-title"><%= sleep_length_h %>h <%= sleep_length_min %>min</h4>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="card-group">
-		<div class="card text-white bg-primary mb-3">
-			<div class="card-header">PASSI TOTALIZZATI</div>
-			<div class="card-body">
-				<h4 class="card-title"><%= total_steps %> passi</h4>
-			</div>
-		</div>
-		<div class="card text-white bg-primary mb-3">
-			<div class="card-header">-</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-group-item-primary">MEDIA GIORNALIERA: <%= daily_steps_average %> passi</li>
-				<li class="list-group-item list-group-item-primary">GIORNATA RECORD: <%= record_steps %> passi</li>
-			</ul>
-		</div>
-	</div>
-	<div class="card-group">
-		<div class="card text-white bg-primary mb-3">
-			<div class="card-header">DISTANZA TOTALIZZATA</div>
-			<div class="card-body">
-				<h4 class="card-title"><%= total_distance %> Km</h4>
-			</div>
-		</div>
-		<div class="card text-white bg-primary mb-3">
-			<div class="card-header">-</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-group-item-primary">MEDIA GIORNALIERA: <%= daily_distance_average %> Km</li>
-				<li class="list-group-item list-group-item-primary">GIORNATA RECORD: <%= record_distance %> Km</li>
-			</ul>
-		</div>
-	</div>
-	<div class="card-group">
-		<div class="card text-white bg-primary mb-3">
-			<div class="card-header">CALORIE BRUCIATE</div>
-			<div class="card-body">
-				<h4 class="card-title"><%= total_calories %> cal.</h4>
-			</div>
-		</div>
-		<div class="card text-white bg-primary mb-3">
-			<div class="card-header">-</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-group-item-primary">MEDIA GIORNALIERA: <%= daily_calories_average %> cal.</li>
-				<li class="list-group-item list-group-item-primary">GIORNATA RECORD: <%= record_calories %> cal.</li>
-			</ul>
-		</div>
-	</div>
-	<div class="card-group">
-		<div class="card text-white bg-primary mb-3">
-			<div class="card-header">DURATA MEDIA DEL SONNO</div>
-			<div class="card-body">
-				<h4 class="card-title"><%= sleep_length_h %>h <%= sleep_length_min %>min</h4>
-			</div>
-		</div>
-	</div>
-	<br><br>
+		<br><br>
+	<% else %>
+		<h1>Non ci sono dati disponibili al momento</h1>
+	<% end %>
 </div>
