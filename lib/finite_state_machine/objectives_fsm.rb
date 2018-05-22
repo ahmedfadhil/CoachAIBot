@@ -229,7 +229,7 @@ module FSM
 
 		def response_abort(response)
 			response[:text] << "OK. Ripassa quando vuoi"
-			response[:keyboard] << [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '⛹️‍♀️Allenamenti'],['💬Questionari']]
+			response[:keyboard] << ['🚀Attivita', '🎭Feedback'] << ['📨Messaggi', '⛹️‍♀️Allenamenti'] << ['💬Questionari']
 		end
 
 		def response_malformed(response)
