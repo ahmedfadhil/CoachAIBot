@@ -4,9 +4,7 @@ require 'base64'
 module Fitbit
 	module Client
 		def self.pull_data(period)
-			# TODO: select only users that have a flag set
-			# User.where(fitbit_status: :fitbit_enabled)
-			User.all.each do |user|
+			User.where(fitbit_status: :fitbit_enabled).each do |user|
 				refresh_access_token(user) do |token|
 					update_profile(user, token, period)
 				end
@@ -58,8 +56,8 @@ module Fitbit
 		end
 
 		def self.refresh_access_token(user, &block)
-			client_id = '228M5L'
-			client_secret = 'ecec79fbdfec04ba40ba419186a3b25d'
+			client_id = Rails.application.secrets.fitbit_client_id
+			client_secret = Rails.application.secrets.fitbit_client_secret
 			redirect_uri = 'http://localhost:3000/users/auth/fitbit/callback'
 			site = 'https://api.fitbit.com'
 			client = OAuth2::Client.new(client_id, client_secret, site: site, authorize_url: '/oauth2/authorize', token_url: '/oauth2/token')
