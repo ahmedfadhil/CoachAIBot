@@ -4,8 +4,7 @@ def notify_new
 	User.all.each do |user|
 		message1 = "FIXME"
 		obj = user.active_objective
-		#if obj && obj.start_date == Date.today
-		if obj
+		if obj && obj.start_date == Date.today
 			message1 = "Salve! Oggi ha inizio un nuovo programma di allenamento che e' stato impostato dal coach! Naviga nella sezione ALLENAMENTO per ottenere ulteriori informazioni"
 			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data || "{}"))
 			ga.send_reply(message1)
@@ -17,7 +16,7 @@ def notify_completed
 	User.all.each do |user|
 		message1 = "FIXME"
 		obj = user.active_objective
-		if obj
+		if obj && obj.end_date == Date.today
 			if obj.steps?
 				if obj.steps <= obj.steps_progress
 					message1 = "Congratulazioni #{user.first_name}, hai superato il programma di allenamento che ti e' stato assegnato dal coach! "
