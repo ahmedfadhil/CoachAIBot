@@ -24,12 +24,23 @@
                     <th></th>
                     </thead>
                     <tbody>
-
+                    <% total_score = 0 %>
                     <% invitation.questionnaire.questionnaire_questions.each do |question| %>
                       <tr>
                         <td><%= question.text %></td>
                         <td><%= invitation_questionnaire(invitation, question) %></td>
+
+
+                          <% question.options.each do |opt| %>
+                            <% total_score += opt.score %>
+
+
+
+                        <% end %>
+
+
                       </tr>
+
                     <% end %>
 
                     </tbody>
@@ -37,7 +48,15 @@
 
                 </div>
               </div>
+<%#user.questionnaire_answer.questionnaire_question.options. %>
+
+              <button class="btn btn-large btn-success btn-round">
+                <i class="material-icons">golf_course</i>
+                <%= "Punteggio totale: #{total_score}" %>
+              </button>
+
             <% end %>
+
 
           </div>
         </div>
@@ -45,4 +64,6 @@
     </div>
   </div>
 </div>
+
+
 

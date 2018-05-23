@@ -2,39 +2,39 @@ class FeaturesCell < Cell::ViewModel
   def show
     render
   end
-  
+
   def no_features_card
     render
   end
-  
+
   def features_card
     render
   end
-  
+
   def mental
     render
   end
-  
+
   def health
     render
   end
-  
+
   def coping
     render
   end
-  
+
   def physical
     render
   end
-  
+
   def lateral_info
     render
   end
-  
+
   def user
     model
   end
-  
+
   def invitation_questionnaire(invitation, question)
     result = invitation.questionnaire_answers.where(questionnaire_question: question).first
     if result
@@ -42,21 +42,35 @@ class FeaturesCell < Cell::ViewModel
     else
       return "Non trovato"
     end
-  
+
   end
-  
+
+  # def user_score(invitation, question)
+  #
+  #   # User.last.questionnaire_answers.last.questionnaire_question.options.last.score
+  #
+  #   user_score = invitation.questionnaire_answers.where(questionnaire_question: question)
+  #
+  #   if user_score
+  #     return user_score
+  #   else
+  #     "Non trovato"
+  #   end
+  # end
+
+
   def cluster
     case user.py_cluster
-      when 'HIGH'
-        'Molto Attivo'
-      when 'MEDIUM'
-        'Mediamente Attivo'
-      else #LOW
-        'Poco Attivo'
+    when 'HIGH'
+      'Molto Attivo'
+    when 'MEDIUM'
+      'Mediamente Attivo'
+    else #LOW
+      'Poco Attivo'
     end
   end
-  
-  
+
+
   def profile_photo_url
     if user.telegram_id.nil?
       default_image
@@ -69,7 +83,7 @@ class FeaturesCell < Cell::ViewModel
       end
     end
   end
-  
+
   def default_image
     # 'https://i.imgur.com/hur32sb.png'
     'https://i.imgur.com/tX1rzj3.png'

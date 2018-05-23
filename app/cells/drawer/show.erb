@@ -17,9 +17,7 @@
 		<%= link_to activities_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
 			<i class="material-icons">library_books</i> ATTIVITÀ
 		<% end %>
-		<%= link_to all_communications_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
-			<i class="material-icons">bubble_chart</i> COMUNICAZIONE
-		<% end %>
+
 		<%= link_to wearables_path, class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
 			<i class="material-icons">devices_other</i> INDOSSABILE
 		<% end %>
@@ -34,6 +32,9 @@
 		<% end %>
 		<%= link_to show_coach_users_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900',	id: 'drawer-btn' do %>
 			<i class="material-icons">format_shapes</i>  ADMIN
+		<% end %>
+		<%= link_to all_communications_path(coach), class: 'drawer-link-text-size mdl-navigation__link mdl-color-text--grey-900', id: 'drawer-btn' do %>
+			<i class="material-icons">bubble_chart</i> COMUNICAZIONE
 		<% end %>
 
 		<div class="mdl-layout-spacer"></div>
