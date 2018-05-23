@@ -59,7 +59,7 @@ class Messenger
     actuator.send_reply "Il medico #{@user.coach_user.first_name} #{@user.coach_user.last_name} che ti segue ti ha inviato i seguenti messaggi:"
 
     messages.find_each do |message|
-      actuator.send_reply "#{message.created_at.strftime('%d.%m.%Y - %H:%M')} \n\t #{message.text}"
+      actuator.send_reply "📆 [#{message.created_at.strftime('%d.%m.%Y - %H:%M')}] \n\n\t📬 #{message.text}"
     end
 
     actuator.send_reply_with_keyboard("\nPer rispondere ai messaggi ti basta inserire la tua risposta e inviarla👇. \nFai attenzione che puoi rispondere una sola volta a tutti i messaggi❗.\nSe non vuoi ripondere ora puoi tornare al menu con il bottone [🔄 Rispondi più tardi] e rispondere più tardi",

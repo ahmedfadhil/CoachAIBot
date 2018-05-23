@@ -48,12 +48,12 @@
           </tr>
           <tr>
             <td> <i class="material-icons" id="watch" >watch</i><div class="mdl-tooltip mdl-tooltip--left" for="watch" >Indossabile</div></td>
-            <% if user.fitbit_status = "fitbit_disabled" %>
+            <% if user.fitbit_status == "fitbit_disabled" %>
               <td>Disabilitato</td>
-            <% elsif user.fitbit_status = "fitbit_invited" %>
-              <td>invitato</td>
-            <% else %>
-              <td>abilitato</td>
+            <% elsif user.fitbit_status == "fitbit_invited" %>
+              <td>Invitato</td>
+              <% elsif user.fitbit_status == "fitbit_enabled"%>
+              <td>Abilitato</td>
             <% end %>
 
           </tr>

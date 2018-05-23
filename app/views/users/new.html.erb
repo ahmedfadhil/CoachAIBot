@@ -33,7 +33,7 @@
                     <div id="age">
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <i class="material-icons">cake</i>
-                        <%= f.number_field :age, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', placeholder: 'Eta\'' %>
+                        <%= f.number_field :age, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', placeholder: 'Etá' %>
                         <span class="mdl-textfield__error">Deve essere formato da numeri e non lettere!</span>
                       </div>
                     </div>
@@ -112,7 +112,7 @@
                         <li class="list-group-item list-group-item-success" >Non sono ancora presenti TAG nel sistema. Inizia ad inserirne con questo nuovo paziente.</li>
                       <% else %>
                         <% ActsAsTaggableOn::Tag.all.each do |tag| %>
-                          <li class="list-group-item list-group-item-success" style="float: left; margin-right: 7px; margin-bottom: 7px;"><%= tag.name %></li>
+                          <li class="btn btn-success btn-group-sm btn-round" style="float: left; margin-right: 7px; margin-bottom: 7px;"><%= tag.name %></li>
                         <% end %>
                       <% end %>
                     </ul>

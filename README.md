@@ -102,3 +102,4 @@ Print the erd schema:
 And visualize erd.pdf
 
 Fitbit task to run every hour or so to pull the data from the fitbit server: ```rake fitbit:pull_data```
+Fitbit periodic task updates:```rake training:notify_new and rake training:notify_completed ```

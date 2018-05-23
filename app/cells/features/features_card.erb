@@ -21,6 +21,7 @@
                   <table class="table table-hover">
                     <thead class="text-primary">
                     <th><%= invitation.questionnaire.title %></th>
+
                     <th></th>
                     </thead>
                     <tbody>
@@ -28,18 +29,23 @@
                     <% invitation.questionnaire.questionnaire_questions.each do |question| %>
                       <tr>
                         <td><%= question.text %></td>
+                        <% question.options.each do |op| %>
+                          <td><%= op.score %></td>
+                        <% end %>
+
                         <td><%= invitation_questionnaire(invitation, question) %></td>
 
-
-                          <% question.options.each do |opt| %>
-                            <% total_score += opt.score %>
-
-
-
+                        <% question.options.each do |opt| %>
+                          <% total_score += opt.score %>
                         <% end %>
+
+                        <%# invitation.questionnaire_answers.each do |ans| %>
+                        <%# ans.questionnaire.each do |ans| %>
+                        <%#end %>
 
 
                       </tr>
+
 
                     <% end %>
 
