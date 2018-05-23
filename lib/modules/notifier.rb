@@ -24,7 +24,7 @@ class Notifier
   def notify_user_progress(user)
     ap 'Looking for users to be notified for progress...'
     if user.state == REGISTERED and user.has_delivered_plans?
-      message = "🔔 Ciao #{user.first_name}❗\n✔ Ecco i tuoi piani e attività ricevuto negli ultimi 10 giorni:\n Piani[#{user.plans.count}] \nAttivita[#{user.activities.count}]"
+      message = "🔔 Ciao #{user.first_name}❗\n✔ Ecco i tuoi piani e attività ricevuto negli ultimi 10 giorni:\n Piani[#{user.plans.count}] \nAttività[#{user.activities.count}]"
  
     end
     send_message(user, message)

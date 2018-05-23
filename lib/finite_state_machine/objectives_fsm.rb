@@ -142,11 +142,11 @@ module FSM
 
 			if !objective.fitbit_enabled?
 				response[:text] << "Se desideri puoi comunicarmi adesso i tuoi progressi, oppure usa il bottone ANNULLA per tornare al menù principale❗."
-				response[:keyboard] << ['Annulla']
+				response[:keyboard] << ['Annulla❌']
 			else
 				response[:text] << "I tuoi progressi saranno monitorati tramite il tuo braccialetto contapassi ⌚, "
 				response[:text] << "quindi ricordarti di sincronizzare il dispositivo quando possibile 🤳."
-				response[:keyboard] << ['Annulla']
+				response[:keyboard] << ['Annulla❌']
 			end
 		end
 
@@ -176,7 +176,7 @@ module FSM
 			else
 				response[:text] << "Ripassa più tardi🙋"
 			end
-			response[:keyboard] += [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '🎯Esercizi'],['💬Questionari']]
+			response[:keyboard] += [['🚀Attività', '🎭Feedback'],['📨Messaggi', '🎯Esercizi'],['💬Questionari']]
 		end
 
 		def current_objective_is_distance?
@@ -223,18 +223,18 @@ module FSM
 		end
 
 		def response_valid(response)
-			response[:text] << "OK. Perfavore ricontrolla il dato che hai inserito e verifica che sia corretto⛔."
+			response[:text] << "OK. Perfavore ricontrolla il dato che hai inserito e verifica che sia corretto🔎."
 			response[:keyboard] << ['Si'] << ['No']
 		end
 
 		def response_abort(response)
 			response[:text] << "OK. Ripassa quando vuoi🙋."
-			response[:keyboard] << ['🚀Attivita', '🎭Feedback'] << ['📨Messaggi', '⛹️‍♀️Allenamenti'] << ['💬Questionari']
+			response[:keyboard] << ['🚀Attività', '🎭Feedback'] << ['📨Messaggi', '🎯Esercizi'] << ['💬Questionari']
 		end
 
 		def response_malformed(response)
-			response[:text] << "⚠Non ho capito, potresti ripetere per favore?"
-			response[:keyboard] << ['Annulla']
+			response[:text] << "🤔Non ho capito, potresti ripetere per favore❓"
+			response[:keyboard] << ['Annulla❌']
 		end
 
 		def initialize(user, text)
@@ -280,12 +280,12 @@ module FSM
 
 		def response_yes(response)
 			response[:text] << "Molto bene. Il dato che hai inserito è stato salvato👍"
-			response[:keyboard] += [['🚀Attivita', '🎭Feedback'],['📨Messaggi', '🎯Esercizi'],['💬Questionari']]
+			response[:keyboard] += [['🚀Attività', '🎭Feedback'],['📨Messaggi', '🎯Esercizi'],['💬Questionari']]
 		end
 
 		def response_no(response)
 			response[:text] << "OK. Digita il dato che desideri salvare"
-			response[:keyboard] << ['Annulla']
+			response[:keyboard] << ['Annulla❌']
 		end
 
 		def response_malformed(response)

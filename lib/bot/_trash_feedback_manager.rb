@@ -112,7 +112,7 @@ class FeedbackManager
     delivered_plans = GeneralActions.new(@user, @state).plans_needing_feedback
     plan_names = GeneralActions.plans_names delivered_plans
     if delivered_plans.empty?
-      reply = 'Hai fornito feedback per tutti i piani. Prosegui con le attivita\' ora.'
+      reply = 'Hai fornito feedback per tutti i piani. Prosegui con le attività ora.'
       actuator.send_reply_with_keyboard reply, (GeneralActions.custom_keyboard plan_names)
     else
 
@@ -125,7 +125,7 @@ class FeedbackManager
 
   def please_choose_plan(plans)
     GeneralActions.new(@user, @state)
-        .send_reply_with_keyboard('Per favore, scegli uno dei piani indicati, per fornire feedback sulla meno recente attivita che cera da fare.',
+        .send_reply_with_keyboard('Per favore, scegli uno dei piani indicati, per fornire feedback sulla meno recente attività che cera da fare.',
                                   GeneralActions.custom_keyboard(plans))
   end
 
