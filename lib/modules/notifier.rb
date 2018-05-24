@@ -80,7 +80,7 @@ class Notifier
   end
   
   def need_to_be_notified?(user)
-    message = "🔔 Ciao #{user.first_name}❗\n✔ Ti ricordo che hai le seguenti attività programmate per oggi \n\n"
+    message = "🔔 Ciao #{user.last_name}❗\n✔ Ti ricordo che hai le seguenti attività programmate per oggi \n\n"
     flag = false
     plans = user.plans.where(:delivered => 1)
     plans.each do |plan|

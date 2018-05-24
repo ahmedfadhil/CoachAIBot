@@ -45,18 +45,17 @@ class FeaturesCell < Cell::ViewModel
 
   end
 
-  # def user_score(invitation, question)
-  #
-  #   # User.last.questionnaire_answers.last.questionnaire_question.options.last.score
-  #
-  #   user_score = invitation.questionnaire_answers.where(questionnaire_question: question)
-  #
-  #   if user_score
-  #     return user_score
-  #   else
-  #     "Non trovato"
-  #   end
-  # end
+# <!--ActsAsTaggableOn::Tagging.includes(:tag).where(context: 'deshanatags').map {
+# |tagging| { 'id' => tagging.tag_id.to_s, 'name' => tagging.tag.name } }.uniq-->
+  def user_score
+    # User.last.questionnaire_answers.last.questionnaire_question.options.last.score
+    # scoring = user.questionnaire_answers.to_a.map { |e| e.questionnaire_question.options.last.score}
+    if scoring
+      return scoring
+    else
+      "Non trovato"
+    end
+  end
 
 
   def cluster

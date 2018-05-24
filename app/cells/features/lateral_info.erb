@@ -70,9 +70,6 @@
             <td><%= user.blood_type %></td>
           </tr>
 
-
-
-
           <% unless user.py_cluster.nil? %>
             <tr>
 
@@ -92,6 +89,8 @@
             </tr>
           <% end %>
 
+
+
           </tbody>
         </table>
 
@@ -99,5 +98,31 @@
     </div>
   </div>
 </div>
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="text-center">
+    <table class="table table-hover">
+      <thead class="text-primary">
+      <th>Tag list di <%= user.last_name %>:</th>
+
+      <th> <button class="btn-xs btn-round, btn-success"> <%= user.tag_list.to_s %></button></th>
+      </thead>
+
+    </table>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 

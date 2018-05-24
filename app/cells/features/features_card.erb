@@ -11,7 +11,7 @@
           <div class="card">
             <div class="card-header" data-background-color="purple">
               <h4 class="title">Informazioni personali</h4>
-              <p class="category">Riguardanti Salute, Attivita' Fisica, Benessere Mentale e le Strategie di
+              <p class="category">Riguardanti Salute, Attività Fisica, Benessere Mentale e le Strategie di
                 Adattamento. </p>
             </div>
 
@@ -20,24 +20,40 @@
                 <div class="card-content table-responsive">
                   <table class="table table-hover">
                     <thead class="text-primary">
-                    <th><%= invitation.questionnaire.title %></th>
-
-                    <th></th>
+                    <th><%= "🎞 " + invitation.questionnaire.title %></th>
+                    <th>Risposta di <%= user.last_name %></th>
                     </thead>
                     <tbody>
                     <% total_score = 0 %>
-                    <% invitation.questionnaire.questionnaire_questions.each do |question| %>
+                    <% invitation.questionnaire.questionnaire_questions.each_with_index do |question, index| %>
+
                       <tr>
-                        <td><%= question.text %></td>
+                        <td><%= "✔️#{index + 1}: " + question.text %></td>
                         <% question.options.each do |op| %>
-                          <td><%= op.score %></td>
-                        <% end %>
 
-                        <td><%= invitation_questionnaire(invitation, question) %></td>
+                            <% op.text %>
+                            <% op.score %>
 
-                        <% question.options.each do |opt| %>
-                          <% total_score += opt.score %>
+
+
+
+                        <%# question.options.each do |op| %>
+                        <!--                          <td><%#= op.score %></td>-->
+                        <%# end %>
+
+                        <% "👉 ️" + invitation_questionnaire(invitation, question) %>
+
+
+                        <%if invitation_questionnaire(invitation, question)==op.text %>
+                            <td><%= "👉 ️" + invitation_questionnaire(invitation, question) %></td>
+                        <% total_score+=op.score %>
+                        <%end %>
                         <% end %>
+                        <%#= question.questionnaire_answers.to_a.map {|e| e.questionnaire_question.options.to_a.map { |name| name.score }} %>
+
+                        <%# question.options.each do |opt| %>
+                        <%# total_score += opt.score %>
+                        <%# end %>
 
                         <%# invitation.questionnaire_answers.each do |ans| %>
                         <%# ans.questionnaire.each do |ans| %>
@@ -56,7 +72,10 @@
               </div>
 <%#user.questionnaire_answer.questionnaire_question.options. %>
 
-              <button class="btn btn-large btn-success btn-round">
+
+
+
+              <button class="btn btn-sm btn-success btn-round">
                 <i class="material-icons">golf_course</i>
                 <%= "Punteggio totale: #{total_score}" %>
               </button>
@@ -70,6 +89,13 @@
     </div>
   </div>
 </div>
+
+<!--ActsAsTaggableOn::Tagging.includes(:tag).where(context: 'deshanatags').map { |tagging| { 'id' => tagging.tag_id.to_s, 'name' => tagging.tag.name } }.uniq-->
+<%# user.questionnaire_answers.each do |ans| %>
+<%# ans.questionnaire_question.options.each do |opt| %>
+<%#= opt.score %>
+<%# end %>
+<%# end %>
 
 
 

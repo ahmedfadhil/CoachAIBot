@@ -24,7 +24,7 @@ class ActivitiesController < ApplicationController
     if activity.save
       flash[:OK] = 'La tua attività è stata AGGIUNTA con successo!'
     else
-      flash[:err] = "L'Attivita NON E' STATA INSERITA"
+      flash[:err] = "L'Attivita NON È STATA INSERITA"
       flash[:errors] = activity.errors.messages
     end
     redirect_to activities_path
@@ -36,7 +36,7 @@ class ActivitiesController < ApplicationController
   def update
     activity = Activity.find(params[:id])
     if !activity.update(activity_params)
-      flash[:OK] = "L'Attivita e' stata modificata con successo!"
+      flash[:OK] = "L'Attivita è stata modificata con successo!"
     else
       flash[:err] = "C'e' stato un problema durante l'aggiornamento dell'attivita'. La preghiamo di ricontrollare i dati inseriti e riprovare."
       flash[:errors] = activity.errors.messages

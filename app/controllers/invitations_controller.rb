@@ -29,11 +29,14 @@ class InvitationsController < ApplicationController
   # GET /invitations/1
   def show
     @campaign = Campaign.find(params[:id])
+
   end
 
   # GET /invitations/new
   def new
     @campaign = Campaign.new
+    @users = User.all
+
   end
 
   # GET /invitations/1/edit

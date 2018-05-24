@@ -341,13 +341,13 @@ gender height weight blood_type tag_list]
   end
 
 	def active_objective
-		objectives.find { |objective|
+		objectives.to_a.find { |objective|
 			objective.start_date <= Date.today && Date.today <= objective.end_date
 		}
 	end
 
 	def scheduled_objectives
-		objectives.select { |objective|
+		objectives.to_a.select { |objective|
 			objective.start_date > Date.today
 		}
 	end

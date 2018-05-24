@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   resources :questionnaires
 
   resources :invitations
+
+
 #   do
 #   collection do
 #     get 'save_all_questionnaire_data', to: 'invitations#save_all_questionnaire_data', as: 'save_all_questionnaire_data'

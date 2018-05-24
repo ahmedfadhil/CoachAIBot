@@ -27,7 +27,7 @@ class FeedbackManager
                     notification: Notification.find(bot_command_data['in_feedback_activities']['notification_id']),
                     question: Question.find(bot_command_data['in_feedback_activities']['question_id']))
     actuator = GeneralActions.new(@user, nil)
-    actuator.send_reply("Ottimo lavoro #{@user.first_name} 👏, mi hai fornito tutto il feedback necessario fino ad oggi per l'attività 📌[#{planning.activity.name}] del piano '#{plan.name}'")
+    actuator.send_reply("Ottimo lavoro #{@user.first_name} 👏, mi hai fornito tutto il feedback necessario fino ad oggi per l'attività 📌[#{planning.activity.name}] del piano: #{plan.name}")
   end
 
   def is_last_question?

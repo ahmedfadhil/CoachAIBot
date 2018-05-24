@@ -5,49 +5,101 @@
   <div class="col-md-4">
   </div>
   <div class="card container">
-<h2> Nuova Indagine </h2>
+    <h2> Nuova Indagine </h2>
 
-<%= form_tag(controller: 'invitations', action: 'create', method: :post) do %>
+    <%= form_tag(controller: 'invitations', action: 'create', method: :post) do %>
 
-  <div class="form-group">
-    Titolo:
-    <%= text_field_tag :campaign_title%>
+      <div class="form-group">
+        Titolo:
+        <%= text_field_tag :campaign_title %>
+
+      </div>
+
+      <div class="form-group">
+        <div role="alert">
+          Quando crei una campagna, devi scegliere i TAG alla quale vuoi che sia inviata.
+        </div>
+        <ul class="list-group" style="clear: both; display: block; content: '';">
+          <% if ActsAsTaggableOn::Tag.count == 0 %>
+            <li class="list-group-item list-group-item-success">Non sono ancora presenti TAG nel sistema. Inizia ad
+              inserirne con questo nuovo paziente.
+            </li>
+          <% else %>
+            <% ActsAsTaggableOn::Tag.all.each do |tag| %>
+              <li class="list-group-item list-group-item-success" style="float: left; margin-right: 7px; margin-bottom: 7px;"><%= tag.name %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        Inserisci Tag:
+        <%= text_field_tag :tag_list %>
+      </div>
+
+      <div class="form-group">
+        <label>Scegli un Questionario</label>
+        <%= select_tag(:questionnaire_name, options_for_select(Questionnaire.all.map(&:title))) %>
+      </div>
+
+      <div class="actions">
+        <%= submit_tag "Crea indagine", class: "btn btn-success" %>
+      </div>
+    <% end %>
+
 
   </div>
+</div>
 
-  <div class="form-group">
-    <div role="alert">
-      Quando crei una campagna, devi scegliere i TAG alla quale vuoi che sia inviata.
+
+
+<div class="container">
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+    <div class="card-header" data-background-color="success">
+      <h4 class="title">Tag degli utenti</h4>
+
     </div>
-    <ul class="list-group" style="clear: both; display: block; content: '';">
-      <% if ActsAsTaggableOn::Tag.count == 0 %>
-        <li class="list-group-item list-group-item-success" >Non sono ancora presenti TAG nel sistema. Inizia ad inserirne con questo nuovo paziente.</li>
-      <% else %>
-        <% ActsAsTaggableOn::Tag.all.each do |tag| %>
-          <li class="list-group-item list-group-item-success" style="float: left; margin-right: 7px; margin-bottom: 7px;"><%= tag.name %></li>
+    <div class="card-content table-responsive content_align list-group-item">
+      <table class="table table-hover">
+        <thead class="text-warning">
+        <th>Profilo</th>
+
+        <th>Tag</th>
+
+        </thead>
+        <tbody>
+        <% @users.each do |tagging| %>
+          <tr>
+            <td class="naming">
+              <%= tagging.last_name %>
+                <%= tagging.first_name %>
+
+              </td>
+            <td>
+
+
+
+  <% if tagging.tag_list.any? %>
+                <button class="btn btn-success btn-round btn-sm">
+    <%= tagging.tag_list.to_s %>
+                </button>
+
+<%else %>
+                <button class="btn btn-success btn-round btn-sm">
+                  non definito
+                </button>
+
+    <% end %>
+
+            </td>
+
+
+          </tr>
         <% end %>
-      <% end %>
-    </ul>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class="form-group">
-    Inserisci Tag:
-    <%= text_field_tag :tag_list%>
-  </div>
-
-  <div class="form-group">
-    <label>Scegli un Questionario</label>
-    <%= select_tag(:questionnaire_name, options_for_select(Questionnaire.all.map(&:title))) %>
-  </div>
-
-  <div class="actions">
-    <%= submit_tag "Crea indagine", class: "btn btn-success" %>
-  </div>
-<% end %>
-
-
-</div></div>
-
-
-
-
+</div>
+</div>
