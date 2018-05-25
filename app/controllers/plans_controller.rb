@@ -12,7 +12,7 @@ class PlansController < ApplicationController
     plan.delivered = 0
     plan.user_id = params['u_id']
     if plan.save
-      flash[:OK] = 'Il nuovo piano e\' stato salvato con successo!'
+      flash[:OK] = 'Il nuovo piano è stato salvato con successo!'
     else
       flash[:err] = 'Siamo spiacenti ma non siamo riusciti a registrare il tuo piano, ricontrolla i dati inseriti!'
       flash[:errors] = plan.errors.messages
@@ -24,9 +24,9 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:p_id])
     call_task_notify_deleted_plan(plan.name, plan.user.id)
     if plan.destroy
-      flash[:OK] = 'Il piano e\' stato rimosso!'
+      flash[:OK] = 'Il piano è stato rimosso!'
     else
-      flash[:err] = 'C\'e\' stato un problema e il piano non e\' stato rimosso! Ti preghiamo di riprovare piu\' tardi!'
+      flash[:err] = 'C\'è stato un problema e il piano non è stato rimosso! Ti preghiamo di riprovare più tardi!'
       flash[:errors] = plan.errors.messages
     end
     redirect_to plans_users_path(plan.user.id)

@@ -14,10 +14,12 @@ class ActivityInformer
   def send_activities
     delivered_plans = @user.plans.where(:delivered => 1)
     delivered_plans_names = delivered_plans.map(&:name)
+    # delivered_plans_descriptions = delivered_plans.map(&:desc)
     actuator = GeneralActions.new(@user, @state)
     actuator.send_chat_action 'typing'
     reply = "In breve hai da seguire i seguenti piani: \n\n"
-    reply += "\t✔ #{delivered_plans_names.join("\n\t✔ ")}"
+    reply += "\t✔ #{delivered_plans_names.join("\n\t✔ ")}\n"
+    # reply += "\t #{delivered_plans_descriptions}"
     actuator.send_reply_with_keyboard(reply, GeneralActions.custom_keyboard(['💾Scarica Dettagli', '◀ Torna al Menu']))
   end
 

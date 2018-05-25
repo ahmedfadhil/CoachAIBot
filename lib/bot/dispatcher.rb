@@ -125,7 +125,7 @@ class Dispatcher
 				actuator.send_reply_with_keyboard_hash response[:text], response[:keyboard]
       else
         #ApiAIRedirector.new(text, @user).redirect
-        GeneralActions.new(@user,nil).send_reply 'Non ho capito! Usa i bottoni per interagire per favore❗👇'
+        GeneralActions.new(@user,nil).send_reply 'Non ho capito❗ Usa i bottoni per interagire per favore❗👇'
     end
   end
 

@@ -26,10 +26,10 @@ class GeneralActions
     @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: keyboard)
   end
 
-	def send_reply_with_keyboard_hash(reply, keyboard)
-		answer = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: keyboard, one_time_keyboard: true)
-		@api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: answer)
-	end
+  def send_reply_with_keyboard_hash(reply, keyboard)
+    answer = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: keyboard, one_time_keyboard: true)
+    @api.call('sendMessage', chat_id: @user.telegram_id, text: reply, reply_markup: answer)
+  end
 
   def send_chat_action(action)
     @api.call('sendChatAction', chat_id: @user.telegram_id, action: action)
@@ -58,7 +58,6 @@ class GeneralActions
   def bot_command_data
     JSON.parse(BotCommand.where(user: @user).last.data)
   end
-
 
 
   # static methods

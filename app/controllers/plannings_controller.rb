@@ -84,7 +84,7 @@ class PlanningsController < ApplicationController
       activity = Activity.new(params.require(:activity).permit(:name, :desc, :a_type, :category, :n_times))
       activity.coach_user = current_coach_user
       unless activity.save
-        flash[:err] = 'C\'é stato un problema durante la creazione dell\'attivit\á. Ci scusiamo e la invitiamo a riprovare più tardi!'
+        flash[:err] = 'C\'é stato un problema durante la creazione dell\'attivitá. Ci scusiamo e la invitiamo a riprovare più tardi!'
         flash[:errors] = activity.errors.messages
       end
       activity
