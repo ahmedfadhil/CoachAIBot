@@ -61,7 +61,7 @@ class WearablesController < ApplicationController
 		@user.fitbit_disabled!
 		redirect_to wearables_url
 		Thread.new {
-			message1 = "Gentile utente, l'integrazione con il tuo dispositivo indossabile è stata disabilitata"
+			message1 = "Gentile #{user.last_name}, l'integrazione con il tuo dispositivo indossabile è stata disabilitata"
 			ga = GeneralActions.new(@user, JSON.parse(@user.bot_command_data || "{}"))
 			ga.send_reply(message1)
 		}
@@ -102,7 +102,7 @@ class WearablesController < ApplicationController
 			user = User.find(user_id)
 			user.fitbit_enabled!
 
-			message1 = "Gentile utente, grazie per avere abilitato l'integrazione con il tuo dispositivo indossabile"
+			message1 = "Gentile #{user.last_name}, grazie per avere abilitato l'integrazione con il tuo dispositivo indossabile"
 			ga = GeneralActions.new(user, JSON.parse(user.bot_command_data || "{}"))
 			ga.send_reply(message1)
 
