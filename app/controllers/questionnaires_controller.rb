@@ -38,7 +38,7 @@ class QuestionnairesController < ApplicationController
     @questionnaire = Questionnaire.new(questionnaire_params)
     
     if @questionnaire.save
-      redirect_to @questionnaire, notice: 'Questionnaire was successfully created.'
+      redirect_to @questionnaire, notice: 'Il questionario è stato creato con successo.'
     else
       render :new
     end
@@ -47,7 +47,7 @@ class QuestionnairesController < ApplicationController
   # PATCH/PUT /questionnaires/1
   def update
     if @questionnaire.update(questionnaire_params)
-      redirect_to @questionnaire, notice: 'Questionnaire was successfully updated.'
+      redirect_to @questionnaire, notice: 'Il questionario è stato aggiornato con successo.'
     else
       render :edit
     end
@@ -56,7 +56,7 @@ class QuestionnairesController < ApplicationController
   # DELETE /questionnaires/1
   def destroy
     @questionnaire.destroy
-    redirect_to questionnaires_url, notice: 'Questionnaire was successfully destroyed.'
+    redirect_to questionnaires_url, notice: 'Il questionario è stato distrutto con successo.'
   end
 
 
