@@ -1,4 +1,3 @@
-
 <div class="card card-profile user_card">
   <div class="card-avatar">
     <%= image_tag profile_photo_url, alt: 'paziente', class: 'img' %>
@@ -15,15 +14,15 @@
           <thead>
           <th><i id="cake" class="material-icons">cake</i>
             <!-- Multiline Tooltip -->
-<!--            <div id="cake" class="icon material-icons">share</div>-->
-            <div class="mdl-tooltip mdl-tooltip--left" for="cake" >Etá</div>
+            <!--            <div id="cake" class="icon material-icons">share</div>-->
+            <div class="mdl-tooltip mdl-tooltip--left" for="cake">Etá</div>
           </th>
           <th><%= user.age %></th>
           </thead>
           <tbody>
           <tr>
-            <td> <i class="material-icons" id="wc">wc</i>
-              <div class="mdl-tooltip mdl-tooltip--left" for="wc" >Sesso</div>
+            <td><i class="material-icons" id="wc">wc</i>
+              <div class="mdl-tooltip mdl-tooltip--left" for="wc">Sesso</div>
             </td>
             <td><%= user.gender %></td>
           </tr>
@@ -32,52 +31,69 @@
               <td>Obiettivo del paziente</td>
               <td>Non assegnato</td>
             <% else %>
-              <td><i class="material-icons" id="golf_course" >golf_course</i><div class="mdl-tooltip mdl-tooltip--left" for="golf_course" >Obbiettivo</div></td>
+              <td><i class="material-icons" id="golf_course">golf_course</i>
+                <div class="mdl-tooltip mdl-tooltip--left" for="golf_course">Obbiettivo</div>
+              </td>
               <td><%= user.patient_objective %></td>
             <% end %>
           </tr>
 
 
           <tr>
-            <td><i class="material-icons" id="phone" >phone</i><div class="mdl-tooltip mdl-tooltip--left" for="phone" >Telefono</div></td>
+            <td><i class="material-icons" id="phone">phone</i>
+              <div class="mdl-tooltip mdl-tooltip--left" for="phone">Telefono</div>
+            </td>
             <td><%= user.cellphone %></td>
           </tr>
           <tr>
-            <td> <i class="material-icons" id="mail" >mail</i><div class="mdl-tooltip mdl-tooltip--left" for="mail" >Email</div></td>
+            <td><i class="material-icons" id="mail">mail</i>
+              <div class="mdl-tooltip mdl-tooltip--left" for="mail">Email</div>
+            </td>
             <td><%= user.email %></td>
           </tr>
           <tr>
-            <td> <i class="material-icons" id="watch" >watch</i><div class="mdl-tooltip mdl-tooltip--left" for="watch" >Indossabile</div></td>
+            <td><i class="material-icons" id="watch">watch</i>
+              <div class="mdl-tooltip mdl-tooltip--left" for="watch">Indossabile</div>
+            </td>
             <% if user.fitbit_status == "fitbit_disabled" %>
               <td>Disabilitato</td>
             <% elsif user.fitbit_status == "fitbit_invited" %>
               <td>Invitato</td>
-              <% elsif user.fitbit_status == "fitbit_enabled"%>
+            <% elsif user.fitbit_status == "fitbit_enabled" %>
               <td>Abilitato</td>
             <% end %>
 
           </tr>
           <tr>
-            <td> <i class="material-icons" id="border_vertical" >border_vertical</i><div class="mdl-tooltip mdl-tooltip--left" for="border_vertical" >Altezza</div></td>
-            <td><%= "#{user.height} CM"%></td>
+            <td><i class="material-icons" id="border_vertical">border_vertical</i>
+              <div class="mdl-tooltip mdl-tooltip--left" for="border_vertical">Altezza</div>
+            </td>
+            <td><%= "#{user.height} CM" %></td>
           </tr>
           <tr>
-            <td> <i class="material-icons" id="slow_motion_video" >slow_motion_video</i><div class="mdl-tooltip mdl-tooltip--left" for="slow_motion_video" >Peso</div></td>
-            <td><%= "#{user.weight} KG"%></td>
+            <td><i class="material-icons" id="slow_motion_video">slow_motion_video</i>
+              <div class="mdl-tooltip mdl-tooltip--left" for="slow_motion_video">Peso</div>
+            </td>
+            <td><%= "#{user.weight} KG" %></td>
           </tr>
           <tr>
-            <td><i class="material-icons" id="add_location" >add_location</i><div class="mdl-tooltip mdl-tooltip--left" for="add_location" >Gruppo sanguigno</div></td>
+            <td><i class="material-icons" id="add_location">add_location</i>
+              <div class="mdl-tooltip mdl-tooltip--left" for="add_location">Gruppo sanguigno</div>
+            </td>
             <td><%= user.blood_type %></td>
           </tr>
 
           <% unless user.py_cluster.nil? %>
             <tr>
 
-              <td><i class="material-icons" id="directions_run" >directions_run</i><div class="mdl-tooltip mdl-tooltip--left" for="directions_run" >Tipologia
-                di utente</div></td>
+              <td><i class="material-icons" id="directions_run">directions_run</i>
+                <div class="mdl-tooltip mdl-tooltip--left" for="directions_run">Tipologia
+                  di utente
+                </div>
+              </td>
               <td class="font_style"><%= cluster %></td>
             </tr>
-            <% else%>
+          <% else %>
             <tr>
 
               <td><i class="material-icons" id="directions_run">directions_run</i>
@@ -88,7 +104,6 @@
               <td class="font_style">Non assegnato</td>
             </tr>
           <% end %>
-
 
 
           </tbody>
@@ -104,8 +119,15 @@
     <table class="table table-hover">
       <thead class="text-primary">
       <th>Tag list di <%= user.last_name %>:</th>
-
-      <th> <button class="btn-xs btn-round, btn-success"> <%= user.tag_list.to_s %></button></th>
+      <% if user.tag_list.nil? || user.tag_list.empty? %>
+        <th>
+          <button class="btn-xs btn-round, btn-success"> Non definito</button>
+        </th>
+      <% else %>
+        <th>
+          <button class="btn-xs btn-round, btn-success"> <%= user.tag_list.to_s %></button>
+        </th>
+      <% end %>
       </thead>
 
     </table>
