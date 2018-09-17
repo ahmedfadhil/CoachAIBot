@@ -10,3 +10,8 @@ class Activity < ApplicationRecord
   has_many :plans, :through => :plannings
   has_many :users, :through => :plans
 end
+
+
+# user.where(first_name"name").destroy rail s
+#
+# User.with_deleted.where(:activities.name=>"")

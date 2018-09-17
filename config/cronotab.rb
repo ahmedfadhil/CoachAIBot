@@ -14,6 +14,8 @@ Crono.perform(NotifierJob).every 1.day, at: {hour: 8, min: 10}
 Crono.perform(NotifierJob).every 1.day, at: {hour: 9, min: 10}
 Crono.perform(NotifierJob).every 1.day, at: {hour: 10, min: 10}
 Crono.perform(NotifierJob).every 1.day, at: {hour: 11, min: 10}
+Crono.perform(NotifierJob).every 1.day, at: {hour: 15, min: 10}
+Crono.perform(NotifierJob).every 1.day, at: {hour: 18, min: 20}
 
 # Notify Reminder for Feedback --> in the evening
 Crono.perform(FeedbackReminderJob).every 1.day, at: {hour: 20, min: 10}

@@ -92,10 +92,20 @@ question_hash.each { |key, value|
   }
 }
 
-title = %Q(Registrazione Iniziale)
+title = %Q(Questionario personale)
 question_hash = {
-    %Q(Sei in possesso di un dispositivo indossabile FITBIT ⌚?) => ["si","no"],
+    %Q(Il tuo sesso?) => ["Femmina","Maschio"],
+    %Q(Quanto ritieni di conoscere i chatbot? (1:Per niente...7:Moltissimo)) => ["1","2","3","4","5","6","7"],
+    %Q(Quanto usi i chatbot? (1:Per niente...7:Moltissimo)) => ["1","2","3","4","5","6","7"],
+    %Q(Quali di queste attività svolgi regolarmente?  ) => ["Volontariato","Attività in un circolo culturale","Studio","Attività sportiva"],
+    %Q(Quali funzioni del cellulare utilizzi di più?) => ["Telefono","Messaggi su Whatsapp","Internet","Social network (Facebook)"]
 }
+
+
+# title = %Q(Registrazione Iniziale)
+# question_hash = {
+#     %Q(Sei in possesso di un dispositivo indossabile FITBIT ⌚?) => ["si","no"],
+# }
 
 questionnaire = Questionnaire.new(title: title, initial: true)
 questionnaire.save!
