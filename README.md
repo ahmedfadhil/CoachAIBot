@@ -96,3 +96,56 @@ email:      user@example.com
 password:   12345678
 ```
 * Search `@CoachAIBot` on [Telegram](https://web.telegram.org/#/login)
+
+# PhD Thesis: CONVERSATIONAL AGENT FOR HEALTH COACHING
+Check the thesis here: [CONVERSATIONAL AGENT FOR HEALTH COACHING](https://www.researchgate.net/profile/Ahmed_Fadhil4/publication/333339647_CONVERSATIONAL_AGENT_FOR_HEALTH_COACHING/links/5ce7a4f892851c4eabba36bb/CONVERSATIONAL-AGENT-FOR-HEALTH-COACHING.pdf)
+# Citing CoachAI
+If you find this repo useful in your research, please consider citing the following papers:
+@inproceedings{fadhil2018effect,
+  title={The Effect of Emojis when interacting with Conversational Interface Assisted Health Coaching System},
+  author={Fadhil, Ahmed and Schiavo, Gianluca and Wang, Yunlong and Yilma, Bereket A},
+  booktitle={Proceedings of the 12th EAI International Conference on Pervasive Computing Technologies for Healthcare},
+  pages={378--383},
+  year={2018},
+  organization={ACM}
+}
+
+@article{fadhil2019assistive,
+  title={Assistive Conversational Agent for Health Coaching: A Validation Study},
+  author={Fadhil, Ahmed and Wang, Yunlong and Reiterer, Harald},
+  journal={Methods of information in medicine},
+  year={2019},
+  publisher={Georg Thieme Verlag KG}
+}
+
+@article{fadhil2019coachai,
+  title={CoachAI: A Conversational Agent Assisted Health Coaching Platform},
+  author={Fadhil, Ahmed and Schiavo, Gianluca and Wang, Yunlong},
+  journal={arXiv preprint arXiv:1904.11961},
+  year={2019}
+}
+
+@article{fadhil2019designing,
+  title={Designing for Health Chatbots},
+  author={Fadhil, Ahmed and Schiavo, Gianluca},
+  journal={arXiv preprint arXiv:1902.09022},
+  year={2019}
+}
+
+@article{fadhilintelligent,
+  title={Intelligent Conversational Agent Assisted Health Coaching System: The CoachAI Approach},
+  author={Fadhil, Ahmed}
+}
+
+@phdthesis{jumaah2019conversational,
+  title={Conversational Agent for Health Coaching},
+  author={JUMAAH, Ahmed},
+  year={2019},
+  school={University of Trento}
+}
+
+
+
+
+
+
