@@ -101,6 +101,7 @@ password:   12345678
 Check the thesis here: [CONVERSATIONAL AGENT FOR HEALTH COACHING](https://www.researchgate.net/profile/Ahmed_Fadhil4/publication/333339647_CONVERSATIONAL_AGENT_FOR_HEALTH_COACHING/links/5ce7a4f892851c4eabba36bb/CONVERSATIONAL-AGENT-FOR-HEALTH-COACHING.pdf)
 # Citing CoachAI
 If you find this repo useful in your research, please consider citing the following papers:
+```
 @inproceedings{fadhil2018effect,
   title={The Effect of Emojis when interacting with Conversational Interface Assisted Health Coaching System},
   author={Fadhil, Ahmed and Schiavo, Gianluca and Wang, Yunlong and Yilma, Bereket A},
@@ -143,7 +144,7 @@ If you find this repo useful in your research, please consider citing the follow
   year={2019},
   school={University of Trento}
 }
-
+```
 
 
 
