@@ -97,6 +97,7 @@ password:   12345678
 ```
 * Search `@CoachAIBot` on [Telegram](https://web.telegram.org/#/login)
 
+* Note that the application is developed for Italian users and hence the language developed using a finite state machine automata was intended for Italian users only. 
 # PhD Thesis: CONVERSATIONAL AGENT FOR HEALTH COACHING
 Check the thesis here: [CONVERSATIONAL AGENT FOR HEALTH COACHING](https://www.researchgate.net/profile/Ahmed_Fadhil4/publication/333339647_CONVERSATIONAL_AGENT_FOR_HEALTH_COACHING/links/5ce7a4f892851c4eabba36bb/CONVERSATIONAL-AGENT-FOR-HEALTH-COACHING.pdf)
 # Citing CoachAI
