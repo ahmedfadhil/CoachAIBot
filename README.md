@@ -146,9 +146,8 @@ If you find this repo useful in your research, please consider citing the follow
   school={University of Trento}
 }
 ```
-# Feel free to contribute to the repository and improve it
-## The fundamentals to contribute to the repository are
-
+# Contributions
+Contributions are welcome. Please consider using the steps below to contribute to the project.
 - Fork the project & clone locally.
 - Create an upstream remote and sync your local copy before you branch.
 - Branch for each separate piece of work.
