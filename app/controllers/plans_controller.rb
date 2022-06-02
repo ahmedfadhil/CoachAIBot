@@ -48,31 +48,7 @@ class PlansController < ApplicationController
     redirect_to plans_users_path(plan.user.id)
   end
 
-=begin
-  def suspend
-    plan = Plan.find(params[:p_id])
-    plan.delivered = 2
-    if plan.save
-      flash[:OK] = "Piano #{plan.name} Sospeso!"
-    else
-      flash[:err] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
-      flash[:errors] = plan.errors.messages
-    end
-    redirect_to plans_users_path(plan.user.id)
-  end
-
-  def stop
-    plan = Plan.find(params[:p_id])
-    plan.delivered = 3
-    if plan.save
-      flash[:OK] = "Piano #{plan.name} Interrotto"
-    else
-      flash[:err] = 'C\'e\' stato un problema e il piano non e\' stato sospeso! Ti preghiamo di riprovare piu\' tardi!'
-      flash[:errors] = plan.errors.messages
-    end
-    redirect_to plans_users_path(plan.user.id)
-  end
-=end
+ 
 
   private
     def plan_params

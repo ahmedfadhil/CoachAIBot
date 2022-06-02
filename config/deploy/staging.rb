@@ -1,14 +1,14 @@
 # deploy to the staging server
 set :stage, :staging
 
-set :deploy_to, "/www/ict4g/ict4g.apps/#{fetch(:application)}"
+set :deploy_to, "/www/url/#{fetch(:application)}"
 set :branch, "fitbit"
 
 set :rails_env, 'production'
 
-role :app, %w{ict4g@dev.ict4g.org}
-role :web, %w{ict4g@dev.ict4g.org}
-role :db,  %w{ict4g@dev.ict4g.org}
+role :app, %w{/www/url/}
+role :web, %w{/www/url/}
+role :db,  %w{/www/url/}
 
 # server-based syntax
 # ======================
