@@ -161,21 +161,7 @@ class User < ApplicationRecord
                   :after => Proc.new {|*args| inform_wrong_questionnaire(*args)}
     end
 
-=begin
-    event :respond_questionnaire do
-      transitions :from => :responding, :to => :confirmation,
-                  :after => Proc.new {|*args| register_last_questionnaire_response(*args)},
-                  :guard => Proc.new {|*args| is_last_question_and_last_questionnaire?(*args)}
-      transitions :from => :responding, :to => :confirmation,
-                  :after => Proc.new {|*args| register_last_response(*args)},
-                  :guard => Proc.new {|*args| is_last_question_and_is_response?(*args)}
-      transitions :from => :responding, :to => :responding,
-                  :after => Proc.new {|*args| register_response(*args)},
-                  :guard => Proc.new {|*args| is_response?(*args)}
-      transitions :from => :responding, :to => :responding,
-                  :after => :ask_last_question_again
-    end
-=end
+ 
 
     event :respond_questionnaire do
       transitions :from => :responding, :to => :confirmation,

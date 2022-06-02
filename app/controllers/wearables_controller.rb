@@ -38,9 +38,9 @@ class WearablesController < ApplicationController
 			# give the user a cookie with his user id
 			cookies[:user_id] = user.id
 
-			# XXX move into .env file
-			client_id = '228M5L'
-			client_secret = 'ecec79fbdfec04ba40ba419186a3b25d'
+			# use own id or load from .env file
+			client_id = 'xxxxx'
+			client_secret = 'xxxxx'
 			redirect_uri = 'http://localhost:3000/users/auth/fitbit/callback'
 
 			# make sure you point the client to /oauth2/authorize otherwise it won't work!
@@ -63,9 +63,9 @@ class WearablesController < ApplicationController
 		end
 		user = User.find(user_id)
 
-		# XXX move into .env file and configuration
-		client_id = '228M5L'
-		client_secret = 'ecec79fbdfec04ba40ba419186a3b25d'
+		# use own id or load from .env file
+		client_id = 'xxxxx'
+		client_secret = 'xxxxx'
 		redirect_uri = 'http://localhost:3000/users/auth/fitbit/callback'
 		site = 'https://api.fitbit.com'
 
