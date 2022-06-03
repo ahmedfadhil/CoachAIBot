@@ -30,3 +30,4 @@ Gemfile.lock
 example.pdf
 erd.pdf
 *.yml
+config/secrets.yml
